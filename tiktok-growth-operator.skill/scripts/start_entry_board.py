@@ -17,6 +17,7 @@ from recommend_entry_board import (
     recommend_fallbacks,
     recommend_family,
     recommend_items,
+    resolve_bundle_root,
 )
 
 
@@ -25,7 +26,11 @@ def parse_args() -> argparse.Namespace:
         description="Choose the best entry board from a natural-language request and scaffold a runnable local starter."
     )
     parser.add_argument("--query", required=True, help="Natural-language operator request.")
-    parser.add_argument("--bundle-root", required=True, help="Template bundle root created by generate_batch_preset.py.")
+    parser.add_argument(
+        "--bundle-root",
+        default="",
+        help="Optional template bundle root created by generate_batch_preset.py. If omitted, the latest local bundle is auto-discovered.",
+    )
     parser.add_argument("--name", default="", help="Optional starter folder name override.")
     parser.add_argument("--project", default="", help="Optional project title override.")
     parser.add_argument("--output-root", default="", help="Optional explicit starter output root.")
@@ -244,21 +249,33 @@ def run_python(script_path: Path, args: list[str]) -> None:
     subprocess.run([sys.executable, str(script_path), *args], cwd=str(Path(__file__).resolve().parents[1]), check=True)
 
 
-def main() -> None:
-    args = parse_args()
-    bundle_root = Path(args.bundle_root).expanduser().resolve()
-    bundle_items = load_bundle_index(str(bundle_root))
+def create_entry_board_starter(
+    *,
+    query: str,
+    bundle_root: str = "",
+    name: str = "",
+    project: str = "",
+    output_root: str = "",
+    top_k: int = 3,
+    generate: bool = False,
+    dry_run: bool = False,
+    run: bool = False,
+) -> dict:
+    requested_bundle_root = bundle_root
+    resolved_bundle_root = resolve_bundle_root(bundle_root)
+    bundle_items = load_bundle_index(resolved_bundle_root)
     if not bundle_items:
         raise SystemExit(
             "Bundle index not found or invalid. Generate one first with: "
             + build_bundle_generation_command()
         )
+    bundle_root = Path(resolved_bundle_root)
 
-    family_pick, family_scores = recommend_family(args.query)
-    picks = recommend_items(args.query, family_pick["family"], limit=max(1, args.top_k))
+    family_pick, family_scores = recommend_family(query)
+    picks = recommend_items(query, family_pick["family"], limit=max(1, top_k))
     if not picks and family_pick["family"] == "single":
         fallback_family = "combo"
-        picks = recommend_items(args.query, fallback_family, limit=max(1, args.top_k))
+        picks = recommend_items(query, fallback_family, limit=max(1, top_k))
         family_pick = {
             **family_pick,
             "family": fallback_family,
@@ -271,26 +288,30 @@ def main() -> None:
 
     picks = enrich_with_bundle_paths(picks, bundle_items)
     fallbacks = enrich_with_bundle_paths(
-        recommend_fallbacks(args.query, family_pick["fallbacks"], per_family=2),
+        recommend_fallbacks(query, family_pick["fallbacks"], per_family=2),
         bundle_items,
     )
     selected_item = picks[0]
 
-    starter_root = resolve_output_root(args, selected_item["slug"])
+    starter_args = argparse.Namespace(
+        output_root=output_root,
+        name=name,
+    )
+    starter_root = resolve_output_root(starter_args, selected_item["slug"])
     starter_root.mkdir(parents=True, exist_ok=True)
 
     local_paths = prepare_local_config(selected_item, starter_root)
     local_paths.update(build_local_helper_scripts(selected_item, starter_root, local_paths))
     local_next_steps = build_local_next_steps(local_paths, selected_item)
 
-    if args.generate or args.dry_run or args.run:
+    if generate or dry_run or run:
         run_python(Path(__file__).resolve().parent / "generate_batch_preset.py", ["--config", local_paths["suite_config_json"]])
-    if args.dry_run:
+    if dry_run:
         run_python(
             Path(__file__).resolve().parent / "batch_run_operator_workflows.py",
             ["--batch-file", local_paths["suite_queue_json"], "--dry-run", "--batch-root", local_paths["local_batch_root"]],
         )
-    if args.run:
+    if run:
         run_python(
             Path(__file__).resolve().parent / "batch_run_operator_workflows.py",
             [
@@ -305,10 +326,11 @@ def main() -> None:
 
     manifest = {
         "created_at": datetime.now().isoformat(timespec="seconds"),
-        "query": args.query,
+        "query": query,
+        "requested_bundle_root": requested_bundle_root,
         "bundle_root": str(bundle_root),
         "starter_root": str(starter_root),
-        "project": first_non_empty(args.project, selected_item["label"]),
+        "project": first_non_empty(project, selected_item["label"]),
         "recommended_family": family_pick["family"],
         "family_description": family_pick["description"],
         "matched_signals": family_pick["matched_signals"],
@@ -319,9 +341,9 @@ def main() -> None:
         "local_paths": local_paths,
         "next_steps": local_next_steps,
         "executed_actions": {
-            "generate": args.generate or args.dry_run or args.run,
-            "dry_run": args.dry_run,
-            "run": args.run,
+            "generate": generate or dry_run or run,
+            "dry_run": dry_run,
+            "run": run,
         },
     }
 
@@ -331,25 +353,36 @@ def main() -> None:
 
     readme_path = starter_root / "README.md"
     readme_path.write_text(
-        build_readme(args.query, family_pick, selected_item, starter_root, local_paths, fallbacks, local_next_steps),
+        build_readme(query, family_pick, selected_item, starter_root, local_paths, fallbacks, local_next_steps),
         encoding="utf-8-sig",
     )
 
-    print(
-        json.dumps(
-            {
-                "starter_root": str(starter_root),
-                "project": manifest["project"],
-                "recommended_family": family_pick["family"],
-                "selected_board_slug": selected_item["slug"],
-                "selected_board_label": selected_item["label"],
-                "local_paths": local_paths,
-                "next_steps": local_next_steps,
-            },
-            ensure_ascii=False,
-            indent=2,
-        )
+    return {
+        "starter_root": str(starter_root),
+        "project": manifest["project"],
+        "recommended_family": family_pick["family"],
+        "selected_board_slug": selected_item["slug"],
+        "selected_board_label": selected_item["label"],
+        "local_paths": local_paths,
+        "next_steps": local_next_steps,
+        "recommendation_manifest": manifest,
+    }
+
+
+def main() -> None:
+    args = parse_args()
+    result = create_entry_board_starter(
+        query=args.query,
+        bundle_root=args.bundle_root,
+        name=args.name,
+        project=args.project,
+        output_root=args.output_root,
+        top_k=args.top_k,
+        generate=args.generate,
+        dry_run=args.dry_run,
+        run=args.run,
     )
+    print(json.dumps(result, ensure_ascii=False, indent=2))
 
 
 if __name__ == "__main__":

@@ -30,6 +30,13 @@ MOJIBAKE_PATTERNS = [
     "鍙",
     "鎴",
     "涓€",
+    "缁欐垜",
+    "璺戝満鏅",
+    "鍋氫竴涓",
+    "鐩存帴鐢",
+    "宸ヤ綔娴",
+    "鐩存挱杩愯惀",
+    "鑳借窇",
     "\ufffd",
 ]
 
@@ -92,7 +99,6 @@ def main() -> int:
             "references/automation-workflows.md",
             "references/entry-selector.md",
         ],
-        "references/direct-use.md": ["final-handoff.md", "validate_all_workflows.py", "recommend_entry_board.py"],
         "references/direct-use.md": [
             "final-handoff.md",
             "validate_all_workflows.py",

@@ -8,7 +8,21 @@ import tempfile
 from pathlib import Path
 from zipfile import ZipFile
 
+from docx import Document
 from openpyxl import load_workbook
+
+
+VISIBLE_TEXT_MOJIBAKE_PATTERNS = [
+    "\ufffd",
+    "缁欐垜",
+    "鎴戝仛",
+    "璺戝満鏅",
+    "鍋氫竴涓",
+    "鐩存帴鐢",
+    "宸ヤ綔娴",
+    "鐩存挱杩愯惀",
+    "鑳借窇",
+]
 
 
 def parse_args() -> argparse.Namespace:
@@ -46,6 +60,17 @@ def run_render(input_json: Path, output_dir: Path) -> dict:
     return json.loads(completed.stdout)
 
 
+def find_visible_text_mojibake(lines: list[str]) -> list[str]:
+    findings: list[str] = []
+    for line in lines:
+        stripped = line.strip()
+        if not stripped:
+            continue
+        if any(pattern in stripped for pattern in VISIBLE_TEXT_MOJIBAKE_PATTERNS):
+            findings.append(stripped)
+    return findings
+
+
 def validate_workbook(path: Path) -> dict:
     workbook = load_workbook(path)
     expected_sheets = {"Summary", "Section Overview", "Section Index"}
@@ -80,6 +105,18 @@ def validate_workbook(path: Path) -> dict:
         if not workbook["Summary"][cell].value:
             raise AssertionError(f"Summary quality card missing at {cell} in {path.name}")
 
+    visible_lines: list[str] = []
+    for sheet in workbook.worksheets:
+        for row in sheet.iter_rows(values_only=True):
+            for value in row:
+                if isinstance(value, str):
+                    visible_lines.append(value)
+    mojibake_findings = find_visible_text_mojibake(visible_lines)
+    if mojibake_findings:
+        raise AssertionError(
+            f"Workbook contains mojibake-like visible text in {path.name}: {mojibake_findings[0]}"
+        )
+
     return {
         "sheets": workbook.sheetnames,
         "summary_tables": list(workbook["Summary"].tables.keys()),
@@ -92,6 +129,7 @@ def validate_workbook(path: Path) -> dict:
             for row in range(4, section_index.max_row + 1)
             if section_index.cell(row=row, column=3).value
         ],
+        "visible_text_mojibake": False,
     }
 
 
@@ -115,6 +153,19 @@ def validate_docx(path: Path) -> dict:
     if has_embedded_media and "Figure 1." not in document_xml:
         raise AssertionError(f"DOCX missing expected figure caption text in {path.name}")
 
+    document = Document(path)
+    visible_lines = [paragraph.text for paragraph in document.paragraphs]
+    for table in document.tables:
+        for row in table.rows:
+            for cell in row.cells:
+                visible_lines.append(cell.text)
+    for section in document.sections:
+        visible_lines.extend(paragraph.text for paragraph in section.header.paragraphs)
+        visible_lines.extend(paragraph.text for paragraph in section.footer.paragraphs)
+    mojibake_findings = find_visible_text_mojibake(visible_lines)
+    if mojibake_findings:
+        raise AssertionError(f"DOCX contains mojibake-like visible text in {path.name}: {mojibake_findings[0]}")
+
     return {
         "has_contents": True,
         "has_section_overview": True,
@@ -122,6 +173,7 @@ def validate_docx(path: Path) -> dict:
         "has_figure_caption": (not has_embedded_media) or ("Figure 1." in document_xml),
         "has_embedded_media": has_embedded_media,
         "has_bookmarks": True,
+        "visible_text_mojibake": False,
     }
 
 

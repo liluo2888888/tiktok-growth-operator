@@ -1517,3 +1517,55 @@ Create a durable Codex-native skill package that reproduces the Clipcat/OpenClaw
 - Result: passed and now prioritizes `cadence-board` over `vertical` when strong daily cadence signals are present
 - Ran: `python "tiktok-growth-operator.skill\scripts\start_entry_board.py" --query "Give me a daily board for TikTok beauty ops" --bundle-root "D:\我的文档\Documents\Playground 4\.codex-tmp\preset-template-bundle-v9" --output-root "D:\我的文档\Documents\Playground 4\.codex-tmp\entry-board-starter-smoke-v4" --generate --dry-run`
 - Result: passed and created a fully local starter for `daily-ops-board`, generated the local queue, and produced a successful dry-run preview with `4` tasks
+
+## 2026-05-05 Unified Board Routing And Doc Stabilization
+
+- Decision: promote starter-board generation into the main operator router as a first-class `board` mode.
+- Why: once `recommend_entry_board.py` and `start_entry_board.py` existed, the remaining usability gap was that broad board-style requests still had to bypass the main router manually.
+- Decision: rewrite `references/entry-selector.md` cleanly instead of trying to preserve mixed-encoding fragments.
+- Why: the entry-selector document had stale mojibake examples and had become less trustworthy than the script layer.
+
+### Updated
+
+- `tiktok-growth-operator.skill/scripts/run_operator_workflow.py`
+- `tiktok-growth-operator.skill/scripts/start_project_workflow.py`
+- `tiktok-growth-operator.skill/scripts/start_entry_board.py`
+- `tiktok-growth-operator.skill/references/direct-use.md`
+- `tiktok-growth-operator.skill/references/automation-workflows.md`
+- `tiktok-growth-operator.skill/references/final-handoff.md`
+- `tiktok-growth-operator.skill/references/entry-selector.md`
+
+### Added Behavior
+
+- unified router now supports explicit `--mode board`
+- auto routing can now resolve role-first, cadence-first, outcome-first, and seeded-vertical requests into `board`
+- route explanation payload now includes `board_preview`
+- project launcher now supports `board` mode too
+- entry-selector reference examples were rewritten into clean Chinese/English text and updated to document unified-router board usage
+
+### Validation
+
+- Ran: `python -m py_compile "tiktok-growth-operator.skill\scripts\run_operator_workflow.py" "tiktok-growth-operator.skill\scripts\start_project_workflow.py" "tiktok-growth-operator.skill\scripts\start_entry_board.py"`
+- Result: passed
+- Ran: `python "tiktok-growth-operator.skill\scripts\run_operator_workflow.py" --request "Give me a daily board for TikTok beauty ops" --output-root "D:\我的文档\Documents\Playground 4\.codex-tmp\auto-board-route-smoke-v2"`
+- Result: passed and auto-routed the request to `board`
+- Ran: `python "tiktok-growth-operator.skill\scripts\start_project_workflow.py" --request "Give me a daily board for TikTok beauty ops" --name project-board-route-smoke-v2 --output-root "D:\我的文档\Documents\Playground 4\.codex-tmp\project-board-route-smoke-v2"`
+- Result: passed and preserved `board` routing through the project launcher
+
+## 2026-05-05 Starter Auto-Discovery And Closure
+
+- Decision: make `start_entry_board.py` auto-discover the latest local `preset-template-bundle*` when `--bundle-root` is omitted.
+- Why: the one-step starter should stay low-friction by default, while still allowing explicit bundle pinning when reproducibility matters.
+- Decision: extend durable validation to reject common visible-text mojibake in exported `docx` and `xlsx` outputs.
+- Why: export quality is not complete if navigation and structure pass but operator-facing text is visibly garbled.
+
+### Updated
+
+- `tiktok-growth-operator.skill/scripts/start_entry_board.py`
+- `tiktok-growth-operator.skill/scripts/validate_skill_docs.py`
+- `tiktok-growth-operator.skill/scripts/validate_export_outputs.py`
+- `tiktok-growth-operator.skill/references/direct-use.md`
+- `tiktok-growth-operator.skill/references/automation-workflows.md`
+- `tiktok-growth-operator.skill/references/entry-selector.md`
+- `tiktok-growth-operator.skill/references/final-handoff.md`
+- `tiktok-growth-operator.skill/SKILL.md`

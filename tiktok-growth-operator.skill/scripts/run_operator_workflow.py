@@ -8,8 +8,10 @@ from pathlib import Path
 
 from generate_operator_pack import generate_pack_output
 from generate_scene_report import load_catalog
+from recommend_entry_board import recommend_family, recommend_items
 from recommend_scene_chain import match_goal_from_query
 from run_scene_workflow import create_scene_workflow
+from start_entry_board import create_entry_board_starter
 from start_capture_pack_run import create_capture_pack_run
 from start_goal_workflow import create_goal_workflow
 from summarize_run_history import build_summary, discover_entries, render_markdown
@@ -109,21 +111,29 @@ HISTORY_KEYWORDS = [
 ]
 
 
+BOARD_PRIORITY_FAMILIES = {"launch-board", "manager-board", "cadence-board", "vertical", "combo"}
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Unified entrypoint for TikTok Growth Operator scene, goal, operator-pack, and auto-routed workflows."
+        description="Unified entrypoint for TikTok Growth Operator scene, goal, board, operator-pack, and auto-routed workflows."
     )
     parser.add_argument(
         "--mode",
         default="auto",
-        choices=["auto", "scene", "goal", "pack", "capture-pack", "history"],
-        help="Run auto routing, one scene workflow, one goal workflow, one operator pack workflow, one TikTok capture-pack workflow, or one run-history dashboard workflow.",
+        choices=["auto", "scene", "goal", "board", "pack", "capture-pack", "history"],
+        help="Run auto routing, one scene workflow, one goal workflow, one board starter workflow, one operator pack workflow, one TikTok capture-pack workflow, or one run-history dashboard workflow.",
     )
 
     parser.add_argument("--request", help="Natural-language request for auto mode.")
     parser.add_argument("--scene", help="Scene id or slug for scene mode.")
     parser.add_argument("--goal", help="Goal slug for goal mode.")
     parser.add_argument("--query", help="Free-text workflow description for goal mode or auto mode.")
+    parser.add_argument("--bundle-root", default="", help="Optional preset bundle root for board mode or auto board routing.")
+    parser.add_argument("--top-k", type=int, default=3, help="How many ranked board recommendations to keep in board mode.")
+    parser.add_argument("--generate", action="store_true", help="In board mode, generate the local queue after scaffolding.")
+    parser.add_argument("--dry-run", action="store_true", help="In board mode, preview the queue after generation.")
+    parser.add_argument("--run", action="store_true", help="In board mode, execute the generated queue after generation.")
     parser.add_argument("--type", choices=["publish-prep", "live-assist"], help="Operator pack type for pack mode.")
     parser.add_argument("--capture-root", default="", help="Capture-pack root for capture-pack mode.")
     parser.add_argument("--target-markets", default="", help="Optional comma-separated target markets for scene 13 capture-pack localization blueprints.")
@@ -216,7 +226,13 @@ def looks_like_capture_pack(text: str, capture_root: str = "") -> tuple[bool, li
 
 def looks_multi_stage(text: str) -> tuple[bool, list[str]]:
     lowered = text.lower()
-    matched = [marker for marker in MULTI_STAGE_MARKERS if marker in lowered]
+    matched: list[str] = []
+    for marker in MULTI_STAGE_MARKERS:
+        if re.search(r"[a-z]", marker):
+            if re.search(rf"\b{re.escape(marker.lower())}\b", lowered):
+                matched.append(marker)
+        elif marker in text:
+            matched.append(marker)
     return bool(matched), matched
 
 
@@ -279,6 +295,18 @@ def preview_goal_route(text: str) -> dict:
         "match_score": payload.get("match_score", 0),
         "candidate_templates": payload.get("candidate_templates", []),
         "candidate_goals": payload.get("candidate_goals", []),
+    }
+
+
+def preview_board_route(text: str) -> dict:
+    family_pick, family_scores = recommend_family(text)
+    recommended_boards = recommend_items(text, family_pick["family"], limit=3)
+    return {
+        "recommended_family": family_pick["family"],
+        "family_description": family_pick["description"],
+        "matched_signals": family_pick["matched_signals"],
+        "family_scoreboard": family_scores,
+        "recommended_boards": recommended_boards,
     }
 
 
@@ -360,6 +388,7 @@ def infer_mode_from_request(args: argparse.Namespace) -> tuple[str, dict]:
     multi_stage, matched_stage_markers = looks_multi_stage(request_text)
     scene_preview = score_scene_candidates(request_text)
     goal_preview = preview_goal_route(request_text)
+    board_preview = preview_board_route(request_text)
     reasons: list[str] = []
 
     if is_capture_pack and scene_preview["selected_scene"]:
@@ -399,6 +428,33 @@ def infer_mode_from_request(args: argparse.Namespace) -> tuple[str, dict]:
                     "matched_markers": matched_stage_markers,
                 },
                 "goal_preview": goal_preview,
+                "board_preview": board_preview,
+            },
+        }
+
+    if (
+        board_preview["recommended_family"] in BOARD_PRIORITY_FAMILIES
+        and board_preview["recommended_boards"]
+        and board_preview["family_scoreboard"]
+        and board_preview["family_scoreboard"][0]["score"] >= 4
+        and not scene_preview["selected_scene"]
+        and not multi_stage
+    ):
+        reasons.append("The request is better framed as a reusable board starter than a single scene, pack, or multi-stage goal workflow.")
+        return "board", {
+            "query": request_text,
+            "reason": "board-family-match",
+            "explanation": {
+                "decision": "board",
+                "reasons": reasons,
+                "pack_scores": pack_scores,
+                "scene_preview": scene_preview,
+                "multi_stage": {
+                    "value": multi_stage,
+                    "matched_markers": matched_stage_markers,
+                },
+                "goal_preview": goal_preview,
+                "board_preview": board_preview,
             },
         }
 
@@ -418,6 +474,7 @@ def infer_mode_from_request(args: argparse.Namespace) -> tuple[str, dict]:
                     "matched_markers": matched_stage_markers,
                 },
                 "goal_preview": goal_preview,
+                "board_preview": board_preview,
             },
         }
 
@@ -435,6 +492,7 @@ def infer_mode_from_request(args: argparse.Namespace) -> tuple[str, dict]:
                 "matched_markers": matched_stage_markers,
             },
             "goal_preview": goal_preview,
+            "board_preview": board_preview,
         },
     }
 
@@ -471,6 +529,23 @@ def run_goal_mode(args: argparse.Namespace, goal_override: str | None = None, qu
         formats_raw=args.formats,
         platform=args.platform,
         market=args.market,
+    )
+
+
+def run_board_mode(args: argparse.Namespace, query_override: str | None = None) -> dict:
+    query = query_override or args.query or args.request
+    if not query:
+        raise SystemExit("Board mode requires --query or --request.")
+    return create_entry_board_starter(
+        query=query,
+        bundle_root=args.bundle_root,
+        name=args.name,
+        project=args.project,
+        output_root=args.output_root,
+        top_k=args.top_k,
+        generate=args.generate,
+        dry_run=args.dry_run,
+        run=args.run,
     )
 
 
@@ -557,6 +632,8 @@ def main() -> None:
         route_meta.update(routed)
         if routed_mode == "scene":
             result = run_scene_mode(args, scene_override=routed.get("scene"), request_text=routed.get("request", ""))
+        elif routed_mode == "board":
+            result = run_board_mode(args, query_override=routed.get("query"))
         elif routed_mode == "goal":
             result = run_goal_mode(args, goal_override=routed.get("goal"), query_override=routed.get("query"))
         elif routed_mode == "capture-pack":
@@ -567,6 +644,8 @@ def main() -> None:
             result = run_pack_mode(args, pack_type_override=routed.get("type"), request_text=routed.get("request", ""))
     elif args.mode == "scene":
         result = run_scene_mode(args)
+    elif args.mode == "board":
+        result = run_board_mode(args)
     elif args.mode == "goal":
         result = run_goal_mode(args)
     elif args.mode == "capture-pack":

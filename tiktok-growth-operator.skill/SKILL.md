@@ -27,8 +27,7 @@ This package is organized as:
 - pure Codex fallback rules when no platform API or automation connector exists
 - a safe replacement map for the Tencent Cloud Douyin article feature set
 - a direct runner script that creates a workspace and report scaffold in one command
-- a starter-board launcher that converts a natural-language request into one local runnable board folder
-- a starter-board launcher that can also generate and preview the queue directly from that local folder
+- a starter-board launcher that converts a natural-language request into one local runnable board folder and can also generate and preview the queue directly from that folder
 - a capture-pack runner that turns real TikTok capture folders into scene outputs and handoff packs
 - unified operator routing that can treat real TikTok capture folders as first-class workflow inputs
 
@@ -56,7 +55,7 @@ Examples:
 - `跑场景 3，关键词=lip combo，市场=US`
 - `按场景 12 做一个一品多风格测试矩阵`
 - `帮我做场景 8，把这些评论整理成人群画像`
-- `按文章 2640429 的思路直接用 Codex 跑一个 Douyin 工作区`
+- `按文章 2640429 的思路直接用 Codex 跑一个 Douyin 工作流`
 
 ## Execution Order
 
