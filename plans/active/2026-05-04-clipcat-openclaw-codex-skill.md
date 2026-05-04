@@ -1445,3 +1445,75 @@ Create a durable Codex-native skill package that reproduces the Clipcat/OpenClaw
 - Result: passed and generated suite-local queue, manifest, report, and helper scripts for `weekly-ops-board`
 - Ran: `python "tiktok-growth-operator.skill\scripts\batch_run_operator_workflows.py" --batch-file "D:\我的文档\Documents\Playground 4\.codex-tmp\preset-template-bundle-v9\vertical-suites\weekly-ops-board\weekly-ops-board.json" --dry-run --batch-root "D:\我的文档\Documents\Playground 4\.codex-tmp\preset-template-bundle-v9\vertical-suites\weekly-ops-board\batch-run"`
 - Result: passed and produced `4` preview tasks for the cadence-first weekly-ops suite
+
+## 2026-05-05 Entry Selector Layer
+
+- Decision: add a transparent entry-board selector instead of forcing operators to inspect batch docs manually before choosing a board family.
+- Why: the package now has enough entry surfaces that the next usability bottleneck is selection, not missing workflows.
+- Decision: keep the selector heuristic and explainable.
+- Why: the operator should be able to see which outcome, role, cadence, or vertical signals caused one recommendation.
+
+### Added
+
+- `tiktok-growth-operator.skill/scripts/recommend_entry_board.py`
+- `tiktok-growth-operator.skill/references/entry-selector.md`
+
+### Updated
+
+- `tiktok-growth-operator.skill/references/direct-use.md`
+- `tiktok-growth-operator.skill/references/automation-workflows.md`
+- `tiktok-growth-operator.skill/references/final-handoff.md`
+- `tiktok-growth-operator.skill/SKILL.md`
+
+### Validation
+
+- Ran: `python -m py_compile "tiktok-growth-operator.skill\scripts\recommend_entry_board.py"`
+- Result: passed
+- Ran: `python "tiktok-growth-operator.skill\scripts\recommend_entry_board.py" --query "I need a publish plan for this week" --format markdown`
+- Result: passed and recommended `launch-board` with top slug `publish-week-board`
+- Ran: `python "tiktok-growth-operator.skill\scripts\recommend_entry_board.py" --query "I'm the live operator for tonight's session" --format markdown`
+- Result: passed and recommended `manager-board` with top slug `live-operator-board`
+- Ran: `python "tiktok-growth-operator.skill\scripts\recommend_entry_board.py" --query "Set up my weekly competitor review" --format markdown`
+- Result: passed and recommended `launch-board` with top slug `competitor-review-board`, while exposing `weekly-ops-board` as the cadence fallback
+- Ran: `python "tiktok-growth-operator.skill\scripts\recommend_entry_board.py" --query "Give me the fastest beauty TikTok ops starter" --format markdown`
+- Result: passed and recommended `vertical` with top slug `beauty-us-ops-starter`
+- Ran: `python "tiktok-growth-operator.skill\scripts\recommend_entry_board.py" --query "Give me a daily board" --format markdown`
+- Result: passed and recommended `cadence-board` with top slug `daily-ops-board`
+- Ran: `python "tiktok-growth-operator.skill\scripts\recommend_entry_board.py" --query "Give me the fastest beauty TikTok ops starter" --bundle-root "D:\我的文档\Documents\Playground 4\.codex-tmp\preset-template-bundle-v9" --format markdown`
+- Result: passed and returned the real `template_file`, `suite_root`, and `generate/dry-run/run` helper commands for `beauty-us-ops-starter`
+- Ran: `python "tiktok-growth-operator.skill\scripts\recommend_entry_board.py" --query "Give me a daily board" --bundle-root "D:\我的文档\Documents\Playground 4\.codex-tmp\preset-template-bundle-v9" --format markdown`
+- Result: passed and returned the real `template_file`, `suite_root`, and `generate/dry-run/run` helper commands for `daily-ops-board`
+- Ran: `python "tiktok-growth-operator.skill\scripts\recommend_entry_board.py" --query "Give me a daily board" --format markdown`
+- Result: passed and auto-discovered `D:\我的文档\Documents\Playground 4\.codex-tmp\preset-template-bundle-v9`, then returned the same bundle-aware path guidance without needing `--bundle-root`
+- Ran: `python "tiktok-growth-operator.skill\scripts\recommend_entry_board.py" --query "I need a publish plan for this week" --format json`
+- Result: passed and returned `resolved_bundle_root`, `recommended_boards`, and path-aware fallback payload in JSON
+
+## 2026-05-05 Starter Launcher Layer
+
+- Decision: add a one-step starter-board launcher on top of the entry selector.
+- Why: after board selection became explainable, the next friction point was still manual copying of template paths and helper scripts.
+- Decision: copy starter-local helper scripts into the generated folder instead of only referencing the original bundle suite.
+- Why: the generated starter should remain locally runnable and portable inside the workspace.
+
+### Added
+
+- `tiktok-growth-operator.skill/scripts/start_entry_board.py`
+
+### Updated
+
+- `tiktok-growth-operator.skill/scripts/recommend_entry_board.py`
+- `tiktok-growth-operator.skill/references/direct-use.md`
+- `tiktok-growth-operator.skill/references/automation-workflows.md`
+- `tiktok-growth-operator.skill/references/final-handoff.md`
+- `tiktok-growth-operator.skill/SKILL.md`
+
+### Validation
+
+- Ran: `python -m py_compile "tiktok-growth-operator.skill\scripts\start_entry_board.py" "tiktok-growth-operator.skill\scripts\recommend_entry_board.py"`
+- Result: passed
+- Ran: `python "tiktok-growth-operator.skill\scripts\start_entry_board.py" --query "Give me a daily board for TikTok beauty ops" --bundle-root "D:\我的文档\Documents\Playground 4\.codex-tmp\preset-template-bundle-v9" --output-root "D:\我的文档\Documents\Playground 4\.codex-tmp\entry-board-starter-smoke-v3"`
+- Result: passed and scaffolded a local starter folder for `daily-ops-board` with copied config, template, local helper scripts, README, and recommendation manifest
+- Ran: `python "tiktok-growth-operator.skill\scripts\recommend_entry_board.py" --query "Give me a daily board for TikTok beauty ops" --format markdown`
+- Result: passed and now prioritizes `cadence-board` over `vertical` when strong daily cadence signals are present
+- Ran: `python "tiktok-growth-operator.skill\scripts\start_entry_board.py" --query "Give me a daily board for TikTok beauty ops" --bundle-root "D:\我的文档\Documents\Playground 4\.codex-tmp\preset-template-bundle-v9" --output-root "D:\我的文档\Documents\Playground 4\.codex-tmp\entry-board-starter-smoke-v4" --generate --dry-run`
+- Result: passed and created a fully local starter for `daily-ops-board`, generated the local queue, and produced a successful dry-run preview with `4` tasks

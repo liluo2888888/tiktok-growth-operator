@@ -319,6 +319,82 @@ Now supports dedicated `capture-pack` and `history` modes in addition to `auto`,
 
 Use this as the preferred operator-facing entrypoint when you already have a real TikTok capture directory:
 
+### `scripts/recommend_entry_board.py`
+
+Provides a transparent board-family recommender on top of the batch preset system.
+
+It does not generate queues by itself. It helps the operator choose the right entry surface across:
+
+- `single`
+- `combo`
+- `vertical`
+- `launch-board`
+- `manager-board`
+- `cadence-board`
+
+It returns:
+
+- one recommended family
+- top board slug suggestions
+- matched language signals
+- fallback families and board slugs
+- one family score breakdown for tuning
+
+Example:
+
+```powershell
+python scripts/recommend_entry_board.py `
+  --query "I'm the live operator for tonight's session" `
+  --format markdown
+```
+
+### `scripts/start_entry_board.py`
+
+Turns one natural-language request into one local starter folder for the selected board.
+
+It currently:
+
+- chooses the best entry family
+- chooses the top board slug
+- copies the selected template and suite config into a local starter directory
+- copies local `generate`, `dry-run`, and `run` helper scripts when they exist
+- writes one `README.md` plus one `entry-board-recommendation.json`
+- can optionally generate the local queue immediately
+- can optionally run a local dry-run or full run from the starter directory
+
+Example:
+
+```powershell
+python scripts/start_entry_board.py `
+  --query "Give me a daily board for TikTok beauty ops" `
+  --bundle-root "D:\path\preset-template-bundle"
+```
+
+Immediate preview example:
+
+```powershell
+python scripts/start_entry_board.py `
+  --query "Give me a daily board for TikTok beauty ops" `
+  --bundle-root "D:\path\preset-template-bundle" `
+  --generate `
+  --dry-run
+```
+
+Bundle-aware example:
+
+```powershell
+python scripts/recommend_entry_board.py `
+  --query "Give me the fastest beauty TikTok ops starter" `
+  --bundle-root "D:\path\preset-template-bundle" `
+  --format markdown
+```
+
+When `--bundle-root` points to a generated preset bundle, the output also includes:
+
+- the resolved starter `template_file`
+- the suite root when one exists
+- the next `generate`, `dry-run`, and `run` commands
+
 ```powershell
 python scripts/run_operator_workflow.py `
   --mode capture-pack `

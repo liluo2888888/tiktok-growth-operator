@@ -13,6 +13,11 @@ VALIDATORS = [
     "validate_export_outputs.py",
 ]
 
+EXTRA_COMPILE_ONLY = [
+    "recommend_entry_board.py",
+    "start_entry_board.py",
+]
+
 
 def run(command: list[str]) -> dict:
     completed = subprocess.run(command, text=True, capture_output=True)
@@ -31,6 +36,8 @@ def main() -> None:
     results = []
     for script_name in VALIDATORS:
         results.append(run([sys.executable, "-m", "py_compile", str(scripts_root / script_name)]))
+    for script_name in EXTRA_COMPILE_ONLY:
+        results.append(run([sys.executable, "-m", "py_compile", str(scripts_root / script_name)]))
 
     export_root = skill_root / "tmp" / "20260504_validate_all_export_suite"
     for script_name in VALIDATORS:
@@ -43,6 +50,7 @@ def main() -> None:
     payload = {
         "success": not failures,
         "validators": VALIDATORS,
+        "extra_compile_only": EXTRA_COMPILE_ONLY,
         "results": results,
     }
     print(json.dumps(payload, ensure_ascii=False, indent=2))
