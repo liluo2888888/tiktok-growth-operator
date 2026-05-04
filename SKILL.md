@@ -95,6 +95,7 @@ Each scenario file contains:
 - Tencent article parity map: [references/article-2640429-feature-parity.md](references/article-2640429-feature-parity.md)
 - publish prep pack: [references/publish-prep-pack.md](references/publish-prep-pack.md)
 - live assist pack: [references/live-assist-pack.md](references/live-assist-pack.md)
+- creative production handoff pack: [references/creative-production-handoff-pack.md](references/creative-production-handoff-pack.md)
 
 ## Scenario List
 
@@ -134,6 +135,7 @@ Each scenario file contains:
 - Read [references/article-2640429-feature-parity.md](references/article-2640429-feature-parity.md) when the user refers to the Tencent Cloud Douyin article.
 - Read [references/publish-prep-pack.md](references/publish-prep-pack.md) when the user wants a publish-ready handoff pack.
 - Read [references/live-assist-pack.md](references/live-assist-pack.md) when the user wants a live-room operator pack.
+- Read [references/creative-production-handoff-pack.md](references/creative-production-handoff-pack.md) when the user wants scene `09` to `16` turned into a production-ready creative handoff instead of only a brief.
 - Read [references/prompt-library.md](references/prompt-library.md) for reusable prompt blocks.
 - Read [references/deliverable-contracts.md](references/deliverable-contracts.md) for output formats.
 - Read [references/scene-report-contract.md](references/scene-report-contract.md) when the output should become a durable JSON, Markdown, DOCX, or XLSX deliverable.

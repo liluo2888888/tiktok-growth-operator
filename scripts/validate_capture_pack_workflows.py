@@ -98,6 +98,24 @@ def main() -> None:
         run(
             [
                 sys.executable,
+                str(scripts_root / "generate_operator_pack.py"),
+                "--type",
+                "creative-production-handoff",
+                "--source-report",
+                str(skill_root / "tmp" / "20260504_validation_capture_scene15" / "scene-15" / "scene-15-validation-scene15-capture.json"),
+                "--platform",
+                "TikTok",
+                "--market",
+                "US",
+                "--output-dir",
+                str(skill_root / "tmp" / "20260505_validation_creative_handoff_pack"),
+            ]
+        )
+    )
+    results.append(
+        run(
+            [
+                sys.executable,
                 str(scripts_root / "start_capture_pack_run.py"),
                 "--scene",
                 "15",

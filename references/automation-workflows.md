@@ -114,6 +114,7 @@ Supported pack types:
 
 - `publish-prep`
 - `live-assist`
+- `creative-production-handoff`
 
 It can work in two modes:
 
@@ -129,6 +130,17 @@ python scripts/generate_operator_pack.py `
   --platform Douyin `
   --market China `
   --output-dir "D:\path\publish-pack"
+```
+
+Creative handoff example:
+
+```powershell
+python scripts/generate_operator_pack.py `
+  --type creative-production-handoff `
+  --source-report "D:\path\scene-15-report.json" `
+  --platform TikTok `
+  --market US `
+  --output-dir "D:\path\creative-handoff-pack"
 ```
 
 ### `scripts/start_scene_run.py`
@@ -153,7 +165,7 @@ python scripts/start_scene_run.py `
 
 Default derived operator packs:
 
-- scenes `09` to `16` -> `publish-prep`
+- scenes `09` to `16` -> `publish-prep` + `creative-production-handoff`
 - scenes `08`, `18`, `19` -> `live-assist`
 
 Override example:
@@ -174,7 +186,7 @@ Creates a full durable run directly from a real TikTok capture pack:
 
 - imports the capture pack into a structured scene report JSON
 - renders md/docx/xlsx outputs
-- optionally derives `publish-prep` or `live-assist`
+- optionally derives `publish-prep`, `live-assist`, or `creative-production-handoff`
 - writes a run manifest and README
 
 Example for a ranked/creator pack:

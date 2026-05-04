@@ -67,6 +67,20 @@ PACK_KEYWORDS = {
         "直播话术",
         "场控包",
     ],
+    "creative-production-handoff": [
+        "creative-production-handoff",
+        "creative handoff",
+        "production handoff",
+        "creative production handoff",
+        "render handoff",
+        "design handoff",
+        "script handoff",
+        "创意交付",
+        "制作交接",
+        "渲染交接",
+        "设计交接",
+        "脚本交接",
+    ],
 }
 
 MULTI_STAGE_MARKERS = [
@@ -137,7 +151,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--generate", action="store_true", help="In board mode, generate the local queue after scaffolding.")
     parser.add_argument("--dry-run", action="store_true", help="In board mode, preview the queue after generation.")
     parser.add_argument("--run", action="store_true", help="In board mode, execute the generated queue after generation.")
-    parser.add_argument("--type", choices=["publish-prep", "live-assist"], help="Operator pack type for pack mode.")
+    parser.add_argument("--type", choices=["publish-prep", "live-assist", "creative-production-handoff"], help="Operator pack type for pack mode.")
     parser.add_argument("--capture-root", default="", help="Capture-pack root for capture-pack mode.")
     parser.add_argument("--target-markets", default="", help="Optional comma-separated target markets for scene 13 capture-pack localization blueprints.")
     parser.add_argument("--target-languages", default="", help="Optional comma-separated target languages for scene 15 capture-pack image-translation blueprints.")
