@@ -6,6 +6,51 @@ If you only need the finished-state summary, preferred commands, validation entr
 
 If you want one copy-ready index across all 19 scenes, read [scene-quick-reference.md](scene-quick-reference.md).
 
+If you mainly need the creative-brief half of the system, especially scenes `09` to `16`, read [creative-brief-quick-reference.md](creative-brief-quick-reference.md).
+
+## One-Line Chinese Starter
+
+If you only want one sentence to paste into Codex, start here:
+
+- Scene mode: `按场景 12 执行：为一个产品做多风格测试矩阵，先锁 invariant message，再设计真正有差异的测试风格，并写出每个变体要学什么。`
+- Board mode: `给我一个适合 TikTok 美妆运营的日更 board，要能直接排今天要跑的任务。`
+- Capture-pack mode: `基于这个 TikTok 素材包执行场景 15，输出图片文案翻译与本地化 brief，保留原版层级并标出需要本地审核的地方。`
+- Goal mode: `给我一套从选题、拆解、素材测试到发布交付的 Douyin 工作流，要求输出可直接执行的步骤和交付物。`
+
+### Chinese Copy-Ready Commands
+
+If you prefer the local shell instead of natural-language chat:
+
+```powershell
+python scripts/run_operator_workflow.py `
+  --request "按场景 12 执行：为一个产品做多风格测试矩阵，先锁 invariant message，再设计真正有差异的测试风格，并写出每个变体要学什么。" `
+  --project "Lip Liner Style Matrix CN"
+```
+
+```powershell
+python scripts/run_operator_workflow.py `
+  --mode board `
+  --query "给我一个适合 TikTok 美妆运营的日更 board，要能直接排今天要跑的任务。"
+```
+
+```powershell
+python scripts/run_operator_workflow.py `
+  --mode capture-pack `
+  --scene 15 `
+  --capture-root "D:\path\tiktok-analysis-pack" `
+  --project "TikTok Image Localization CN" `
+  --platform TikTok `
+  --market US `
+  --target-languages "English,Japanese,German"
+```
+
+```powershell
+python scripts/run_operator_workflow.py `
+  --request "给我一套从选题、拆解、素材测试到发布交付的 Douyin 工作流，要求输出可直接执行的步骤和交付物。" `
+  --name douyin-topic-to-launch-cn `
+  --project "Douyin Topic To Launch CN"
+```
+
 ## Default Rule
 
 Treat this package as:

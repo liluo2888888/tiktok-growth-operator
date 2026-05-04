@@ -5,6 +5,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+from load_route_eval_fixtures import load_route_eval_fixtures
+
 
 VALIDATORS = [
     "validate_skill_docs.py",
@@ -17,6 +19,8 @@ EXTRA_COMPILE_ONLY = [
     "recommend_entry_board.py",
     "start_entry_board.py",
     "generate_scene_quick_reference.py",
+    "generate_creative_brief_quick_reference.py",
+    "load_route_eval_fixtures.py",
 ]
 
 
@@ -64,6 +68,12 @@ def require_value(result: dict, actual: object, expected: object, message: str) 
     return result
 
 
+def require_non_empty_string(result: dict, actual: object, message: str) -> dict:
+    if not isinstance(actual, str) or not actual.strip():
+        return force_failure(result, message)
+    return result
+
+
 def build_validation_bundle(skill_root: Path, scripts_root: Path) -> dict:
     bundle_root = skill_root / "tmp" / "20260505_validate_bundle_fixture"
     result = run(
@@ -103,6 +113,7 @@ def main() -> None:
 
     export_root = skill_root / "tmp" / "20260504_validate_all_export_suite"
     results.append(run([sys.executable, str(scripts_root / "generate_scene_quick_reference.py")]))
+    results.append(run([sys.executable, str(scripts_root / "generate_creative_brief_quick_reference.py")]))
     for script_name in VALIDATORS:
         command = [sys.executable, str(scripts_root / script_name)]
         if script_name == "validate_export_outputs.py":
@@ -112,6 +123,7 @@ def main() -> None:
     bundle_info = build_validation_bundle(skill_root, scripts_root)
     results.append(bundle_info["result"])
     validation_bundle_root = bundle_info["bundle_root"]
+    route_fixtures = load_route_eval_fixtures(skill_root)
 
     results.append(
         run(
@@ -130,29 +142,11 @@ def main() -> None:
         )
     )
 
-    route_cases = [
-        (
-            "Set up my weekly competitor review",
-            "board",
-            "weekly-ops-board",
-        ),
-        (
-            "\u7ed9\u6211\u4e00\u4e2a\u65e5\u5e38\u8fd0\u8425\u677f",
-            "board",
-            "daily-ops-board",
-        ),
-        (
-            "\u6211\u60f3\u505a\u4e00\u4e2a\u7f8e\u5986TikTok\u65e5\u66f4\u8fd0\u8425\u677f",
-            "board",
-            "beauty-us-ops-starter",
-        ),
-        (
-            "\u5e2e\u6211\u505a\u4e00\u4e2a\u591a\u5e02\u573a\u672c\u5730\u5316\u53d1\u5e03\u6d41\u7a0b",
-            "goal",
-            None,
-        ),
-    ]
-    for index, (query, expected_mode, expected_board_slug) in enumerate(route_cases, start=1):
+    route_cases = route_fixtures.get("run_operator_auto_cases", [])
+    for index, case in enumerate(route_cases, start=1):
+        query = str(case.get("query", ""))
+        expected_mode = case.get("expected_mode")
+        expected_board_slug = case.get("expected_board_slug")
         route_result = run(
             [
                 sys.executable,
@@ -171,6 +165,20 @@ def main() -> None:
                     expected_mode,
                     f"route case {index} should resolve to the expected mode",
                 )
+                if route_result["returncode"] == 0 and case.get("expected_scene") is not None:
+                    route_result = require_value(
+                        route_result,
+                        payload.get("scene_id"),
+                        case.get("expected_scene"),
+                        f"route case {index} should return the expected scene_id",
+                    )
+                if route_result["returncode"] == 0 and case.get("expected_pack_type") is not None:
+                    route_result = require_value(
+                        route_result,
+                        payload.get("type"),
+                        case.get("expected_pack_type"),
+                        f"route case {index} should return the expected pack type",
+                    )
                 if route_result["returncode"] == 0 and expected_board_slug is not None:
                     route_result = require_value(
                         route_result,
@@ -178,45 +186,59 @@ def main() -> None:
                         expected_board_slug,
                         f"route case {index} should select the expected board slug",
                     )
-                if route_result["returncode"] == 0 and expected_mode == "goal":
+                if route_result["returncode"] == 0 and case.get("expect_goal_root"):
                     route_result = require_existing_path(
                         route_result,
                         payload.get("goal_root"),
                         f"route case {index} should create a goal_root",
                     )
+                if route_result["returncode"] == 0 and case.get("expect_non_empty_run_name"):
+                    route_result = require_non_empty_string(
+                        route_result,
+                        payload.get("run_name"),
+                        f"route case {index} should return a non-empty run_name",
+                    )
+                max_run_name_length = case.get("max_run_name_length")
+                if route_result["returncode"] == 0 and isinstance(max_run_name_length, int):
+                    run_name = payload.get("run_name")
+                    if not isinstance(run_name, str) or len(run_name) > max_run_name_length:
+                        route_result = force_failure(
+                            route_result,
+                            f"route case {index} should keep run_name length <= {max_run_name_length}",
+                        )
         results.append(route_result)
 
-    long_goal_result = run(
-        [
-            sys.executable,
-            str(scripts_root / "run_operator_workflow.py"),
-            "--request",
-            "Build a full Douyin workflow from topic selection to publish handoff",
-        ]
-    )
-    if long_goal_result["returncode"] == 0:
-        payload, long_goal_result = parse_json_stdout(long_goal_result, "run_operator_workflow.py")
-        if payload is not None:
-            route_meta = payload.get("route", {})
-            long_goal_result = require_value(
-                long_goal_result,
-                route_meta.get("resolved_mode"),
-                "goal",
-                "long goal smoke should resolve to goal",
-            )
-            if long_goal_result["returncode"] == 0:
-                long_goal_result = require_existing_path(
-                    long_goal_result,
-                    payload.get("goal_root"),
-                    "long goal smoke should create goal_root",
+    board_eval_cases = route_fixtures.get("recommend_entry_board_cases", [])
+    for index, case in enumerate(board_eval_cases, start=1):
+        board_result = run(
+            [
+                sys.executable,
+                str(scripts_root / "recommend_entry_board.py"),
+                "--query",
+                str(case.get("query", "")),
+                "--format",
+                "json",
+            ]
+        )
+        if board_result["returncode"] == 0:
+            payload, board_result = parse_json_stdout(board_result, "recommend_entry_board.py")
+            if payload is not None:
+                board_result = require_value(
+                    board_result,
+                    payload.get("recommended_family"),
+                    case.get("expected_family"),
+                    f"board eval case {index} should select the expected family",
                 )
-            if long_goal_result["returncode"] == 0:
-                run_name = payload.get("run_name")
-                if not isinstance(run_name, str) or not run_name.strip():
-                    long_goal_result = force_failure(long_goal_result, "long goal smoke should return a non-empty run_name")
-                elif len(run_name) > 48:
-                    long_goal_result = force_failure(long_goal_result, "long goal smoke should truncate run_name to 48 chars or fewer")
-    results.append(long_goal_result)
+                if board_result["returncode"] == 0:
+                    recommended = payload.get("recommended_boards", [])
+                    top_slug = recommended[0].get("slug") if recommended else None
+                    board_result = require_value(
+                        board_result,
+                        top_slug,
+                        case.get("expected_slug"),
+                        f"board eval case {index} should rank the expected top slug first",
+                    )
+        results.append(board_result)
 
     auto_board_result = run(
         [

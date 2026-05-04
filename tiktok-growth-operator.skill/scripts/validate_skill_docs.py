@@ -17,6 +17,8 @@ REFERENCE_FILES = [
     "references/scene-report-contract.md",
     "references/scene-report-example.json",
     "references/scene-quick-reference.md",
+    "references/creative-brief-quick-reference.md",
+    "references/route-eval-fixtures.json",
     "references/source-map.md",
 ]
 
@@ -113,6 +115,10 @@ def main() -> int:
             "recommend_entry_board.py",
             "start_entry_board.py",
             "scene-quick-reference.md",
+            "creative-brief-quick-reference.md",
+            "One-Line Chinese Starter",
+            "Chinese Copy-Ready Commands",
+            "给我一套从选题、拆解、素材测试到发布交付的 Douyin 工作流",
         ],
         "references/automation-workflows.md": [
             "scripts/validate_all_workflows.py",
@@ -147,6 +153,12 @@ def main() -> int:
             "\"recommended_request_zh\"",
             "\"codex_prompt_scaffold_zh\"",
         ],
+        "references/route-eval-fixtures.json": [
+            "\"run_operator_auto_cases\"",
+            "\"recommend_entry_board_cases\"",
+            "\"expected_mode\"",
+            "\"expected_slug\"",
+        ],
         "references/scene-quick-reference.md": [
             "19 One-Line Chinese Requests",
             "Scene 01",
@@ -154,6 +166,13 @@ def main() -> int:
             "English Request",
             "Main Runner",
             "Quick Copy CN",
+        ],
+        "references/creative-brief-quick-reference.md": [
+            "Creative Brief Quick Reference",
+            "Scene 09",
+            "只复制这一句",
+            "Brief Blocks To Fill",
+            "中文 Prompt Scaffold",
         ],
     }
 

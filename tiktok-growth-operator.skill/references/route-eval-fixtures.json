@@ -1,0 +1,63 @@
+{
+  "run_operator_auto_cases": [
+    {
+      "query": "Run scene 03 for morning makeup hooks and output a teardown report",
+      "expected_mode": "scene",
+      "expected_scene": "03"
+    },
+    {
+      "query": "Create a publish prep pack for a morning makeup sell-through video",
+      "expected_mode": "pack",
+      "expected_pack_type": "publish-prep"
+    },
+    {
+      "query": "Set up my weekly competitor review",
+      "expected_mode": "board",
+      "expected_board_slug": "weekly-ops-board"
+    },
+    {
+      "query": "给我一个日常运营板",
+      "expected_mode": "board",
+      "expected_board_slug": "daily-ops-board"
+    },
+    {
+      "query": "I want a beauty TikTok daily ops board",
+      "expected_mode": "board",
+      "expected_board_slug": "beauty-us-ops-starter"
+    },
+    {
+      "query": "帮我做一个多市场本地化发布流程",
+      "expected_mode": "goal",
+      "expect_goal_root": true
+    },
+    {
+      "query": "Build a full Douyin workflow from topic selection to publish handoff",
+      "expected_mode": "goal",
+      "expect_goal_root": true,
+      "expect_non_empty_run_name": true,
+      "max_run_name_length": 48
+    }
+  ],
+  "recommend_entry_board_cases": [
+    {
+      "query": "Set up my weekly competitor review",
+      "expected_family": "cadence-board",
+      "expected_slug": "weekly-ops-board"
+    },
+    {
+      "query": "给我一个日常运营板",
+      "expected_family": "cadence-board",
+      "expected_slug": "daily-ops-board"
+    },
+    {
+      "query": "Give me a daily board for TikTok beauty ops",
+      "expected_family": "vertical",
+      "expected_slug": "beauty-us-ops-starter"
+    },
+    {
+      "query": "I'm the live operator for tonight's session",
+      "expected_family": "manager-board",
+      "expected_slug": "live-operator-board"
+    }
+  ]
+}

@@ -1862,3 +1862,64 @@ Create a durable Codex-native skill package that reproduces the Clipcat/OpenClaw
 - Result: passed
 - Ran: `python ".\tiktok-growth-operator.skill\scripts\validate_all_workflows.py"`
 - Result: passed and created the self-generated validation bundle fixture plus successful board preview/execute smoke outputs
+
+## 2026-05-05 Creative Brief Quick Reference
+
+- Decision: add one dedicated quick-reference generator for scenes `09` to `16`.
+- Why: the most Clipcat-like value is concentrated in the creative-brief, localization, asset-family, and benchmark scenes, so operators should have one shorter cookbook for those outputs instead of scanning the full 19-scene index.
+
+### Added
+
+- `tiktok-growth-operator.skill/scripts/generate_creative_brief_quick_reference.py`
+- `tiktok-growth-operator.skill/references/creative-brief-quick-reference.md`
+
+### Updated
+
+- `tiktok-growth-operator.skill/scripts/validate_skill_docs.py`
+- `tiktok-growth-operator.skill/scripts/validate_all_workflows.py`
+- `tiktok-growth-operator.skill/references/direct-use.md`
+- `tiktok-growth-operator.skill/SKILL.md`
+
+### Validation
+
+- Ran: `python -m py_compile "tiktok-growth-operator.skill\scripts\generate_creative_brief_quick_reference.py" "tiktok-growth-operator.skill\scripts\load_route_eval_fixtures.py" "tiktok-growth-operator.skill\scripts\validate_skill_docs.py" "tiktok-growth-operator.skill\scripts\validate_all_workflows.py"`
+- Ran: `python "tiktok-growth-operator.skill\scripts\generate_creative_brief_quick_reference.py"`
+- Ran: `python "tiktok-growth-operator.skill\scripts\validate_skill_docs.py"`
+- Ran: `python "tiktok-growth-operator.skill\scripts\validate_all_workflows.py"`
+- Result: passed after aligning the validator contract and rerunning the full workflow suite
+
+## 2026-05-05 Route Eval Fixtures
+
+- Decision: move natural-language routing expectations into one versioned fixture file instead of leaving them as hard-coded validator cases only.
+- Why: the package now has enough board, scene, goal, and pack routing behavior that regression expectations should be inspectable, extensible, and reusable across validators.
+
+### Added
+
+- `tiktok-growth-operator.skill/references/route-eval-fixtures.json`
+- `tiktok-growth-operator.skill/scripts/load_route_eval_fixtures.py`
+
+### Updated
+
+- `tiktok-growth-operator.skill/scripts/validate_skill_docs.py`
+- `tiktok-growth-operator.skill/scripts/validate_all_workflows.py`
+- `docs/quality/debt-log.md`
+
+## 2026-05-05 Chinese Operator Entry Tightening
+
+- Decision: add a first-screen Chinese copy-ready starter block to `references/direct-use.md`.
+- Why: the skill already had full routing and scene coverage, but the user-facing friction was still the first command or first sentence an operator should copy.
+- Decision: add a fast chooser and common-missing-evidence section to the creative quick reference.
+- Why: scenes `09` to `16` are the highest-value creative workflows, and operators need quicker scene selection plus a clearer view of what input gaps usually break output quality.
+
+### Updated
+
+- `tiktok-growth-operator.skill/references/direct-use.md`
+- `tiktok-growth-operator.skill/references/creative-brief-quick-reference.md`
+- `tiktok-growth-operator.skill/scripts/validate_skill_docs.py`
+
+### Validation
+
+- Ran: `python "tiktok-growth-operator.skill\\scripts\\validate_skill_docs.py"`
+- Result: passed
+- Ran: `python "tiktok-growth-operator.skill\\scripts\\validate_all_workflows.py"`
+- Result: passed
