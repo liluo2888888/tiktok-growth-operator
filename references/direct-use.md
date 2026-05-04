@@ -15,6 +15,7 @@ Treat this package as:
 - a goal-workflow expander for multi-scene business requests
 - a unified workflow runner for scene, goal, and pack modes
 - an auto router that can infer scene, goal, or pack from one natural-language request
+- a board selector that can recommend the best preset family and board slug before generation
 
 Do not pretend the workspace already has:
 
@@ -23,6 +24,45 @@ Do not pretend the workspace already has:
 - RPA templates that can safely publish, comment, or message users
 
 ## Fastest Invocation Paths
+
+If you do not know which board family to start with, run the transparent selector first:
+
+```powershell
+python scripts/recommend_entry_board.py `
+  --query "I need a publish plan for this week" `
+  --format markdown
+```
+
+If you already generated a template bundle and want the selector to return real local template and suite paths:
+
+```powershell
+python scripts/recommend_entry_board.py `
+  --query "Give me a daily board" `
+  --bundle-root "D:\path\preset-template-bundle" `
+  --format markdown
+```
+
+If you skip `--bundle-root`, the selector will try to auto-discover the latest local `preset-template-bundle*` export.
+
+Use [entry-selector.md](entry-selector.md) for the family-level rule of thumb across `single`, `combo`, `vertical`, `launch-board`, `manager-board`, and `cadence-board`.
+
+If you want the package to choose a board and scaffold one local starter folder in one step:
+
+```powershell
+python scripts/start_entry_board.py `
+  --query "Give me a daily board for TikTok beauty ops" `
+  --bundle-root "D:\path\preset-template-bundle"
+```
+
+One-step starter plus queue generation and preview:
+
+```powershell
+python scripts/start_entry_board.py `
+  --query "Give me a daily board for TikTok beauty ops" `
+  --bundle-root "D:\path\preset-template-bundle" `
+  --generate `
+  --dry-run
+```
 
 ### In Codex chat
 
@@ -272,6 +312,14 @@ Current templates:
 - `competitor-to-publish` -> `competitor-monitoring + creative-testing + publish-handoff`
 - `audience-to-live` -> `category-entry + live-support`
 - `weekly-monitor-to-next-test` -> `competitor-monitoring + account-improvement`
+
+Current higher-level board families:
+
+- `combo` -> reusable multi-preset bundles such as `beauty-ops-board`
+- `vertical` -> seeded starters such as `beauty-us-ops-starter`
+- `launch-board` -> outcome-first boards such as `publish-week-board`
+- `manager-board` -> role-first boards such as `growth-operator-board`
+- `cadence-board` -> rhythm-first boards such as `weekly-ops-board`
 
 Create a full multi-scene goal workspace:
 

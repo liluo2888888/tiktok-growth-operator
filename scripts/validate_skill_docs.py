@@ -10,6 +10,7 @@ REFERENCE_FILES = [
     "references/direct-use.md",
     "references/automation-workflows.md",
     "references/final-handoff.md",
+    "references/entry-selector.md",
     "references/article-2640429-feature-parity.md",
     "references/command-map.md",
     "references/prompt-library.md",
@@ -17,16 +18,18 @@ REFERENCE_FILES = [
 ]
 
 MOJIBAKE_PATTERNS = [
+    "Ã",
+    "Â",
     "鈥",
-    "锛",
-    "鍋",
-    "甯",
-    "鎸",
-    "鐨",
-    "浣",
-    "璇",
-    "闆",
-    "馃",
+    "锟",
+    "�",
+    "閳",
+    "閿",
+    "鐢",
+    "闂",
+    "鍙",
+    "鎴",
+    "涓€",
     "\ufffd",
 ]
 
@@ -83,14 +86,45 @@ def main() -> int:
             errors.append(f"{relative_path} contains mojibake at line {line_number}: {line}")
 
     required_mentions = {
-        "SKILL.md": ["references/final-handoff.md", "references/direct-use.md", "references/automation-workflows.md"],
-        "references/direct-use.md": ["final-handoff.md", "validate_all_workflows.py"],
-        "references/automation-workflows.md": ["scripts/validate_all_workflows.py", "scripts/validate_export_outputs.py"],
-        "references/final-handoff.md": ["scripts/validate_all_workflows.py", "scripts/run_operator_workflow.py"],
+        "SKILL.md": [
+            "references/final-handoff.md",
+            "references/direct-use.md",
+            "references/automation-workflows.md",
+            "references/entry-selector.md",
+        ],
+        "references/direct-use.md": ["final-handoff.md", "validate_all_workflows.py", "recommend_entry_board.py"],
+        "references/direct-use.md": [
+            "final-handoff.md",
+            "validate_all_workflows.py",
+            "recommend_entry_board.py",
+            "start_entry_board.py",
+        ],
+        "references/automation-workflows.md": [
+            "scripts/validate_all_workflows.py",
+            "scripts/validate_export_outputs.py",
+            "scripts/recommend_entry_board.py",
+            "scripts/start_entry_board.py",
+        ],
+        "references/final-handoff.md": [
+            "scripts/validate_all_workflows.py",
+            "scripts/run_operator_workflow.py",
+            "scripts/recommend_entry_board.py",
+            "scripts/start_entry_board.py",
+        ],
+        "references/entry-selector.md": [
+            "recommend_entry_board.py",
+            "start_entry_board.py",
+            "launch-board",
+            "manager-board",
+            "cadence-board",
+        ],
     }
 
     for relative_path, snippets in required_mentions.items():
-        text = (skill_root / relative_path).read_text(encoding="utf-8")
+        path = skill_root / relative_path
+        if not path.exists():
+            continue
+        text = path.read_text(encoding="utf-8")
         for snippet in snippets:
             if snippet not in text:
                 errors.append(f"{relative_path} is missing expected reference: {snippet}")

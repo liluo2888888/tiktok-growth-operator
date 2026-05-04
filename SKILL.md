@@ -27,6 +27,8 @@ This package is organized as:
 - pure Codex fallback rules when no platform API or automation connector exists
 - a safe replacement map for the Tencent Cloud Douyin article feature set
 - a direct runner script that creates a workspace and report scaffold in one command
+- a starter-board launcher that converts a natural-language request into one local runnable board folder
+- a starter-board launcher that can also generate and preview the queue directly from that local folder
 - a capture-pack runner that turns real TikTok capture folders into scene outputs and handoff packs
 - unified operator routing that can treat real TikTok capture folders as first-class workflow inputs
 
@@ -87,6 +89,8 @@ Each scenario file contains:
 - final operator handoff: [references/final-handoff.md](references/final-handoff.md)
 - batch preset catalog: [references/batch-presets.md](references/batch-presets.md)
   Use it for single starter templates, template bundles, config-driven regeneration, and the generated preset `.report.md` handoff into dry-run, execute, or rerun flows.
+- entry board selection: [references/entry-selector.md](references/entry-selector.md)
+  Use it when the operator knows the desired outcome, role, cadence, or vertical context but does not know which board family or slug to start with.
 - Tencent article parity map: [references/article-2640429-feature-parity.md](references/article-2640429-feature-parity.md)
 - publish prep pack: [references/publish-prep-pack.md](references/publish-prep-pack.md)
 - live assist pack: [references/live-assist-pack.md](references/live-assist-pack.md)
@@ -123,6 +127,7 @@ Each scenario file contains:
 - Read [references/final-handoff.md](references/final-handoff.md) when you want the shortest durable summary of what is finished, how to run it, and how to validate it.
 - Read [references/batch-presets.md](references/batch-presets.md) when the user wants a ready-made reusable batch queue.
   Prefer the generated preset `.report.md` before execution because it includes copy-ready batch commands, suggested artifact paths, reusable input config, and generated helper scripts.
+- Read [references/entry-selector.md](references/entry-selector.md) when the user needs a recommendation across `single`, `combo`, `vertical`, `launch-board`, `manager-board`, or `cadence-board`.
 - Read [references/article-2640429-feature-parity.md](references/article-2640429-feature-parity.md) when the user refers to the Tencent Cloud Douyin article.
 - Read [references/publish-prep-pack.md](references/publish-prep-pack.md) when the user wants a publish-ready handoff pack.
 - Read [references/live-assist-pack.md](references/live-assist-pack.md) when the user wants a live-room operator pack.

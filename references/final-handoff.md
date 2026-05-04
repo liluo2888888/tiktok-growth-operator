@@ -11,6 +11,7 @@ This package now provides:
 - durable report rendering to `md`, `docx`, and `xlsx`
 - derived `publish-prep` and `live-assist` handoff packs where appropriate
 - repeatable validation for scene presets, capture-pack workflows, export quality, and core skill docs
+- one transparent entry selector for choosing among single/combo/vertical/launch/manager/cadence boards
 
 ## Reference Roles
 
@@ -20,6 +21,7 @@ Use the reference set by role:
 - `direct-use.md`: operator-facing command cookbook
 - `automation-workflows.md`: script ownership and automation behavior
 - `batch-presets.md`: preset queue generation and suite export
+- `entry-selector.md`: which board family and slug to use before queue generation
 - `command-map.md`: public Clipcat parity notes only
 
 ## Best Entrypoints
@@ -44,6 +46,41 @@ python scripts/start_capture_pack_run.py `
 python scripts/run_operator_workflow.py `
   --request "Run scene 03 for morning makeup hooks and output a teardown report" `
   --project "Morning Makeup Hook Teardown"
+```
+
+### Board selector
+
+```powershell
+python scripts/recommend_entry_board.py `
+  --query "Set up my weekly competitor review" `
+  --format markdown
+```
+
+### One-step starter scaffold
+
+```powershell
+python scripts/start_entry_board.py `
+  --query "Give me a daily board for TikTok beauty ops" `
+  --bundle-root "D:\path\preset-template-bundle"
+```
+
+Preview-ready version:
+
+```powershell
+python scripts/start_entry_board.py `
+  --query "Give me a daily board for TikTok beauty ops" `
+  --bundle-root "D:\path\preset-template-bundle" `
+  --generate `
+  --dry-run
+```
+
+Bundle-aware version:
+
+```powershell
+python scripts/recommend_entry_board.py `
+  --query "Give me a daily board" `
+  --bundle-root "D:\path\preset-template-bundle" `
+  --format markdown
 ```
 
 ### Full durable validation
