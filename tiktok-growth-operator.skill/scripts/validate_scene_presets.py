@@ -7,6 +7,60 @@ from generate_scene_report import build_report_payload, load_catalog
 from scene_report_presets import SCENE_OPERATOR_GUIDE, SCENE_PRESETS
 
 
+REQUIRED_SECTION_HEADERS = {
+    "09": {
+        "Target": ["Field", "Answer", "Why It Matters"],
+        "Message": ["Layer", "Reference Logic", "Adapted Version", "Required Product Evidence"],
+        "Structure": ["Shot / Beat", "What Happens", "Purpose", "Asset / Talent Needed", "Line / Overlay", "Dependency / Risk"],
+        "Creative Constraints": ["Constraint", "Keep / Change", "Reason", "Owner / Check"],
+        "Production Handoff": ["Handoff Item", "Locked Decision", "Owner", "Blocking Risk"],
+    },
+    "10": {
+        "Target": ["Field", "Answer", "Why It Matters"],
+        "Message": ["Layer", "Draft", "Supported By Which Asset", "Missing Proof?"],
+        "Structure": ["Beat", "Visual Use", "Voiceover / Overlay", "Purpose", "Asset / Talent Source", "Missing Asset?"],
+        "Creative Constraints": ["Constraint Type", "Detail", "Risk If Ignored", "Fix Path"],
+        "Production Handoff": ["Handoff Item", "Locked Decision", "Open Gap", "Owner"],
+    },
+    "11": {
+        "Variable Matrix": ["Stage", "Input", "Decision Rule", "Asset Need", "Owner", "Output", "SLA / Cadence"],
+        "What To Learn": ["Cycle Question", "Why It Matters", "How To Measure", "What Decision It Changes", "If Confirmed", "If Rejected"],
+        "Execution Handoff": ["Queue Artifact", "Who Owns It", "Ready When", "Blocking Risk"],
+    },
+    "12": {
+        "Variable Matrix": ["Style", "Audience Lens", "Hook", "Proof Device", "Visual Style", "CTA", "Asset Need", "Production Complexity", "Primary Hypothesis", "Why Test It"],
+        "What To Learn": ["Variant", "Main Hypothesis", "Success Signal", "What It Teaches", "If Confirmed", "If Rejected"],
+        "Execution Handoff": ["Variant", "First Asset Need", "Owner", "Ready For Test When"],
+    },
+    "13": {
+        "Target": ["Layer", "Invariant", "Needs Localization?", "Why"],
+        "Message": ["Market", "Audience Cue", "Hook Direction", "Language / Tone", "Proof Angle", "Avoid"],
+        "Structure": ["Market", "Opening Beat", "Middle Proof", "Close / CTA", "Visual Cue", "Talent / Asset Need", "Localization Dependency"],
+        "Creative Constraints": ["Market", "Do Not Use", "Must Adapt", "Open Risk", "Review Owner"],
+        "Production Handoff": ["Market", "What Is Ready To Script", "What Still Needs Native Review", "Owner"],
+    },
+    "14": {
+        "Variable Matrix": ["Asset", "Purpose", "Primary Message", "Format / Ratio", "Owner / Tool", "Dependency / Blocking Risk", "Priority"],
+        "What To Learn": ["Asset", "Question", "Success Signal", "What It Changes Next", "If It Wins"],
+        "Production Handoff": ["Asset Family Item", "Ready Spec", "Missing Input", "Owner"],
+    },
+    "15": {
+        "Target": ["Field", "Answer", "Why It Matters"],
+        "Message": ["Source Block", "Function", "Localized Copy", "Length Risk", "Layout Fit", "Native Review Needed?", "Notes"],
+        "Structure": ["Text Layer", "Priority", "Placement Note", "Can Be Shortened?", "Design Action"],
+        "Creative Constraints": ["Constraint", "Localized Rule", "Reason", "Review Owner"],
+        "Production Handoff": ["Handoff Item", "Localized Decision", "Needs Review?", "Owner"],
+    },
+    "16": {
+        "Target": ["Field", "Answer", "Why It Matters"],
+        "Message": ["Image / Brand", "Dominant Visual Code", "Likely Click Driver", "Weakness", "What To Keep", "What To Avoid", "Execution Note"],
+        "Structure": ["Layer", "New Direction", "Purpose", "Must Be Visible?", "Asset Need"],
+        "Creative Constraints": ["Constraint", "Emphasize / Avoid", "Reason", "Owner / Check"],
+        "Production Handoff": ["Handoff Item", "Decision", "Owner", "Risk Before Design"],
+    },
+}
+
+
 def main() -> int:
     skill_root = Path(__file__).resolve().parents[1]
     catalog = load_catalog(skill_root)
@@ -110,22 +164,19 @@ def main() -> int:
             errors.append(f"Scene {scene['id']} has no execution-template output checklist")
 
         section_map = {str(section.get("heading", "")).strip(): section for section in sections}
-        if scene["id"] in {"09", "10", "13", "15", "16"}:
-            for required_heading in ["Target", "Message", "Structure", "Creative Constraints"]:
-                section = section_map.get(required_heading)
-                headers = ((section or {}).get("table") or {}).get("headers", [])
-                if not headers:
-                    errors.append(
-                        f"Scene {scene['id']} should keep a table-driven '{required_heading}' brief block"
-                    )
-        if scene["id"] in {"11", "12", "14"}:
-            for required_heading in ["Variable Matrix", "What To Learn"]:
-                section = section_map.get(required_heading)
-                headers = ((section or {}).get("table") or {}).get("headers", [])
-                if not headers:
-                    errors.append(
-                        f"Scene {scene['id']} should keep a table-driven '{required_heading}' testing block"
-                    )
+        required_headers = REQUIRED_SECTION_HEADERS.get(scene["id"], {})
+        for required_heading, required_header_list in required_headers.items():
+            section = section_map.get(required_heading)
+            headers = [str(item).strip() for item in (((section or {}).get("table") or {}).get("headers", [])) if str(item).strip()]
+            if not headers:
+                errors.append(
+                    f"Scene {scene['id']} should keep a table-driven '{required_heading}' block"
+                )
+                continue
+            if headers != required_header_list:
+                errors.append(
+                    f"Scene {scene['id']} section '{required_heading}' should keep headers {required_header_list!r}, got {headers!r}"
+                )
 
         table_count = 0
         for index, section in enumerate(sections, start=1):

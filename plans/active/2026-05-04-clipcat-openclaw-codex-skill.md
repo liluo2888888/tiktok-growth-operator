@@ -1923,3 +1923,27 @@ Create a durable Codex-native skill package that reproduces the Clipcat/OpenClaw
 - Result: passed
 - Ran: `python "tiktok-growth-operator.skill\\scripts\\validate_all_workflows.py"`
 - Result: passed
+
+## 2026-05-05 Creative Scene Handoff Hardening
+
+- Decision: extend scenes `09` to `16` with explicit production-handoff style sections instead of stopping at strategy-only outputs.
+- Why: the creative half of the package is most useful when it can hand one board, brief, or benchmark directly into scripting, design, rendering, or production without another translation pass.
+- Decision: make `validate_scene_presets.py` assert exact section headers for the creative-scene tables.
+- Why: these scenes now have a stronger deliverable contract, so broad “table exists” checks are no longer sufficient to prevent drift.
+
+### Updated
+
+- `tiktok-growth-operator.skill/scripts/scene_report_presets.py`
+- `tiktok-growth-operator.skill/scripts/validate_scene_presets.py`
+- `tiktok-growth-operator.skill/references/scene-quick-reference.md`
+
+### Validation
+
+- Ran: `python -m py_compile "tiktok-growth-operator.skill\scripts\scene_report_presets.py" "tiktok-growth-operator.skill\scripts\validate_scene_presets.py"`
+- Result: passed
+- Ran: `python "tiktok-growth-operator.skill\scripts\generate_scene_quick_reference.py"`
+- Result: passed and regenerated the 19-scene quick reference with the stronger creative-scene output contracts
+- Ran: `python "tiktok-growth-operator.skill\scripts\validate_scene_presets.py"`
+- Result: passed with exact creative-scene header assertions
+- Ran: `python "tiktok-growth-operator.skill\scripts\validate_all_workflows.py"`
+- Result: passed with `success: true`
