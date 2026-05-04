@@ -52,6 +52,7 @@ It currently validates:
 - presence of `Summary`, `Section Overview`, and `Section Index`
 - section navigation links and section-sheet back-links
 - native Excel table creation on key navigation sheets
+- visible DOCX and XLSX text for common mojibake regressions
 
 Example:
 
@@ -315,7 +316,7 @@ python scripts/summarize_run_history.py `
 
 ### `scripts/run_operator_workflow.py`
 
-Now supports dedicated `capture-pack` and `history` modes in addition to `auto`, `scene`, `goal`, and `pack`.
+Now supports dedicated `board`, `capture-pack`, and `history` modes in addition to `auto`, `scene`, `goal`, and `pack`.
 
 Use this as the preferred operator-facing entrypoint when you already have a real TikTok capture directory:
 
@@ -374,6 +375,17 @@ Immediate preview example:
 
 ```powershell
 python scripts/start_entry_board.py `
+  --query "Give me a daily board for TikTok beauty ops" `
+  --bundle-root "D:\path\preset-template-bundle" `
+  --generate `
+  --dry-run
+```
+
+Unified-router equivalent:
+
+```powershell
+python scripts/run_operator_workflow.py `
+  --mode board `
   --query "Give me a daily board for TikTok beauty ops" `
   --bundle-root "D:\path\preset-template-bundle" `
   --generate `
@@ -480,16 +492,18 @@ Provides one unified entrypoint for:
 
 - `scene` mode
 - `goal` mode
+- `board` mode
 - `pack` mode
 - `auto` mode
 
-`auto` is the default and routes a natural-language request into scene, goal, or pack execution.
+`auto` is the default and routes a natural-language request into scene, goal, board, or pack execution.
 
 The auto-mode result includes a `route` object with explanation fields so the operator can inspect:
 
 - why the request was classified the way it was
 - which pack keywords matched
 - which scene candidates scored highest
+- which board family and board slugs scored highest
 - whether multi-stage markers were detected
 - which goal or template would win on the goal layer
 
@@ -793,6 +807,15 @@ python scripts/run_operator_workflow.py `
   --name douyin-topic-to-publish `
   --project "Douyin Topic To Publish" `
   --formats md
+```
+
+Board example:
+
+```powershell
+python scripts/run_operator_workflow.py `
+  --mode board `
+  --query "I'm the live operator for tonight's session" `
+  --bundle-root "D:\path\preset-template-bundle"
 ```
 
 Pack example:

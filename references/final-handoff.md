@@ -12,6 +12,7 @@ This package now provides:
 - derived `publish-prep` and `live-assist` handoff packs where appropriate
 - repeatable validation for scene presets, capture-pack workflows, export quality, and core skill docs
 - one transparent entry selector for choosing among single/combo/vertical/launch/manager/cadence boards
+- one unified `board` entry mode that can scaffold a local starter folder from the main operator router
 
 ## Reference Roles
 
@@ -60,8 +61,15 @@ python scripts/recommend_entry_board.py `
 
 ```powershell
 python scripts/start_entry_board.py `
-  --query "Give me a daily board for TikTok beauty ops" `
-  --bundle-root "D:\path\preset-template-bundle"
+  --query "Give me a daily board for TikTok beauty ops"
+```
+
+Unified-router version:
+
+```powershell
+python scripts/run_operator_workflow.py `
+  --mode board `
+  --query "Give me a daily board for TikTok beauty ops"
 ```
 
 Preview-ready version:
@@ -69,12 +77,11 @@ Preview-ready version:
 ```powershell
 python scripts/start_entry_board.py `
   --query "Give me a daily board for TikTok beauty ops" `
-  --bundle-root "D:\path\preset-template-bundle" `
   --generate `
   --dry-run
 ```
 
-Bundle-aware version:
+Pinned-bundle version when you do not want auto-discovery:
 
 ```powershell
 python scripts/recommend_entry_board.py `
@@ -82,6 +89,8 @@ python scripts/recommend_entry_board.py `
   --bundle-root "D:\path\preset-template-bundle" `
   --format markdown
 ```
+
+For more board-family examples and selector rules, see [entry-selector.md](entry-selector.md).
 
 ### Full durable validation
 
@@ -139,9 +148,10 @@ Representative export validation outputs:
 ## Recommended Operator Order
 
 1. Pick `run_operator_workflow.py` for normal use.
-2. Use `start_capture_pack_run.py` when a real TikTok capture folder already exists.
-3. Use `validate_all_workflows.py` after durable script or rendering changes.
-4. Use `validate_export_outputs.py` when the change is export-only.
+2. Use `run_operator_workflow.py --mode board` when the request is role-first, cadence-first, outcome-first, or vertical-first.
+3. Use `start_capture_pack_run.py` when a real TikTok capture folder already exists.
+4. Use `validate_all_workflows.py` after durable script or rendering changes.
+5. Use `validate_export_outputs.py` when the change is export-only.
 
 ## Current Boundaries
 

@@ -141,8 +141,7 @@ Turn one natural-language request directly into a local starter folder:
 
 ```powershell
 python scripts/start_entry_board.py `
-  --query "Give me a daily board for TikTok beauty ops" `
-  --bundle-root "D:\path\preset-template-bundle"
+  --query "Give me a daily board for TikTok beauty ops"
 ```
 
 Scaffold and immediately generate plus dry-run:
@@ -150,10 +149,11 @@ Scaffold and immediately generate plus dry-run:
 ```powershell
 python scripts/start_entry_board.py `
   --query "Give me a daily board for TikTok beauty ops" `
-  --bundle-root "D:\path\preset-template-bundle" `
   --generate `
   --dry-run
 ```
+
+If a recent `preset-template-bundle*` exists locally, both scripts now auto-discover it. You only need `--bundle-root` when you want to pin a specific bundle.
 
 It returns:
 
@@ -170,6 +170,18 @@ python scripts/recommend_entry_board.py `
   --query "我是今晚直播运营，帮我选入口板" `
   --format json
 ```
+
+Use the unified router when you want the main operator surface to scaffold the board starter directly:
+
+```powershell
+python scripts/run_operator_workflow.py `
+  --mode board `
+  --query "Give me a daily board for TikTok beauty ops" `
+  --generate `
+  --dry-run
+```
+
+Auto mode can also resolve broad board-style requests into `board` when they are role-first, cadence-first, outcome-first, or seeded vertical requests rather than single-scene or multi-stage workflow requests.
 
 ## Operator Shortcut
 

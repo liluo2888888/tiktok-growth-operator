@@ -5,18 +5,23 @@ import json
 from datetime import datetime
 from pathlib import Path
 
-from run_operator_workflow import infer_mode_from_request, run_capture_pack_mode, run_goal_mode, run_pack_mode, run_scene_mode
+from run_operator_workflow import infer_mode_from_request, run_board_mode, run_capture_pack_mode, run_goal_mode, run_pack_mode, run_scene_mode
 
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Thin project launcher for TikTok Growth Operator scene, goal, pack, capture-pack, and history runs."
+        description="Thin project launcher for TikTok Growth Operator scene, goal, board, pack, capture-pack, and history runs."
     )
     parser.add_argument("--request", default="", help="Natural-language request. Used by auto mode.")
-    parser.add_argument("--mode", default="auto", choices=["auto", "scene", "goal", "pack", "capture-pack", "history"])
+    parser.add_argument("--mode", default="auto", choices=["auto", "scene", "goal", "board", "pack", "capture-pack", "history"])
     parser.add_argument("--scene", default="", help="Scene id or slug.")
     parser.add_argument("--goal", default="", help="Goal slug.")
     parser.add_argument("--query", default="", help="Goal query.")
+    parser.add_argument("--bundle-root", default="", help="Optional preset bundle root for board mode or auto board routing.")
+    parser.add_argument("--top-k", type=int, default=3, help="How many board recommendations to keep in board mode.")
+    parser.add_argument("--generate", action="store_true", help="In board mode, generate the local queue after scaffolding.")
+    parser.add_argument("--dry-run", action="store_true", help="In board mode, preview the queue after generation.")
+    parser.add_argument("--run", action="store_true", help="In board mode, execute the generated queue after generation.")
     parser.add_argument("--type", default="", help="Pack type.")
     parser.add_argument("--capture-root", default="", help="TikTok capture-pack root.")
     parser.add_argument("--target-markets", default="", help="Optional comma-separated target markets for scene 13 capture-pack localization blueprints.")
@@ -73,6 +78,8 @@ def main() -> None:
 
     if resolved_mode == "scene":
         result = run_scene_mode(args, scene_override=routed.get("scene"), request_text=routed.get("request", ""))
+    elif resolved_mode == "board":
+        result = run_board_mode(args, query_override=routed.get("query"))
     elif resolved_mode == "goal":
         result = run_goal_mode(args, goal_override=routed.get("goal"), query_override=routed.get("query"))
     elif resolved_mode == "pack":

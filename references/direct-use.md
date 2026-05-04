@@ -16,6 +16,7 @@ Treat this package as:
 - a unified workflow runner for scene, goal, and pack modes
 - an auto router that can infer scene, goal, or pack from one natural-language request
 - a board selector that can recommend the best preset family and board slug before generation
+- a board starter launcher that can scaffold and optionally preview a local runnable board
 
 Do not pretend the workspace already has:
 
@@ -50,8 +51,15 @@ If you want the package to choose a board and scaffold one local starter folder 
 
 ```powershell
 python scripts/start_entry_board.py `
-  --query "Give me a daily board for TikTok beauty ops" `
-  --bundle-root "D:\path\preset-template-bundle"
+  --query "Give me a daily board for TikTok beauty ops"
+```
+
+Unified-router version:
+
+```powershell
+python scripts/run_operator_workflow.py `
+  --mode board `
+  --query "Give me a daily board for TikTok beauty ops"
 ```
 
 One-step starter plus queue generation and preview:
@@ -59,10 +67,21 @@ One-step starter plus queue generation and preview:
 ```powershell
 python scripts/start_entry_board.py `
   --query "Give me a daily board for TikTok beauty ops" `
-  --bundle-root "D:\path\preset-template-bundle" `
   --generate `
   --dry-run
 ```
+
+Unified-router preview version:
+
+```powershell
+python scripts/run_operator_workflow.py `
+  --mode board `
+  --query "Give me a daily board for TikTok beauty ops" `
+  --generate `
+  --dry-run
+```
+
+If you want to pin one specific bundle instead of using auto-discovery, pass `--bundle-root`.
 
 ### In Codex chat
 
@@ -321,6 +340,8 @@ Current higher-level board families:
 - `manager-board` -> role-first boards such as `growth-operator-board`
 - `cadence-board` -> rhythm-first boards such as `weekly-ops-board`
 
+Board-style requests can now auto-route into `board` when the language is clearly cadence-first, role-first, outcome-first, or seeded-vertical rather than one scene or one multi-stage workflow.
+
 Create a full multi-scene goal workspace:
 
 ```powershell
@@ -394,7 +415,9 @@ python scripts/run_operator_workflow.py `
 Routing priority:
 
 - explicit `--scene`, `--goal`, or `--type` always wins
+- explicit `--mode board` always wins for starter-board generation
 - pack-like requests are routed to `pack` when the request is clearly about publish or live packs
+- board-like requests are routed to `board` when the request is better expressed as a reusable starter board
 - single-scene requests are routed to `scene` when the request names a scene number or strongly matches one scene
 - everything else is routed to `goal`, then matched against built-in workflow templates or single-goal chains
 
@@ -405,9 +428,10 @@ The auto result now includes route explanation fields:
 - `route.explanation.pack_scores`
 - `route.explanation.scene_preview`
 - `route.explanation.goal_preview`
+- `route.explanation.board_preview`
 - `route.explanation.multi_stage`
 
-Use these when you want to inspect why the request was routed into `scene`, `goal`, or `pack`.
+Use these when you want to inspect why the request was routed into `scene`, `goal`, `board`, or `pack`.
 
 Recommended pattern:
 
