@@ -71,6 +71,8 @@ PACK_KEYWORDS = {
 
 MULTI_STAGE_MARKERS = [
     "workflow",
+    "process",
+    "flow",
     "from",
     "to",
     "then",
@@ -85,6 +87,7 @@ MULTI_STAGE_MARKERS = [
     "从",
     "到",
     "工作流",
+    "流程",
     "全流程",
 ]
 
@@ -178,6 +181,52 @@ def first_non_empty(*values: str | None) -> str:
 
 def build_default_name(seed: str, fallback: str) -> str:
     return slugify(seed) or fallback
+
+
+def detect_board_intent(text: str) -> dict:
+    lowered = text.lower()
+    explicit_board_markers = [
+        "board",
+        "starter",
+        "看板",
+        "运营板",
+        "入口板",
+        "板",
+    ]
+    cadence_markers = [
+        "daily",
+        "weekly",
+        "every day",
+        "every week",
+        "shift",
+        "sprint",
+        "日常",
+        "日更",
+        "每日",
+        "每周",
+        "周复盘",
+        "班次",
+        "节奏",
+    ]
+    role_markers = [
+        "operator",
+        "owner",
+        "lead",
+        "内容运营",
+        "直播运营",
+        "策略运营",
+        "增长运营",
+        "负责",
+        "角色",
+    ]
+    matched = []
+    for marker in explicit_board_markers + cadence_markers + role_markers:
+        if marker in lowered or marker in text:
+            matched.append(marker)
+    return {
+        "has_board_intent": bool(matched),
+        "matched_markers": sorted(set(matched)),
+    }
 
 
 def tokenize(text: str) -> list[str]:
@@ -389,6 +438,7 @@ def infer_mode_from_request(args: argparse.Namespace) -> tuple[str, dict]:
     scene_preview = score_scene_candidates(request_text)
     goal_preview = preview_goal_route(request_text)
     board_preview = preview_board_route(request_text)
+    board_intent = detect_board_intent(request_text)
     reasons: list[str] = []
 
     if is_capture_pack and scene_preview["selected_scene"]:
@@ -436,9 +486,23 @@ def infer_mode_from_request(args: argparse.Namespace) -> tuple[str, dict]:
         board_preview["recommended_family"] in BOARD_PRIORITY_FAMILIES
         and board_preview["recommended_boards"]
         and board_preview["family_scoreboard"]
-        and board_preview["family_scoreboard"][0]["score"] >= 4
-        and not scene_preview["selected_scene"]
-        and not multi_stage
+        and (
+            board_preview["family_scoreboard"][0]["score"] >= 4
+            or board_intent["has_board_intent"]
+        )
+        and not (
+            goal_preview.get("matched_template")
+            and multi_stage
+            and not board_intent["has_board_intent"]
+        )
+        and (
+            not multi_stage
+            or board_intent["has_board_intent"]
+        )
+        and (
+            not scene_preview["selected_scene"]
+            or board_intent["has_board_intent"]
+        )
     ):
         reasons.append("The request is better framed as a reusable board starter than a single scene, pack, or multi-stage goal workflow.")
         return "board", {
@@ -447,6 +511,7 @@ def infer_mode_from_request(args: argparse.Namespace) -> tuple[str, dict]:
             "explanation": {
                 "decision": "board",
                 "reasons": reasons,
+                "board_intent": board_intent,
                 "pack_scores": pack_scores,
                 "scene_preview": scene_preview,
                 "multi_stage": {
@@ -467,6 +532,7 @@ def infer_mode_from_request(args: argparse.Namespace) -> tuple[str, dict]:
             "explanation": {
                 "decision": "scene",
                 "reasons": reasons,
+                "board_intent": board_intent,
                 "pack_scores": pack_scores,
                 "scene_preview": scene_preview,
                 "multi_stage": {
@@ -485,6 +551,7 @@ def infer_mode_from_request(args: argparse.Namespace) -> tuple[str, dict]:
         "explanation": {
             "decision": "goal",
             "reasons": reasons,
+            "board_intent": board_intent,
             "pack_scores": pack_scores,
             "scene_preview": scene_preview,
             "multi_stage": {

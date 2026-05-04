@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 from datetime import datetime
 from pathlib import Path
 
@@ -32,6 +33,25 @@ def make_goal_root(skill_root: Path, run_name: str, output_root: str) -> Path:
         return Path(output_root).expanduser().resolve()
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     return skill_root / "tmp" / f"{timestamp}-goal-{run_name}"
+
+
+def slugify(value: str) -> str:
+    normalized = re.sub(r"[^a-zA-Z0-9_-]+", "-", value.strip().lower())
+    normalized = re.sub(r"-{2,}", "-", normalized).strip("-")
+    return normalized or "workflow"
+
+
+def truncate_slug(value: str, limit: int, fallback: str) -> str:
+    text = slugify(value)
+    if len(text) <= limit:
+        return text
+    trimmed = text[:limit].rstrip("-")
+    return trimmed or fallback
+
+
+def safe_run_name(name: str, query: str | None, goal: str | None) -> str:
+    seed = name.strip() or (query or "").strip() or (goal or "").strip() or "goal-workflow"
+    return truncate_slug(seed, 48, "goal-workflow")
 
 
 def write_goal_readme(goal_root: Path, payload: dict, operator_pack_results: list[dict]) -> None:
@@ -85,9 +105,10 @@ def create_goal_workflow(
 
     skill_root = Path(__file__).resolve().parents[1]
     payload = build_payload(goal) if goal else match_goal_from_query(query)[1]
-    resolved_project = project.strip() or name.strip()
+    normalized_name = safe_run_name(name, query, goal)
+    resolved_project = project.strip() or normalized_name
     context = Path(context_file).read_text(encoding="utf-8") if context_file else ""
-    goal_root = make_goal_root(skill_root, name.strip(), output_root)
+    goal_root = make_goal_root(skill_root, normalized_name, output_root)
     goal_root.mkdir(parents=True, exist_ok=True)
     scene_runs_root = goal_root / "scene-runs"
     scene_runs_root.mkdir(parents=True, exist_ok=True)
@@ -100,11 +121,12 @@ def create_goal_workflow(
     operator_pack_results: list[dict] = []
     for scene_ref in payload["scenes"]:
         scene = resolve_scene(catalog, scene_ref["id"])
-        scene_run_root = scene_runs_root / f"scene-{scene['id']}-{scene['slug']}"
+        scene_slug = truncate_slug(scene["slug"], 24, f"scene-{scene['id']}")
+        scene_run_root = scene_runs_root / f"scene-{scene['id']}-{scene_slug}"
         for relative in ["inputs", "evidence", "outputs", "notes"]:
             (scene_run_root / relative).mkdir(parents=True, exist_ok=True)
         report = build_report_payload(scene, resolved_project, context)
-        base_name = infer_base_name(report, "")
+        base_name = truncate_slug(infer_base_name(report, ""), 64, f"scene-{scene['id']}-report")
         report_json_path = scene_run_root / f"{base_name}.json"
         report_json_path.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8-sig")
         if "md" in formats:
@@ -154,6 +176,7 @@ def create_goal_workflow(
     (goal_root / "goal_manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8-sig")
     return {
         "goal_root": str(goal_root),
+        "run_name": normalized_name,
         "scene_runs": scene_runs,
         "operator_packs": operator_pack_results,
         "matched_template": payload.get("matched_template"),

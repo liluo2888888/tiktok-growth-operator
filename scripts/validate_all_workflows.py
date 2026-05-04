@@ -57,6 +57,12 @@ def require_existing_path(batch_result: dict, raw_path: object, message: str) ->
     return batch_result
 
 
+def require_value(result: dict, actual: object, expected: object, message: str) -> dict:
+    if actual != expected:
+        return force_failure(result, f"{message}: expected {expected!r}, got {actual!r}")
+    return result
+
+
 def main() -> None:
     skill_root = Path(__file__).resolve().parents[1]
     scripts_root = skill_root / "scripts"
@@ -88,6 +94,94 @@ def main() -> None:
             ]
         )
     )
+
+    route_cases = [
+        (
+            "Set up my weekly competitor review",
+            "board",
+            "weekly-ops-board",
+        ),
+        (
+            "给我一个日常运营板",
+            "board",
+            "daily-ops-board",
+        ),
+        (
+            "我想做一个美妆TikTok日更运营板",
+            "board",
+            "beauty-us-ops-starter",
+        ),
+        (
+            "帮我做一个多市场本地化发布流程",
+            "goal",
+            None,
+        ),
+    ]
+    for index, (query, expected_mode, expected_board_slug) in enumerate(route_cases, start=1):
+        route_result = run(
+            [
+                sys.executable,
+                str(scripts_root / "run_operator_workflow.py"),
+                "--request",
+                query,
+            ]
+        )
+        if route_result["returncode"] == 0:
+            payload, route_result = parse_json_stdout(route_result, "run_operator_workflow.py")
+            if payload is not None:
+                route_meta = payload.get("route", {})
+                route_result = require_value(
+                    route_result,
+                    route_meta.get("resolved_mode"),
+                    expected_mode,
+                    f"route case {index} should resolve to the expected mode",
+                )
+                if route_result["returncode"] == 0 and expected_board_slug is not None:
+                    route_result = require_value(
+                        route_result,
+                        payload.get("selected_board_slug"),
+                        expected_board_slug,
+                        f"route case {index} should select the expected board slug",
+                    )
+                if route_result["returncode"] == 0 and expected_mode == "goal":
+                    route_result = require_existing_path(
+                        route_result,
+                        payload.get("goal_root"),
+                        f"route case {index} should create a goal_root",
+                    )
+        results.append(route_result)
+
+    long_goal_result = run(
+        [
+            sys.executable,
+            str(scripts_root / "run_operator_workflow.py"),
+            "--request",
+            "Build a full Douyin workflow from topic selection to publish handoff",
+        ]
+    )
+    if long_goal_result["returncode"] == 0:
+        payload, long_goal_result = parse_json_stdout(long_goal_result, "run_operator_workflow.py")
+        if payload is not None:
+            route_meta = payload.get("route", {})
+            long_goal_result = require_value(
+                long_goal_result,
+                route_meta.get("resolved_mode"),
+                "goal",
+                "long goal smoke should resolve to goal",
+            )
+            if long_goal_result["returncode"] == 0:
+                long_goal_result = require_existing_path(
+                    long_goal_result,
+                    payload.get("goal_root"),
+                    "long goal smoke should create goal_root",
+                )
+            if long_goal_result["returncode"] == 0:
+                run_name = payload.get("run_name")
+                if not isinstance(run_name, str) or not run_name.strip():
+                    long_goal_result = force_failure(long_goal_result, "long goal smoke should return a non-empty run_name")
+                elif len(run_name) > 48:
+                    long_goal_result = force_failure(long_goal_result, "long goal smoke should truncate run_name to 48 chars or fewer")
+    results.append(long_goal_result)
 
     auto_board_result = run(
         [
@@ -225,10 +319,10 @@ def main() -> None:
                 if item.get("status") != "success":
                     batch_result = force_failure(batch_result, "batch board execute smoke should finish with success status")
                 result_payload = item.get("result", {})
-                if result_payload.get("selected_board_slug") != "daily-ops-board":
+                if result_payload.get("selected_board_slug") != "beauty-us-ops-starter":
                     batch_result = force_failure(
                         batch_result,
-                        f"batch board execute smoke should scaffold daily-ops-board, got: {result_payload.get('selected_board_slug')!r}",
+                        f"batch board execute smoke should scaffold beauty-us-ops-starter, got: {result_payload.get('selected_board_slug')!r}",
                     )
                 executed_actions = result_payload.get("recommendation_manifest", {}).get("executed_actions", {})
                 if executed_actions.get("generate") is not True:
