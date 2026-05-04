@@ -2,6 +2,8 @@
 
 This file describes the durable automation layer for the pure Codex scene pack.
 
+Use [direct-use.md](direct-use.md) for copy-ready operator commands and [final-handoff.md](final-handoff.md) for the shortest finished-state summary. This file is the behavior and ownership reference for how the scripts compose.
+
 ## What The Scripts Do
 
 ### `scripts/init_scene_workspace.py`
@@ -318,7 +320,7 @@ python scripts/summarize_run_history.py `
 
 Now supports dedicated `board`, `capture-pack`, and `history` modes in addition to `auto`, `scene`, `goal`, and `pack`.
 
-Use this as the preferred operator-facing entrypoint when you already have a real TikTok capture directory:
+Use this as the preferred operator-facing entrypoint when you already have a real TikTok capture directory, but keep the command cookbook in [direct-use.md](direct-use.md).
 
 ### `scripts/recommend_entry_board.py`
 
@@ -406,17 +408,6 @@ When `--bundle-root` points to a generated preset bundle, the output also includ
 - the resolved starter `template_file`
 - the suite root when one exists
 - the next `generate`, `dry-run`, and `run` commands
-
-```powershell
-python scripts/run_operator_workflow.py `
-  --mode capture-pack `
-  --scene 08 `
-  --capture-root "D:\path\tiktok-download-validated-20260423" `
-  --name tiktok-comment-capture-run `
-  --project "TikTok Comment Signal Synthesis" `
-  --platform TikTok `
-  --market US
-```
 
 Auto mode now respects `--capture-root` and routes to `capture-pack` before normal scene mode.
 
@@ -790,54 +781,7 @@ python scripts/batch_run_operator_workflows.py `
   --rerun-indexes 1,3
 ```
 
-Auto example:
-
-```powershell
-python scripts/run_operator_workflow.py `
-  --request "I want a multi-market workflow from category research to localized launch" `
-  --name localized-launch-workflow `
-  --project "Localized Launch Workflow"
-```
-
-Scene example:
-
-```powershell
-python scripts/run_operator_workflow.py `
-  --mode scene `
-  --scene 03 `
-  --project "Morning Makeup Hook Teardown" `
-  --name morning-makeup-teardown
-```
-
-Goal example:
-
-```powershell
-python scripts/run_operator_workflow.py `
-  --mode goal `
-  --query "I want a Douyin workflow from topic selection to creative testing to publish handoff" `
-  --name douyin-topic-to-publish `
-  --project "Douyin Topic To Publish" `
-  --formats md
-```
-
-Board example:
-
-```powershell
-python scripts/run_operator_workflow.py `
-  --mode board `
-  --query "I'm the live operator for tonight's session" `
-  --bundle-root "D:\path\preset-template-bundle"
-```
-
-Pack example:
-
-```powershell
-python scripts/run_operator_workflow.py `
-  --mode pack `
-  --type publish-prep `
-  --project "Morning Makeup Sell-Through Video" `
-  --output-dir "D:\path\publish-pack"
-```
+For the operator-facing `auto`, `scene`, `goal`, `board`, `pack`, and `history` command forms, use [direct-use.md](direct-use.md). Keep this file focused on mode behavior, batch contracts, and validation semantics.
 
 ## Why This Layer Exists
 

@@ -1703,3 +1703,33 @@ Create a durable Codex-native skill package that reproduces the Clipcat/OpenClaw
 - Result: passed and scaffolded `beauty-us-ops-starter`
 - Ran: `python "tiktok-growth-operator.skill\scripts\run_operator_workflow.py" --request "我想做一个美妆TikTok日更运营板" --output-root ".\tiktok-growth-operator.skill\tmp\20260505_hybrid_vertical_cadence_route"`
 - Result: passed and unified auto-routing also selected `beauty-us-ops-starter`
+
+## 2026-05-05 Review, Debt, And Reference Cleanup
+
+- Decision: slim the reference set by keeping `direct-use.md` as the command cookbook and pushing `automation-workflows.md` back toward ownership, behavior, and validation semantics.
+- Why: the package had reached the point where `direct-use.md`, `automation-workflows.md`, and `final-handoff.md` were all repeating the same command examples, which made future updates noisier and easier to desync.
+- Decision: update the local PR handoff with the latest route-quality hardening commit and residual review risks.
+- Why: the handoff document should reflect the actual local branch state, not stop one commit early.
+- Decision: record the remaining route-eval and bundle-fixture gaps explicitly in the workspace debt log.
+- Why: these are now the main non-remote technical debts left after board routing, export quality, and validation closure.
+
+### Updated
+
+- `tiktok-growth-operator.skill/references/automation-workflows.md`
+- `tiktok-growth-operator.skill/references/final-handoff.md`
+- `reports/2026-05-05-tiktok-growth-operator-local-pr-handoff.md`
+- `docs/quality/debt-log.md`
+
+### Added Behavior
+
+- `automation-workflows.md` now points operators back to `direct-use.md` for copy-ready commands instead of repeating the unified-router command set
+- `final-handoff.md` now documents route-regression and long-name validation coverage more explicitly
+- the local PR handoff now includes the latest route-hardening commit and updated residual-risk notes
+- the workspace debt log now captures:
+  - local bundle-fixture dependence in board validation
+  - heuristic-first routing that still wants a broader saved eval corpus
+
+### Validation
+
+- Pending: `python "tiktok-growth-operator.skill\scripts\validate_skill_docs.py"`
+- Pending: `python "tiktok-growth-operator.skill\scripts\validate_export_outputs.py" --output-root ".\tiktok-growth-operator.skill\tmp\20260505_export_validation_suite_doc_cleanup"`

@@ -139,6 +139,8 @@ The durable validation layer is:
 
 - board preview routing and preview-field assertions inside batch mode
 - one hermetic board execute smoke that scaffolds a starter, generates a queue, and performs board-local dry-run output checks
+- route regressions for weekly-review, Chinese cadence-board, hybrid vertical-cadence-board, and multi-stage goal requests
+- long free-text goal routing with bounded `run_name` output for safer Windows path lengths
 
 ## Real Validation Fixtures
 
@@ -176,6 +178,7 @@ Prefer this order:
 
 1. docs and operator guidance cleanup
 2. visual-only export polish
-3. broader capture-pack scene coverage only when grounded by real evidence
+3. route-eval expansion and fixture hardening
+4. broader capture-pack scene coverage only when grounded by real evidence
 
 Do not reopen core exporter structure unless a validation gap or user-visible defect appears.

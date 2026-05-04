@@ -3,7 +3,7 @@
 ## Branch
 
 - branch: `codex/tiktok-growth-operator-finish`
-- base-ready commit range: `34c8344..05e5027`
+- base-ready commit range: `34c8344..8e6716f`
 
 ## Local Commits
 
@@ -11,6 +11,8 @@
 - `1841fc1` fix: close tiktok board routing and export validation
 - `03a1776` fix: complete board batch validation and handoff docs
 - `05e5027` test: add hermetic board batch execute smoke
+- `34b9262` docs: add local PR handoff for tiktok operator
+- `8e6716f` fix: harden board routing and goal run naming
 
 ## Scope
 
@@ -23,6 +25,8 @@ This branch closes the TikTok Growth Operator board-entry line across:
 - batch-runner `board` mode
 - batch preview reporting
 - board execute smoke validation
+- route-quality hardening for board-vs-scene-vs-goal requests
+- long goal-run naming safety for Windows path length pressure
 - handoff and validation docs
 
 ## User-Facing Outcome
@@ -44,6 +48,11 @@ Passed locally:
 Key assertions now covered by `validate_all_workflows.py`:
 
 - board-style routing resolves to `board`
+- weekly competitor review resolves to `board`
+- `给我一个日常运营板` resolves to `board`
+- `我想做一个美妆TikTok日更运营板` resolves to `board` and picks `beauty-us-ops-starter`
+- `帮我做一个多市场本地化发布流程` resolves to `goal`
+- long workflow requests return a bounded `run_name`
 - batch preview preserves board fields
 - hermetic batch board execute smoke creates:
   - starter root
@@ -58,6 +67,8 @@ Key assertions now covered by `validate_all_workflows.py`:
 - architecture: changes stay inside the owning package and validator layer
 - security: no new unsafe external automation path was introduced
 - debt: the batch-board execute validation gap is now closed locally
+- residual risk: natural-language routing is still heuristic and should eventually grow into a corpus-driven eval set
+- residual risk: hermetic board validation still depends on a locally generated `preset-template-bundle-v9` fixture path
 
 ## Remaining Blocker
 
@@ -76,6 +87,7 @@ Key assertions now covered by `validate_all_workflows.py`:
 - extend batch execution to support `mode: board`
 - improve starter and batch handoff artifacts
 - add hermetic execute-smoke coverage for board batch flows
+- harden board routing quality and long goal-run naming safety
 
 ### Testing
 

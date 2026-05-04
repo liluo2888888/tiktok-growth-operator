@@ -65,3 +65,19 @@ Track known issues that are real but not yet worth fixing immediately.
 - Risk: medium
 - Suggested fix: decide whether this workspace should become a real tracked repository, then add the desired remote and baseline commit strategy before relying on branch/PR workflows
 - Status: open
+
+## 2026-05-05 - Board validation still depends on one local exported bundle fixture
+- Area: `tiktok-growth-operator.skill/scripts/validate_all_workflows.py`
+- Type: test-gap
+- Evidence: the hermetic board execute smoke now covers starter generation plus dry-run, but it still expects a locally available `.codex-tmp/preset-template-bundle-v9` tree
+- Risk: medium
+- Suggested fix: generate a minimal fixture on demand inside validation or check in one small stable fixture owned by the skill package
+- Status: open
+
+## 2026-05-05 - Natural-language route quality is still heuristic-first
+- Area: `tiktok-growth-operator.skill/scripts/run_operator_workflow.py`, `tiktok-growth-operator.skill/scripts/recommend_entry_board.py`
+- Type: test-gap
+- Evidence: board, scene, goal, and capture-pack routing is now explainable and regression-tested for known probes, but it still depends on hand-tuned keyword families rather than a broader saved eval corpus
+- Risk: medium
+- Suggested fix: capture real operator requests into a small route-eval fixture set and keep expected `resolved_mode` and top board slug assertions versioned with the package
+- Status: planned
