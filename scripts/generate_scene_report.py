@@ -92,6 +92,7 @@ def build_report_payload(scene: dict, project: str, context: str) -> dict:
     working_context_preset = preset.get("working_context", {})
     executive_preset = preset.get("executive_summary", {})
     operator_guide_preset = preset.get("operator_guide", {})
+    execution_template = preset.get("execution_template", {})
 
     return {
         "metadata": {
@@ -123,6 +124,14 @@ def build_report_payload(scene: dict, project: str, context: str) -> dict:
         "operator_guide": {
             "operator_checklist": operator_guide_preset.get("operator_checklist", []),
             "common_failure_modes": operator_guide_preset.get("common_failure_modes", []),
+        },
+        "execution_template": {
+            "recommended_request": execution_template.get("recommended_request", ""),
+            "recommended_runner_args": execution_template.get("recommended_runner_args", []),
+            "variable_inputs": execution_template.get("variable_inputs", []),
+            "codex_prompt_scaffold": execution_template.get("codex_prompt_scaffold", []),
+            "workflow_steps": execution_template.get("workflow_steps", []),
+            "output_checklist": execution_template.get("output_checklist", []),
         },
         "evidence": preset.get("evidence", []),
         "sections": sections,
@@ -189,6 +198,67 @@ def render_markdown_from_payload(report: dict) -> str:
         if values:
             lines.extend([f"## {label}", ""])
             for item in values:
+                lines.append(f"- {item}")
+            lines.append("")
+
+    execution_template = report.get("execution_template", {})
+    if any(execution_template.get(key) for key in [
+        "recommended_request",
+        "recommended_runner_args",
+        "variable_inputs",
+        "codex_prompt_scaffold",
+        "workflow_steps",
+        "output_checklist",
+    ]):
+        lines.extend(["## Direct-Use Template", ""])
+        recommended_request = str(execution_template.get("recommended_request", "")).strip()
+        if recommended_request:
+            lines.append(f"- Recommended Request: `{recommended_request}`")
+        runner_args = [str(item).strip() for item in execution_template.get("recommended_runner_args", []) if str(item).strip()]
+        if runner_args:
+            lines.append("- Runner Args:")
+            for item in runner_args:
+                lines.append(f"  - `{item}`")
+        lines.append("")
+
+        variable_inputs = execution_template.get("variable_inputs", []) or []
+        if variable_inputs:
+            lines.extend(["### Variable Inputs", ""])
+            lines.append("| Variable | Meaning | Example | Required |")
+            lines.append("| --- | --- | --- | --- |")
+            for item in variable_inputs:
+                lines.append(
+                    "| "
+                    + " | ".join(
+                        [
+                            str(item.get("name", "")).strip(),
+                            str(item.get("meaning", "")).strip(),
+                            str(item.get("example", "")).strip(),
+                            str(item.get("required", "")).strip(),
+                        ]
+                    )
+                    + " |"
+                )
+            lines.append("")
+
+        prompt_scaffold = [str(item).strip() for item in execution_template.get("codex_prompt_scaffold", []) if str(item).strip()]
+        if prompt_scaffold:
+            lines.extend(["### Codex Prompt Scaffold", ""])
+            for item in prompt_scaffold:
+                lines.append(f"- {item}")
+            lines.append("")
+
+        workflow_steps = [str(item).strip() for item in execution_template.get("workflow_steps", []) if str(item).strip()]
+        if workflow_steps:
+            lines.extend(["### Workflow Steps", ""])
+            for index, item in enumerate(workflow_steps, start=1):
+                lines.append(f"{index}. {item}")
+            lines.append("")
+
+        output_checklist = [str(item).strip() for item in execution_template.get("output_checklist", []) if str(item).strip()]
+        if output_checklist:
+            lines.extend(["### Output Checklist", ""])
+            for item in output_checklist:
                 lines.append(f"- {item}")
             lines.append("")
 

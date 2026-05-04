@@ -50,6 +50,55 @@ def main() -> int:
         if not operator_guide.get("common_failure_modes"):
             warnings.append(f"Scene {scene['id']} has no common failure modes")
 
+        execution_template = payload.get("execution_template", {})
+        recommended_request = str(execution_template.get("recommended_request", "")).strip()
+        if not recommended_request:
+            errors.append(f"Scene {scene['id']} has no execution-template recommended request")
+
+        runner_args = [
+            str(item).strip()
+            for item in execution_template.get("recommended_runner_args", [])
+            if str(item).strip()
+        ]
+        if not runner_args:
+            errors.append(f"Scene {scene['id']} has no execution-template runner args")
+
+        variable_inputs = execution_template.get("variable_inputs", []) or []
+        if not variable_inputs:
+            errors.append(f"Scene {scene['id']} has no execution-template variable inputs")
+        else:
+            for index, item in enumerate(variable_inputs, start=1):
+                for key in ["name", "meaning", "example", "required"]:
+                    value = str(item.get(key, "")).strip()
+                    if not value:
+                        errors.append(
+                            f"Scene {scene['id']} variable input {index} is missing '{key}'"
+                        )
+
+        prompt_scaffold = [
+            str(item).strip()
+            for item in execution_template.get("codex_prompt_scaffold", [])
+            if str(item).strip()
+        ]
+        if not prompt_scaffold:
+            errors.append(f"Scene {scene['id']} has no execution-template prompt scaffold")
+
+        workflow_steps = [
+            str(item).strip()
+            for item in execution_template.get("workflow_steps", [])
+            if str(item).strip()
+        ]
+        if not workflow_steps:
+            errors.append(f"Scene {scene['id']} has no execution-template workflow steps")
+
+        output_checklist = [
+            str(item).strip()
+            for item in execution_template.get("output_checklist", [])
+            if str(item).strip()
+        ]
+        if not output_checklist:
+            errors.append(f"Scene {scene['id']} has no execution-template output checklist")
+
         table_count = 0
         for index, section in enumerate(sections, start=1):
             heading = str(section.get("heading", "")).strip()
