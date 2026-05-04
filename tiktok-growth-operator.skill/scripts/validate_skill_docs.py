@@ -14,6 +14,8 @@ REFERENCE_FILES = [
     "references/article-2640429-feature-parity.md",
     "references/command-map.md",
     "references/prompt-library.md",
+    "references/scene-report-contract.md",
+    "references/scene-report-example.json",
     "references/source-map.md",
 ]
 
@@ -81,6 +83,11 @@ def main() -> int:
             continue
         checked.append(relative_path)
         text = path.read_text(encoding="utf-8")
+        if path.suffix.lower() == ".json":
+            try:
+                json.loads(text)
+            except json.JSONDecodeError as exc:
+                errors.append(f"{relative_path} is not valid JSON: {exc}")
         for target in extract_relative_markdown_links(text):
             resolved = (path.parent / target).resolve()
             if not resolved.exists():
@@ -123,6 +130,18 @@ def main() -> int:
             "launch-board",
             "manager-board",
             "cadence-board",
+        ],
+        "references/scene-report-contract.md": [
+            "execution_template",
+            "recommended_request",
+            "recommended_runner_args",
+            "scene-report-example.json",
+        ],
+        "references/scene-report-example.json": [
+            "\"operator_guide\"",
+            "\"execution_template\"",
+            "\"minimum_evidence\"",
+            "\"ready_checklist\"",
         ],
     }
 

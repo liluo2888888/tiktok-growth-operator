@@ -17,6 +17,15 @@
       "Market: US",
       "Sample size target: top 5 videos"
     ],
+    "minimum_evidence": [
+      "One keyword or topic",
+      "A ranked or rankable candidate pool"
+    ],
+    "ideal_evidence": [
+      "10+ candidate videos",
+      "Links plus screenshots or transcript notes",
+      "Target product or niche context"
+    ],
     "constraints": [
       "No TikTok API access",
       "Conclusions must be backed by supplied links or screenshots"
@@ -26,6 +35,11 @@
       "Per-video teardown",
       "Shared pattern summary",
       "Creation rules"
+    ],
+    "ready_checklist": [
+      "Top 3-5 videos have enough evidence for teardown",
+      "Shortlist criteria are explicit",
+      "Market scope is consistent"
     ]
   },
   "executive_summary": {
@@ -33,6 +47,68 @@
     "why_it_matters": "This pattern favors fast cosmetic proof over slow education, which should shape hook design and shot order.",
     "next_action": "Build three new variants that keep the instant final-look reveal but test different credibility signals.",
     "confidence": "medium"
+  },
+  "operator_guide": {
+    "operator_checklist": [
+      "Shortlist first, then deep-teardown only the top set.",
+      "Use the same lens across all chosen videos so patterns are comparable.",
+      "End with reusable creation rules, not only observations."
+    ],
+    "common_failure_modes": [
+      "Deep-analyzing weak candidates that should have been filtered out earlier.",
+      "Using different teardown criteria across videos.",
+      "Summarizing patterns without enough per-video evidence."
+    ]
+  },
+  "execution_template": {
+    "recommended_request": "Run scene 03 to shortlist the strongest viral candidates for one topic, then deeply tear down only the top set. Finish with shared creation rules that can be used immediately for new scripts.",
+    "recommended_runner_args": [
+      "python scripts/run_operator_workflow.py --mode scene --scene 03 --project \"<project-name>\" --output-root \".\\tmp\\batch-search-teardown\"",
+      "python scripts/generate_scene_report.py --scene 03 --project \"<project-name>\" --output \".\\tmp\\batch-search-teardown.json\" --format json"
+    ],
+    "variable_inputs": [
+      {
+        "name": "project_name",
+        "meaning": "Human-readable run or campaign name",
+        "example": "US Lip Combo Teardown",
+        "required": "yes"
+      },
+      {
+        "name": "market",
+        "meaning": "Target market or locale for the candidate pool",
+        "example": "US",
+        "required": "recommended"
+      },
+      {
+        "name": "evidence_pack",
+        "meaning": "Links, screenshots, transcripts, or copied notes used as source evidence",
+        "example": "10 candidate TikTok links with screenshots and transcript notes",
+        "required": "yes"
+      },
+      {
+        "name": "success_goal",
+        "meaning": "What the operator wants this scene to produce",
+        "example": "Shortlist plus per-video teardown and creation rules",
+        "required": "recommended"
+      }
+    ],
+    "codex_prompt_scaffold": [
+      "Use scene 03 as the governing workflow.",
+      "Normalize the candidate pool before doing deep teardown.",
+      "If evidence is missing, state the gap explicitly before continuing.",
+      "Produce a ranked shortlist, per-video teardown, shared pattern summary, and creation rules.",
+      "Use the same teardown lens across all shortlisted videos so the comparison stays valid."
+    ],
+    "workflow_steps": [
+      "Shortlist the candidate pool first.",
+      "Deep-teardown only the top set with the same analysis lens.",
+      "End with reusable creation rules and the next production move."
+    ],
+    "output_checklist": [
+      "The top set is explicitly shortlisted before deep teardown.",
+      "Each chosen video is analyzed with the same fields.",
+      "The report ends with reusable creation rules, not only observations."
+    ]
   },
   "evidence": [
     {
@@ -131,7 +207,7 @@
     "Replace example links with real evidence before client delivery."
   ],
   "sources": [
-    "ClipcatSkill - 让 OpenClaw 创作Tiktok爆款短视频.docx",
+    "ClipcatSkill - OpenClaw TikTok viral workflow docx",
     "clipcat.ai/tiktok/openclaw"
   ]
 }

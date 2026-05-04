@@ -29,6 +29,393 @@ def section(
     }
 
 
+SCENE_EXECUTION_PROFILES = {
+    "01": {
+        "runner_slug": "viral-video-collection",
+        "project_example": "US Lip Combo Viral Collection",
+        "evidence_example": "15 TikTok search results with links, metrics, and first-hook notes",
+        "success_goal": "ranked shortlist plus teardown priority",
+        "recommended_request": "Run scene 01 to collect and rank the best viral videos for one keyword and market. Score for reuse value, not just views, and finish with which videos should move into teardown next.",
+        "extra_prompt_lines": [
+            "Rank the candidate pool before doing any deeper analysis.",
+            "Tag each shortlisted video by best reuse purpose: hook, proof, structure, or style.",
+        ],
+        "output_checklist": [
+            "The shortlist is ranked and limited to the strongest candidates.",
+            "Each selected video has a concrete why-selected reason.",
+            "The operator knows which videos should move into the next teardown workflow.",
+        ],
+    },
+    "02": {
+        "runner_slug": "daily-category-patrol",
+        "project_example": "Daily Beauty Category Patrol",
+        "evidence_example": "Current keyword set, patrol entry points, and existing manual notes",
+        "success_goal": "repeatable patrol SOP and alert schema",
+        "recommended_request": "Run scene 02 to design a daily category patrol workflow. Build a repeatable patrol table, alert logic, and one daily summary template instead of a vague research memo.",
+        "extra_prompt_lines": [
+            "Separate routine tracking fields from alert-trigger fields.",
+            "If automation is unavailable, keep the workflow as a manual SOP that one operator can actually run.",
+        ],
+        "output_checklist": [
+            "The patrol cadence is explicit.",
+            "Tracked fields and alert conditions are practical to maintain.",
+            "A reusable daily summary template is included.",
+        ],
+    },
+    "03": {
+        "runner_slug": "batch-search-teardown",
+        "project_example": "Morning Makeup Hook Teardown",
+        "evidence_example": "10 candidate TikTok links with screenshots and transcript notes",
+        "success_goal": "shortlist plus per-video teardown and creation rules",
+        "recommended_request": "Run scene 03 to shortlist the strongest viral candidates for one topic, then deeply tear down only the top set. Finish with shared creation rules that can be used immediately for new scripts.",
+        "extra_prompt_lines": [
+            "Use the same teardown lens across all shortlisted videos so the pattern summary is comparable.",
+            "Do not deep-analyze weak candidates that should have been filtered out earlier.",
+        ],
+        "output_checklist": [
+            "The top set is explicitly shortlisted before deep teardown.",
+            "Each chosen video is analyzed with the same fields.",
+            "The report ends with reusable creation rules, not only observations.",
+        ],
+    },
+    "04": {
+        "runner_slug": "single-video-breakdown",
+        "project_example": "One Viral Concealer Breakdown",
+        "evidence_example": "One video link, transcript notes, and screenshots by beat",
+        "success_goal": "single-video mechanism breakdown and adaptation path",
+        "recommended_request": "Run scene 04 to fully break down one TikTok or Douyin video. Reconstruct the hook, setup, proof, and close, then separate the true mechanism from surface style and recommend one concrete adaptation path.",
+        "extra_prompt_lines": [
+            "Rebuild the video in sequence before drawing any conclusions.",
+            "Explicitly separate creator-specific polish from transferable conversion logic.",
+        ],
+        "output_checklist": [
+            "The hook, proof, and close are reconstructed in order.",
+            "The core mechanism is distinguished from surface style.",
+            "At least one adaptation path is concrete enough to produce from.",
+        ],
+    },
+    "05": {
+        "runner_slug": "reverse-engineer-prompt",
+        "project_example": "Creator Brief Reconstruction",
+        "evidence_example": "Reference video frames, transcript snippets, and pacing notes",
+        "success_goal": "reverse-engineered prompt or production brief",
+        "recommended_request": "Run scene 05 to reverse-engineer the likely prompt or production brief behind one video. Infer the creative intent, translate it into brief blocks, and mark low-confidence guesses instead of inventing certainty.",
+        "extra_prompt_lines": [
+            "Translate observed output into prompt blocks such as visual direction, shot plan, voiceover logic, and editing rhythm.",
+            "If evidence is thin, keep low-confidence labels visible in the final brief.",
+        ],
+        "output_checklist": [
+            "The inferred brief is structured into reusable creation blocks.",
+            "Weakly supported inferences are clearly labeled.",
+            "The output can be adapted to a user product without redoing the analysis from zero.",
+        ],
+    },
+    "06": {
+        "runner_slug": "competitor-product-dashboard",
+        "project_example": "Weekly Competitor Product Dashboard",
+        "evidence_example": "3 competitor listings with price, rating, and offer snapshots",
+        "success_goal": "competitor tracking dashboard and signal rules",
+        "recommended_request": "Run scene 06 to build a competitor product dashboard that can be reused weekly. Define the minimum trackable schema, signal interpretation rules, and the operator response to changes.",
+        "extra_prompt_lines": [
+            "Use stable product identifiers so later tracking does not drift.",
+            "Interpret changes commercially instead of logging raw changes only.",
+        ],
+        "output_checklist": [
+            "The dashboard schema is stable enough for repeated use.",
+            "Signal changes have follow-up actions attached.",
+            "The board stays minimal enough for one operator to maintain.",
+        ],
+    },
+    "07": {
+        "runner_slug": "category-market-insight",
+        "project_example": "US Beauty Category Opportunity Read",
+        "evidence_example": "Category examples, competitor set, and top content references",
+        "success_goal": "category opportunity judgment and next move",
+        "recommended_request": "Run scene 07 to judge a category or product theme for demand, saturation, and opportunity. Use both content evidence and product evidence, and end with a strength-rated recommendation.",
+        "extra_prompt_lines": [
+            "Separate hot demand signals from crowded angle saturation.",
+            "Match recommendation strength to evidence depth instead of overstating certainty.",
+        ],
+        "output_checklist": [
+            "Demand, saturation, and whitespace are all addressed.",
+            "Conclusions are backed by visible examples, not hype alone.",
+            "The operator gets one prioritized next move.",
+        ],
+    },
+    "08": {
+        "runner_slug": "comment-mining-persona",
+        "project_example": "Lip Product Comment Mining Persona Report",
+        "evidence_example": "Comments from 3 products with repeated phrases highlighted",
+        "success_goal": "pain-language synthesis and persona guidance",
+        "recommended_request": "Run scene 08 to mine repeated customer language from multiple product comment sets. Separate pain, desire, and trust signals, quote real phrases, and translate them into persona and messaging implications.",
+        "extra_prompt_lines": [
+            "Keep comments grouped by product before merging category-level signals.",
+            "Prefer repeated user phrases over abstract sentiment summaries.",
+        ],
+        "output_checklist": [
+            "Repeated pain, desire, and trust signals are separated clearly.",
+            "Real user-language evidence is preserved.",
+            "Persona and messaging implications follow directly from the mined comments.",
+        ],
+    },
+    "09": {
+        "runner_slug": "reference-replication-brief",
+        "project_example": "Reference Video Adaptation Brief",
+        "evidence_example": "Reference video logic plus user product basics and assets",
+        "success_goal": "adapted replication brief with shot order",
+        "recommended_request": "Run scene 09 to turn one reference video into an adapted replication brief for a new product. Lock the invariant winning logic first, then rewrite the hook, proof, and close for the user's product.",
+        "extra_prompt_lines": [
+            "Keep the winning mechanism, but replace product-specific proof and offer layers one at a time.",
+            "End with a filmable shot order or prompt-ready scene structure.",
+        ],
+        "output_checklist": [
+            "Invariant reference logic is clearly separated from adapted layers.",
+            "The adapted brief is specific enough to produce from.",
+            "Literal-copy risks are called out explicitly.",
+        ],
+    },
+    "10": {
+        "runner_slug": "product-image-to-video-brief",
+        "project_example": "Image-To-Video Product Brief",
+        "evidence_example": "Product images, selling points, audience note, and desired style",
+        "success_goal": "production-ready video brief from still assets",
+        "recommended_request": "Run scene 10 to design a short-form video brief from product images only. Choose the video type, build proof beats around available assets, and note any visual gaps that would block production.",
+        "extra_prompt_lines": [
+            "Design proof beats from the assets that actually exist, not from imaginary footage.",
+            "Keep CTA and conversion intent visible even if the input is image-only.",
+        ],
+        "output_checklist": [
+            "The brief is compatible with the available asset set.",
+            "Hook, proof beats, and CTA are all defined.",
+            "Any visual gaps are explicit instead of hidden inside optimistic wording.",
+        ],
+    },
+    "11": {
+        "runner_slug": "hot-video-replication-pipeline",
+        "project_example": "Hot Video Replication Pipeline",
+        "evidence_example": "Discovery inputs, shortlist rules, and weekly operator cadence",
+        "success_goal": "repeatable discovery-to-replication pipeline",
+        "recommended_request": "Run scene 11 to build a repeatable hot-video replication pipeline from discovery through ranking, teardown, and creative queueing. Make the decision gates explicit so the workflow can run every week.",
+        "extra_prompt_lines": [
+            "Separate discovery, teardown, queue-entry, and production handoff into distinct stages.",
+            "Define what makes a hot video worth entering the replication queue.",
+        ],
+        "output_checklist": [
+            "Pipeline stages and gates are explicit.",
+            "The replication queue has ranking logic, not only intake logic.",
+            "The workflow is light enough to repeat on a real cadence.",
+        ],
+    },
+    "12": {
+        "runner_slug": "multi-style-testing-matrix",
+        "project_example": "One Product Multi-Style Test Matrix",
+        "evidence_example": "One product, one core message, and style directions to test",
+        "success_goal": "multi-style variant matrix with learning agenda",
+        "recommended_request": "Run scene 12 to create a multi-style testing matrix for one product. Lock the invariant message first, then define meaningfully different style variants and what each row is meant to teach.",
+        "extra_prompt_lines": [
+            "Do not create cosmetic variants that only change wording slightly.",
+            "Define success signals and the learning objective for each variant.",
+        ],
+        "output_checklist": [
+            "The invariant message stays fixed across rows.",
+            "Variants differ in a meaningful strategic way.",
+            "Each row has a clear learning goal and test priority.",
+        ],
+    },
+    "13": {
+        "runner_slug": "multi-market-localization-pack",
+        "project_example": "Beauty Multi-Market Localization Pack",
+        "evidence_example": "Source concept, 2-3 target markets, and local audience notes",
+        "success_goal": "localized brief pack across multiple markets",
+        "recommended_request": "Run scene 13 to localize one product concept across multiple markets. Separate shared product truth from market-specific hooks, tone, and avoid-lists, and keep localization tied to conversion context rather than literal translation.",
+        "extra_prompt_lines": [
+            "Write each market's hook, tone, and risk notes separately.",
+            "Treat localization as adaptation of message, talent, and scene logic, not copy translation only.",
+        ],
+        "output_checklist": [
+            "Shared invariant logic is separated from local layers.",
+            "Each target market has a concrete hook direction.",
+            "Avoid-lists or local-risk notes are visible where relevant.",
+        ],
+    },
+    "14": {
+        "runner_slug": "launch-asset-family-pack",
+        "project_example": "Launch Asset Family Blueprint",
+        "evidence_example": "Product description, selling points, and platform launch constraints",
+        "success_goal": "coordinated launch asset family blueprint",
+        "recommended_request": "Run scene 14 to design a coordinated launch asset family. Define the minimum viable asset family first, assign one conversion job to each asset, and prioritize production order by launch leverage.",
+        "extra_prompt_lines": [
+            "Keep message logic coherent across the full asset family.",
+            "Do not treat all assets as equally important or equally urgent.",
+        ],
+        "output_checklist": [
+            "Each asset has one explicit job in the launch system.",
+            "Production order is prioritized.",
+            "The family shares one coherent creative direction.",
+        ],
+    },
+    "15": {
+        "runner_slug": "image-translation-brief",
+        "project_example": "Localized Image Copy Brief",
+        "evidence_example": "Image OCR text, layout notes, target language, and conversion goal",
+        "success_goal": "localized image-copy brief that still fits the layout",
+        "recommended_request": "Run scene 15 to translate and localize image copy for conversion. Separate literal information from persuasive copy blocks, preserve hierarchy, and include layout notes so the localized copy can actually fit.",
+        "extra_prompt_lines": [
+            "Do not stop at literal translation when the image is meant to convert.",
+            "Call out where copy length or emphasis must shift to preserve layout hierarchy.",
+        ],
+        "output_checklist": [
+            "Headline, support copy, and literal information are separated.",
+            "Localized copy is compatible with the original layout constraints.",
+            "Conversion tone is adapted for the target market instead of translated blindly.",
+        ],
+    },
+    "16": {
+        "runner_slug": "main-image-benchmark",
+        "project_example": "Competitor Main Image Benchmark",
+        "evidence_example": "2-5 competitor images plus the user's current image or product",
+        "success_goal": "outperform direction for main image creative",
+        "recommended_request": "Run scene 16 to benchmark competitor main images and define a stronger direction. Describe the click context first, then identify category norms, gaps, and a sharper outperform brief.",
+        "extra_prompt_lines": [
+            "Judge likely click behavior in context instead of giving generic visual design notes.",
+            "End with an outperform strategy, not just a critique list.",
+        ],
+        "output_checklist": [
+            "The benchmark is grounded in comparable category context.",
+            "Likely click drivers are identified explicitly.",
+            "The final brief is sharper than generic advice such as make it cleaner.",
+        ],
+    },
+    "17": {
+        "runner_slug": "creator-distillation",
+        "project_example": "Creator Formula Distillation",
+        "evidence_example": "Several top creator videos with transcript and performance notes",
+        "success_goal": "repeatable creator formula and adaptation rules",
+        "recommended_request": "Run scene 17 to distill one creator's repeatable content formula across multiple videos. Map repeated hook, pacing, proof, and CTA patterns, then separate transferable logic from creator-specific advantage.",
+        "extra_prompt_lines": [
+            "Use several creator samples before declaring a formula.",
+            "Do not confuse admiration for the creator with reusable production rules.",
+        ],
+        "output_checklist": [
+            "Repeated patterns are supported by multiple creator samples.",
+            "Transferable rules are separated from creator-only advantages.",
+            "The report ends with adaptation guidance for a new product or account.",
+        ],
+    },
+    "18": {
+        "runner_slug": "competitor-account-weekly-report",
+        "project_example": "Weekly Competitor Account Review",
+        "evidence_example": "2+ competitor accounts with one week's posts and performance notes",
+        "success_goal": "weekly competitor report and action board",
+        "recommended_request": "Run scene 18 to produce a weekly competitor account review. Group posts by account and week, compare shifts rather than totals only, and finish with what the operator should react to this week.",
+        "extra_prompt_lines": [
+            "Highlight weekly pattern shifts across accounts, not just activity counts.",
+            "Translate observed shifts into action items for the current week.",
+        ],
+        "output_checklist": [
+            "Posts are organized by account and week.",
+            "The report explains shifts instead of listing raw activity.",
+            "This week's response actions are prioritized.",
+        ],
+    },
+    "19": {
+        "runner_slug": "self-account-retro",
+        "project_example": "Self Account Retro And Optimization",
+        "evidence_example": "Recent post table with metrics, hooks, and content-type labels",
+        "success_goal": "performance retro and next-cycle test plan",
+        "recommended_request": "Run scene 19 to review a recent batch of posts from one account and define the next optimization cycle. Cluster posts by pattern, separate winning and losing traits, and end with do-more, do-less, stop, and test-next rules.",
+        "extra_prompt_lines": [
+            "Group posts by repeatable pattern instead of analyzing row by row only.",
+            "Turn the retro into one next-cycle testing plan rather than a passive recap.",
+        ],
+        "output_checklist": [
+            "Winning and losing patterns are clearly separated.",
+            "Recommendations are phrased as operating rules, not vague observations.",
+            "The next-cycle test plan is concrete enough to run immediately.",
+        ],
+    },
+}
+
+
+def _build_default_variable_inputs(
+    project_example: str,
+    evidence_example: str,
+    success_goal: str,
+) -> list[dict]:
+    return [
+        {
+            "name": "project_name",
+            "meaning": "Human-readable run or campaign name",
+            "example": project_example,
+            "required": "yes",
+        },
+        {
+            "name": "market",
+            "meaning": "Target market or locale when the scene depends on one market",
+            "example": "US",
+            "required": "recommended",
+        },
+        {
+            "name": "evidence_pack",
+            "meaning": "Links, screenshots, transcripts, exports, OCR text, or copied notes used as source evidence",
+            "example": evidence_example,
+            "required": "yes",
+        },
+        {
+            "name": "success_goal",
+            "meaning": "What the operator wants this scene to produce",
+            "example": success_goal,
+            "required": "recommended",
+        },
+    ]
+
+
+def build_execution_template(scene_id: str, preset: dict) -> dict:
+    working_context = preset.get("working_context", {})
+    requested_outputs = [str(item).strip() for item in working_context.get("requested_outputs", []) if str(item).strip()]
+    inputs = [str(item).strip() for item in working_context.get("inputs", []) if str(item).strip()]
+    minimum_evidence = [str(item).strip() for item in working_context.get("minimum_evidence", []) if str(item).strip()]
+    operator_guide = preset.get("operator_guide", {})
+    operator_checklist = [str(item).strip() for item in operator_guide.get("operator_checklist", []) if str(item).strip()]
+    profile = SCENE_EXECUTION_PROFILES.get(scene_id, {})
+    project_example = profile.get("project_example", "Beauty US Daily Ops")
+    evidence_example = profile.get("evidence_example", "Links, screenshots, transcripts, and operator notes")
+    success_goal = profile.get(
+        "success_goal",
+        ", ".join(requested_outputs[:2]) if requested_outputs else "Reusable operator deliverable",
+    )
+    runner_slug = profile.get("runner_slug", f"scene-{scene_id}-run")
+    workflow_steps = profile.get("workflow_steps", operator_checklist) or [
+        "Normalize the evidence and scope first.",
+        "Fill the scene scaffold section by section.",
+        "End with one concrete next operator move.",
+    ]
+    prompt_scaffold = [
+        f"Use scene {scene_id} as the governing workflow.",
+        f"Normalize the provided evidence into this input set before analysis: {', '.join(inputs) if inputs else 'scene-specific evidence set'}.",
+        f"If evidence is missing, state the gap explicitly before continuing. Minimum evidence to proceed: {', '.join(minimum_evidence) if minimum_evidence else 'state the minimum evidence explicitly'}.",
+        f"Produce these outputs in operator-ready form: {', '.join(requested_outputs) if requested_outputs else 'scene deliverable sections plus one next action'}.",
+    ]
+    prompt_scaffold.extend(profile.get("extra_prompt_lines", []))
+    prompt_scaffold.append("Fill the scaffold with reusable conclusions, tables, ranking logic, and next actions instead of generic commentary.")
+
+    return {
+        "recommended_request": profile.get(
+            "recommended_request",
+            f"Run scene {scene_id} and produce the full reusable deliverable, not a brief summary.",
+        ),
+        "recommended_runner_args": [
+            f'python scripts/run_operator_workflow.py --mode scene --scene {scene_id} --project "<project-name>" --output-root ".\\tmp\\{runner_slug}"',
+            f'python scripts/generate_scene_report.py --scene {scene_id} --project "<project-name>" --output ".\\tmp\\{runner_slug}.json" --format json',
+        ],
+        "variable_inputs": _build_default_variable_inputs(project_example, evidence_example, success_goal),
+        "codex_prompt_scaffold": prompt_scaffold,
+        "workflow_steps": workflow_steps,
+        "output_checklist": profile.get("output_checklist", []) or [
+            "The deliverable is grounded in evidence.",
+            "The operator can run the next step without extra interpretation.",
+        ],
+    }
 SCENE_PRESETS = {
     "01": {
         "working_context": {
@@ -1685,4 +2072,5 @@ def get_scene_preset(scene_id: str) -> dict:
     preset.setdefault("operator_guide", {})
     for key, value in SCENE_OPERATOR_GUIDE.get(scene_id, {}).items():
         preset["operator_guide"].setdefault(key, value)
+    preset["execution_template"] = build_execution_template(scene_id, preset)
     return preset
