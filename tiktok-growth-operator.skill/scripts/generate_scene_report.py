@@ -127,9 +127,11 @@ def build_report_payload(scene: dict, project: str, context: str) -> dict:
         },
         "execution_template": {
             "recommended_request": execution_template.get("recommended_request", ""),
+            "recommended_request_zh": execution_template.get("recommended_request_zh", ""),
             "recommended_runner_args": execution_template.get("recommended_runner_args", []),
             "variable_inputs": execution_template.get("variable_inputs", []),
             "codex_prompt_scaffold": execution_template.get("codex_prompt_scaffold", []),
+            "codex_prompt_scaffold_zh": execution_template.get("codex_prompt_scaffold_zh", []),
             "workflow_steps": execution_template.get("workflow_steps", []),
             "output_checklist": execution_template.get("output_checklist", []),
         },
@@ -204,9 +206,11 @@ def render_markdown_from_payload(report: dict) -> str:
     execution_template = report.get("execution_template", {})
     if any(execution_template.get(key) for key in [
         "recommended_request",
+        "recommended_request_zh",
         "recommended_runner_args",
         "variable_inputs",
         "codex_prompt_scaffold",
+        "codex_prompt_scaffold_zh",
         "workflow_steps",
         "output_checklist",
     ]):
@@ -214,6 +218,9 @@ def render_markdown_from_payload(report: dict) -> str:
         recommended_request = str(execution_template.get("recommended_request", "")).strip()
         if recommended_request:
             lines.append(f"- Recommended Request: `{recommended_request}`")
+        recommended_request_zh = str(execution_template.get("recommended_request_zh", "")).strip()
+        if recommended_request_zh:
+            lines.append(f"- 推荐请求: `{recommended_request_zh}`")
         runner_args = [str(item).strip() for item in execution_template.get("recommended_runner_args", []) if str(item).strip()]
         if runner_args:
             lines.append("- Runner Args:")
@@ -245,6 +252,13 @@ def render_markdown_from_payload(report: dict) -> str:
         if prompt_scaffold:
             lines.extend(["### Codex Prompt Scaffold", ""])
             for item in prompt_scaffold:
+                lines.append(f"- {item}")
+            lines.append("")
+
+        prompt_scaffold_zh = [str(item).strip() for item in execution_template.get("codex_prompt_scaffold_zh", []) if str(item).strip()]
+        if prompt_scaffold_zh:
+            lines.extend(["### 中文 Prompt Scaffold", ""])
+            for item in prompt_scaffold_zh:
                 lines.append(f"- {item}")
             lines.append("")
 

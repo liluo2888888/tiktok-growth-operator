@@ -130,9 +130,11 @@ Use:
 Use this block when the scene should be directly runnable as a Codex prompt or workflow template instead of only a report scaffold.
 
 - `recommended_request`: one natural-language request the operator can reuse directly
+- `recommended_request_zh`: one Chinese natural-language request the operator can reuse directly
 - `recommended_runner_args`: concrete local script entrypoints for this scene
 - `variable_inputs`: named inputs with meaning, example, and whether they are required
 - `codex_prompt_scaffold`: flat lines that can be copied into a Codex request
+- `codex_prompt_scaffold_zh`: flat Chinese lines that can be copied into a Codex request
 - `workflow_steps`: ordered execution steps for the operator
 - `output_checklist`: what must be true before the operator treats the scene output as complete
 

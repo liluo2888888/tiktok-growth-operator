@@ -3,7 +3,7 @@
 ## Branch
 
 - branch: `codex/tiktok-growth-operator-finish`
-- base-ready commit range: `34c8344..8e6716f`
+- base-ready commit range: `34c8344..3985225`
 
 ## Local Commits
 
@@ -13,6 +13,8 @@
 - `05e5027` test: add hermetic board batch execute smoke
 - `34b9262` docs: add local PR handoff for tiktok operator
 - `8e6716f` fix: harden board routing and goal run naming
+- `3414056` docs: tighten handoff and debt notes
+- `3985225` feat: add scene execution templates
 
 ## Scope
 
@@ -27,6 +29,8 @@ This branch closes the TikTok Growth Operator board-entry line across:
 - board execute smoke validation
 - route-quality hardening for board-vs-scene-vs-goal requests
 - long goal-run naming safety for Windows path length pressure
+- scene-level direct-use execution templates across all 19 scenes
+- scene quick-reference generation
 - handoff and validation docs
 
 ## User-Facing Outcome
@@ -41,6 +45,9 @@ This branch closes the TikTok Growth Operator board-entry line across:
 Passed locally:
 
 - `python -m py_compile "tiktok-growth-operator.skill\scripts\recommend_entry_board.py" "tiktok-growth-operator.skill\scripts\start_entry_board.py" "tiktok-growth-operator.skill\scripts\batch_run_operator_workflows.py" "tiktok-growth-operator.skill\scripts\validate_all_workflows.py"`
+- `python -m py_compile "tiktok-growth-operator.skill\scripts\generate_scene_report.py" "tiktok-growth-operator.skill\scripts\scene_report_presets.py" "tiktok-growth-operator.skill\scripts\generate_scene_quick_reference.py" "tiktok-growth-operator.skill\scripts\validate_scene_presets.py" "tiktok-growth-operator.skill\scripts\validate_skill_docs.py" "tiktok-growth-operator.skill\scripts\validate_all_workflows.py"`
+- `python "tiktok-growth-operator.skill\scripts\generate_scene_quick_reference.py"`
+- `python "tiktok-growth-operator.skill\scripts\validate_scene_presets.py"`
 - `python "tiktok-growth-operator.skill\scripts\validate_skill_docs.py"`
 - `python "tiktok-growth-operator.skill\scripts\validate_export_outputs.py" --output-root ".\tiktok-growth-operator.skill\tmp\20260505_export_validation_suite_rerun"`
 - `python "tiktok-growth-operator.skill\scripts\validate_all_workflows.py"`
@@ -53,6 +60,8 @@ Key assertions now covered by `validate_all_workflows.py`:
 - `我想做一个美妆TikTok日更运营板` resolves to `board` and picks `beauty-us-ops-starter`
 - `帮我做一个多市场本地化发布流程` resolves to `goal`
 - long workflow requests return a bounded `run_name`
+- every scene now has a required Chinese and English `execution_template`
+- the quick-reference index regenerates clean UTF-8 Chinese direct-call text
 - batch preview preserves board fields
 - hermetic batch board execute smoke creates:
   - starter root
@@ -67,8 +76,8 @@ Key assertions now covered by `validate_all_workflows.py`:
 - architecture: changes stay inside the owning package and validator layer
 - security: no new unsafe external automation path was introduced
 - debt: the batch-board execute validation gap is now closed locally
+- debt: board validation no longer depends on a preexisting `.codex-tmp` bundle tree
 - residual risk: natural-language routing is still heuristic and should eventually grow into a corpus-driven eval set
-- residual risk: hermetic board validation still depends on a locally generated `preset-template-bundle-v9` fixture path
 
 ## Remaining Blocker
 

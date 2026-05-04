@@ -69,10 +69,10 @@ Track known issues that are real but not yet worth fixing immediately.
 ## 2026-05-05 - Board validation still depends on one local exported bundle fixture
 - Area: `tiktok-growth-operator.skill/scripts/validate_all_workflows.py`
 - Type: test-gap
-- Evidence: the hermetic board execute smoke now covers starter generation plus dry-run, but it still expects a locally available `.codex-tmp/preset-template-bundle-v9` tree
+- Evidence: the earlier hermetic board execute smoke depended on a locally available `.codex-tmp/preset-template-bundle-v9` tree instead of building its own fixture inside validation
 - Risk: medium
 - Suggested fix: generate a minimal fixture on demand inside validation or check in one small stable fixture owned by the skill package
-- Status: open
+- Status: fixed
 
 ## 2026-05-05 - Natural-language route quality is still heuristic-first
 - Area: `tiktok-growth-operator.skill/scripts/run_operator_workflow.py`, `tiktok-growth-operator.skill/scripts/recommend_entry_board.py`

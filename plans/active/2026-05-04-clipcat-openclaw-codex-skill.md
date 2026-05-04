@@ -1733,3 +1733,132 @@ Create a durable Codex-native skill package that reproduces the Clipcat/OpenClaw
 
 - Pending: `python "tiktok-growth-operator.skill\scripts\validate_skill_docs.py"`
 - Pending: `python "tiktok-growth-operator.skill\scripts\validate_export_outputs.py" --output-root ".\tiktok-growth-operator.skill\tmp\20260505_export_validation_suite_doc_cleanup"`
+
+## 2026-05-05 Direct-Use Template Unification
+
+- Decision: make `execution_template` a required part of every scene scaffold instead of an optional generic add-on.
+- Why: the user wants all 19 scenes to be directly callable in pure Codex, not just structurally documented.
+- Decision: specialize execution templates per scene instead of using one shared generic request shell.
+- Why: collection, teardown, insight, brief, and matrix scenes need different request language, variable examples, workflow emphasis, and completion criteria to be genuinely usable.
+- Decision: turn execution-template completeness into a validator-enforced contract.
+- Why: without hard validation, the direct-use layer would drift back toward partial or empty scaffolds over time.
+
+### Updated
+
+- `tiktok-growth-operator.skill/scripts/scene_report_presets.py`
+- `tiktok-growth-operator.skill/scripts/validate_scene_presets.py`
+- `tiktok-growth-operator.skill/scripts/generate_scene_report.py`
+- `tiktok-growth-operator.skill/references/scene-report-contract.md`
+
+### Added Behavior
+
+- every scene payload now includes a populated `execution_template`
+- direct-use templates now expose:
+  - scene-specific `recommended_request`
+  - scene-specific `recommended_runner_args`
+  - variable inputs with realistic per-scene examples
+  - scene-specific Codex prompt scaffold lines
+  - operator workflow steps
+  - completion-oriented output checklist
+- `generate_scene_report.py` now renders the direct-use layer into Markdown under `## Direct-Use Template`
+- `validate_scene_presets.py` now fails if any scene is missing:
+  - `recommended_request`
+  - `recommended_runner_args`
+  - `variable_inputs`
+  - `codex_prompt_scaffold`
+  - `workflow_steps`
+  - `output_checklist`
+
+### Validation
+
+- Ran: `python -m py_compile ".\tiktok-growth-operator.skill\scripts\scene_report_presets.py" ".\tiktok-growth-operator.skill\scripts\generate_scene_report.py" ".\tiktok-growth-operator.skill\scripts\validate_scene_presets.py"`
+- Result: passed
+- Ran: `python ".\tiktok-growth-operator.skill\scripts\validate_scene_presets.py"`
+- Result: passed with `19` scenes, `19` presets, `0` errors, `0` warnings
+- Ran: `python ".\tiktok-growth-operator.skill\scripts\generate_scene_report.py" --scene 03 --project "Template Audit" --output ".\tiktok-growth-operator.skill\tmp\20260505_scene03_template_audit_v2.json" --format json`
+- Result: passed and the generated payload showed the new scene-specific execution template
+- Ran: `python ".\tiktok-growth-operator.skill\scripts\validate_all_workflows.py"`
+- Result: passed with `success: true` after the execution-template changes
+
+## 2026-05-05 Bilingual Direct-Use Layer And Scene Quick Reference
+
+- Decision: add a Chinese direct-call layer alongside the English execution template fields.
+- Why: the user is operating in Chinese and wants the 19 scenes to be directly callable without having to translate intent into English first.
+- Decision: generate one durable 19-scene quick-reference file from the scene catalog and execution-template payloads.
+- Why: a manually maintained cheat sheet would drift quickly once scene templates continue to evolve.
+- Decision: include quick-reference generation inside the full workflow validation surface.
+- Why: the durable direct-use docs should be regenerated and checked as part of the package, not treated as a side artifact.
+
+### Added
+
+- `tiktok-growth-operator.skill/scripts/generate_scene_quick_reference.py`
+- `tiktok-growth-operator.skill/references/scene-quick-reference.md`
+
+### Updated
+
+- `tiktok-growth-operator.skill/scripts/scene_report_presets.py`
+- `tiktok-growth-operator.skill/scripts/generate_scene_report.py`
+- `tiktok-growth-operator.skill/scripts/validate_scene_presets.py`
+- `tiktok-growth-operator.skill/scripts/validate_skill_docs.py`
+- `tiktok-growth-operator.skill/scripts/validate_all_workflows.py`
+- `tiktok-growth-operator.skill/references/scene-report-contract.md`
+- `tiktok-growth-operator.skill/references/scene-report-example.json`
+- `tiktok-growth-operator.skill/references/direct-use.md`
+- `tiktok-growth-operator.skill/SKILL.md`
+
+### Added Behavior
+
+- every scene now includes:
+  - `recommended_request_zh`
+  - `codex_prompt_scaffold_zh`
+- Markdown scene reports now render both:
+  - English direct-use request
+  - Chinese direct-use request
+  - English prompt scaffold
+  - Chinese prompt scaffold
+- the new `scene-quick-reference.md` now provides one scan-friendly page for all 19 scenes with:
+  - scene title
+  - deliverable family
+  - English request
+  - Chinese request
+  - key inputs
+  - expected outputs
+  - main runner command
+- full validation now recompiles and executes `generate_scene_quick_reference.py`
+
+### Validation
+
+- Ran: `python ".\tiktok-growth-operator.skill\scripts\generate_scene_quick_reference.py"`
+- Result: passed and regenerated `references/scene-quick-reference.md`
+- Ran: `python -m py_compile ".\tiktok-growth-operator.skill\scripts\scene_report_presets.py" ".\tiktok-growth-operator.skill\scripts\generate_scene_report.py" ".\tiktok-growth-operator.skill\scripts\generate_scene_quick_reference.py" ".\tiktok-growth-operator.skill\scripts\validate_scene_presets.py" ".\tiktok-growth-operator.skill\scripts\validate_skill_docs.py" ".\tiktok-growth-operator.skill\scripts\validate_all_workflows.py"`
+- Result: passed
+- Ran: `python ".\tiktok-growth-operator.skill\scripts\validate_skill_docs.py"`
+- Result: passed and now includes `references/scene-quick-reference.md`
+- Ran: `python ".\tiktok-growth-operator.skill\scripts\validate_scene_presets.py"`
+- Result: passed with `19` scenes, `19` presets, `0` errors, `0` warnings after adding bilingual execution-template fields
+- Ran: `python ".\tiktok-growth-operator.skill\scripts\validate_all_workflows.py"`
+- Result: passed with `success: true` after adding quick-reference generation into the validation chain
+
+## 2026-05-05 Validation Fixture Self-Generation
+
+- Decision: make `validate_all_workflows.py` generate its own preset-template fixture before board routing and batch smokes run.
+- Why: durable validation should not depend on one preexisting `.codex-tmp/preset-template-bundle-v9` tree outside the package-owned validation flow.
+- Decision: keep the generated fixture inside `tiktok-growth-operator.skill/tmp/` instead of checking a static bundle into references.
+- Why: this keeps the validator hermetic enough for local reruns without expanding the durable reference set.
+
+### Updated
+
+- `tiktok-growth-operator.skill/scripts/validate_all_workflows.py`
+
+### Added Behavior
+
+- `validate_all_workflows.py` now builds `tiktok-growth-operator.skill/tmp/20260505_validate_bundle_fixture`
+- board starter smoke uses the generated fixture instead of a preexisting `.codex-tmp` bundle
+- batch board preview and execute smokes both consume the same generated validation bundle root
+
+### Validation
+
+- Ran: `python -m py_compile ".\tiktok-growth-operator.skill\scripts\validate_all_workflows.py"`
+- Result: passed
+- Ran: `python ".\tiktok-growth-operator.skill\scripts\validate_all_workflows.py"`
+- Result: passed and created the self-generated validation bundle fixture plus successful board preview/execute smoke outputs

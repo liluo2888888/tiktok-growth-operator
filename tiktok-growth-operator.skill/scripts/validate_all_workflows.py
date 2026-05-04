@@ -16,6 +16,7 @@ VALIDATORS = [
 EXTRA_COMPILE_ONLY = [
     "recommend_entry_board.py",
     "start_entry_board.py",
+    "generate_scene_quick_reference.py",
 ]
 
 
@@ -63,6 +64,33 @@ def require_value(result: dict, actual: object, expected: object, message: str) 
     return result
 
 
+def build_validation_bundle(skill_root: Path, scripts_root: Path) -> dict:
+    bundle_root = skill_root / "tmp" / "20260505_validate_bundle_fixture"
+    result = run(
+        [
+            sys.executable,
+            str(scripts_root / "generate_batch_preset.py"),
+            "--template-bundle-root",
+            str(bundle_root),
+        ]
+    )
+    if result["returncode"] != 0:
+        return {
+            "result": force_failure(result, "failed to generate validation preset bundle fixture"),
+            "bundle_root": str(bundle_root),
+        }
+    index_path = bundle_root / "template-index.json"
+    if not index_path.exists():
+        return {
+            "result": force_failure(result, f"validation preset bundle fixture missing template-index.json: {index_path}"),
+            "bundle_root": str(bundle_root),
+        }
+    return {
+        "result": result,
+        "bundle_root": str(bundle_root),
+    }
+
+
 def main() -> None:
     skill_root = Path(__file__).resolve().parents[1]
     scripts_root = skill_root / "scripts"
@@ -74,11 +102,16 @@ def main() -> None:
         results.append(run([sys.executable, "-m", "py_compile", str(scripts_root / script_name)]))
 
     export_root = skill_root / "tmp" / "20260504_validate_all_export_suite"
+    results.append(run([sys.executable, str(scripts_root / "generate_scene_quick_reference.py")]))
     for script_name in VALIDATORS:
         command = [sys.executable, str(scripts_root / script_name)]
         if script_name == "validate_export_outputs.py":
             command.extend(["--output-root", str(export_root)])
         results.append(run(command))
+
+    bundle_info = build_validation_bundle(skill_root, scripts_root)
+    results.append(bundle_info["result"])
+    validation_bundle_root = bundle_info["bundle_root"]
 
     results.append(
         run(
@@ -87,6 +120,8 @@ def main() -> None:
                 str(scripts_root / "start_entry_board.py"),
                 "--query",
                 "Give me a daily board for TikTok beauty ops",
+                "--bundle-root",
+                validation_bundle_root,
                 "--output-root",
                 str(skill_root / "tmp" / "20260505_validate_entry_board_starter"),
                 "--generate",
@@ -102,17 +137,17 @@ def main() -> None:
             "weekly-ops-board",
         ),
         (
-            "给我一个日常运营板",
+            "\u7ed9\u6211\u4e00\u4e2a\u65e5\u5e38\u8fd0\u8425\u677f",
             "board",
             "daily-ops-board",
         ),
         (
-            "我想做一个美妆TikTok日更运营板",
+            "\u6211\u60f3\u505a\u4e00\u4e2a\u7f8e\u5986TikTok\u65e5\u66f4\u8fd0\u8425\u677f",
             "board",
             "beauty-us-ops-starter",
         ),
         (
-            "帮我做一个多市场本地化发布流程",
+            "\u5e2e\u6211\u505a\u4e00\u4e2a\u591a\u5e02\u573a\u672c\u5730\u5316\u53d1\u5e03\u6d41\u7a0b",
             "goal",
             None,
         ),
@@ -226,7 +261,7 @@ def main() -> None:
                 {
                     "mode": "board",
                     "query": "I'm the live operator for tonight's session",
-                    "bundle_root": str(skill_root.parents[0] / ".codex-tmp" / "preset-template-bundle-v9"),
+                    "bundle_root": validation_bundle_root,
                     "name": "validate-board-batch-item",
                     "output_root": str(skill_root / "tmp" / "20260505_validate_board_batch_item"),
                 }
@@ -263,7 +298,7 @@ def main() -> None:
                 preview = item.get("result", {}).get("preview", {})
                 if preview.get("would_run_mode") != "board":
                     batch_result = force_failure(batch_result, "batch board preview should resolve to board mode")
-                elif preview.get("bundle_root") != str(skill_root.parents[0] / ".codex-tmp" / "preset-template-bundle-v9"):
+                elif preview.get("bundle_root") != validation_bundle_root:
                     batch_result = force_failure(batch_result, "batch board preview should preserve bundle_root")
                 elif preview.get("top_k") != 3:
                     batch_result = force_failure(batch_result, "batch board preview should expose top_k=3")
@@ -283,7 +318,7 @@ def main() -> None:
                 {
                     "mode": "board",
                     "query": "Give me a daily board for TikTok beauty ops",
-                    "bundle_root": str(skill_root.parents[0] / ".codex-tmp" / "preset-template-bundle-v9"),
+                    "bundle_root": validation_bundle_root,
                     "name": "validate-board-batch-execute-item",
                     "output_root": str(batch_board_execute_root),
                     "generate": True,

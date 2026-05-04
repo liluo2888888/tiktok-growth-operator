@@ -16,6 +16,7 @@ REFERENCE_FILES = [
     "references/prompt-library.md",
     "references/scene-report-contract.md",
     "references/scene-report-example.json",
+    "references/scene-quick-reference.md",
     "references/source-map.md",
 ]
 
@@ -111,6 +112,7 @@ def main() -> int:
             "validate_all_workflows.py",
             "recommend_entry_board.py",
             "start_entry_board.py",
+            "scene-quick-reference.md",
         ],
         "references/automation-workflows.md": [
             "scripts/validate_all_workflows.py",
@@ -142,6 +144,16 @@ def main() -> int:
             "\"execution_template\"",
             "\"minimum_evidence\"",
             "\"ready_checklist\"",
+            "\"recommended_request_zh\"",
+            "\"codex_prompt_scaffold_zh\"",
+        ],
+        "references/scene-quick-reference.md": [
+            "19 One-Line Chinese Requests",
+            "Scene 01",
+            "中文请求",
+            "English Request",
+            "Main Runner",
+            "Quick Copy CN",
         ],
     }
 

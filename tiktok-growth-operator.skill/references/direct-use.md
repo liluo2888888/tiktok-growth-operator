@@ -4,6 +4,8 @@ Use this file when the user wants Codex to run the TikTok or Douyin workflow dir
 
 If you only need the finished-state summary, preferred commands, validation entrypoints, and real fixture paths, read [final-handoff.md](final-handoff.md) first.
 
+If you want one copy-ready index across all 19 scenes, read [scene-quick-reference.md](scene-quick-reference.md).
+
 ## Default Rule
 
 Treat this package as:
@@ -96,6 +98,8 @@ Examples:
 - `Run scene 03 for morning makeup hooks and output a teardown report`
 - `Run scene 08 and summarize audience pain points from four competitor comment sets`
 - `Build a full Douyin workflow from topic selection to publish handoff`
+- `按场景 12 执行：为一个产品做多风格测试矩阵，先锁 invariant message，再设计真正有差异的测试风格，并写出每个变体要学什么。`
+- `按场景 18 执行：输出竞品账号周报，要按账号和周维度比较内容变化，不只看总量，并明确本周该跟进的动作。`
 
 ### In the local shell
 

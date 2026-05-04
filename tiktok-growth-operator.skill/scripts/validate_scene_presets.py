@@ -54,6 +54,9 @@ def main() -> int:
         recommended_request = str(execution_template.get("recommended_request", "")).strip()
         if not recommended_request:
             errors.append(f"Scene {scene['id']} has no execution-template recommended request")
+        recommended_request_zh = str(execution_template.get("recommended_request_zh", "")).strip()
+        if not recommended_request_zh:
+            errors.append(f"Scene {scene['id']} has no execution-template Chinese recommended request")
 
         runner_args = [
             str(item).strip()
@@ -82,6 +85,13 @@ def main() -> int:
         ]
         if not prompt_scaffold:
             errors.append(f"Scene {scene['id']} has no execution-template prompt scaffold")
+        prompt_scaffold_zh = [
+            str(item).strip()
+            for item in execution_template.get("codex_prompt_scaffold_zh", [])
+            if str(item).strip()
+        ]
+        if not prompt_scaffold_zh:
+            errors.append(f"Scene {scene['id']} has no execution-template Chinese prompt scaffold")
 
         workflow_steps = [
             str(item).strip()
@@ -98,6 +108,24 @@ def main() -> int:
         ]
         if not output_checklist:
             errors.append(f"Scene {scene['id']} has no execution-template output checklist")
+
+        section_map = {str(section.get("heading", "")).strip(): section for section in sections}
+        if scene["id"] in {"09", "10", "13", "15", "16"}:
+            for required_heading in ["Target", "Message", "Structure", "Creative Constraints"]:
+                section = section_map.get(required_heading)
+                headers = ((section or {}).get("table") or {}).get("headers", [])
+                if not headers:
+                    errors.append(
+                        f"Scene {scene['id']} should keep a table-driven '{required_heading}' brief block"
+                    )
+        if scene["id"] in {"11", "12", "14"}:
+            for required_heading in ["Variable Matrix", "What To Learn"]:
+                section = section_map.get(required_heading)
+                headers = ((section or {}).get("table") or {}).get("headers", [])
+                if not headers:
+                    errors.append(
+                        f"Scene {scene['id']} should keep a table-driven '{required_heading}' testing block"
+                    )
 
         table_count = 0
         for index, section in enumerate(sections, start=1):

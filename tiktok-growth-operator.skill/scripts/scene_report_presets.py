@@ -337,6 +337,50 @@ SCENE_EXECUTION_PROFILES = {
 }
 
 
+SCENE_TITLES_ZH = {
+    "01": "爆款视频采集",
+    "02": "品类日常巡检",
+    "03": "批量爆款检索与深拆",
+    "04": "单条视频拆解",
+    "05": "视频提示词反推",
+    "06": "竞品商品看板",
+    "07": "品类市场判断",
+    "08": "多产品评论挖掘与人群报告",
+    "09": "对标视频复刻 Brief",
+    "10": "产品图转视频 Brief",
+    "11": "热点视频复制 Pipeline",
+    "12": "单品多风格测试矩阵",
+    "13": "多市场本地化包",
+    "14": "上新素材家族包",
+    "15": "图片文案翻译 Brief",
+    "16": "竞品主图 Benchmark",
+    "17": "创作者公式蒸馏",
+    "18": "竞品账号周报",
+    "19": "自有账号复盘优化",
+}
+
+SCENE_REQUESTS_ZH = {
+    "01": "按场景 01 执行：围绕一个关键词或品类和单一市场，先收集候选爆款，再按复用价值而不是单看播放量排序，最后告诉我哪些视频最值得进入下一步拆解。",
+    "02": "按场景 02 执行：为一个品类搭建日常巡检 SOP，输出可重复使用的巡检表、预警逻辑和日报模板，不要只给研究结论。",
+    "03": "按场景 03 执行：先对同一主题的候选热视频做 shortlist，再只深拆前几条强样本，最后沉淀共享爆点规律和可直接改写成新脚本的创作规则。",
+    "04": "按场景 04 执行：完整拆一条短视频，按 hook、铺垫、证明、收口重建结构，再分离真正有效的机制和表层风格，并给出一个可改编方向。",
+    "05": "按场景 05 执行：反向推断这条视频背后的提示词或制作 brief，把创作意图拆成视觉、镜头、旁白、节奏模块，并把低置信度猜测标出来。",
+    "06": "按场景 06 执行：搭建可每周复用的竞品商品看板，定义最小追踪字段、信号解释逻辑和变化后的运营动作。",
+    "07": "按场景 07 执行：判断一个品类或主题是否值得做，要同时看内容热度、供给饱和度和可切入空位，最后给出强弱分级建议。",
+    "08": "按场景 08 执行：把多个产品的评论做合并挖掘，分开提炼痛点、欲望和信任信号，并保留原话，最后转成人群和话术启发。",
+    "09": "按场景 09 执行：把一条对标视频改造成适合新产品的复刻 brief，先锁定不该改的 winning logic，再重写 hook、证明和收口。",
+    "10": "按场景 10 执行：仅基于产品图设计一版短视频 brief，明确视频类型、证明镜头、CTA 和资产缺口，不要假设用户已经有额外素材。",
+    "11": "按场景 11 执行：搭一个可重复跑的热点视频复制 pipeline，把发现、筛选、深拆、入池和生产交接拆成明确阶段和门槛。",
+    "12": "按场景 12 执行：为一个产品做多风格测试矩阵，先锁 invariant message，再设计真正有差异的测试风格，并写出每个变体要学什么。",
+    "13": "按场景 13 执行：把一个产品概念做成多市场本地化包，拆清共享产品真相和各市场的 hook、语气、禁区，不要只做直译。",
+    "14": "按场景 14 执行：设计一套上新素材家族，先定义最小可上线资产集，再给每个素材分配一个转化职责，并排出制作优先级。",
+    "15": "按场景 15 执行：做图片文案翻译与本地化 brief，区分信息性文案和转化型文案，保留层级关系，并说明新文案如何适配原布局。",
+    "16": "按场景 16 执行：对标竞品主图并定义更强方向，先说清点击场景，再总结类目共性、差异机会和一版可执行的超越 brief。",
+    "17": "按场景 17 执行：提炼一个创作者在多条视频里重复出现的内容公式，拆开 hook、节奏、证明和 CTA，并区分可迁移规则与创作者独有优势。",
+    "18": "按场景 18 执行：输出竞品账号周报，要按账号和周维度比较内容变化，不只看总量，并明确本周该跟进的动作。",
+    "19": "按场景 19 执行：复盘一个账号最近一批内容，把帖子按模式分组，拆出赢法和输法，最后写成 do more、do less、stop 和下一轮测试计划。",
+}
+
 def _build_default_variable_inputs(
     project_example: str,
     evidence_example: str,
@@ -369,6 +413,27 @@ def _build_default_variable_inputs(
         },
     ]
 
+
+def _build_prompt_scaffold_zh(
+    scene_id: str,
+    inputs: list[str],
+    minimum_evidence: list[str],
+    requested_outputs: list[str],
+) -> list[str]:
+    scene_title_zh = SCENE_TITLES_ZH.get(scene_id, f"\u573a\u666f {scene_id}")
+    default_inputs = "\u573a\u666f\u6240\u9700\u8bc1\u636e\u96c6"
+    default_minimum = "\u8bf7\u5148\u8bf4\u660e\u6700\u4f4e\u53ef\u5f00\u5de5\u8bc1\u636e"
+    default_outputs = "\u573a\u666f\u4ea4\u4ed8\u7269\u548c\u4e0b\u4e00\u6b65\u52a8\u4f5c"
+    inputs_text = ", ".join(inputs) if inputs else default_inputs
+    minimum_text = ", ".join(minimum_evidence) if minimum_evidence else default_minimum
+    outputs_text = ", ".join(requested_outputs) if requested_outputs else default_outputs
+    return [
+        SCENE_REQUESTS_ZH.get(scene_id, f"\u6309\u573a\u666f {scene_id}\u300a{scene_title_zh}\u300b\u6267\u884c\u3002"),
+        f"\u5148\u628a\u6211\u63d0\u4f9b\u7684\u6750\u6599\u6574\u7406\u6210\u8fd9\u7ec4\u8f93\u5165：{inputs_text}\u3002",
+        f"\u5982\u679c\u8bc1\u636e\u4e0d\u8db3，\u5148\u660e\u786e\u7f3a\u53e3\u518d\u7ee7\u7eed\u3002\u6700\u4f4e\u5f00\u5de5\u8bc1\u636e：{minimum_text}\u3002",
+        f"\u6700\u7ec8\u5fc5\u987b\u4ea7\u51fa：{outputs_text}\u3002",
+        "\u8f93\u51fa\u5fc5\u987b\u53ef\u76f4\u63a5\u7ed9\u8fd0\u8425\u3001\u62c6\u89e3\u3001\u811a\u672c\u3001\u6d4b\u8bd5\u6216\u4ea4\u4ed8\u4f7f\u7528，\u4f18\u5148\u7ed9\u8868\u683c\u3001\u6392\u5e8f\u903b\u8f91\u3001\u590d\u7528\u89c4\u5219\u548c\u4e0b\u4e00\u6b65\u52a8\u4f5c\u3002",
+    ]
 
 def build_execution_template(scene_id: str, preset: dict) -> dict:
     working_context = preset.get("working_context", {})
@@ -404,12 +469,22 @@ def build_execution_template(scene_id: str, preset: dict) -> dict:
             "recommended_request",
             f"Run scene {scene_id} and produce the full reusable deliverable, not a brief summary.",
         ),
+        "recommended_request_zh": SCENE_REQUESTS_ZH.get(
+            scene_id,
+            f"按场景 {scene_id} 执行，并输出完整可复用交付物，不要只给摘要。",
+        ),
         "recommended_runner_args": [
             f'python scripts/run_operator_workflow.py --mode scene --scene {scene_id} --project "<project-name>" --output-root ".\\tmp\\{runner_slug}"',
             f'python scripts/generate_scene_report.py --scene {scene_id} --project "<project-name>" --output ".\\tmp\\{runner_slug}.json" --format json',
         ],
         "variable_inputs": _build_default_variable_inputs(project_example, evidence_example, success_goal),
         "codex_prompt_scaffold": prompt_scaffold,
+        "codex_prompt_scaffold_zh": _build_prompt_scaffold_zh(
+            scene_id,
+            inputs,
+            minimum_evidence,
+            requested_outputs,
+        ),
         "workflow_steps": workflow_steps,
         "output_checklist": profile.get("output_checklist", []) or [
             "The deliverable is grounded in evidence.",
@@ -1047,29 +1122,33 @@ SCENE_PRESETS = {
                 "Target",
                 "Define the goal of the adapted version.",
                 table=blank_table(
-                    ["Field", "Answer"],
+                    ["Field", "Answer", "Why It Matters"],
                     [
-                        ["Target audience", ""],
-                        ["Conversion goal", ""],
-                        ["Reference asset", ""],
-                        ["User product", ""],
+                        ["Target audience", "", ""],
+                        ["Conversion goal", "", ""],
+                        ["Reference asset", "", ""],
+                        ["User product", "", ""],
                     ],
                 ),
             ),
             section(
                 "Audience",
                 "Describe the audience and what they need to believe.",
+                bullets=[
+                    "What belief from the reference still needs to be created for the new product?",
+                    "What objection or doubt must the adapted version remove faster than the original?",
+                ],
             ),
             section(
                 "Message",
                 "Rewrite the hook and proof logic for the user's product.",
                 table=blank_table(
-                    ["Layer", "Reference Logic", "Adapted Version"],
+                    ["Layer", "Reference Logic", "Adapted Version", "Required Product Evidence"],
                     [
-                        ["Hook", "", ""],
-                        ["Problem framing", "", ""],
-                        ["Proof device", "", ""],
-                        ["Close / CTA", "", ""],
+                        ["Hook", "", "", ""],
+                        ["Problem framing", "", "", ""],
+                        ["Proof device", "", "", ""],
+                        ["Close / CTA", "", "", ""],
                     ],
                 ),
             ),
@@ -1077,18 +1156,33 @@ SCENE_PRESETS = {
                 "Structure",
                 "Give an execution-ready shot order.",
                 table=blank_table(
-                    ["Shot / Beat", "What Happens", "Purpose"],
-                    [["1", "", ""], ["2", "", ""], ["3", "", ""], ["4", "", ""]],
+                    ["Shot / Beat", "What Happens", "Purpose", "Asset / Talent Needed", "Line / Overlay"],
+                    [["1", "", "", "", ""], ["2", "", "", "", ""], ["3", "", "", "", ""], ["4", "", "", "", ""]],
                     "Replication Shot Order",
                 ),
             ),
             section(
                 "Creative Constraints",
                 "List what cannot be copied literally and what must change for the user product.",
+                table=blank_table(
+                    ["Constraint", "Keep / Change", "Reason"],
+                    [
+                        ["Visual identity", "", ""],
+                        ["Claim language", "", ""],
+                        ["Proof style", "", ""],
+                        ["CTA wording", "", ""],
+                    ],
+                    "Adaptation Guardrails",
+                ),
             ),
             section(
                 "Next Action",
                 "State whether this brief is ready for scripting, filming, or prompting.",
+                numbered=[
+                    "Confirm the product proof that will replace the reference proof.",
+                    "Lock the adapted shot order and overlay copy.",
+                    "Move this brief into scripting, filming, or prompt generation.",
+                ],
             ),
         ],
     },
@@ -1123,43 +1217,61 @@ SCENE_PRESETS = {
                 "Target",
                 "Clarify the video goal and context.",
                 table=blank_table(
-                    ["Field", "Answer"],
+                    ["Field", "Answer", "Why It Matters"],
                     [
-                        ["Audience", ""],
-                        ["Market", ""],
-                        ["Conversion goal", ""],
-                        ["Video type", ""],
+                        ["Audience", "", ""],
+                        ["Market", "", ""],
+                        ["Conversion goal", "", ""],
+                        ["Video type", "", ""],
                     ],
                 ),
             ),
             section(
                 "Audience",
                 "Describe what the audience must feel or understand quickly.",
+                bullets=[
+                    "What should the viewer understand in the first 2 seconds?",
+                    "What trust signal must the image-only asset set communicate?",
+                ],
             ),
             section(
                 "Message",
                 "Define the core promise and proof path.",
+                table=blank_table(
+                    ["Layer", "Draft", "Supported By Which Asset"],
+                    [
+                        ["Core promise", "", ""],
+                        ["Primary proof", "", ""],
+                        ["Secondary proof", "", ""],
+                        ["CTA", "", ""],
+                    ],
+                    "Image-Only Messaging Brief",
+                ),
             ),
             section(
                 "Structure",
                 "Map the shot flow from opening to close.",
                 table=blank_table(
-                    ["Beat", "Visual Use", "Voiceover / Overlay", "Purpose"],
-                    [["Hook", "", "", ""], ["Proof 1", "", "", ""], ["Proof 2", "", "", ""], ["Close", "", "", ""]],
+                    ["Beat", "Visual Use", "Voiceover / Overlay", "Purpose", "Missing Asset?"],
+                    [["Hook", "", "", "", ""], ["Proof 1", "", "", "", ""], ["Proof 2", "", "", "", ""], ["Close", "", "", "", ""]],
                 ),
             ),
             section(
                 "Creative Constraints",
                 "Specify style keywords, rendering guardrails, and what to avoid.",
                 table=blank_table(
-                    ["Constraint Type", "Detail"],
-                    [["Visual style", ""], ["Tone", ""], ["Must show", ""], ["Must avoid", ""]],
+                    ["Constraint Type", "Detail", "Risk If Ignored"],
+                    [["Visual style", "", ""], ["Tone", "", ""], ["Must show", "", ""], ["Must avoid", "", ""]],
                     "Render Guardrails",
                 ),
             ),
             section(
                 "Next Action",
                 "List the next two test variables to try.",
+                table=blank_table(
+                    ["Test Variable", "Why Test It First", "What Asset Change Is Needed"],
+                    [["Hook framing", "", ""], ["Proof order", "", ""], ["CTA treatment", "", ""]],
+                ),
             ),
         ],
     },
@@ -1192,22 +1304,26 @@ SCENE_PRESETS = {
             section(
                 "Core Invariant",
                 "Define the operating principle that stays constant.",
-                bullets=[
-                    "What makes a video worth entering the pipeline?",
-                    "What is the minimum reuse threshold?",
-                ],
+                table=blank_table(
+                    ["Invariant", "Rule", "Why It Cannot Drift"],
+                    [
+                        ["Entry threshold", "", ""],
+                        ["Teardown lens", "", ""],
+                        ["Queue standard", "", ""],
+                    ],
+                ),
             ),
             section(
                 "Variable Matrix",
                 "Map the pipeline from discovery to production.",
                 table=blank_table(
-                    ["Stage", "Input", "Decision Rule", "Output"],
+                    ["Stage", "Input", "Decision Rule", "Owner", "Output", "SLA / Cadence"],
                     [
-                        ["Discovery", "", "", ""],
-                        ["Shortlist", "", "", ""],
-                        ["Teardown", "", "", ""],
-                        ["Replication brief", "", "", ""],
-                        ["Production queue", "", "", ""],
+                        ["Discovery", "", "", "", "", ""],
+                        ["Shortlist", "", "", "", "", ""],
+                        ["Teardown", "", "", "", "", ""],
+                        ["Replication brief", "", "", "", "", ""],
+                        ["Production queue", "", "", "", "", ""],
                     ],
                     "Pipeline Stages",
                 ),
@@ -1215,18 +1331,27 @@ SCENE_PRESETS = {
             section(
                 "Expected Effect",
                 "Explain what this pipeline should improve operationally.",
+                bullets=[
+                    "Which step becomes faster or more selective after this pipeline exists?",
+                    "Where should weak candidates get filtered out before wasting production time?",
+                ],
             ),
             section(
                 "What To Learn",
                 "State what each cycle should teach the operator.",
                 table=blank_table(
-                    ["Cycle Question", "Why It Matters", "How To Measure"],
-                    [["", "", ""], ["", "", ""], ["", "", ""]],
+                    ["Cycle Question", "Why It Matters", "How To Measure", "What Decision It Changes"],
+                    [["", "", "", ""], ["", "", "", ""], ["", "", "", ""]],
                 ),
             ),
             section(
                 "Next Action",
                 "Give the first weekly implementation sequence.",
+                numbered=[
+                    "Run one discovery pass and force-rank candidates with the entry rule.",
+                    "Deep-teardown only the shortlisted videos.",
+                    "Move only the strongest replication briefs into the production queue.",
+                ],
             ),
         ],
     },
@@ -1259,20 +1384,20 @@ SCENE_PRESETS = {
                 "Core Invariant",
                 "Describe the one thing that must stay constant across all variants.",
                 table=blank_table(
-                    ["Invariant Type", "Locked Element"],
-                    [["Core message", ""], ["Product truth", ""], ["Target outcome", ""]],
+                    ["Invariant Type", "Locked Element", "Why It Must Stay Fixed"],
+                    [["Core message", "", ""], ["Product truth", "", ""], ["Target outcome", "", ""]],
                 ),
             ),
             section(
                 "Variable Matrix",
                 "Build the full testing matrix.",
                 table=blank_table(
-                    ["Style", "Audience Lens", "Hook", "Proof Device", "Visual Style", "CTA", "Why Test It"],
+                    ["Style", "Audience Lens", "Hook", "Proof Device", "Visual Style", "CTA", "Primary Hypothesis", "Why Test It"],
                     [
-                        ["Style 1", "", "", "", "", "", ""],
-                        ["Style 2", "", "", "", "", "", ""],
-                        ["Style 3", "", "", "", "", "", ""],
-                        ["Style 4", "", "", "", "", "", ""],
+                        ["Style 1", "", "", "", "", "", "", ""],
+                        ["Style 2", "", "", "", "", "", "", ""],
+                        ["Style 3", "", "", "", "", "", "", ""],
+                        ["Style 4", "", "", "", "", "", "", ""],
                     ],
                     "Multi-Style Testing Matrix",
                 ),
@@ -1280,18 +1405,26 @@ SCENE_PRESETS = {
             section(
                 "Expected Effect",
                 "Explain what each style variation is expected to change.",
+                table=blank_table(
+                    ["Variant", "Expected Attention Shift", "Expected Conversion Shift", "Main Risk"],
+                    [["Style 1", "", "", ""], ["Style 2", "", "", ""], ["Style 3", "", "", ""], ["Style 4", "", "", ""]],
+                ),
             ),
             section(
                 "What To Learn",
                 "Define the learning agenda from the matrix.",
                 table=blank_table(
-                    ["Variant", "Main Hypothesis", "Success Signal"],
-                    [["Style 1", "", ""], ["Style 2", "", ""], ["Style 3", "", ""], ["Style 4", "", ""]],
+                    ["Variant", "Main Hypothesis", "Success Signal", "What It Teaches"],
+                    [["Style 1", "", "", ""], ["Style 2", "", "", ""], ["Style 3", "", "", ""], ["Style 4", "", "", ""]],
                 ),
             ),
             section(
                 "Next Action",
                 "Rank the order of testing and explain why.",
+                table=blank_table(
+                    ["Priority", "Variant", "Why It Goes Now"],
+                    [["1", "", ""], ["2", "", ""], ["3", "", ""], ["4", "", ""]],
+                ),
             ),
         ],
     },
@@ -1325,39 +1458,56 @@ SCENE_PRESETS = {
                 "Target",
                 "State what remains fixed versus what changes by market.",
                 table=blank_table(
-                    ["Layer", "Invariant", "Needs Localization?"],
+                    ["Layer", "Invariant", "Needs Localization?", "Why"],
                     [
-                        ["Core product promise", "", "No"],
-                        ["Hook wording", "", "Yes"],
-                        ["Talent / scene cue", "", "Yes"],
-                        ["CTA tone", "", "Yes"],
+                        ["Core product promise", "", "No", ""],
+                        ["Hook wording", "", "Yes", ""],
+                        ["Talent / scene cue", "", "Yes", ""],
+                        ["CTA tone", "", "Yes", ""],
                     ],
                 ),
             ),
             section(
                 "Audience",
                 "Describe how audience expectation changes across markets.",
+                table=blank_table(
+                    ["Market", "Viewer Expectation", "Key Trigger", "Key Risk"],
+                    [["", "", "", ""], ["", "", "", ""], ["", "", "", ""]],
+                ),
             ),
             section(
                 "Message",
                 "Adapt the hook and message by market.",
                 table=blank_table(
-                    ["Market", "Audience Cue", "Hook Direction", "Language / Tone", "Avoid"],
-                    [["", "", "", "", ""], ["", "", "", "", ""], ["", "", "", "", ""]],
+                    ["Market", "Audience Cue", "Hook Direction", "Language / Tone", "Proof Angle", "Avoid"],
+                    [["", "", "", "", "", ""], ["", "", "", "", "", ""], ["", "", "", "", "", ""]],
                     "Per-Market Localization Grid",
                 ),
             ),
             section(
                 "Structure",
                 "Describe any structural changes by market if needed.",
+                table=blank_table(
+                    ["Market", "Opening Beat", "Middle Proof", "Close / CTA", "Visual Cue"],
+                    [["", "", "", "", ""], ["", "", "", "", ""], ["", "", "", "", ""]],
+                ),
             ),
             section(
                 "Creative Constraints",
                 "List cultural, visual, or language cautions per market.",
+                table=blank_table(
+                    ["Market", "Do Not Use", "Must Adapt", "Open Risk"],
+                    [["", "", "", ""], ["", "", "", ""], ["", "", "", ""]],
+                ),
             ),
             section(
                 "Next Action",
                 "State what is ready for localized scripting versus what still needs research.",
+                numbered=[
+                    "Lock the invariant product truth once for all markets.",
+                    "Write each market's hook and proof angle separately.",
+                    "Move only the markets with enough local evidence into scripting.",
+                ],
             ),
         ],
     },
@@ -1390,18 +1540,22 @@ SCENE_PRESETS = {
             section(
                 "Core Invariant",
                 "Define the shared creative direction across all assets.",
+                table=blank_table(
+                    ["Invariant", "Definition", "Why It Must Stay Consistent"],
+                    [["Core promise", "", ""], ["Visual code", "", ""], ["Offer logic", "", ""]],
+                ),
             ),
             section(
                 "Variable Matrix",
                 "Map each asset to its job.",
                 table=blank_table(
-                    ["Asset", "Purpose", "Primary Message", "Format / Ratio", "Priority"],
+                    ["Asset", "Purpose", "Primary Message", "Format / Ratio", "Owner / Tool", "Priority"],
                     [
-                        ["Main image", "", "", "", ""],
-                        ["Scene image", "", "", "", ""],
-                        ["Benefit image", "", "", "", ""],
-                        ["Detail image", "", "", "", ""],
-                        ["Short video", "", "", "", ""],
+                        ["Main image", "", "", "", "", ""],
+                        ["Scene image", "", "", "", "", ""],
+                        ["Benefit image", "", "", "", "", ""],
+                        ["Detail image", "", "", "", "", ""],
+                        ["Short video", "", "", "", "", ""],
                     ],
                     "Launch Asset Family",
                 ),
@@ -1409,14 +1563,27 @@ SCENE_PRESETS = {
             section(
                 "Expected Effect",
                 "Explain how the asset set works together.",
+                bullets=[
+                    "Which asset should create first click?",
+                    "Which asset should deepen understanding or remove objections?",
+                    "Which asset should close the conversion gap?",
+                ],
             ),
             section(
                 "What To Learn",
                 "State what should be learned from launch testing.",
+                table=blank_table(
+                    ["Asset", "Question", "Success Signal", "What It Changes Next"],
+                    [["Main image", "", "", ""], ["Benefit image", "", "", ""], ["Short video", "", "", ""]],
+                ),
             ),
             section(
                 "Next Action",
                 "Give the production order and handoff notes.",
+                table=blank_table(
+                    ["Priority", "Asset", "Why It Goes First", "Dependency"],
+                    [["1", "", "", ""], ["2", "", "", ""], ["3", "", "", ""], ["4", "", "", ""], ["5", "", "", ""]],
+                ),
             ),
         ],
     },
@@ -1449,17 +1616,25 @@ SCENE_PRESETS = {
             section(
                 "Target",
                 "Clarify market, language, and conversion goal.",
+                table=blank_table(
+                    ["Field", "Answer", "Why It Matters"],
+                    [["Target market", "", ""], ["Target language", "", ""], ["Conversion goal", "", ""], ["Asset type", "", ""]],
+                ),
             ),
             section(
                 "Audience",
                 "Describe what the target viewer needs from the copy.",
+                bullets=[
+                    "What must remain literally accurate?",
+                    "What should become more persuasive in the localized version?",
+                ],
             ),
             section(
                 "Message",
                 "Translate each block with hierarchy preserved.",
                 table=blank_table(
-                    ["Source Block", "Function", "Localized Copy", "Notes"],
-                    [["", "", "", ""], ["", "", "", ""], ["", "", "", ""]],
+                    ["Source Block", "Function", "Localized Copy", "Length Risk", "Notes"],
+                    [["", "", "", "", ""], ["", "", "", "", ""], ["", "", "", "", ""]],
                     "Localized Copy Grid",
                 ),
             ),
@@ -1467,17 +1642,26 @@ SCENE_PRESETS = {
                 "Structure",
                 "Describe text hierarchy and placement logic.",
                 table=blank_table(
-                    ["Text Layer", "Priority", "Placement Note"],
-                    [["Headline", "", ""], ["Support line", "", ""], ["CTA", "", ""]],
+                    ["Text Layer", "Priority", "Placement Note", "Can Be Shortened?"],
+                    [["Headline", "", "", ""], ["Support line", "", "", ""], ["CTA", "", "", ""]],
                 ),
             ),
             section(
                 "Creative Constraints",
                 "List localization cautions, banned phrasing, and readability notes.",
+                table=blank_table(
+                    ["Constraint", "Localized Rule", "Reason"],
+                    [["Banned phrasing", "", ""], ["Tone guardrail", "", ""], ["Layout limit", "", ""], ["Readability note", "", ""]],
+                ),
             ),
             section(
                 "Next Action",
                 "State whether the asset is ready for rendering or needs copy review.",
+                numbered=[
+                    "Review localized copy against layout length and hierarchy.",
+                    "Flag any line that still needs legal or native-speaker review.",
+                    "Move the asset into rendering only after the hierarchy is stable.",
+                ],
             ),
         ],
     },
@@ -1511,34 +1695,51 @@ SCENE_PRESETS = {
                 "Target",
                 "Clarify the benchmark context.",
                 table=blank_table(
-                    ["Field", "Answer"],
-                    [["Platform", ""], ["Category", ""], ["User asset", ""], ["Competitor count", ""]],
+                    ["Field", "Answer", "Why It Matters"],
+                    [["Platform", "", ""], ["Category", "", ""], ["User asset", "", ""], ["Competitor count", "", ""]],
                 ),
             ),
             section(
                 "Audience",
                 "Describe the click context and viewer expectation.",
+                bullets=[
+                    "What is the viewer scanning for in this category before they click?",
+                    "What category visual code is overused and therefore less likely to win attention?",
+                ],
             ),
             section(
                 "Message",
                 "Compare the competitor approaches.",
                 table=blank_table(
-                    ["Image / Brand", "Dominant Visual Code", "Likely Click Driver", "Weakness", "Keep / Avoid"],
-                    [["", "", "", "", ""], ["", "", "", "", ""], ["", "", "", "", ""]],
+                    ["Image / Brand", "Dominant Visual Code", "Likely Click Driver", "Weakness", "What To Keep", "What To Avoid"],
+                    [["", "", "", "", "", ""], ["", "", "", "", "", ""], ["", "", "", "", "", ""]],
                     "Competitor Comparison",
                 ),
             ),
             section(
                 "Structure",
                 "Convert the benchmark into a revised main-image direction.",
+                table=blank_table(
+                    ["Layer", "New Direction", "Purpose", "Must Be Visible?"],
+                    [["Hero visual", "", "", ""], ["Text treatment", "", "", ""], ["Offer cue", "", "", ""], ["Trust cue", "", "", ""]],
+                ),
             ),
             section(
                 "Creative Constraints",
                 "State what the new main image must avoid and what it must emphasize.",
+                table=blank_table(
+                    ["Constraint", "Emphasize / Avoid", "Reason"],
+                    [["Category cliche", "", ""], ["Clutter risk", "", ""], ["Trust risk", "", ""], ["Readability risk", "", ""]],
+                ),
             ),
             section(
                 "Next Action",
                 "Leave an execution-ready brief for design or generation.",
+                numbered=[
+                    "Choose the one competitor pattern to borrow and the one to reject.",
+                    "Lock the new hero visual and text hierarchy.",
+                    "Hand off one outperform brief to design or image generation.",
+                ],
             ),
         ],
     },
