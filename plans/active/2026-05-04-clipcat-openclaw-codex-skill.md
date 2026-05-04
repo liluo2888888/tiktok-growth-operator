@@ -1569,3 +1569,66 @@ Create a durable Codex-native skill package that reproduces the Clipcat/OpenClaw
 - `tiktok-growth-operator.skill/references/entry-selector.md`
 - `tiktok-growth-operator.skill/references/final-handoff.md`
 - `tiktok-growth-operator.skill/SKILL.md`
+
+## 2026-05-05 Batch Board Surface Upgrade
+
+- Decision: extend the batch runner to understand `board` as a first-class task mode.
+- Why: once the main operator router and project launcher could create starter boards, batch orchestration became the next inconsistent surface.
+- Decision: keep batch-level `--dry-run` separate from board-task `generate/dry_run/run` flags.
+- Why: batch preview should not accidentally execute starter-local queue generation or runs.
+
+### Updated
+
+- `tiktok-growth-operator.skill/scripts/batch_run_operator_workflows.py`
+- `tiktok-growth-operator.skill/scripts/validate_all_workflows.py`
+- `tiktok-growth-operator.skill/references/automation-workflows.md`
+
+### Added Behavior
+
+- batch tasks can now use `mode: board`
+- batch preview now exposes board-specific preview fields such as `bundle_root`, `top_k`, and starter-run flags
+- task validation now understands board-mode requirements and board-only field warnings
+- full validation now includes one board-mode batch preview smoke check
+
+## 2026-05-05 Board Handoff Surface Cleanup
+
+- Decision: align board starter README, preset report, and batch report around one explicit operator handoff chain.
+- Why: the package already had the right files and helper scripts, but the last-mile usability problem was that each artifact explained the next step differently.
+
+### Updated
+
+- `tiktok-growth-operator.skill/scripts/start_entry_board.py`
+- `tiktok-growth-operator.skill/scripts/batch_run_operator_workflows.py`
+
+### Added Behavior
+
+- starter README now lists expected generated preset and batch artifact paths before execution
+- starter README now documents one explicit operator order from scaffold to rerun
+- batch report now shows richer board-specific success and preview handoff details
+
+## 2026-05-05 Board Status Surface
+
+- Decision: add a compact board status and handoff payload on top of the raw starter JSON.
+- Why: the system already generated the correct files, but the main return payload still made the operator scan too much low-level path detail to know what to open next.
+
+### Updated
+
+- `tiktok-growth-operator.skill/scripts/start_entry_board.py`
+
+### Added Behavior
+
+- board starter results now include `status_summary`
+- board starter results now include `operator_handoff`
+- the next recommended file to open is now explicitly surfaced in the result payload
+
+### Review Notes
+
+- Correctness: filled the remaining gap where batch preview JSON already contained board metadata but `batch_report.md` did not render it.
+- Readability: kept board handling in the existing mode-switch path instead of adding a parallel batch-specific abstraction.
+- Architecture: stayed inside the owning package and validator surface; no new cross-package dependency edges.
+- Security: no new external execution path was added beyond existing local script orchestration.
+- Performance: validation still uses one-item board smoke only; no broad rerun cost increase.
+
+### Remaining Follow-up
+
+- add one fully hermetic batch board execution smoke when a stable local template bundle fixture is formalized

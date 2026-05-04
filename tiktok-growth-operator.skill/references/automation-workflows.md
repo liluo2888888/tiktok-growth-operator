@@ -518,8 +518,11 @@ Each task can be any of:
 - `auto`
 - `scene`
 - `goal`
+- `board`
 - `pack`
 - `capture-pack`
+
+For the fastest operator-facing command set, keep [direct-use.md](direct-use.md) as the cookbook and [command-map.md](command-map.md) as the short command index. This file is the ownership and behavior reference for how those commands compose.
 
 Example batch file:
 
@@ -537,6 +540,13 @@ Example batch file:
     "name": "localized-launch-workflow",
     "project": "Localized Launch Workflow",
     "output_root": "D:\\path\\goal-run"
+  },
+  {
+    "mode": "board",
+    "query": "I'm the live operator for tonight's session",
+    "bundle_root": "D:\\path\\preset-template-bundle",
+    "name": "live-operator-board-batch-item",
+    "output_root": "D:\\path\\board-run"
   },
   {
     "mode": "pack",
@@ -636,6 +646,7 @@ When `--dry-run` is enabled:
 - tasks are not executed
 - each item is recorded with `status: preview`
 - auto-mode items still include route explanation
+- board-mode items still show bundle root, top-k, and starter-run flags in preview
 - `batch_report.md` shows the would-run mode and intended outputs instead of real generated paths
 
 When rerunning from a prior batch result or directory, the runner now requeues both:

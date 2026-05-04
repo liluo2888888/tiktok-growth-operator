@@ -25,6 +25,8 @@ Use the reference set by role:
 - `entry-selector.md`: which board family and slug to use before queue generation
 - `command-map.md`: public Clipcat parity notes only
 
+Use `direct-use.md` for copy-ready commands first. Use `automation-workflows.md` only when you need the batch JSON contract, rerun semantics, or validator behavior behind those commands.
+
 ## Best Entrypoints
 
 Use these first.

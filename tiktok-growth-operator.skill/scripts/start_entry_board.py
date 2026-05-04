@@ -90,6 +90,13 @@ def prepare_local_config(selected_item: dict, starter_root: Path) -> dict[str, s
     local_queue_path = starter_root / f"{slug}.json"
     local_batch_root = starter_root / "batch-run"
     local_result_path = starter_root / f"{slug}.result.json"
+    local_manifest_path = starter_root / f"{slug}.manifest.json"
+    local_report_path = starter_root / f"{slug}.report.md"
+    local_input_path = starter_root / f"{slug}.input.json"
+    local_batch_input_path = local_batch_root / "batch_input.json"
+    local_batch_summary_path = local_batch_root / "summary.json"
+    local_batch_result_path = local_batch_root / "batch_result.json"
+    local_batch_report_path = local_batch_root / "batch_report.md"
 
     source_config = first_non_empty(selected_item.get("suite_config_json", ""), selected_item.get("template_file", ""))
     copied_template = copy_if_exists(selected_item.get("template_file", ""), local_template_path)
@@ -116,6 +123,13 @@ def prepare_local_config(selected_item: dict, starter_root: Path) -> dict[str, s
         "suite_queue_json": str(local_queue_path),
         "local_batch_root": str(local_batch_root),
         "local_result_json": str(local_result_path),
+        "local_manifest_json": str(local_manifest_path),
+        "local_report_md": str(local_report_path),
+        "local_input_json": str(local_input_path),
+        "local_batch_input_json": str(local_batch_input_path),
+        "local_batch_summary_json": str(local_batch_summary_path),
+        "local_batch_result_json": str(local_batch_result_path),
+        "local_batch_report_md": str(local_batch_report_path),
     }
 
 
@@ -224,8 +238,22 @@ def build_readme(
         f"- copied template: `{local_paths.get('template_file', '') or 'n/a'}`",
         f"- copied suite config: `{local_paths.get('suite_config_json', '') or 'n/a'}`",
         f"- local queue path: `{local_paths.get('suite_queue_json', '') or 'n/a'}`",
+        f"- expected preset manifest: `{local_paths.get('local_manifest_json', '') or 'n/a'}`",
+        f"- expected preset report: `{local_paths.get('local_report_md', '') or 'n/a'}`",
+        f"- expected reusable input file: `{local_paths.get('local_input_json', '') or 'n/a'}`",
         f"- local batch root: `{local_paths.get('local_batch_root', '') or 'n/a'}`",
+        f"- expected batch report: `{local_paths.get('local_batch_report_md', '') or 'n/a'}`",
+        f"- expected batch result JSON: `{local_paths.get('local_batch_result_json', '') or 'n/a'}`",
         f"- local result file: `{local_paths.get('local_result_json', '') or 'n/a'}`",
+        "",
+        "## Recommended Operator Order",
+        "",
+        "- 1. run the local `generate.ps1` helper to create the queue, preset report, manifest, and reusable input file",
+        "- 2. read the generated preset report before execution because it contains the batch dry-run, run, and rerun commands in one place",
+        "- 3. run the local `dry-run.ps1` helper to preview routing and artifact paths into the local batch root",
+        "- 4. read the generated batch report before real execution because it summarizes each queued task and any warnings",
+        "- 5. run the local `run.ps1` helper when the dry-run output looks correct",
+        "- 6. if some items fail later, rerun from the generated batch root with `batch_run_operator_workflows.py --rerun-failed-from`",
         "",
         "## Next Steps",
         "",
@@ -239,10 +267,92 @@ def build_readme(
     for key in ["local_generate_ps1", "local_dry_run_ps1", "local_run_ps1", "local_generate_cmd", "local_dry_run_cmd", "local_run_cmd"]:
         if local_paths.get(key):
             lines.append(f"- `{key}`: `{local_paths[key]}`")
+    lines.extend(["", "## Generated-After-Run Artifacts", ""])
+    for key in [
+        "local_manifest_json",
+        "local_report_md",
+        "local_input_json",
+        "local_batch_input_json",
+        "local_batch_summary_json",
+        "local_batch_result_json",
+        "local_batch_report_md",
+    ]:
+        if local_paths.get(key):
+            lines.append(f"- `{key}`: `{local_paths[key]}`")
     lines.extend(["", "## Fallback Boards", ""])
     for item in fallbacks:
         lines.append(f"- `{item['family']}` -> `{item['slug']}`: {item['description']}")
     return "\n".join(lines) + "\n"
+
+
+def build_operator_handoff(local_paths: dict[str, str], next_steps: list[str]) -> dict:
+    return {
+        "read_order": [
+            local_paths.get("recommendation_json", ""),
+            local_paths.get("local_report_md", ""),
+            local_paths.get("local_batch_report_md", ""),
+            local_paths.get("local_batch_result_json", ""),
+        ],
+        "primary_files": {
+            "starter_readme": str(Path(local_paths["recommendation_json"]).with_name("README.md")) if local_paths.get("recommendation_json") else "",
+            "recommendation_json": local_paths.get("recommendation_json", ""),
+            "queue_json": local_paths.get("suite_queue_json", ""),
+            "preset_report_md": local_paths.get("local_report_md", ""),
+            "batch_report_md": local_paths.get("local_batch_report_md", ""),
+            "batch_result_json": local_paths.get("local_batch_result_json", ""),
+            "result_json": local_paths.get("local_result_json", ""),
+        },
+        "commands": {
+            "generate": next_steps[0] if len(next_steps) >= 1 else "",
+            "dry_run": next_steps[1] if len(next_steps) >= 2 else "",
+            "run": next_steps[2] if len(next_steps) >= 3 else "",
+        },
+        "recommended_flow": [
+            "read starter README",
+            "generate queue",
+            "read preset report",
+            "dry-run batch",
+            "read batch report",
+            "execute batch",
+            "rerun failed items from batch root if needed",
+        ],
+    }
+
+
+def build_status_summary(
+    starter_root: Path,
+    selected_item: dict,
+    family_pick: dict,
+    local_paths: dict[str, str],
+    generate: bool,
+    dry_run: bool,
+    run: bool,
+) -> dict:
+    batch_report_exists = Path(local_paths["local_batch_report_md"]).exists() if local_paths.get("local_batch_report_md") else False
+    batch_result_exists = Path(local_paths["local_batch_result_json"]).exists() if local_paths.get("local_batch_result_json") else False
+    preset_report_exists = Path(local_paths["local_report_md"]).exists() if local_paths.get("local_report_md") else False
+    queue_exists = Path(local_paths["suite_queue_json"]).exists() if local_paths.get("suite_queue_json") else False
+    next_file_to_read = ""
+    if batch_report_exists:
+        next_file_to_read = local_paths["local_batch_report_md"]
+    elif preset_report_exists:
+        next_file_to_read = local_paths["local_report_md"]
+    elif local_paths.get("recommendation_json"):
+        next_file_to_read = local_paths["recommendation_json"]
+    return {
+        "starter_root": str(starter_root),
+        "recommended_family": family_pick["family"],
+        "selected_board_slug": selected_item["slug"],
+        "selected_board_label": selected_item["label"],
+        "generated_queue": generate or dry_run or run,
+        "previewed_batch": dry_run,
+        "executed_batch": run,
+        "queue_exists": queue_exists,
+        "preset_report_exists": preset_report_exists,
+        "batch_report_exists": batch_report_exists,
+        "batch_result_exists": batch_result_exists,
+        "next_file_to_read": next_file_to_read,
+    }
 
 
 def run_python(script_path: Path, args: list[str]) -> None:
@@ -356,6 +466,16 @@ def create_entry_board_starter(
         build_readme(query, family_pick, selected_item, starter_root, local_paths, fallbacks, local_next_steps),
         encoding="utf-8-sig",
     )
+    operator_handoff = build_operator_handoff(local_paths, local_next_steps)
+    status_summary = build_status_summary(
+        starter_root,
+        selected_item,
+        family_pick,
+        local_paths,
+        generate,
+        dry_run,
+        run,
+    )
 
     return {
         "starter_root": str(starter_root),
@@ -363,6 +483,8 @@ def create_entry_board_starter(
         "recommended_family": family_pick["family"],
         "selected_board_slug": selected_item["slug"],
         "selected_board_label": selected_item["label"],
+        "status_summary": status_summary,
+        "operator_handoff": operator_handoff,
         "local_paths": local_paths,
         "next_steps": local_next_steps,
         "recommendation_manifest": manifest,

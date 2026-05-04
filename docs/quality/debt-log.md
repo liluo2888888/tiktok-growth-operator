@@ -42,6 +42,14 @@ Track known issues that are real but not yet worth fixing immediately.
 - Suggested fix: if the reference set grows further, extract one compact command index and let the others point to it instead of repeating command blocks
 - Status: planned
 
+## 2026-05-05 - Batch validation does not yet exercise board execution
+- Area: `tiktok-growth-operator.skill/scripts/validate_all_workflows.py`
+- Type: test-gap
+- Evidence: the current suite now asserts batch board preview payloads, but it still does not execute a generated board queue end-to-end inside batch mode
+- Risk: low
+- Suggested fix: add one hermetic batch fixture that points at a stable local template bundle and runs `mode: board` with `generate` plus board-local `dry_run`
+- Status: open
+
 ## 2026-05-04 - Some generated Markdown source text had mojibake
 - Area: `tiktok-growth-operator.skill/SKILL.md`, `tiktok-growth-operator.skill/references/`
 - Type: stale-doc
