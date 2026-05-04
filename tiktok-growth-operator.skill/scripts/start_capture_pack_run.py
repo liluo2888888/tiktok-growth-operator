@@ -31,7 +31,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--operator-packs",
         default="",
-        help="Optional comma-separated operator packs: publish-prep, live-assist.",
+        help="Optional comma-separated operator packs: publish-prep, live-assist, creative-production-handoff.",
     )
     return parser.parse_args()
 
@@ -53,7 +53,7 @@ def create_run_root(skill_root: Path, scene: str, name: str, output_root: str) -
 
 
 def parse_operator_packs(raw: str) -> list[str]:
-    allowed = {"publish-prep", "live-assist"}
+    allowed = {"publish-prep", "live-assist", "creative-production-handoff"}
     values = [item.strip().lower() for item in raw.split(",") if item.strip()]
     invalid = [item for item in values if item not in allowed]
     if invalid:
@@ -69,6 +69,8 @@ def default_operator_packs(scene_id: str) -> list[str]:
     if scene_id == "08":
         return ["live-assist"]
     if scene_id in {"09", "10", "11", "12", "13", "14", "15", "16", "17"}:
+        if scene_id in {"09", "10", "11", "12", "13", "14", "15", "16"}:
+            return ["publish-prep", "creative-production-handoff"]
         return ["publish-prep"]
     return []
 

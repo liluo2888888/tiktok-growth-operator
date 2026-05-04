@@ -31,7 +31,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--operator-packs",
         default="",
-        help="Optional comma-separated operator packs to generate: publish-prep, live-assist.",
+        help="Optional comma-separated operator packs to generate: publish-prep, live-assist, creative-production-handoff.",
     )
     parser.add_argument("--platform", default="Douyin", help="Platform label for derived operator packs.")
     parser.add_argument("--market", default="China", help="Target market label for derived operator packs.")
@@ -46,7 +46,7 @@ def create_run_root(skill_root: Path, scene: dict, run_name: str, output_root: s
 
 
 def parse_operator_packs(raw: str) -> list[str]:
-    allowed = {"publish-prep", "live-assist"}
+    allowed = {"publish-prep", "live-assist", "creative-production-handoff"}
     values = [item.strip().lower() for item in raw.split(",") if item.strip()]
     invalid = [item for item in values if item not in allowed]
     if invalid:
@@ -60,7 +60,7 @@ def parse_operator_packs(raw: str) -> list[str]:
 
 def default_operator_packs(scene_id: str) -> list[str]:
     if scene_id in {"09", "10", "11", "12", "13", "14", "15", "16"}:
-        return ["publish-prep"]
+        return ["publish-prep", "creative-production-handoff"]
     if scene_id in {"08", "18", "19"}:
         return ["live-assist"]
     return []
@@ -105,7 +105,7 @@ def write_readme(run_root: Path, scene: dict, report_path: Path, operator_pack_r
 - `evidence/`: links, screenshots, exports, transcripts, notes
 - `outputs/`: rendered reports
 - `notes/`: reasoning notes, open questions, reviewer comments
-- `operator-packs/`: derived publish-prep or live-assist packs when generated
+- `operator-packs/`: derived publish-prep, live-assist, or creative-production-handoff packs when generated
 
 ## Main Files
 

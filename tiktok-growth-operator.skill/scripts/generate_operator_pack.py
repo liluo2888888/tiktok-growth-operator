@@ -39,6 +39,22 @@ PACK_DEFS = {
             ("Post-Live Review Checklist", "List what to review immediately after the session."),
         ],
     },
+    "creative-production-handoff": {
+        "doc": "references/creative-production-handoff-pack.md",
+        "title": "Creative Production Handoff Pack",
+        "filename": "creative-production-handoff-pack.md",
+        "sections": [
+            ("Creative Goal", "State the exact creative or production outcome this asset set should achieve."),
+            ("Invariant Logic", "Clarify what logic, message, or conversion spine must stay fixed."),
+            ("Asset And Evidence Readiness", "List the real available assets, proof, layout, and missing dependencies."),
+            ("Execution Blueprint", "Translate the source brief into a shootable, scriptable, renderable execution plan."),
+            ("Variant Plan", "List the variants, markets, or style branches that should be produced first."),
+            ("Production Handoff", "Define what editing, design, scripting, or localization teams need next."),
+            ("Review Gates", "Define what must be checked before production and before final render."),
+            ("Open Risks", "List the unresolved risks, missing proof, or capacity blockers."),
+            ("Next Production Step", "Name the immediate next owner action."),
+        ],
+    },
 }
 
 PUBLISH_FOCUS_BY_SCENE = {
@@ -56,6 +72,17 @@ LIVE_FOCUS_BY_SCENE = {
     "08": "Use repeated user pains, desires, and exact user language as the backbone of live selling and moderation.",
     "18": "Use weekly competitor shifts to decide what themes, offers, and proof points the live session should emphasize or ignore.",
     "19": "Use self-account retro findings to reinforce winning talking tracks and remove weak live segments.",
+}
+
+CREATIVE_FOCUS_BY_SCENE = {
+    "09": "Protect the winning logic but hand off a clean adapted hook, proof path, shot order, and production risk map.",
+    "10": "Turn the available product assets into a filmable or promptable short-video execution plan without inventing unsupported footage.",
+    "11": "Convert the replication pipeline into an actual variant queue with clear owners, asset needs, and weekly execution rhythm.",
+    "12": "Preserve the invariant message while handing off sharply differentiated style variants with learning goals and asset implications.",
+    "13": "Separate shared product truth from market-level hook, tone, proof, and review dependencies before localization work starts.",
+    "14": "Translate the launch asset family into a priority-ranked production sequence with dependency visibility.",
+    "15": "Protect text hierarchy, layout fit, and native-review needs before localized image rendering starts.",
+    "16": "Move from competitor benchmark notes into a stronger visual direction with concrete design and testing handoff.",
 }
 
 
@@ -117,6 +144,15 @@ def section_to_lines(section: dict) -> list[str]:
 
 def scene_text(scene_id: str, mapping: dict[str, str], fallback: str) -> str:
     return mapping.get(scene_id, fallback)
+
+
+def first_table_section(report: dict, headings: list[str]) -> dict:
+    for heading in headings:
+        section = take_section(report, heading)
+        table = section.get("table") or {}
+        if table.get("headers"):
+            return section
+    return {}
 
 
 def scene_title_options(project: str, market: str, scene_id: str, executive_conclusion: str) -> list[str]:
@@ -445,11 +481,134 @@ def build_live_sections(report: dict, platform: str, market: str) -> dict[str, l
     }
 
 
+def build_creative_sections(report: dict, platform: str, market: str) -> dict[str, list[str]]:
+    meta = report.get("metadata", {})
+    ctx = report.get("working_context", {})
+    executive = report.get("executive_summary", {})
+    operator_guide = report.get("operator_guide", {})
+    evidence = report.get("evidence", []) or []
+
+    scene_id = str(meta.get("scene", "")).strip()
+    project = str(meta.get("project", "")).strip() or "this creative run"
+    scene_focus = scene_text(
+        scene_id,
+        CREATIVE_FOCUS_BY_SCENE,
+        "Turn the source creative brief into a production-ready handoff with asset readiness, execution structure, and review gates.",
+    )
+
+    target_section = take_section(report, "Target")
+    audience_section = take_section(report, "Audience")
+    message_section = take_section(report, "Message")
+    structure_section = take_section(report, "Structure")
+    constraint_section = first_table_section(report, ["Creative Constraints", "Expected Effect", "What To Learn"])
+    handoff_section = first_table_section(report, ["Production Handoff", "Execution Handoff", "Market Handoff", "Render Handoff", "Design Handoff"])
+    next_action_section = take_section(report, "Next Action")
+
+    target_lines = section_to_lines(target_section)
+    audience_lines = section_to_lines(audience_section)
+    message_lines = section_to_lines(message_section)
+    structure_lines = section_to_lines(structure_section)
+    constraint_lines = section_to_lines(constraint_section)
+    handoff_lines = section_to_lines(handoff_section)
+    next_action_lines = section_to_lines(next_action_section)
+
+    checklist = [str(item).strip() for item in operator_guide.get("operator_checklist", []) if str(item).strip()]
+    failure_modes = [str(item).strip() for item in operator_guide.get("common_failure_modes", []) if str(item).strip()]
+    requested_outputs = [str(item).strip() for item in ctx.get("requested_outputs", []) if str(item).strip()]
+    minimum_evidence = [str(item).strip() for item in ctx.get("minimum_evidence", []) if str(item).strip()]
+    ideal_evidence = [str(item).strip() for item in ctx.get("ideal_evidence", []) if str(item).strip()]
+
+    return {
+        "Working Context": unique_lines(
+            [
+                str(ctx.get("summary", "")).strip(),
+                f"Platform: {platform}",
+                f"Market: {market}",
+                f"Source scene: {scene_id} - {meta.get('scene_title', '')}".strip(),
+                f"Creative focus: {scene_focus}",
+            ]
+        ),
+        "Creative Goal": unique_lines(
+            [
+                str(executive.get("next_action", "")).strip(),
+                str(executive.get("why_it_matters", "")).strip(),
+                f"Prepare a production-ready creative handoff for {project}.",
+                scene_focus,
+            ]
+            + requested_outputs[:3]
+        ),
+        "Invariant Logic": unique_lines(
+            [
+                str(executive.get("conclusion", "")).strip(),
+                "Keep the conversion logic fixed before changing hook wrappers, visual execution, or localization layers.",
+            ]
+            + target_lines[:6]
+            + checklist[:2]
+        ),
+        "Asset And Evidence Readiness": unique_lines(
+            [
+                f"Minimum evidence to proceed: {', '.join(minimum_evidence)}" if minimum_evidence else "",
+                f"Ideal evidence for stronger output: {', '.join(ideal_evidence)}" if ideal_evidence else "",
+                f"Evidence references supplied: {len(evidence)}",
+            ]
+            + [f"- {item}" for item in ideal_evidence[:4]]
+            + [f"- {item.get('label', '').strip()}: {item.get('detail', '').strip()}".strip() for item in evidence[:5]]
+        ),
+        "Execution Blueprint": unique_lines(
+            [
+                "Translate the message and structure into something the next production owner can actually execute.",
+            ]
+            + message_lines[:8]
+            + structure_lines[:10]
+            + audience_lines[:4]
+        ),
+        "Variant Plan": unique_lines(
+            requested_outputs
+            + constraint_lines[:8]
+        ),
+        "Production Handoff": unique_lines(
+            handoff_lines[:10]
+            + [
+                "- Confirm owner, dependency, and blocking risk for the first production step.",
+                "- If a proof asset, native review, or layout capture is missing, flag it before production starts.",
+            ]
+        ),
+        "Review Gates": unique_lines(
+            [
+                "- Pre-production: confirm the invariant logic is still intact.",
+                "- Pre-render: confirm asset, proof, and layout assumptions are actually supported.",
+                "- Final review: confirm the output still matches the intended hook, proof path, and market fit.",
+            ]
+            + checklist
+        ),
+        "Open Risks": unique_lines(
+            [f"- {item}" for item in failure_modes]
+            + [
+                "- Missing asset, proof, or review ownership should block execution instead of being hidden in optimistic wording.",
+            ]
+        ),
+        "Next Production Step": unique_lines(
+            next_action_lines[:6]
+            + [
+                "If no owner is assigned yet, assign one production owner before adding more variants.",
+            ]
+        ),
+        "_reference": unique_lines(
+            [
+                f"Reference doc: {PACK_DEFS['creative-production-handoff']['doc']}",
+                f"Derived from source report: {meta.get('title', '')}",
+            ]
+        ),
+    }
+
+
 def build_derived_sections(pack_type: str, report: dict, platform: str, market: str) -> dict[str, list[str]]:
     if pack_type == "publish-prep":
         return build_publish_sections(report, platform, market)
     if pack_type == "live-assist":
         return build_live_sections(report, platform, market)
+    if pack_type == "creative-production-handoff":
+        return build_creative_sections(report, platform, market)
     return {}
 
 
@@ -543,7 +702,7 @@ def generate_pack_output(
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Generate a direct-use operator pack for publish preparation or live assist."
+        description="Generate a direct-use operator pack for publish preparation, live assist, or creative production handoff."
     )
     parser.add_argument("--type", required=True, choices=sorted(PACK_DEFS.keys()), help="Operator pack type.")
     parser.add_argument("--project", default="", help="Project or campaign name.")

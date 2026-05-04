@@ -1947,3 +1947,37 @@ Create a durable Codex-native skill package that reproduces the Clipcat/OpenClaw
 - Result: passed with exact creative-scene header assertions
 - Ran: `python "tiktok-growth-operator.skill\scripts\validate_all_workflows.py"`
 - Result: passed with `success: true`
+
+## 2026-05-05 Creative Production Handoff Pack
+
+- Decision: add one third operator-pack type, `creative-production-handoff`, for scenes `09` to `16`.
+- Why: `publish-prep` is useful for distribution readiness, but the creative scenes now also need a direct bridge into scripting, editing, design, rendering, and localization execution.
+- Decision: auto-derive the new pack for creative scenes in both scene-run and capture-pack workflows.
+- Why: if the source scene already exists to structure the brief, operators should not need a second manual command just to produce a production-facing handoff.
+
+### Added
+
+- `tiktok-growth-operator.skill/references/creative-production-handoff-pack.md`
+
+### Updated
+
+- `tiktok-growth-operator.skill/SKILL.md`
+- `tiktok-growth-operator.skill/references/direct-use.md`
+- `tiktok-growth-operator.skill/references/automation-workflows.md`
+- `tiktok-growth-operator.skill/references/final-handoff.md`
+- `tiktok-growth-operator.skill/scripts/generate_operator_pack.py`
+- `tiktok-growth-operator.skill/scripts/recommend_scene_chain.py`
+- `tiktok-growth-operator.skill/scripts/run_operator_workflow.py`
+- `tiktok-growth-operator.skill/scripts/start_scene_run.py`
+- `tiktok-growth-operator.skill/scripts/start_capture_pack_run.py`
+- `tiktok-growth-operator.skill/scripts/validate_capture_pack_workflows.py`
+- `tiktok-growth-operator.skill/scripts/validate_skill_docs.py`
+
+### Validation
+
+- Ran: `python -m py_compile "tiktok-growth-operator.skill\scripts\generate_operator_pack.py" "tiktok-growth-operator.skill\scripts\recommend_scene_chain.py" "tiktok-growth-operator.skill\scripts\run_operator_workflow.py" "tiktok-growth-operator.skill\scripts\start_capture_pack_run.py" "tiktok-growth-operator.skill\scripts\start_scene_run.py" "tiktok-growth-operator.skill\scripts\validate_capture_pack_workflows.py" "tiktok-growth-operator.skill\scripts\validate_skill_docs.py"`
+- Result: passed
+- Ran: `python "tiktok-growth-operator.skill\scripts\validate_skill_docs.py"`
+- Result: passed with the new creative-production handoff reference included
+- Ran: `python "tiktok-growth-operator.skill\scripts\validate_capture_pack_workflows.py"`
+- Result: passed and generated a `creative-production-handoff` pack from the validated scene `15` capture workflow

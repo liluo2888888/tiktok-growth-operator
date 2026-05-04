@@ -8,6 +8,8 @@ If you want one copy-ready index across all 19 scenes, read [scene-quick-referen
 
 If you mainly need the creative-brief half of the system, especially scenes `09` to `16`, read [creative-brief-quick-reference.md](creative-brief-quick-reference.md).
 
+If you want those same scenes turned into a production-ready handoff for scripting, editing, design, or localization, read [creative-production-handoff-pack.md](creative-production-handoff-pack.md).
+
 ## One-Line Chinese Starter
 
 If you only want one sentence to paste into Codex, start here:
@@ -51,6 +53,16 @@ python scripts/run_operator_workflow.py `
   --project "Douyin Topic To Launch CN"
 ```
 
+```powershell
+python scripts/run_operator_workflow.py `
+  --mode pack `
+  --type creative-production-handoff `
+  --source-report "D:\path\scene-15-report.json" `
+  --platform TikTok `
+  --market US `
+  --output-dir "D:\path\creative-handoff-pack"
+```
+
 ## Default Rule
 
 Treat this package as:
@@ -58,7 +70,7 @@ Treat this package as:
 - a Codex-native router for the 19 scenes
 - a report and workspace generator
 - a planning and evidence-synthesis system
-- a handoff-pack generator for publish preparation and live assist
+- a handoff-pack generator for publish preparation, live assist, and creative production handoff
 - a goal-workflow expander for multi-scene business requests
 - a unified workflow runner for scene, goal, and pack modes
 - an auto router that can infer scene, goal, or pack from one natural-language request

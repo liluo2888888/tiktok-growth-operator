@@ -9,7 +9,7 @@ This package now provides:
 - one unified Codex-native operator surface across 19 scenes
 - real TikTok capture-pack ingestion for supported scenes
 - durable report rendering to `md`, `docx`, and `xlsx`
-- derived `publish-prep` and `live-assist` handoff packs where appropriate
+- derived `publish-prep`, `live-assist`, and `creative-production-handoff` handoff packs where appropriate
 - repeatable validation for scene presets, capture-pack workflows, export quality, and core skill docs
 - one transparent entry selector for choosing among single/combo/vertical/launch/manager/cadence boards
 - one unified `board` entry mode that can scaffold a local starter folder from the main operator router
