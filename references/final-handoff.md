@@ -135,6 +135,11 @@ The durable validation layer is:
 - representative real TikTok reports
 - synthetic duplicate-heading and sparse-section edge cases
 
+`validate_all_workflows.py` now covers both:
+
+- board preview routing and preview-field assertions inside batch mode
+- one hermetic board execute smoke that scaffolds a starter, generates a queue, and performs board-local dry-run output checks
+
 ## Real Validation Fixtures
 
 The strongest current real TikTok validation inputs are:
