@@ -1631,4 +1631,4 @@ Create a durable Codex-native skill package that reproduces the Clipcat/OpenClaw
 
 ### Remaining Follow-up
 
-- add one fully hermetic batch board execution smoke when a stable local template bundle fixture is formalized
+- fixed: added one hermetic batch board execution smoke against the stable local `preset-template-bundle-v9` bundle with board-local `generate` plus `dry_run`

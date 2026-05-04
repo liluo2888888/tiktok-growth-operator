@@ -36,11 +36,25 @@ def force_failure(result: dict, message: str) -> dict:
 
 
 def parse_json_stdout(result: dict, command_name: str) -> tuple[dict | None, dict]:
+    stdout = result["stdout"].strip()
     try:
-        payload = json.loads(result["stdout"])
+        payload = json.loads(stdout)
     except json.JSONDecodeError:
-        return None, force_failure(result, f"{command_name} did not return valid JSON")
+        last_object_start = stdout.rfind("\n{")
+        candidate = stdout[last_object_start + 1 :] if last_object_start >= 0 else stdout
+        try:
+            payload = json.loads(candidate)
+        except json.JSONDecodeError:
+            return None, force_failure(result, f"{command_name} did not return valid JSON")
     return payload, result
+
+
+def require_existing_path(batch_result: dict, raw_path: object, message: str) -> dict:
+    if not isinstance(raw_path, str) or not raw_path.strip():
+        return force_failure(batch_result, message)
+    if not Path(raw_path).exists():
+        return force_failure(batch_result, f"{message}: {raw_path}")
+    return batch_result
 
 
 def main() -> None:
@@ -165,6 +179,75 @@ def main() -> None:
                     batch_result = force_failure(batch_result, "batch board preview should keep board-task dry_run=false")
                 elif preview.get("task_run") is not False:
                     batch_result = force_failure(batch_result, "batch board preview should expose task_run=false by default")
+        results[-1] = batch_result
+
+    batch_board_execute_file = skill_root / "tmp" / "20260505_validate_board_batch_execute.json"
+    batch_board_execute_root = skill_root / "tmp" / "20260505_validate_board_batch_execute_item"
+    batch_board_execute_file.write_text(
+        json.dumps(
+            [
+                {
+                    "mode": "board",
+                    "query": "Give me a daily board for TikTok beauty ops",
+                    "bundle_root": str(skill_root.parents[0] / ".codex-tmp" / "preset-template-bundle-v9"),
+                    "name": "validate-board-batch-execute-item",
+                    "output_root": str(batch_board_execute_root),
+                    "generate": True,
+                    "dry_run": True,
+                }
+            ],
+            ensure_ascii=False,
+            indent=2,
+        )
+        + "\n",
+        encoding="utf-8-sig",
+    )
+    results.append(
+        run(
+            [
+                sys.executable,
+                str(scripts_root / "batch_run_operator_workflows.py"),
+                "--batch-file",
+                str(batch_board_execute_file),
+                "--batch-root",
+                str(skill_root / "tmp" / "20260505_validate_board_batch_execute"),
+            ]
+        )
+    )
+    if results[-1]["returncode"] == 0:
+        batch_payload, batch_result = parse_json_stdout(results[-1], "batch_run_operator_workflows.py")
+        if batch_payload is not None:
+            batch_results = batch_payload.get("results", [])
+            if len(batch_results) != 1:
+                batch_result = force_failure(batch_result, "batch board execute smoke should return exactly one validation item")
+            else:
+                item = batch_results[0]
+                if item.get("status") != "success":
+                    batch_result = force_failure(batch_result, "batch board execute smoke should finish with success status")
+                result_payload = item.get("result", {})
+                if result_payload.get("selected_board_slug") != "daily-ops-board":
+                    batch_result = force_failure(
+                        batch_result,
+                        f"batch board execute smoke should scaffold daily-ops-board, got: {result_payload.get('selected_board_slug')!r}",
+                    )
+                executed_actions = result_payload.get("recommendation_manifest", {}).get("executed_actions", {})
+                if executed_actions.get("generate") is not True:
+                    batch_result = force_failure(batch_result, "batch board execute smoke should record generate=true")
+                elif executed_actions.get("dry_run") is not True:
+                    batch_result = force_failure(batch_result, "batch board execute smoke should record board-local dry_run=true")
+                elif executed_actions.get("run") is not False:
+                    batch_result = force_failure(batch_result, "batch board execute smoke should keep board-local run=false")
+
+                local_paths = result_payload.get("local_paths", {})
+                batch_result = require_existing_path(batch_result, result_payload.get("starter_root"), "batch board execute smoke should create starter_root")
+                if batch_result["returncode"] == 0:
+                    batch_result = require_existing_path(batch_result, local_paths.get("suite_queue_json"), "batch board execute smoke should create queue json")
+                if batch_result["returncode"] == 0:
+                    batch_result = require_existing_path(batch_result, local_paths.get("local_report_md"), "batch board execute smoke should create preset report")
+                if batch_result["returncode"] == 0:
+                    batch_result = require_existing_path(batch_result, local_paths.get("local_batch_report_md"), "batch board execute smoke should create batch report")
+                if batch_result["returncode"] == 0:
+                    batch_result = require_existing_path(batch_result, local_paths.get("local_batch_result_json"), "batch board execute smoke should create batch result json")
         results[-1] = batch_result
 
     failures = [item for item in results if item["returncode"] != 0]
