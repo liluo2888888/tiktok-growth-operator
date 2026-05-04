@@ -1,0 +1,154 @@
+[
+  {
+    "id": "01",
+    "slug": "viral-video-collection",
+    "title": "Viral Video Collection",
+    "deliverable_type": "collection_board",
+    "scenario_file": "scenarios/01-viral-video-collection.md",
+    "summary": "Collect and rank viral videos by keyword or category."
+  },
+  {
+    "id": "02",
+    "slug": "daily-category-patrol",
+    "title": "Daily Category Patrol",
+    "deliverable_type": "collection_board",
+    "scenario_file": "scenarios/02-daily-category-patrol.md",
+    "summary": "Create a repeatable patrol workflow for a category."
+  },
+  {
+    "id": "03",
+    "slug": "batch-viral-search-plus-deep-teardown",
+    "title": "Batch Viral Search Plus Deep Teardown",
+    "deliverable_type": "breakdown_report",
+    "scenario_file": "scenarios/03-batch-viral-search-plus-deep-teardown.md",
+    "summary": "Search and deeply analyze the best viral candidates."
+  },
+  {
+    "id": "04",
+    "slug": "single-video-breakdown",
+    "title": "Single Video Breakdown",
+    "deliverable_type": "breakdown_report",
+    "scenario_file": "scenarios/04-single-video-breakdown.md",
+    "summary": "Fully break down one TikTok or Douyin video."
+  },
+  {
+    "id": "05",
+    "slug": "reverse-engineer-video-prompt",
+    "title": "Reverse-Engineer Video Prompt",
+    "deliverable_type": "breakdown_report",
+    "scenario_file": "scenarios/05-reverse-engineer-video-prompt.md",
+    "summary": "Infer the hidden prompt or production brief behind a video."
+  },
+  {
+    "id": "06",
+    "slug": "competitor-product-dashboard",
+    "title": "Competitor Product Dashboard",
+    "deliverable_type": "collection_board",
+    "scenario_file": "scenarios/06-competitor-product-dashboard.md",
+    "summary": "Track competitor products and changes over time."
+  },
+  {
+    "id": "07",
+    "slug": "category-market-insight",
+    "title": "Category Market Insight",
+    "deliverable_type": "insight_report",
+    "scenario_file": "scenarios/07-category-market-insight.md",
+    "summary": "Judge category demand, saturation, and opportunity."
+  },
+  {
+    "id": "08",
+    "slug": "multi-product-comment-mining-and-persona-report",
+    "title": "Multi-Product Comment Mining And Persona Report",
+    "deliverable_type": "insight_report",
+    "scenario_file": "scenarios/08-multi-product-comment-mining-and-persona-report.md",
+    "summary": "Synthesize repeated user language, pains, and desires."
+  },
+  {
+    "id": "09",
+    "slug": "reference-video-replication-brief",
+    "title": "Reference-Video Replication Brief",
+    "deliverable_type": "creation_brief",
+    "scenario_file": "scenarios/09-reference-video-replication-brief.md",
+    "summary": "Turn a reference video into an adapted replication brief."
+  },
+  {
+    "id": "10",
+    "slug": "product-image-to-video-brief",
+    "title": "Product-Image-To-Video Brief",
+    "deliverable_type": "creation_brief",
+    "scenario_file": "scenarios/10-product-image-to-video-brief.md",
+    "summary": "Design a short-form video brief from product images."
+  },
+  {
+    "id": "11",
+    "slug": "hot-video-replication-pipeline",
+    "title": "Hot-Video Replication Pipeline",
+    "deliverable_type": "testing_matrix",
+    "scenario_file": "scenarios/11-hot-video-replication-pipeline.md",
+    "summary": "Build a repeated pipeline from hot-video discovery to new creative directions."
+  },
+  {
+    "id": "12",
+    "slug": "one-product-multi-style-testing-matrix",
+    "title": "One-Product Multi-Style Testing Matrix",
+    "deliverable_type": "testing_matrix",
+    "scenario_file": "scenarios/12-one-product-multi-style-testing-matrix.md",
+    "summary": "Create a multi-style testing matrix for one product."
+  },
+  {
+    "id": "13",
+    "slug": "multi-market-localization-pack",
+    "title": "Multi-Market Localization Pack",
+    "deliverable_type": "creation_brief",
+    "scenario_file": "scenarios/13-multi-market-localization-pack.md",
+    "summary": "Localize a product concept across multiple markets."
+  },
+  {
+    "id": "14",
+    "slug": "launch-asset-family-pack",
+    "title": "Launch Asset Family Pack",
+    "deliverable_type": "testing_matrix",
+    "scenario_file": "scenarios/14-launch-asset-family-pack.md",
+    "summary": "Design a coordinated launch asset family."
+  },
+  {
+    "id": "15",
+    "slug": "image-translation-brief",
+    "title": "Image Translation Brief",
+    "deliverable_type": "creation_brief",
+    "scenario_file": "scenarios/15-image-translation-brief.md",
+    "summary": "Translate and localize image copy for conversion."
+  },
+  {
+    "id": "16",
+    "slug": "competitor-main-image-benchmark",
+    "title": "Competitor Main-Image Benchmark",
+    "deliverable_type": "creation_brief",
+    "scenario_file": "scenarios/16-competitor-main-image-benchmark.md",
+    "summary": "Benchmark competitor main images and define a stronger direction."
+  },
+  {
+    "id": "17",
+    "slug": "creator-distillation",
+    "title": "Creator Distillation",
+    "deliverable_type": "breakdown_report",
+    "scenario_file": "scenarios/17-creator-distillation.md",
+    "summary": "Distill a creator's repeatable content formula."
+  },
+  {
+    "id": "18",
+    "slug": "competitor-account-weekly-report",
+    "title": "Competitor Account Weekly Report",
+    "deliverable_type": "collection_board",
+    "scenario_file": "scenarios/18-competitor-account-weekly-report.md",
+    "summary": "Create a weekly competitor account review."
+  },
+  {
+    "id": "19",
+    "slug": "self-account-retro-and-optimization",
+    "title": "Self-Account Retro And Optimization",
+    "deliverable_type": "insight_report",
+    "scenario_file": "scenarios/19-self-account-retro-and-optimization.md",
+    "summary": "Review a user's own account and define next moves."
+  }
+]

@@ -1,0 +1,7 @@
+interface:
+  display_name: "TikTok Growth Operator"
+  short_description: "Codex-native TikTok and Douyin growth workflow for direct use without Clipcat or OpenClaw runtime."
+  default_prompt: "Use $tiktok-growth-operator directly for TikTok or Douyin search, teardown, product intelligence, replication planning, Tencent article 2640429 parity work, and scene-based report generation."
+
+policy:
+  allow_implicit_invocation: true
