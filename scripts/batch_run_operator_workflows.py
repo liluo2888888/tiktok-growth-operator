@@ -8,6 +8,7 @@ from pathlib import Path
 
 from run_operator_workflow import (
     infer_mode_from_request,
+    run_board_mode,
     run_capture_pack_mode,
     run_goal_mode,
     run_history_mode,
@@ -38,6 +39,11 @@ def build_namespace(item: dict, defaults: dict) -> argparse.Namespace:
         "scene": item.get("scene", defaults.get("scene")),
         "goal": item.get("goal", defaults.get("goal")),
         "query": item.get("query", defaults.get("query")),
+        "bundle_root": item.get("bundle_root", defaults.get("bundle_root", "")),
+        "top_k": item.get("top_k", defaults.get("top_k", 3)),
+        "generate": item.get("generate", defaults.get("generate", False)),
+        "dry_run": item.get("dry_run", defaults.get("dry_run", False)),
+        "run": item.get("run", defaults.get("run", False)),
         "type": item.get("type", defaults.get("type")),
         "capture_root": item.get("capture_root", defaults.get("capture_root", "")),
         "target_markets": item.get("target_markets", defaults.get("target_markets", "")),
@@ -68,6 +74,8 @@ def run_item(args: argparse.Namespace) -> dict:
         route_meta.update(routed)
         if routed_mode == "scene":
             result = run_scene_mode(args, scene_override=routed.get("scene"), request_text=routed.get("request", ""))
+        elif routed_mode == "board":
+            result = run_board_mode(args, query_override=routed.get("query"))
         elif routed_mode == "goal":
             result = run_goal_mode(args, goal_override=routed.get("goal"), query_override=routed.get("query"))
         elif routed_mode == "capture-pack":
@@ -84,6 +92,8 @@ def run_item(args: argparse.Namespace) -> dict:
 
     if args.mode == "scene":
         return run_scene_mode(args)
+    if args.mode == "board":
+        return run_board_mode(args)
     if args.mode == "goal":
         return run_goal_mode(args)
     if args.mode == "capture-pack":
@@ -105,6 +115,11 @@ def preview_payload(args: argparse.Namespace, resolved_mode: str, routed: dict |
         "query": routed.get("query", args.query),
         "scene": routed.get("scene", args.scene),
         "goal": routed.get("goal", args.goal),
+        "bundle_root": args.bundle_root,
+        "top_k": args.top_k,
+        "generate": args.generate,
+        "task_dry_run": args.dry_run,
+        "task_run": args.run,
         "pack_type": routed.get("type", args.type),
         "capture_root": args.capture_root,
         "target_markets": args.target_markets,
@@ -144,7 +159,7 @@ def add_warning_if_present(warnings: list[str], value: object, message: str) -> 
 
 
 def add_mode_specific_warnings(args: argparse.Namespace, resolved_mode: str, warnings: list[str]) -> None:
-    if resolved_mode in {"scene", "goal", "capture-pack", "history"}:
+    if resolved_mode in {"scene", "goal", "board", "capture-pack", "history"}:
         add_warning_if_present(warnings, args.output_dir, "output_dir is ignored outside pack mode.")
     if resolved_mode == "pack":
         add_warning_if_present(warnings, args.output_root, "output_root is ignored in pack mode.")
@@ -156,11 +171,22 @@ def add_mode_specific_warnings(args: argparse.Namespace, resolved_mode: str, war
         add_warning_if_present(warnings, args.target_languages, "target_languages is ignored outside capture-pack mode.")
     if resolved_mode != "goal":
         add_warning_if_present(warnings, args.goal, "goal is ignored outside goal mode.")
-        add_warning_if_present(warnings, args.query, "query is ignored outside goal mode unless auto routing uses it.")
+    if resolved_mode not in {"goal", "board"}:
+        add_warning_if_present(warnings, args.query, "query is ignored outside goal/board mode unless auto routing uses it.")
     if resolved_mode not in {"scene", "capture-pack"}:
         add_warning_if_present(warnings, args.scene, "scene is ignored outside scene mode unless routing uses it.")
     if resolved_mode != "pack":
         add_warning_if_present(warnings, args.type, "type is ignored outside pack mode unless routing uses it.")
+    if resolved_mode != "board":
+        add_warning_if_present(warnings, args.bundle_root, "bundle_root is ignored outside board mode unless auto routing uses it.")
+        if args.top_k != 3:
+            warnings.append("top_k is ignored outside board mode.")
+        if args.generate:
+            warnings.append("generate is ignored outside board mode.")
+        if args.dry_run:
+            warnings.append("dry_run is ignored outside board mode.")
+        if args.run:
+            warnings.append("run is ignored outside board mode.")
     if resolved_mode != "history":
         add_warning_if_present(warnings, args.history_root, "history_root is ignored outside history mode unless auto routing uses it.")
         add_warning_if_present(warnings, args.history_output_json, "history_output_json is ignored outside history mode unless auto routing uses it.")
@@ -185,6 +211,8 @@ def build_validation_suggestions(args: argparse.Namespace, resolved_mode: str, w
         suggestions.append("Add scene with a concrete scene id such as 03 or 12.")
     if resolved_mode == "goal" and bool(has_text(args.goal)) == bool(has_text(args.query)):
         suggestions.append("Provide exactly one of goal or query for goal mode.")
+    if resolved_mode == "board" and not (has_text(args.query) or has_text(args.request)):
+        suggestions.append("Provide query or request for board mode.")
     if resolved_mode == "history" and args.history_limit <= 0:
         suggestions.append("Set history_limit to a positive integer.")
     if args.mode == "auto" and errors:
@@ -204,12 +232,22 @@ def build_validation_suggestions(args: argparse.Namespace, resolved_mode: str, w
             suggestions.append("Remove target_languages, or switch the task to capture-pack mode.")
         elif "goal is ignored outside goal mode" in warning:
             suggestions.append("Remove goal, or switch the task to goal mode.")
-        elif "query is ignored outside goal mode" in warning:
-            suggestions.append("Remove query, or use auto/goal mode so query participates in routing.")
+        elif "query is ignored outside goal/board mode" in warning:
+            suggestions.append("Remove query, or use auto/goal/board mode so query participates in routing.")
         elif "scene is ignored outside scene mode" in warning:
             suggestions.append("Remove scene, or switch the task to scene or capture-pack mode.")
         elif "type is ignored outside pack mode" in warning:
             suggestions.append("Remove type, or switch the task to pack mode.")
+        elif "bundle_root is ignored outside board mode" in warning:
+            suggestions.append("Remove bundle_root, or switch the task to board mode.")
+        elif "top_k is ignored outside board mode" in warning:
+            suggestions.append("Remove top_k, or switch the task to board mode.")
+        elif "generate is ignored outside board mode" in warning:
+            suggestions.append("Remove generate, or switch the task to board mode.")
+        elif "dry_run is ignored outside board mode" in warning:
+            suggestions.append("Remove dry_run, or switch the task to board mode.")
+        elif "run is ignored outside board mode" in warning:
+            suggestions.append("Remove run, or switch the task to board mode.")
         elif "history_root is ignored outside history mode" in warning:
             suggestions.append("Remove history_root, or switch the task to history mode.")
         elif "history_output_json is ignored outside history mode" in warning:
@@ -246,6 +284,9 @@ def validate_task_args(args: argparse.Namespace) -> dict:
     elif args.mode == "goal":
         if bool(has_text(args.goal)) == bool(has_text(args.query)):
             errors.append("goal mode requires exactly one of goal or query.")
+    elif args.mode == "board":
+        if not has_text(args.query) and not has_text(args.request):
+            errors.append("board mode requires query or request.")
     elif args.mode == "pack":
         if not has_text(args.type):
             errors.append("pack mode requires type.")
@@ -325,6 +366,7 @@ def shorten_path(value: str) -> str:
 
 def collect_result_paths(result: dict) -> list[str]:
     keys = [
+        "starter_root",
         "run_root",
         "goal_root",
         "outputs_dir",
@@ -356,10 +398,24 @@ def collect_preview_fields(preview: dict) -> list[str]:
     lines: list[str] = []
     if preview.get("would_run_mode"):
         lines.append(f"would run mode: `{preview['would_run_mode']}`")
+    if preview.get("request"):
+        lines.append(f"request: `{preview['request']}`")
+    if preview.get("query"):
+        lines.append(f"query: `{preview['query']}`")
     if preview.get("scene"):
         lines.append(f"scene: `{preview['scene']}`")
     if preview.get("goal"):
         lines.append(f"goal: `{preview['goal']}`")
+    if preview.get("bundle_root"):
+        lines.append(f"bundle root: `{shorten_path(preview['bundle_root'])}`")
+    if preview.get("top_k") is not None:
+        lines.append(f"top k: `{preview['top_k']}`")
+    if "generate" in preview:
+        lines.append(f"generate: `{preview['generate']}`")
+    if "task_dry_run" in preview:
+        lines.append(f"task dry run: `{preview['task_dry_run']}`")
+    if "task_run" in preview:
+        lines.append(f"task run: `{preview['task_run']}`")
     if preview.get("pack_type"):
         lines.append(f"pack type: `{preview['pack_type']}`")
     if preview.get("capture_root"):
@@ -470,6 +526,21 @@ def render_batch_report(payload: dict) -> str:
                 lines.append(f"- resolved mode: `{route['resolved_mode']}`")
             for path_line in collect_result_paths(result):
                 lines.append(f"- {path_line}")
+            if mode == "board":
+                local_paths = result.get("local_paths", {})
+                next_steps = result.get("next_steps", [])
+                if isinstance(local_paths, dict):
+                    if local_paths.get("suite_queue_json"):
+                        lines.append(f"- board queue: `{shorten_path(local_paths['suite_queue_json'])}`")
+                    if local_paths.get("local_report_md"):
+                        lines.append(f"- preset report: `{shorten_path(local_paths['local_report_md'])}`")
+                    if local_paths.get("local_batch_root"):
+                        lines.append(f"- board batch root: `{shorten_path(local_paths['local_batch_root'])}`")
+                    if local_paths.get("local_batch_report_md"):
+                        lines.append(f"- board batch report: `{shorten_path(local_paths['local_batch_report_md'])}`")
+                if isinstance(next_steps, list):
+                    for step in next_steps:
+                        lines.append(f"- next step: `{step}`")
         elif item.get("status") == "preview":
             result = item.get("result", {})
             route = result.get("route")
@@ -478,6 +549,8 @@ def render_batch_report(payload: dict) -> str:
             preview = result.get("preview", {})
             for preview_line in collect_preview_fields(preview):
                 lines.append(f"- {preview_line}")
+            if mode == "board":
+                lines.append("- board preview flow: scaffold starter -> generate queue -> inspect preset report -> batch dry-run -> execute")
         elif item.get("status") == "invalid":
             lines.append("- task was blocked before execution")
         else:
@@ -654,6 +727,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--platform", default="Douyin", help="Default platform for tasks that omit it.")
     parser.add_argument("--market", default="China", help="Default market for tasks that omit it.")
     parser.add_argument("--formats", default="md", help="Default formats for goal tasks that omit it.")
+    parser.add_argument("--bundle-root", default="", help="Default preset bundle root for board tasks that omit it.")
+    parser.add_argument("--top-k", type=int, default=3, help="Default number of ranked board recommendations for board tasks that omit it.")
+    parser.add_argument("--generate", action="store_true", help="Default board-task flag to generate the queue after starter scaffolding.")
+    parser.add_argument("--run", action="store_true", help="Default board-task flag to execute the generated queue after scaffolding.")
     parser.add_argument("--target-markets", default="", help="Default target markets for capture-pack tasks that omit it.")
     parser.add_argument("--target-languages", default="", help="Default target languages for capture-pack tasks that omit it.")
     parser.add_argument("--history-root", default="", help="Default run-history scan root for tasks that omit it.")
@@ -682,6 +759,11 @@ def main() -> None:
         "platform": args.platform,
         "market": args.market,
         "formats": args.formats,
+        "bundle_root": args.bundle_root,
+        "top_k": args.top_k,
+        "generate": args.generate,
+        "dry_run": False,
+        "run": args.run,
         "capture_root": "",
         "target_markets": args.target_markets,
         "target_languages": args.target_languages,

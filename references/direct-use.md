@@ -81,6 +81,12 @@ python scripts/run_operator_workflow.py `
   --dry-run
 ```
 
+Board handoff order after scaffolding:
+
+- read the starter `README.md` first because it now points to the queue, preset report, batch report, and rerun artifact paths
+- read `<board>.report.md` after generation because it contains the canonical dry-run, execute, and rerun commands
+- read `batch-run/batch_report.md` after dry-run because it summarizes the queued tasks and any warnings before real execution
+
 If you want to pin one specific bundle instead of using auto-discovery, pass `--bundle-root`.
 
 ### In Codex chat
