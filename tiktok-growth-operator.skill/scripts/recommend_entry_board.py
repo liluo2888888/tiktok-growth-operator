@@ -46,6 +46,9 @@ STOPWORDS = {
     "up",
     "want",
     "with",
+    "帮我",
+    "给我",
+    "一个",
 }
 
 
@@ -118,6 +121,8 @@ ENTRY_FAMILIES = [
             "赛道",
             "垂类",
             "启动板",
+            "tiktok",
+            "douyin",
         ],
         "fallbacks": ["launch-board", "combo"],
     },
@@ -139,11 +144,13 @@ ENTRY_FAMILIES = [
             "objective",
             "本周发布",
             "发布",
-            "发布周",
+            "发布计划",
             "竞品复盘",
             "本地化冲刺",
             "目标",
             "结果",
+            "周计划",
+            "发布板",
         ],
         "fallbacks": ["cadence-board", "combo"],
     },
@@ -170,6 +177,9 @@ ENTRY_FAMILIES = [
             "增长运营",
             "岗位",
             "角色",
+            "运营板",
+            "入口板",
+            "看板",
         ],
         "fallbacks": ["cadence-board", "launch-board"],
     },
@@ -199,10 +209,22 @@ ENTRY_FAMILIES = [
             "冲刺",
             "班次",
             "节奏",
+            "日常运营",
+            "日更运营",
+            "周复盘",
+            "日常运营板",
+            "日更运营板",
         ],
         "fallbacks": ["launch-board", "manager-board"],
     },
 ]
+
+BOARD_INTENT_MARKERS = ["board", "starter", "运营板", "入口板", "看板", "板", "board for", "starter for"]
+CADENCE_MARKERS = ["daily", "weekly", "every day", "every week", "shift", "sprint", "每日", "每周", "班次", "日常", "日更", "周复盘"]
+ROLE_MARKERS = ["operator", "owner", "lead", "内容运营", "直播运营", "策略运营", "增长运营", "负责", "角色"]
+OUTCOME_MARKERS = ["publish", "launch", "this week", "review", "发布", "本周", "复盘", "计划"]
+VERTICAL_MARKERS = ["beauty", "skincare", "lip", "美妆", "护肤", "口红", "tiktok", "douyin"]
+WORKFLOW_MARKERS = ["workflow", "flow", "pipeline", "流程", "工作流"]
 
 
 def parse_args() -> argparse.Namespace:
@@ -229,10 +251,23 @@ def score_keywords(text: str, keywords: list[str]) -> tuple[int, list[str]]:
     matched: list[str] = []
     score = 0
     for keyword in keywords:
-        if keyword.lower() in lowered:
+        candidate = keyword.lower()
+        if candidate in lowered:
             matched.append(keyword)
-            score += max(2, len(keyword.split()))
+            score += max(2, len(candidate.split()))
     return score, matched
+
+
+def detect_query_traits(query: str) -> dict:
+    lowered = query.lower()
+    return {
+        "board_intent": [marker for marker in BOARD_INTENT_MARKERS if marker in lowered or marker in query],
+        "cadence": [marker for marker in CADENCE_MARKERS if marker in lowered or marker in query],
+        "role": [marker for marker in ROLE_MARKERS if marker in lowered or marker in query],
+        "outcome": [marker for marker in OUTCOME_MARKERS if marker in lowered or marker in query],
+        "vertical": [marker for marker in VERTICAL_MARKERS if marker in lowered or marker in query],
+        "workflow": [marker for marker in WORKFLOW_MARKERS if marker in lowered or marker in query],
+    }
 
 
 def score_catalog_item(
@@ -315,33 +350,38 @@ def build_catalog() -> list[dict]:
 
 def recommend_family(query: str) -> tuple[dict, list[dict]]:
     scores = []
-    lowered = query.lower()
-    cadence_markers = ["daily", "weekly", "every day", "every week", "shift", "sprint", "每日", "每周", "班次"]
-    role_markers = ["operator", "owner", "lead", "内容运营", "直播运营", "策略运营", "增长运营", "负责", "角色"]
-    outcome_markers = ["publish", "launch", "this week", "review", "发布", "本周", "复盘"]
-    vertical_markers = ["beauty", "skincare", "lip", "美妆", "护肤", "口红"]
+    traits = detect_query_traits(query)
 
     for family in ENTRY_FAMILIES:
         score, matched = score_keywords(query, family["keywords"])
-        if family["family"] == "cadence-board" and any(marker in lowered for marker in cadence_markers):
+        if traits["board_intent"]:
+            score += 2
+            matched.append("explicit-board-intent")
+        if family["family"] == "cadence-board" and traits["cadence"]:
             score += 4
             matched.append("cadence-priority")
-        if family["family"] == "manager-board" and any(marker in lowered for marker in role_markers):
+        if family["family"] == "manager-board" and traits["role"]:
             score += 3
             matched.append("role-priority")
-        if family["family"] == "launch-board" and any(marker in lowered for marker in outcome_markers):
+        if family["family"] == "launch-board" and traits["outcome"]:
             score += 3
             matched.append("outcome-priority")
-        if family["family"] == "vertical" and any(marker in lowered for marker in vertical_markers):
+        if family["family"] == "vertical" and traits["vertical"]:
             score += 1
             matched.append("vertical-context")
+        if family["family"] == "vertical" and traits["workflow"]:
+            score -= 2
+            matched.append("workflow-penalty")
+        if family["family"] == "vertical" and traits["vertical"] and traits["cadence"] and traits["board_intent"]:
+            score += 5
+            matched.append("hybrid-vertical-cadence-priority")
         scores.append(
             {
                 "family": family["family"],
                 "label": family["label"],
                 "description": family["description"],
                 "score": score,
-                "matched_signals": matched,
+                "matched_signals": sorted(set(matched)),
                 "fallbacks": family["fallbacks"],
             }
         )
@@ -356,6 +396,7 @@ def recommend_family(query: str) -> tuple[dict, list[dict]]:
 
 def recommend_items(query: str, family: str, limit: int = 3) -> list[dict]:
     query_tokens = tokenize(query)
+    traits = detect_query_traits(query)
     candidates = []
     for item in build_catalog():
         if item["family"] != family:
@@ -369,6 +410,15 @@ def recommend_items(query: str, family: str, limit: int = 3) -> list[dict]:
             item["presets"],
             item.get("seed"),
         )
+
+        if family == "vertical" and traits["vertical"] and traits["cadence"] and traits["board_intent"]:
+            if "category:Beauty" in scored["matched_terms"] or "platform:TikTok" in scored["matched_terms"] or "platform:Douyin" in scored["matched_terms"]:
+                scored["score"] += 6
+                scored["matched_terms"] = sorted(set([*scored["matched_terms"], "hybrid-query-boost"]))
+        if family == "cadence-board" and traits["vertical"] and traits["cadence"] and traits["board_intent"]:
+            scored["score"] += 2
+            scored["matched_terms"] = sorted(set([*scored["matched_terms"], "cadence-board-intent"]))
+
         candidates.append({"family": family, **scored})
     candidates.sort(key=lambda item: item["score"], reverse=True)
     return candidates[:limit]

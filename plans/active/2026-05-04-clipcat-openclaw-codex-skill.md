@@ -1632,3 +1632,74 @@ Create a durable Codex-native skill package that reproduces the Clipcat/OpenClaw
 ### Remaining Follow-up
 
 - fixed: added one hermetic batch board execution smoke against the stable local `preset-template-bundle-v9` bundle with board-local `generate` plus `dry_run`
+
+## 2026-05-05 Route Quality And Long-Name Hardening
+
+- Decision: treat explicit board phrasing, Chinese cadence phrases, and role-first board requests as stronger than incidental single-scene matches.
+- Why: board-style requests such as weekly review boards and daily ops boards were being stolen by scene or goal routing, which made the unified router feel unreliable.
+- Decision: truncate auto-generated goal run names, scene-run folder suffixes, and report base names.
+- Why: long free-text workflow requests could exceed practical Windows path limits and fail during goal workspace creation.
+- Decision: convert the discovered ambiguous-route probes into durable validation cases.
+- Why: these were concrete regressions and should stay locked by `validate_all_workflows.py`, not by ad hoc chat memory.
+
+### Updated
+
+- `tiktok-growth-operator.skill/scripts/recommend_entry_board.py`
+- `tiktok-growth-operator.skill/scripts/run_operator_workflow.py`
+- `tiktok-growth-operator.skill/scripts/start_goal_workflow.py`
+- `tiktok-growth-operator.skill/scripts/validate_all_workflows.py`
+
+### Added Behavior
+
+- Chinese board phrases such as `日常运营板` and `日更运营板` now resolve cleanly to `board`
+- weekly competitor review requests now resolve to `board` instead of being stolen by scene `18`
+- multi-stage workflow/process requests without board intent now stay in `goal`
+- long workflow requests now generate shortened safe run names and shortened per-scene folder/file names
+- validation now includes:
+  - weekly competitor review -> `board`
+  - `给我一个日常运营板` -> `board`
+  - `我想做一个美妆TikTok日更运营板` -> `board`
+  - `帮我做一个多市场本地化发布流程` -> `goal`
+  - long English workflow request -> `goal` with bounded `run_name`
+
+### Validation
+
+- Ran: `python -m py_compile "tiktok-growth-operator.skill\scripts\recommend_entry_board.py" "tiktok-growth-operator.skill\scripts\run_operator_workflow.py" "tiktok-growth-operator.skill\scripts\start_goal_workflow.py" "tiktok-growth-operator.skill\scripts\validate_all_workflows.py"`
+- Result: passed
+- Ran: `python "tiktok-growth-operator.skill\scripts\run_operator_workflow.py" --request "Set up my weekly competitor review"`
+- Result: passed and now auto-routes to `board` with `weekly-ops-board`
+- Ran: `python "tiktok-growth-operator.skill\scripts\run_operator_workflow.py" --request "给我一个日常运营板"`
+- Result: passed and now auto-routes to `board` with `daily-ops-board`
+- Ran: `python "tiktok-growth-operator.skill\scripts\run_operator_workflow.py" --request "我想做一个美妆TikTok日更运营板"`
+- Result: passed and now auto-routes to `board` with `daily-ops-board`
+- Ran: `python "tiktok-growth-operator.skill\scripts\run_operator_workflow.py" --request "帮我做一个多市场本地化发布流程"`
+- Result: passed and now auto-routes to `goal`
+- Ran: `python "tiktok-growth-operator.skill\scripts\run_operator_workflow.py" --request "Build a full Douyin workflow from topic selection to publish handoff"`
+- Result: passed and now auto-routes to `goal` while generating a bounded safe `run_name`
+- Ran: `python "tiktok-growth-operator.skill\scripts\validate_all_workflows.py"`
+- Result: passed with the new route-quality and long-name regression checks
+
+## 2026-05-05 Hybrid Board Ranking Upgrade
+
+- Decision: when one request mixes vertical context, cadence intent, and explicit board phrasing, allow seeded vertical starters to outrank generic cadence boards.
+- Why: requests such as `美妆 TikTok 日更运营板` are better served by a niche-ready starter than by a generic `daily-ops-board`, even though cadence is still important.
+
+### Updated
+
+- `tiktok-growth-operator.skill/scripts/recommend_entry_board.py`
+- `tiktok-growth-operator.skill/scripts/validate_all_workflows.py`
+
+### Added Behavior
+
+- mixed `vertical + cadence + board` requests now boost `vertical` family ranking
+- `recommend_entry_board.py`, `start_entry_board.py`, and unified `run_operator_workflow.py` now consistently pick `beauty-us-ops-starter` for `我想做一个美妆TikTok日更运营板`
+- batch execute validation now expects the higher-signal vertical starter instead of the previous generic cadence board
+
+### Validation
+
+- Ran: `python "tiktok-growth-operator.skill\scripts\recommend_entry_board.py" --query "我想做一个美妆TikTok日更运营板" --format json`
+- Result: passed and now recommends `vertical` with top slug `beauty-us-ops-starter`
+- Ran: `python "tiktok-growth-operator.skill\scripts\start_entry_board.py" --query "我想做一个美妆TikTok日更运营板" --output-root ".\tiktok-growth-operator.skill\tmp\20260505_hybrid_vertical_cadence_smoke"`
+- Result: passed and scaffolded `beauty-us-ops-starter`
+- Ran: `python "tiktok-growth-operator.skill\scripts\run_operator_workflow.py" --request "我想做一个美妆TikTok日更运营板" --output-root ".\tiktok-growth-operator.skill\tmp\20260505_hybrid_vertical_cadence_route"`
+- Result: passed and unified auto-routing also selected `beauty-us-ops-starter`
