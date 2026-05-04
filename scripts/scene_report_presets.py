@@ -1100,6 +1100,7 @@ SCENE_PRESETS = {
             ],
             "constraints": [
                 "Keep the underlying logic, not literal copying.",
+                "Do not reuse branded phrasing, proof claims, or signature creator cues without rewriting them for the new product.",
             ],
             "requested_outputs": [
                 "Replication brief",
@@ -1107,11 +1108,13 @@ SCENE_PRESETS = {
                 "Adapted proof sequence",
                 "Shot order",
                 "Optional voiceover draft",
+                "Production handoff",
             ],
         },
         "evidence": [
             {"label": "Reference logic", "detail": "Paste the reference video link or teardown notes.", "source": ""},
             {"label": "User product facts", "detail": "Add product offer, selling points, and constraints.", "source": ""},
+            {"label": "Available asset / talent reality", "detail": "List whether the user has founder footage, UGC talent, product close-ups, before-after proof, or only still assets.", "source": ""},
         ],
         "sections": [
             section(
@@ -1156,8 +1159,8 @@ SCENE_PRESETS = {
                 "Structure",
                 "Give an execution-ready shot order.",
                 table=blank_table(
-                    ["Shot / Beat", "What Happens", "Purpose", "Asset / Talent Needed", "Line / Overlay"],
-                    [["1", "", "", "", ""], ["2", "", "", "", ""], ["3", "", "", "", ""], ["4", "", "", "", ""]],
+                    ["Shot / Beat", "What Happens", "Purpose", "Asset / Talent Needed", "Line / Overlay", "Dependency / Risk"],
+                    [["1", "", "", "", "", ""], ["2", "", "", "", "", ""], ["3", "", "", "", "", ""], ["4", "", "", "", "", ""]],
                     "Replication Shot Order",
                 ),
             ),
@@ -1165,14 +1168,27 @@ SCENE_PRESETS = {
                 "Creative Constraints",
                 "List what cannot be copied literally and what must change for the user product.",
                 table=blank_table(
-                    ["Constraint", "Keep / Change", "Reason"],
+                    ["Constraint", "Keep / Change", "Reason", "Owner / Check"],
                     [
-                        ["Visual identity", "", ""],
-                        ["Claim language", "", ""],
-                        ["Proof style", "", ""],
-                        ["CTA wording", "", ""],
+                        ["Visual identity", "", "", ""],
+                        ["Claim language", "", "", ""],
+                        ["Proof style", "", "", ""],
+                        ["CTA wording", "", "", ""],
                     ],
                     "Adaptation Guardrails",
+                ),
+            ),
+            section(
+                "Production Handoff",
+                "Leave the filming or prompting team with one clear handoff table.",
+                table=blank_table(
+                    ["Handoff Item", "Locked Decision", "Owner", "Blocking Risk"],
+                    [
+                        ["Hook direction", "", "", ""],
+                        ["Proof asset", "", "", ""],
+                        ["On-screen line / overlay", "", "", ""],
+                        ["CTA execution", "", "", ""],
+                    ],
                 ),
             ),
             section(
@@ -1196,6 +1212,7 @@ SCENE_PRESETS = {
             ],
             "constraints": [
                 "If images are missing, mark visual sections as pending.",
+                "Do not invent footage, talent, or usage scenes the current asset set cannot support.",
             ],
             "requested_outputs": [
                 "Video concept",
@@ -1203,10 +1220,12 @@ SCENE_PRESETS = {
                 "Voiceover structure",
                 "Style keywords",
                 "Test variables",
+                "Production handoff",
             ],
         },
         "evidence": [
             {"label": "Product asset set", "detail": "List the available images, angles, or missing visual gaps.", "source": ""},
+            {"label": "Missing visual gaps", "detail": "Call out which claims, demos, or scene transitions cannot be supported by the current asset set.", "source": ""},
         ],
         "sections": [
             section(
@@ -1238,12 +1257,12 @@ SCENE_PRESETS = {
                 "Message",
                 "Define the core promise and proof path.",
                 table=blank_table(
-                    ["Layer", "Draft", "Supported By Which Asset"],
+                    ["Layer", "Draft", "Supported By Which Asset", "Missing Proof?"],
                     [
-                        ["Core promise", "", ""],
-                        ["Primary proof", "", ""],
-                        ["Secondary proof", "", ""],
-                        ["CTA", "", ""],
+                        ["Core promise", "", "", ""],
+                        ["Primary proof", "", "", ""],
+                        ["Secondary proof", "", "", ""],
+                        ["CTA", "", "", ""],
                     ],
                     "Image-Only Messaging Brief",
                 ),
@@ -1252,17 +1271,30 @@ SCENE_PRESETS = {
                 "Structure",
                 "Map the shot flow from opening to close.",
                 table=blank_table(
-                    ["Beat", "Visual Use", "Voiceover / Overlay", "Purpose", "Missing Asset?"],
-                    [["Hook", "", "", "", ""], ["Proof 1", "", "", "", ""], ["Proof 2", "", "", "", ""], ["Close", "", "", "", ""]],
+                    ["Beat", "Visual Use", "Voiceover / Overlay", "Purpose", "Asset / Talent Source", "Missing Asset?"],
+                    [["Hook", "", "", "", "", ""], ["Proof 1", "", "", "", "", ""], ["Proof 2", "", "", "", "", ""], ["Close", "", "", "", "", ""]],
                 ),
             ),
             section(
                 "Creative Constraints",
                 "Specify style keywords, rendering guardrails, and what to avoid.",
                 table=blank_table(
-                    ["Constraint Type", "Detail", "Risk If Ignored"],
-                    [["Visual style", "", ""], ["Tone", "", ""], ["Must show", "", ""], ["Must avoid", "", ""]],
+                    ["Constraint Type", "Detail", "Risk If Ignored", "Fix Path"],
+                    [["Visual style", "", "", ""], ["Tone", "", "", ""], ["Must show", "", "", ""], ["Must avoid", "", "", ""]],
                     "Render Guardrails",
+                ),
+            ),
+            section(
+                "Production Handoff",
+                "State what the editing, design, or prompt-render team can execute now.",
+                table=blank_table(
+                    ["Handoff Item", "Locked Decision", "Open Gap", "Owner"],
+                    [
+                        ["Hook frame", "", "", ""],
+                        ["Primary proof beat", "", "", ""],
+                        ["VO / overlay draft", "", "", ""],
+                        ["CTA treatment", "", "", ""],
+                    ],
                 ),
             ),
             section(
@@ -1291,6 +1323,7 @@ SCENE_PRESETS = {
                 "Replication brief bank",
                 "Production queue",
                 "Testing recommendation",
+                "Weekly runbook",
             ],
         },
         "evidence": [
@@ -1317,13 +1350,13 @@ SCENE_PRESETS = {
                 "Variable Matrix",
                 "Map the pipeline from discovery to production.",
                 table=blank_table(
-                    ["Stage", "Input", "Decision Rule", "Owner", "Output", "SLA / Cadence"],
+                    ["Stage", "Input", "Decision Rule", "Asset Need", "Owner", "Output", "SLA / Cadence"],
                     [
-                        ["Discovery", "", "", "", "", ""],
-                        ["Shortlist", "", "", "", "", ""],
-                        ["Teardown", "", "", "", "", ""],
-                        ["Replication brief", "", "", "", "", ""],
-                        ["Production queue", "", "", "", "", ""],
+                        ["Discovery", "", "", "", "", "", ""],
+                        ["Shortlist", "", "", "", "", "", ""],
+                        ["Teardown", "", "", "", "", "", ""],
+                        ["Replication brief", "", "", "", "", "", ""],
+                        ["Production queue", "", "", "", "", "", ""],
                     ],
                     "Pipeline Stages",
                 ),
@@ -1340,8 +1373,21 @@ SCENE_PRESETS = {
                 "What To Learn",
                 "State what each cycle should teach the operator.",
                 table=blank_table(
-                    ["Cycle Question", "Why It Matters", "How To Measure", "What Decision It Changes"],
-                    [["", "", "", ""], ["", "", "", ""], ["", "", "", ""]],
+                    ["Cycle Question", "Why It Matters", "How To Measure", "What Decision It Changes", "If Confirmed", "If Rejected"],
+                    [["", "", "", "", "", ""], ["", "", "", "", "", ""], ["", "", "", "", "", ""]],
+                ),
+            ),
+            section(
+                "Execution Handoff",
+                "Define the artifacts and owners needed to keep the pipeline moving each week.",
+                table=blank_table(
+                    ["Queue Artifact", "Who Owns It", "Ready When", "Blocking Risk"],
+                    [
+                        ["Discovery shortlist", "", "", ""],
+                        ["Teardown packet", "", "", ""],
+                        ["Replication brief bank", "", "", ""],
+                        ["Production queue", "", "", ""],
+                    ],
                 ),
             ),
             section(
@@ -1370,6 +1416,7 @@ SCENE_PRESETS = {
                 "Hook variants",
                 "Proof variants",
                 "Testing order",
+                "Variant handoff",
             ],
         },
         "evidence": [
@@ -1392,12 +1439,12 @@ SCENE_PRESETS = {
                 "Variable Matrix",
                 "Build the full testing matrix.",
                 table=blank_table(
-                    ["Style", "Audience Lens", "Hook", "Proof Device", "Visual Style", "CTA", "Primary Hypothesis", "Why Test It"],
+                    ["Style", "Audience Lens", "Hook", "Proof Device", "Visual Style", "CTA", "Asset Need", "Production Complexity", "Primary Hypothesis", "Why Test It"],
                     [
-                        ["Style 1", "", "", "", "", "", "", ""],
-                        ["Style 2", "", "", "", "", "", "", ""],
-                        ["Style 3", "", "", "", "", "", "", ""],
-                        ["Style 4", "", "", "", "", "", "", ""],
+                        ["Style 1", "", "", "", "", "", "", "", "", ""],
+                        ["Style 2", "", "", "", "", "", "", "", "", ""],
+                        ["Style 3", "", "", "", "", "", "", "", "", ""],
+                        ["Style 4", "", "", "", "", "", "", "", "", ""],
                     ],
                     "Multi-Style Testing Matrix",
                 ),
@@ -1414,7 +1461,15 @@ SCENE_PRESETS = {
                 "What To Learn",
                 "Define the learning agenda from the matrix.",
                 table=blank_table(
-                    ["Variant", "Main Hypothesis", "Success Signal", "What It Teaches"],
+                    ["Variant", "Main Hypothesis", "Success Signal", "What It Teaches", "If Confirmed", "If Rejected"],
+                    [["Style 1", "", "", "", "", ""], ["Style 2", "", "", "", "", ""], ["Style 3", "", "", "", "", ""], ["Style 4", "", "", "", "", ""]],
+                ),
+            ),
+            section(
+                "Execution Handoff",
+                "State what each first-wave variant needs before it can go live.",
+                table=blank_table(
+                    ["Variant", "First Asset Need", "Owner", "Ready For Test When"],
                     [["Style 1", "", "", ""], ["Style 2", "", "", ""], ["Style 3", "", "", ""], ["Style 4", "", "", ""]],
                 ),
             ),
@@ -1438,16 +1493,19 @@ SCENE_PRESETS = {
             ],
             "constraints": [
                 "Localize for conversion, not only literal translation.",
+                "Do not localize into a market without stating what evidence supports the adaptation.",
             ],
             "requested_outputs": [
                 "Shared invariant",
                 "Per-market notes",
                 "Per-market hook and script direction",
                 "Per-market visual cues",
+                "Market handoff",
             ],
         },
         "evidence": [
             {"label": "Source concept", "detail": "Add the original script, product concept, or winning angle.", "source": ""},
+            {"label": "Local reviewer context", "detail": "Add any native-speaker, creator, or market-review notes that can validate localization choices.", "source": ""},
         ],
         "sections": [
             section(
@@ -1488,15 +1546,23 @@ SCENE_PRESETS = {
                 "Structure",
                 "Describe any structural changes by market if needed.",
                 table=blank_table(
-                    ["Market", "Opening Beat", "Middle Proof", "Close / CTA", "Visual Cue"],
-                    [["", "", "", "", ""], ["", "", "", "", ""], ["", "", "", "", ""]],
+                    ["Market", "Opening Beat", "Middle Proof", "Close / CTA", "Visual Cue", "Talent / Asset Need", "Localization Dependency"],
+                    [["", "", "", "", "", "", ""], ["", "", "", "", "", "", ""], ["", "", "", "", "", "", ""]],
                 ),
             ),
             section(
                 "Creative Constraints",
                 "List cultural, visual, or language cautions per market.",
                 table=blank_table(
-                    ["Market", "Do Not Use", "Must Adapt", "Open Risk"],
+                    ["Market", "Do Not Use", "Must Adapt", "Open Risk", "Review Owner"],
+                    [["", "", "", "", ""], ["", "", "", "", ""], ["", "", "", "", ""]],
+                ),
+            ),
+            section(
+                "Production Handoff",
+                "State which markets are ready for scripting and which still need validation.",
+                table=blank_table(
+                    ["Market", "What Is Ready To Script", "What Still Needs Native Review", "Owner"],
                     [["", "", "", ""], ["", "", "", ""], ["", "", "", ""]],
                 ),
             ),
@@ -1521,12 +1587,14 @@ SCENE_PRESETS = {
             ],
             "constraints": [
                 "If images are missing, keep this as blueprint plus asset requirements.",
+                "Flag which assets depend on unavailable footage, design time, or product proof before sequencing production.",
             ],
             "requested_outputs": [
                 "Asset list",
                 "Purpose of each asset",
                 "Creative direction",
                 "Production priority",
+                "Production handoff",
             ],
         },
         "evidence": [
@@ -1549,13 +1617,13 @@ SCENE_PRESETS = {
                 "Variable Matrix",
                 "Map each asset to its job.",
                 table=blank_table(
-                    ["Asset", "Purpose", "Primary Message", "Format / Ratio", "Owner / Tool", "Priority"],
+                    ["Asset", "Purpose", "Primary Message", "Format / Ratio", "Owner / Tool", "Dependency / Blocking Risk", "Priority"],
                     [
-                        ["Main image", "", "", "", "", ""],
-                        ["Scene image", "", "", "", "", ""],
-                        ["Benefit image", "", "", "", "", ""],
-                        ["Detail image", "", "", "", "", ""],
-                        ["Short video", "", "", "", "", ""],
+                        ["Main image", "", "", "", "", "", ""],
+                        ["Scene image", "", "", "", "", "", ""],
+                        ["Benefit image", "", "", "", "", "", ""],
+                        ["Detail image", "", "", "", "", "", ""],
+                        ["Short video", "", "", "", "", "", ""],
                     ],
                     "Launch Asset Family",
                 ),
@@ -1573,16 +1641,24 @@ SCENE_PRESETS = {
                 "What To Learn",
                 "State what should be learned from launch testing.",
                 table=blank_table(
-                    ["Asset", "Question", "Success Signal", "What It Changes Next"],
-                    [["Main image", "", "", ""], ["Benefit image", "", "", ""], ["Short video", "", "", ""]],
+                    ["Asset", "Question", "Success Signal", "What It Changes Next", "If It Wins"],
+                    [["Main image", "", "", "", ""], ["Benefit image", "", "", "", ""], ["Short video", "", "", "", ""]],
+                ),
+            ),
+            section(
+                "Production Handoff",
+                "Leave a concrete asset-family handoff for design and production owners.",
+                table=blank_table(
+                    ["Asset Family Item", "Ready Spec", "Missing Input", "Owner"],
+                    [["Main image", "", "", ""], ["Scene image", "", "", ""], ["Benefit image", "", "", ""], ["Short video", "", "", ""]],
                 ),
             ),
             section(
                 "Next Action",
                 "Give the production order and handoff notes.",
                 table=blank_table(
-                    ["Priority", "Asset", "Why It Goes First", "Dependency"],
-                    [["1", "", "", ""], ["2", "", "", ""], ["3", "", "", ""], ["4", "", "", ""], ["5", "", "", ""]],
+                    ["Priority", "Asset", "Why It Goes First", "Dependency", "Owner"],
+                    [["1", "", "", "", ""], ["2", "", "", "", ""], ["3", "", "", "", ""], ["4", "", "", "", ""], ["5", "", "", "", ""]],
                 ),
             ),
         ],
@@ -1603,10 +1679,12 @@ SCENE_PRESETS = {
                 "Layout notes",
                 "Text hierarchy",
                 "Localization cautions",
+                "Render handoff",
             ],
         },
         "evidence": [
             {"label": "Source copy blocks", "detail": "List each text block in reading order.", "source": ""},
+            {"label": "Layout capture", "detail": "Attach the current image layout or a block map so the localized copy can be sized correctly.", "source": ""},
         ],
         "sections": [
             section(
@@ -1633,8 +1711,8 @@ SCENE_PRESETS = {
                 "Message",
                 "Translate each block with hierarchy preserved.",
                 table=blank_table(
-                    ["Source Block", "Function", "Localized Copy", "Length Risk", "Notes"],
-                    [["", "", "", "", ""], ["", "", "", "", ""], ["", "", "", "", ""]],
+                    ["Source Block", "Function", "Localized Copy", "Length Risk", "Layout Fit", "Native Review Needed?", "Notes"],
+                    [["", "", "", "", "", "", ""], ["", "", "", "", "", "", ""], ["", "", "", "", "", "", ""]],
                     "Localized Copy Grid",
                 ),
             ),
@@ -1642,16 +1720,24 @@ SCENE_PRESETS = {
                 "Structure",
                 "Describe text hierarchy and placement logic.",
                 table=blank_table(
-                    ["Text Layer", "Priority", "Placement Note", "Can Be Shortened?"],
-                    [["Headline", "", "", ""], ["Support line", "", "", ""], ["CTA", "", "", ""]],
+                    ["Text Layer", "Priority", "Placement Note", "Can Be Shortened?", "Design Action"],
+                    [["Headline", "", "", "", ""], ["Support line", "", "", "", ""], ["CTA", "", "", "", ""]],
                 ),
             ),
             section(
                 "Creative Constraints",
                 "List localization cautions, banned phrasing, and readability notes.",
                 table=blank_table(
-                    ["Constraint", "Localized Rule", "Reason"],
-                    [["Banned phrasing", "", ""], ["Tone guardrail", "", ""], ["Layout limit", "", ""], ["Readability note", "", ""]],
+                    ["Constraint", "Localized Rule", "Reason", "Review Owner"],
+                    [["Banned phrasing", "", "", ""], ["Tone guardrail", "", "", ""], ["Layout limit", "", "", ""], ["Readability note", "", "", ""]],
+                ),
+            ),
+            section(
+                "Production Handoff",
+                "State what the design or rendering team can execute immediately.",
+                table=blank_table(
+                    ["Handoff Item", "Localized Decision", "Needs Review?", "Owner"],
+                    [["Headline block", "", "", ""], ["Support copy", "", "", ""], ["CTA line", "", "", ""], ["Final layout check", "", "", ""]],
                 ),
             ),
             section(
@@ -1680,6 +1766,7 @@ SCENE_PRESETS = {
                 "Design weakness map",
                 "Outperform strategy",
                 "Revised main-image brief",
+                "Design handoff",
             ],
         },
         "evidence": [
@@ -1711,8 +1798,8 @@ SCENE_PRESETS = {
                 "Message",
                 "Compare the competitor approaches.",
                 table=blank_table(
-                    ["Image / Brand", "Dominant Visual Code", "Likely Click Driver", "Weakness", "What To Keep", "What To Avoid"],
-                    [["", "", "", "", "", ""], ["", "", "", "", "", ""], ["", "", "", "", "", ""]],
+                    ["Image / Brand", "Dominant Visual Code", "Likely Click Driver", "Weakness", "What To Keep", "What To Avoid", "Execution Note"],
+                    [["", "", "", "", "", "", ""], ["", "", "", "", "", "", ""], ["", "", "", "", "", "", ""]],
                     "Competitor Comparison",
                 ),
             ),
@@ -1720,16 +1807,24 @@ SCENE_PRESETS = {
                 "Structure",
                 "Convert the benchmark into a revised main-image direction.",
                 table=blank_table(
-                    ["Layer", "New Direction", "Purpose", "Must Be Visible?"],
-                    [["Hero visual", "", "", ""], ["Text treatment", "", "", ""], ["Offer cue", "", "", ""], ["Trust cue", "", "", ""]],
+                    ["Layer", "New Direction", "Purpose", "Must Be Visible?", "Asset Need"],
+                    [["Hero visual", "", "", "", ""], ["Text treatment", "", "", "", ""], ["Offer cue", "", "", "", ""], ["Trust cue", "", "", "", ""]],
                 ),
             ),
             section(
                 "Creative Constraints",
                 "State what the new main image must avoid and what it must emphasize.",
                 table=blank_table(
-                    ["Constraint", "Emphasize / Avoid", "Reason"],
-                    [["Category cliche", "", ""], ["Clutter risk", "", ""], ["Trust risk", "", ""], ["Readability risk", "", ""]],
+                    ["Constraint", "Emphasize / Avoid", "Reason", "Owner / Check"],
+                    [["Category cliche", "", "", ""], ["Clutter risk", "", "", ""], ["Trust risk", "", "", ""], ["Readability risk", "", "", ""]],
+                ),
+            ),
+            section(
+                "Production Handoff",
+                "Translate the benchmark into a concrete design or image-generation brief.",
+                table=blank_table(
+                    ["Handoff Item", "Decision", "Owner", "Risk Before Design"],
+                    [["Hero concept", "", "", ""], ["Text hierarchy", "", "", ""], ["Offer / trust cue", "", "", ""], ["Final QA lens", "", "", ""]],
                 ),
             ),
             section(

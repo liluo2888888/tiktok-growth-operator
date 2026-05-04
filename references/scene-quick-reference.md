@@ -362,6 +362,7 @@ Each scene block gives you:
 - Adapted proof sequence
 - Shot order
 - Optional voiceover draft
+- Production handoff
 
 ### Main Runner
 
@@ -372,7 +373,7 @@ Each scene block gives you:
 - 按场景 09 执行：把一条对标视频改造成适合新产品的复刻 brief，先锁定不该改的 winning logic，再重写 hook、证明和收口。
 - 先把我提供的材料整理成这组输入：Reference video or breakdown, User product details, Selling points, Target audience / market。
 - 如果证据不足，先明确缺口再继续。最低开工证据：Reference video logic, User product basics。
-- 最终必须产出：Replication brief, Adapted hook, Adapted proof sequence, Shot order, Optional voiceover draft。
+- 最终必须产出：Replication brief, Adapted hook, Adapted proof sequence, Shot order, Optional voiceover draft, Production handoff。
 - 输出必须可直接给运营、拆解、脚本、测试或交付使用，优先给表格、排序逻辑、复用规则和下一步动作。
 
 ## Scene 10 - Product-Image-To-Video Brief
@@ -401,6 +402,7 @@ Each scene block gives you:
 - Voiceover structure
 - Style keywords
 - Test variables
+- Production handoff
 
 ### Main Runner
 
@@ -411,7 +413,7 @@ Each scene block gives you:
 - 按场景 10 执行：仅基于产品图设计一版短视频 brief，明确视频类型、证明镜头、CTA 和资产缺口，不要假设用户已经有额外素材。
 - 先把我提供的材料整理成这组输入：Product images or product description, Selling points, Target audience, Market language。
 - 如果证据不足，先明确缺口再继续。最低开工证据：Product description or product images。
-- 最终必须产出：Video concept, Shot structure, Voiceover structure, Style keywords, Test variables。
+- 最终必须产出：Video concept, Shot structure, Voiceover structure, Style keywords, Test variables, Production handoff。
 - 输出必须可直接给运营、拆解、脚本、测试或交付使用，优先给表格、排序逻辑、复用规则和下一步动作。
 
 ## Scene 11 - Hot-Video Replication Pipeline
@@ -439,6 +441,7 @@ Each scene block gives you:
 - Replication brief bank
 - Production queue
 - Testing recommendation
+- Weekly runbook
 
 ### Main Runner
 
@@ -449,7 +452,7 @@ Each scene block gives you:
 - 按场景 11 执行：搭一个可重复跑的热点视频复制 pipeline，把发现、筛选、深拆、入池和生产交接拆成明确阶段和门槛。
 - 先把我提供的材料整理成这组输入：Category or product, Keyword set, Target market, Testing goal。
 - 如果证据不足，先明确缺口再继续。最低开工证据：One category or product and a testing goal。
-- 最终必须产出：Candidate ladder, Replication brief bank, Production queue, Testing recommendation。
+- 最终必须产出：Candidate ladder, Replication brief bank, Production queue, Testing recommendation, Weekly runbook。
 - 输出必须可直接给运营、拆解、脚本、测试或交付使用，优先给表格、排序逻辑、复用规则和下一步动作。
 
 ## Scene 12 - One-Product Multi-Style Testing Matrix
@@ -476,6 +479,7 @@ Each scene block gives you:
 - Hook variants
 - Proof variants
 - Testing order
+- Variant handoff
 
 ### Main Runner
 
@@ -486,7 +490,7 @@ Each scene block gives you:
 - 按场景 12 执行：为一个产品做多风格测试矩阵，先锁 invariant message，再设计真正有差异的测试风格，并写出每个变体要学什么。
 - 先把我提供的材料整理成这组输入：One product, One target market, Product images or selling points。
 - 如果证据不足，先明确缺口再继续。最低开工证据：One product, One market, One core message。
-- 最终必须产出：Style matrix, Hook variants, Proof variants, Testing order。
+- 最终必须产出：Style matrix, Hook variants, Proof variants, Testing order, Variant handoff。
 - 输出必须可直接给运营、拆解、脚本、测试或交付使用，优先给表格、排序逻辑、复用规则和下一步动作。
 
 ## Scene 13 - Multi-Market Localization Pack
@@ -514,6 +518,7 @@ Each scene block gives you:
 - Per-market notes
 - Per-market hook and script direction
 - Per-market visual cues
+- Market handoff
 
 ### Main Runner
 
@@ -524,7 +529,7 @@ Each scene block gives you:
 - 按场景 13 执行：把一个产品概念做成多市场本地化包，拆清共享产品真相和各市场的 hook、语气、禁区，不要只做直译。
 - 先把我提供的材料整理成这组输入：One product, 2+ target markets, Source concept or script, Local audience notes。
 - 如果证据不足，先明确缺口再继续。最低开工证据：One product, At least 2 target markets。
-- 最终必须产出：Shared invariant, Per-market notes, Per-market hook and script direction, Per-market visual cues。
+- 最终必须产出：Shared invariant, Per-market notes, Per-market hook and script direction, Per-market visual cues, Market handoff。
 - 输出必须可直接给运营、拆解、脚本、测试或交付使用，优先给表格、排序逻辑、复用规则和下一步动作。
 
 ## Scene 14 - Launch Asset Family Pack
@@ -552,6 +557,7 @@ Each scene block gives you:
 - Purpose of each asset
 - Creative direction
 - Production priority
+- Production handoff
 
 ### Main Runner
 
@@ -562,7 +568,7 @@ Each scene block gives you:
 - 按场景 14 执行：设计一套上新素材家族，先定义最小可上线资产集，再给每个素材分配一个转化职责，并排出制作优先级。
 - 先把我提供的材料整理成这组输入：Product description, Optional product images, Selling points, Target market。
 - 如果证据不足，先明确缺口再继续。最低开工证据：Product description。
-- 最终必须产出：Asset list, Purpose of each asset, Creative direction, Production priority。
+- 最终必须产出：Asset list, Purpose of each asset, Creative direction, Production priority, Production handoff。
 - 输出必须可直接给运营、拆解、脚本、测试或交付使用，优先给表格、排序逻辑、复用规则和下一步动作。
 
 ## Scene 15 - Image Translation Brief
@@ -590,6 +596,7 @@ Each scene block gives you:
 - Layout notes
 - Text hierarchy
 - Localization cautions
+- Render handoff
 
 ### Main Runner
 
@@ -600,7 +607,7 @@ Each scene block gives you:
 - 按场景 15 执行：做图片文案翻译与本地化 brief，区分信息性文案和转化型文案，保留层级关系，并说明新文案如何适配原布局。
 - 先把我提供的材料整理成这组输入：Source image text or OCR, Target language, Product context, Target market。
 - 如果证据不足，先明确缺口再继续。最低开工证据：Source image text or OCR, Target language。
-- 最终必须产出：Translated copy, Layout notes, Text hierarchy, Localization cautions。
+- 最终必须产出：Translated copy, Layout notes, Text hierarchy, Localization cautions, Render handoff。
 - 输出必须可直接给运营、拆解、脚本、测试或交付使用，优先给表格、排序逻辑、复用规则和下一步动作。
 
 ## Scene 16 - Competitor Main-Image Benchmark
@@ -627,6 +634,7 @@ Each scene block gives you:
 - Design weakness map
 - Outperform strategy
 - Revised main-image brief
+- Design handoff
 
 ### Main Runner
 
@@ -637,7 +645,7 @@ Each scene block gives you:
 - 按场景 16 执行：对标竞品主图并定义更强方向，先说清点击场景，再总结类目共性、差异机会和一版可执行的超越 brief。
 - 先把我提供的材料整理成这组输入：Competitor main images, User image or product, Platform and category context。
 - 如果证据不足，先明确缺口再继续。最低开工证据：2+ competitor images, User image or product。
-- 最终必须产出：Competitor comparison, Design weakness map, Outperform strategy, Revised main-image brief。
+- 最终必须产出：Competitor comparison, Design weakness map, Outperform strategy, Revised main-image brief, Design handoff。
 - 输出必须可直接给运营、拆解、脚本、测试或交付使用，优先给表格、排序逻辑、复用规则和下一步动作。
 
 ## Scene 17 - Creator Distillation
