@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.codex-edit-temp/
+.codex-tmp/
+.pydeps/
+tiktok-growth-operator.skill/tmp/
+tiktok-growth-operator.skill/scripts/__pycache__/

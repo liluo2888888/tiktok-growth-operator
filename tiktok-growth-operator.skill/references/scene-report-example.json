@@ -1,0 +1,137 @@
+{
+  "metadata": {
+    "scene": "03",
+    "scene_slug": "batch-viral-search-plus-deep-teardown",
+    "scene_title": "Batch Viral Search Plus Deep Teardown",
+    "project": "lip combo US",
+    "title": "Scene 03 Report - lip combo US",
+    "deliverable_type": "breakdown_report",
+    "generated_at": "2026-05-04T03:45:00",
+    "scenario_file": "scenarios/03-batch-viral-search-plus-deep-teardown.md",
+    "status": "example"
+  },
+  "working_context": {
+    "summary": "Analyze viral lip combo videos in the US market and extract repeatable creation rules.",
+    "inputs": [
+      "Keyword: lip combo",
+      "Market: US",
+      "Sample size target: top 5 videos"
+    ],
+    "constraints": [
+      "No TikTok API access",
+      "Conclusions must be backed by supplied links or screenshots"
+    ],
+    "requested_outputs": [
+      "Prioritized shortlist",
+      "Per-video teardown",
+      "Shared pattern summary",
+      "Creation rules"
+    ]
+  },
+  "executive_summary": {
+    "conclusion": "The strongest lip combo videos win by showing the final lip look immediately, then proving ease and shade payoff within the next 5 seconds.",
+    "why_it_matters": "This pattern favors fast cosmetic proof over slow education, which should shape hook design and shot order.",
+    "next_action": "Build three new variants that keep the instant final-look reveal but test different credibility signals.",
+    "confidence": "medium"
+  },
+  "evidence": [
+    {
+      "label": "Candidate 1",
+      "detail": "1.2M views, final lip look shown in first second, product names overlaid on screen.",
+      "source": "https://example.com/video-1"
+    },
+    {
+      "label": "Candidate 2",
+      "detail": "870K views, creator hand-swatch plus before/after mouth close-up in first 4 seconds.",
+      "source": "https://example.com/video-2"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "Executive Conclusion",
+      "instruction": "",
+      "paragraphs": [
+        "The category is not winning on novelty alone. It is winning on immediately visible transformation plus proof of shade harmony."
+      ],
+      "bullets": [
+        "First-frame beauty payoff matters more than creator introduction.",
+        "Viewers need both aspiration and evidence in the same short window."
+      ],
+      "numbered": [],
+      "table": {
+        "title": "",
+        "headers": [],
+        "rows": []
+      }
+    },
+    {
+      "heading": "Structure Logic",
+      "instruction": "",
+      "paragraphs": [],
+      "bullets": [],
+      "numbered": [
+        "Open with the final lip result before any setup.",
+        "Show the two or three products in use quickly.",
+        "Use a close-up proof shot that confirms texture and color blend.",
+        "End with a simple recommendation or shade logic."
+      ],
+      "table": {
+        "title": "Top Candidate Shortlist",
+        "headers": [
+          "Rank",
+          "Video",
+          "Hook",
+          "Proof Device",
+          "Why It Won"
+        ],
+        "rows": [
+          [
+            "1",
+            "Candidate 1",
+            "Finished lip look in first second",
+            "Product names plus close-up blend shot",
+            "Fast aspiration and product clarity"
+          ],
+          [
+            "2",
+            "Candidate 2",
+            "Before/after close-up",
+            "Hand swatch and texture reveal",
+            "Strong proof of payoff and ease"
+          ]
+        ]
+      }
+    },
+    {
+      "heading": "Reusable Formula",
+      "instruction": "",
+      "paragraphs": [
+        "Final look first -> product reveal -> blend proof -> simple shade logic -> light CTA."
+      ],
+      "bullets": [
+        "Do not delay the payoff with a long spoken intro.",
+        "Do not over-explain ingredient claims in the first 5 seconds."
+      ],
+      "numbered": [],
+      "table": {
+        "title": "",
+        "headers": [],
+        "rows": []
+      }
+    }
+  ],
+  "assets": [
+    {
+      "label": "Hook screenshot",
+      "path": "D:\\path\\frame-001.png",
+      "note": "Example of finished lip reveal in first frame"
+    }
+  ],
+  "notes": [
+    "Replace example links with real evidence before client delivery."
+  ],
+  "sources": [
+    "ClipcatSkill - 让 OpenClaw 创作Tiktok爆款短视频.docx",
+    "clipcat.ai/tiktok/openclaw"
+  ]
+}
