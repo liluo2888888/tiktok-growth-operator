@@ -83,6 +83,7 @@ Each scenario file contains:
 - output formats: [references/deliverable-contracts.md](references/deliverable-contracts.md)
 - structured report contract: [references/scene-report-contract.md](references/scene-report-contract.md)
 - 19-scene quick-copy index: [references/scene-quick-reference.md](references/scene-quick-reference.md)
+- creative brief quick-copy index: [references/creative-brief-quick-reference.md](references/creative-brief-quick-reference.md)
 - reproduction boundaries: [references/codex-replication-blueprint.md](references/codex-replication-blueprint.md)
 - automation helpers: [references/automation-workflows.md](references/automation-workflows.md)
 - direct Codex usage: [references/direct-use.md](references/direct-use.md)
@@ -125,6 +126,7 @@ Each scenario file contains:
 - Read [references/feature-map.md](references/feature-map.md) for the source-derived capability map.
 - Read [references/direct-use.md](references/direct-use.md) when the user wants Codex to run the workflow directly.
 - Read [references/scene-quick-reference.md](references/scene-quick-reference.md) when the user wants a copy-ready direct-call request for one of the 19 scenes.
+- Read [references/creative-brief-quick-reference.md](references/creative-brief-quick-reference.md) when the user specifically needs the brief-heavy scenes `09` to `16` without scanning the whole package.
 - Read [references/final-handoff.md](references/final-handoff.md) when you want the shortest durable summary of what is finished, how to run it, and how to validate it.
 - Read [references/batch-presets.md](references/batch-presets.md) when the user wants a ready-made reusable batch queue.
   Prefer the generated preset `.report.md` before execution because it includes copy-ready batch commands, suggested artifact paths, reusable input config, and generated helper scripts.
