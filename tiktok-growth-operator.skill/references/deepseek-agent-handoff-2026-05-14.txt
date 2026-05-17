@@ -1,0 +1,330 @@
+DeepSeek Agent Handoff
+Date: 2026-05-14
+
+1. Project identity
+
+Current skill name:
+- tiktok-growth-operator
+
+Current skill root directory:
+- D:\我的文档\Documents\Playground 4\tiktok-growth-operator.skill
+
+Main skill file:
+- D:\我的文档\Documents\Playground 4\tiktok-growth-operator.skill\SKILL.md
+
+Main runtime file currently carrying most scene logic:
+- D:\我的文档\Documents\Playground 4\tiktok-growth-operator.skill\scripts\import_tiktok_capture_pack.py
+
+Important related directories:
+- scenarios:
+  D:\我的文档\Documents\Playground 4\tiktok-growth-operator.skill\scenarios
+- scripts:
+  D:\我的文档\Documents\Playground 4\tiktok-growth-operator.skill\scripts
+- references:
+  D:\我的文档\Documents\Playground 4\tiktok-growth-operator.skill\references
+- validation fixtures:
+  D:\我的文档\Documents\Playground 4\tiktok-growth-operator.skill\testdata\validation
+
+Important reference docs:
+- parity audit:
+  D:\我的文档\Documents\Playground 4\tiktok-growth-operator.skill\references\clipcat-openclaw-parity-audit.md
+- optimization backlog:
+  D:\我的文档\Documents\Playground 4\tiktok-growth-operator.skill\references\scene-optimization-backlog.md
+- Feishu setup:
+  D:\我的文档\Documents\Playground 4\tiktok-growth-operator.skill\references\feishu-setup.md
+
+2. Boundary / hard rules
+
+Do not modify the TikMatrix collector project:
+- E:\tiktok\TikMatrix
+
+The collector project is already proven and should be treated as external input, not a code-edit target.
+
+Current working principle:
+- improve only tiktok-growth-operator.skill
+- do not break existing validated scene runtime
+- do not remove existing fixtures, validators, or handoff packs unless replacing them with something better
+
+Unsafe or explicitly out-of-scope surfaces:
+- cloud-phone RPA publish automation
+- account farming / 养号
+- anti-detection / spoofing / risky engagement automation
+- automatic account mutation like auto-reply / auto-approve / spam loops
+
+3. Current overall progress
+
+High-level status:
+- 19 scenes already exist as direct callable prompt/workflow templates
+- real TikTok runtime has already been proven for scenes:
+  01, 02, 03, 04, 05, 07, 08, 09, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19
+- Scene 06 still lacks real TikTok Shop product/detail/comment data source
+
+Already true now:
+- unified router exists
+- batch mode exists
+- board mode exists
+- markdown / json / docx / xlsx export exists
+- historical rerender exists
+- validator suite exists and was repaired
+- Feishu-related scripts exist in this skill package
+
+4. Key concrete progress already completed
+
+4.1 Scene 01 / 02 / 03 chain
+
+- Scene 01 now has stronger gate logic for required inputs:
+  - publish window
+  - market
+  - sort_by
+  - shop_only
+- Scene 01 now exposes stronger operator-board fields:
+  - 交接状态
+  - 推荐深拆方向
+- Scene 02 patrol can auto-chain into Scene 03
+- Scene 03 shortlist rule is now more runtime-driven, not only descriptive
+- Scene 03 high-visibility output labels were cleaned to Chinese-first on operator-facing surfaces
+
+Representative outputs:
+- D:\我的文档\Documents\Playground 4\.codex-tmp\scene01_board_check_20260510
+- D:\我的文档\Documents\Playground 4\.codex-tmp\scene02_full_chain_postpatch_20260510
+
+4.2 Scene 04 / 05 / 17 runtime upgrades
+
+- Scene 04:
+  - stronger single-video breakdown structure
+  - shot-level handoff added
+  - “制作交接 / 分镜执行表” added
+  - “下一步动作 / shot 交接” added
+- Scene 05:
+  - stricter generator-ready schema added
+  - “Generator-Ready Schema” table added
+  - “产品适配 / 改写字段” table added
+- Scene 17:
+  - stronger account overview fields
+  - stronger high-vs-low interaction comparison
+  - formula library added
+  - publish-slot and update-frequency inference added
+
+Representative outputs:
+- D:\我的文档\Documents\Playground 4\.codex-tmp\scene04_platform_handoff_check_20260510
+- D:\我的文档\Documents\Playground 4\.codex-tmp\scene05_generator_schema_check_20260510
+- D:\我的文档\Documents\Playground 4\.codex-tmp\scene17_formula_library_check_20260510
+
+4.3 Scene 08 / 18 / 19 quality upgrades
+
+- Scene 08:
+  - comment cleaning improved
+  - reply-chain synthesis added
+  - second category fixture added for home-goods / fit / packaging / authenticity / return language
+- Scene 18:
+  - multi-week logic improved
+  - multi-account matrix runtime improved
+  - divergent matrix fixture added
+- Scene 19:
+  - publish_window surfaced into report
+  - conversion_proxy surfaced into report
+  - roi_proxy surfaced into report
+  - high vs low pattern selection improved
+  - next-test-plan generation improved
+
+5. Validation state and memory
+
+Current validators to know:
+- D:\我的文档\Documents\Playground 4\tiktok-growth-operator.skill\scripts\validate_capture_pack_workflows.py
+- D:\我的文档\Documents\Playground 4\tiktok-growth-operator.skill\scripts\validate_export_outputs.py
+- D:\我的文档\Documents\Playground 4\tiktok-growth-operator.skill\scripts\validate_scene_presets.py
+- D:\我的文档\Documents\Playground 4\tiktok-growth-operator.skill\scripts\validate_all_workflows.py
+
+Important memory:
+- validate_capture_pack_workflows.py was green after the latest Scene 01/03 work
+- Scene 04/05/17 targeted reruns also passed after the latest runtime upgrades
+- do not assume old historical md/docx/xlsx outputs reflect newest runtime; always rerun or rerender current output when checking results
+
+Current validation fixture roots worth reusing:
+- D:\我的文档\Documents\Playground 4\tiktok-growth-operator.skill\testdata\validation\captures\scene01-strong-inputs-pass
+- D:\我的文档\Documents\Playground 4\tiktok-growth-operator.skill\testdata\validation\capture-packs\scene02-patrol-capture-pack
+- D:\我的文档\Documents\Playground 4\tiktok-growth-operator.skill\testdata\validation\captures\tiktok-analysis-pack-smoke-20260423f
+- D:\我的文档\Documents\Playground 4\tiktok-growth-operator.skill\testdata\validation\captures\scene08-multi-product-home-goods-comments
+- D:\我的文档\Documents\Playground 4\tiktok-growth-operator.skill\testdata\validation\captures\scene18-matrix-multi-account
+- D:\我的文档\Documents\Playground 4\tiktok-growth-operator.skill\testdata\validation\captures\scene18-matrix-divergent-account
+- D:\我的文档\Documents\Playground 4\tiktok-growth-operator.skill\testdata\validation\captures\scene18-19-multi-week-account
+- D:\我的文档\Documents\Playground 4\tiktok-growth-operator.skill\testdata\validation\captures\scene19-roi-multiwindow-account
+
+Recommended real collector roots already known from parity audit:
+- mustsharenews:
+  E:\tiktok\TikMatrix\tmp\codex-mustsharenews-profile-post-downloads-20260507\mustsharenews
+- sherrinandyixi:
+  E:\tiktok\TikMatrix\tmp\codex-sherrinandyixi-profile-post-downloads-20260507\sherrinandyixi
+- orange cat patrol evidence:
+  E:\tiktok\TikMatrix\tmp\search-live-orange-cat
+  E:\tiktok\TikMatrix\tmp\topic-live-orangecat
+
+6. Remaining work: highest-value unfinished items
+
+P1. Still worth doing first
+
+1) Scene 01 / Scene 03 ranking and provenance
+- upgrade shortlist scoring further from popularity-first to reuse-value-first
+- add richer provenance / evidence traceability for why a candidate entered shortlist
+- possibly add graph-style expansion across:
+  - video
+  - creator
+  - sound
+  - hashtag
+  - related video
+
+Likely files:
+- scripts/run_tikmatrix_capture_bridge.py
+- scripts/run_scene_workflow.py
+- scripts/scene_report_presets.py
+- references/scene-report-contract.md
+
+2) Scene 04 deeper single-video breakdown
+- eat more single-video JSON fields, not just caption/desc/topic
+- improve no-voiceover handling further
+- make BGM / subtitle density / cut rhythm more explicit
+- continue pushing toward “director/editor execution document”
+
+Likely files:
+- scripts/import_tiktok_capture_pack.py
+- references/scene-report-contract.md
+- references/creative-brief-quick-reference.md
+
+3) Scene 05 stronger generator handoff
+- connect generator-ready schema more tightly to downstream pack structure
+- make infer layer and adapt layer even more clearly separated
+- improve direct handoff to future render backends
+
+Likely files:
+- scripts/import_tiktok_capture_pack.py
+- scripts/push_report_to_feishu_doc.py
+- references/creative-production-handoff-pack.md
+
+4) Scene 08 / 18 / 19 evidence and comparison depth
+- add more bilingual / cross-border / low-price impulse-buy comment fixtures
+- continue improving source-evidence traceability
+- continue improving trend/change explanations rather than summary-only outputs
+
+Likely files:
+- scripts/import_tiktok_capture_pack.py
+- scripts/run_tikmatrix_account_ops_bridge.py
+- testdata/validation/captures/*
+
+5) Scene 07 category decision quality
+- add supply saturation signals:
+  - hook density
+  - creator concentration
+  - sound reuse
+  - packaging fatigue
+  - comment-language homogeneity
+
+Likely files:
+- scripts/scene_report_presets.py
+- scripts/import_tiktok_capture_pack.py
+
+P2. Important but second wave
+
+6) Scene 02 baseline-shift logic
+- strengthen anomaly logic
+- make patrol even more change-first
+- improve persistent same-board behavior
+
+7) Scene 17 series clustering before creator distillation
+- avoid overcounting one repeated series as many distinct formulas
+
+8) Export and delivery layer
+- strengthen XLSX operator-board feel
+- strengthen DOCX platform-card visual feel
+- harden Feishu push as a more stable delivery adapter
+
+P3. External / platform-layer gaps
+
+9) Scene 06 real data source
+- TikTok Shop product / detail / comment source not implemented
+
+10) Final generation backends still missing
+- scenes 09 to 13: no final rendered short-video backend
+- scenes 14 to 16: no final rendered ecommerce-image backend
+
+11) Hosted platform experience still missing
+- web project-space UI
+- interactive multi-agent state flow
+- reusable asset library UI
+
+12) Safe account-ops remains assist-only
+- no auto-send reply
+- no auto-approve requests
+- no account mutation layer
+
+7. Feishu-related memory
+
+Inside this skill package, Feishu scripts are here:
+- D:\我的文档\Documents\Playground 4\tiktok-growth-operator.skill\scripts\bootstrap_feishu_lark_cli.py
+- D:\我的文档\Documents\Playground 4\tiktok-growth-operator.skill\scripts\feishu_naming.py
+- D:\我的文档\Documents\Playground 4\tiktok-growth-operator.skill\scripts\feishu_push_runtime.py
+- D:\我的文档\Documents\Playground 4\tiktok-growth-operator.skill\scripts\push_report_to_feishu.py
+- D:\我的文档\Documents\Playground 4\tiktok-growth-operator.skill\scripts\push_report_to_feishu_doc.py
+- D:\我的文档\Documents\Playground 4\tiktok-growth-operator.skill\scripts\push_scene_reports_to_feishu_doc.py
+- D:\我的文档\Documents\Playground 4\tiktok-growth-operator.skill\scripts\setup_hermes_feishu_env.py
+
+External downloaded Feishu CLI project location:
+- E:\飞书
+- likely main repo folder:
+  E:\飞书\larksuite-cli
+
+Important note:
+- parity audit doc may still say Feishu push is missing by design
+- but code-level Feishu push scripts now do exist
+- if improving docs, update them carefully to reflect current real state
+
+8. Recommended execution order for DeepSeek
+
+If the goal is “continue most valuable work without breaking existing runtime”, do this in order:
+
+Step 1
+- inspect current import_tiktok_capture_pack.py
+- inspect scene-optimization-backlog.md
+- inspect clipcat-openclaw-parity-audit.md
+
+Step 2
+- continue Scene 01 / Scene 03 scoring + provenance upgrade
+
+Step 3
+- continue Scene 04 single-video JSON-driven breakdown depth
+
+Step 4
+- continue Scene 05 downstream generator / handoff-pack hardening
+
+Step 5
+- continue Scene 08 / 18 / 19 fixture and evidence-depth expansion
+
+Step 6
+- rerun validators and targeted scene runs after each change
+
+9. Minimal command memory for handoff
+
+Typical compile:
+- python -m py_compile D:\我的文档\Documents\Playground 4\tiktok-growth-operator.skill\scripts\import_tiktok_capture_pack.py
+
+Main validator:
+- python D:\我的文档\Documents\Playground 4\tiktok-growth-operator.skill\scripts\validate_capture_pack_workflows.py
+
+Typical scene rerun:
+- python D:\我的文档\Documents\Playground 4\tiktok-growth-operator.skill\scripts\start_capture_pack_run.py --scene 04 --capture-root D:\我的文档\Documents\Playground 4\tiktok-growth-operator.skill\testdata\validation\captures\tiktok-analysis-pack-smoke-20260423f --name scene04-check --project "TikTok Scene04 Check" --output-root D:\我的文档\Documents\Playground 4\.codex-tmp\scene04_check --formats md
+
+10. Final instruction to DeepSeek
+
+Do not spend the next iteration mostly polishing wording.
+Focus on higher-value functional improvements:
+- ranking quality
+- evidence traceability
+- deeper single-video runtime breakdown
+- stronger generator-ready handoff
+- stronger multi-week / comment-chain reasoning
+
+Do not touch:
+- E:\tiktok\TikMatrix
+
+Work only inside:
+- D:\我的文档\Documents\Playground 4\tiktok-growth-operator.skill
+

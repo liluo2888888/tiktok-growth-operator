@@ -1,0 +1,31 @@
+{
+  "created_at": "2026-04-23T04:31:44+00:00",
+  "platform": "tiktok",
+  "mode": "browser_session_health_check",
+  "profile_url": "https://www.tiktok.com/@tiktok",
+  "output_dir": "D:\\我的文档\\Documents\\Playground 4\\captures\\tiktok-download-validated-20260423",
+  "proxy": "http://127.0.0.1:7890",
+  "binary": "C:\\Program Files\\BraveSoftware\\Brave-Browser\\Application\\brave.exe",
+  "api_mode": true,
+  "api_bridge_repo": "D:\\我的文档\\Documents\\Playground 4\\_tmp_douyin_tiktok_api",
+  "cookie_sources": {
+    "cookies_json": "",
+    "cookie_header_file": ""
+  },
+  "cookie_count": 0,
+  "browser_mode": true,
+  "scrolls": 5,
+  "pause_sec": 4.0,
+  "max_links": 6,
+  "browser_api_retries": 3,
+  "detail_scan_limit": 3,
+  "detail_pause_sec": 3.0,
+  "collect_comments": true,
+  "comment_sample_size": 5,
+  "comment_api_retries": 1,
+  "download_ranked": true,
+  "download_limit": 1,
+  "download_timeout_sec": 60.0,
+  "min_likes": 50000,
+  "skip_download": false
+}

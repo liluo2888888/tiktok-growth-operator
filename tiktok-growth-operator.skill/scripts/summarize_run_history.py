@@ -4,6 +4,7 @@ import argparse
 import json
 from datetime import datetime
 from pathlib import Path
+from text_normalization import read_json_file, write_json_file, write_utf8_text
 
 
 def parse_args() -> argparse.Namespace:
@@ -35,7 +36,10 @@ def parse_args() -> argparse.Namespace:
 
 
 def read_json(path: Path) -> dict:
-    return json.loads(path.read_text(encoding="utf-8-sig"))
+    loaded = read_json_file(path)
+    if not isinstance(loaded, dict):
+        raise SystemExit(f"Expected JSON object: {path}")
+    return loaded
 
 
 def shorten(path: str) -> str:
@@ -211,11 +215,11 @@ def main() -> None:
     if args.output_json:
         output_json = Path(args.output_json).expanduser().resolve()
         output_json.parent.mkdir(parents=True, exist_ok=True)
-        output_json.write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8-sig")
+        write_json_file(output_json, summary)
     if args.output_md:
         output_md = Path(args.output_md).expanduser().resolve()
         output_md.parent.mkdir(parents=True, exist_ok=True)
-        output_md.write_text(render_markdown(summary), encoding="utf-8-sig")
+        write_utf8_text(output_md, render_markdown(summary))
 
     print(json.dumps(summary, ensure_ascii=False, indent=2))
 

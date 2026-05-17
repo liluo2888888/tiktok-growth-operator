@@ -1,0 +1,16 @@
+[
+  {
+    "source_kind": "search",
+    "source_label": "orange cat",
+    "export_root": "E:\\tiktok\\TikMatrix\\tmp\\search-live-orange-cat\\orange-cat",
+    "item_count": 5,
+    "metadata_count": 0
+  },
+  {
+    "source_kind": "topic",
+    "source_label": "orangecat",
+    "export_root": "E:\\tiktok\\TikMatrix\\tmp\\topic-live-orangecat\\orangecat",
+    "item_count": 5,
+    "metadata_count": 0
+  }
+]

@@ -2,47 +2,57 @@
 
 ## Use When
 
-- the user wants to learn one creator’s repeatable content formula
+- the user wants to learn one creator's repeatable content formula
+- the output should feed new scripting or account strategy, not just admiration
 
 ## Minimum Inputs
 
-- one account or several videos from the same creator
+- one creator account or several videos from the same creator
 
 ## Ideal Inputs
 
 - account link
 - top videos
+- weak-performing videos for contrast
 - transcripts
 - basic performance data
+- hashtag or posting-time notes
 
 ## Workflow
 
-1. identify repeated top-performing content
-2. map hook formulas
-3. map visual and pacing signatures
-4. identify proof and CTA style
-5. separate creator-specific advantage from transferable pattern
+1. summarize the account baseline first
+2. compare high-interaction and low-interaction videos
+3. extract repeated hook, pacing, proof, and CTA formulas
+4. separate creator-specific advantage from transferable pattern
+5. capture visual style, BGM, hashtags, and posting-time habits
+6. bridge the findings into a new script or account experiment
 
 ## Output Contract
 
-- creator playbook
-- repeatable formulas
-- non-transferable advantages
-- adaptation path for the user’s product
+- account overview
+- high-vs-low interaction comparison
+- formula library
+- creator-specific advantages
+- visual and distribution signature
+- new-script bridge
 
 ## Direct Prompt
 
 ```text
-请蒸馏这个博主的内容打法。
+按场景 17 执行：蒸馏这个创作者的内容公式。
+先不要急着总结优点，先做 5 件事：
+1. 先给账号速览：定位一句话、平均播放、平均点赞、平均评论、平均分享、爆款率、更新频率
+2. 对比高互动视频和低互动视频到底差在哪里
+3. 从 TOP 视频里提 3-5 个可复用 hook 公式，给原例和套用模板
+4. 提炼脚本节奏模型、证明方式、CTA 习惯
+5. 单独列出视觉风格、BGM、hashtag、发布时间习惯
 
-我需要你帮我看清：
-1. 他反复在用什么钩子
-2. 他的视频节奏怎么推
-3. 他靠什么建立信任或刺激下单
-4. 哪些打法新账号也能借
-5. 如果换成我的产品，该怎么迁移
+最后必须告诉我：
+- 哪些是可迁移规则
+- 哪些只是这个创作者的独有优势
+- 如果换成我的产品，第一条新脚本该怎么写
 ```
 
 ## Fallback
 
-If there are too few videos, state low confidence and focus on “tentative pattern” only.
+If there are too few videos, keep the result as a tentative pattern memo and state clearly that the formula is low-confidence.

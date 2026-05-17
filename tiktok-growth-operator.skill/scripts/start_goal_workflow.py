@@ -10,6 +10,7 @@ from generate_operator_pack import generate_pack_output
 from generate_scene_report import build_report_payload, load_catalog, resolve_scene
 from recommend_scene_chain import build_payload, match_goal_from_query
 from render_scene_report import infer_base_name, render_markdown_from_payload, write_docx, write_xlsx
+from text_normalization import read_utf8_text, write_json_file, write_utf8_text
 
 
 def parse_args() -> argparse.Namespace:
@@ -86,7 +87,7 @@ def write_goal_readme(goal_root: Path, payload: dict, operator_pack_results: lis
         lines.extend(["", "## Match Detail", ""])
         lines.append(f"- Query: {payload['matched_from_query']}")
         lines.append(f"- Chosen Goal: {payload['goal']}")
-    (goal_root / "README.md").write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8-sig")
+    write_utf8_text(goal_root / "README.md", "\n".join(lines).rstrip() + "\n")
 
 
 def create_goal_workflow(
@@ -107,7 +108,7 @@ def create_goal_workflow(
     payload = build_payload(goal) if goal else match_goal_from_query(query)[1]
     normalized_name = safe_run_name(name, query, goal)
     resolved_project = project.strip() or normalized_name
-    context = Path(context_file).read_text(encoding="utf-8") if context_file else ""
+    context = read_utf8_text(Path(context_file)) if context_file else ""
     goal_root = make_goal_root(skill_root, normalized_name, output_root)
     goal_root.mkdir(parents=True, exist_ok=True)
     scene_runs_root = goal_root / "scene-runs"
@@ -128,11 +129,9 @@ def create_goal_workflow(
         report = build_report_payload(scene, resolved_project, context)
         base_name = truncate_slug(infer_base_name(report, ""), 64, f"scene-{scene['id']}-report")
         report_json_path = scene_run_root / f"{base_name}.json"
-        report_json_path.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8-sig")
+        write_json_file(report_json_path, report)
         if "md" in formats:
-            (scene_run_root / "outputs" / f"{base_name}.md").write_text(
-                render_markdown_from_payload(report), encoding="utf-8-sig"
-            )
+            write_utf8_text(scene_run_root / "outputs" / f"{base_name}.md", render_markdown_from_payload(report))
         if "docx" in formats:
             write_docx(report, scene_run_root / "outputs" / f"{base_name}.docx")
         if "xlsx" in formats:
@@ -173,7 +172,7 @@ def create_goal_workflow(
         "generated_operator_packs": operator_pack_results,
         "matched_from_query": payload.get("matched_from_query"),
     }
-    (goal_root / "goal_manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8-sig")
+    write_json_file(goal_root / "goal_manifest.json", manifest)
     return {
         "goal_root": str(goal_root),
         "run_name": normalized_name,

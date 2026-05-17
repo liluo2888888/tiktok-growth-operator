@@ -284,6 +284,8 @@ Generating a preset creates:
 - three helper CMD wrappers for the same dry-run, execute, and rerun actions
 - one helper PowerShell script to regenerate from the saved input file
 - one helper CMD wrapper for regeneration
+- one helper PowerShell script to push successful batch results into Feishu after execution
+- one helper CMD wrapper for that Feishu push helper
 
 The template bundle index now also records:
 
@@ -305,6 +307,7 @@ The Markdown preset report now also includes:
 - one ready-to-copy execution command
 - one ready-to-copy rerun command for failed or invalid items
 - one ready-to-copy `--config` regeneration command
+- one ready-to-copy batch-result to Feishu command
 - direct script paths for `*.ps1` and `*.cmd` helpers if you do not want to copy commands manually
 
 ## Operator Notes
@@ -313,3 +316,97 @@ The Markdown preset report now also includes:
 - Capture presets require a real `--capture-root`.
 - Variable-driven presets require their declared variable flags such as `--product`, `--category`, `--audience`, or `--account-name`.
 - You can still edit the generated JSON manually before running it through `scripts/batch_run_operator_workflows.py`.
+
+## Feishu Follow-Through Templates
+
+Use these when the queue has already produced one finished scene report JSON and you want a stable Feishu naming pattern.
+
+Recommended rule:
+
+- keep `--feishu-title` and `--feishu-base-name` identical
+- include topic or account plus market plus date or week
+
+### Scene 01 Viral Collection
+
+```powershell
+python scripts/run_operator_workflow.py `
+  --mode scene `
+  --scene 01 `
+  --project "TikTok Viral Collection" `
+  --push-feishu `
+  --feishu-app-id $env:FEISHU_APP_ID `
+  --feishu-app-secret $env:FEISHU_APP_SECRET `
+  --feishu-title "TikTok Viral Collection | Lip Combo | US | 2026-05-08" `
+  --feishu-base-name "TikTok Viral Collection | Lip Combo | US | 2026-05-08"
+```
+
+### Scene 02 Daily Patrol
+
+```powershell
+python scripts/run_scene02_patrol.py `
+  --name tiktok-beauty-patrol `
+  --project "TikTok Beauty Patrol" `
+  --category "Beauty" `
+  --market US `
+  --mode mixed `
+  --queries "lip combo,lip liner" `
+  --topics "makeup,beautytok" `
+  --count 10 `
+  --download-top 3 `
+  --formats md,docx,xlsx
+```
+
+Then push the generated `scene-02-report.json`:
+
+```powershell
+python scripts/push_report_to_feishu_bundle.py `
+  --input "D:\path\scene-02-report.json" `
+  --app-id $env:FEISHU_APP_ID `
+  --app-secret $env:FEISHU_APP_SECRET `
+  --title "TikTok Daily Patrol | Beauty | US | 2026-05-08" `
+  --base-name "TikTok Daily Patrol | Beauty | US | 2026-05-08"
+```
+
+### Scene 03 Viral Deep Teardown
+
+```powershell
+python scripts/run_operator_workflow.py `
+  --mode scene `
+  --scene 03 `
+  --project "TikTok Viral Deep Teardown" `
+  --push-feishu `
+  --feishu-app-id $env:FEISHU_APP_ID `
+  --feishu-app-secret $env:FEISHU_APP_SECRET `
+  --feishu-title "TikTok Viral Deep Teardown | Lip Combo | US | 2026-05-08" `
+  --feishu-base-name "TikTok Viral Deep Teardown | Lip Combo | US | 2026-05-08"
+```
+
+### Scene 18 Competitor Weekly
+
+```powershell
+python scripts/start_scene_run.py `
+  --scene 18 `
+  --name tiktok-competitor-weekly `
+  --project "TikTok Competitor Weekly" `
+  --formats md,docx,xlsx `
+  --push-feishu `
+  --feishu-app-id $env:FEISHU_APP_ID `
+  --feishu-app-secret $env:FEISHU_APP_SECRET `
+  --feishu-title "TikTok Competitor Weekly | Beauty | US | 2026-W19" `
+  --feishu-base-name "TikTok Competitor Weekly | Beauty | US | 2026-W19"
+```
+
+### Scene 19 Account Retro
+
+```powershell
+python scripts/start_scene_run.py `
+  --scene 19 `
+  --name tiktok-account-retro `
+  --project "TikTok Account Retro" `
+  --formats md,docx,xlsx `
+  --push-feishu `
+  --feishu-app-id $env:FEISHU_APP_ID `
+  --feishu-app-secret $env:FEISHU_APP_SECRET `
+  --feishu-title "TikTok Account Retro | GlowOfficial | US | 2026-W19" `
+  --feishu-base-name "TikTok Account Retro | GlowOfficial | US | 2026-W19"
+```

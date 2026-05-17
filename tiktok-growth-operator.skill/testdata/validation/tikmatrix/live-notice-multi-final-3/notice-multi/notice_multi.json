@@ -1,0 +1,29 @@
+{
+  "source_url": "https://www.tiktok.com/inbox",
+  "item_count": 0,
+  "notice_lists": [],
+  "raw": {
+    "extra": {
+      "fatal_item_ids": [],
+      "logid": "202605061440425461BD5D61EE4009DFCB",
+      "now": 1778078442000
+    },
+    "log_pb": {
+      "impr_id": "202605061440425461BD5D61EE4009DFCB"
+    },
+    "notice_lists": [],
+    "status_code": 0,
+    "status_msg": ""
+  },
+  "auth_mode": "browser",
+  "browser_mode": {
+    "headless": false,
+    "user_data_dir": "E:\\tiktok\\TikMatrix\\tmp\\browser-profile",
+    "executable_path": "C:\\Users\\Administrator\\AppData\\Local\\Google\\Chrome\\Application\\chrome.exe",
+    "remote_debugging_port": 9223,
+    "attached_via_cdp": true,
+    "captured_via": "same_origin_fetch",
+    "request_url": "/api/notice/multi/?aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F135.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&data_collection_enabled=true&device_platform=web_pc&focus_state=true&from_page=user&history_len=4&is_page_visible=true&os=windows&priority_region=SG&region=SG&screen_height=864&screen_width=1536&tz_name=Asia%2FShanghai&user_is_login=true&webcast_language=zh-Hans&group_list=%5B%7B%22count%22%3A20%2C%22is_mark_read%22%3A0%2C%22group%22%3A500%2C%22max_time%22%3A0%2C%22min_time%22%3A0%7D%5D",
+    "request_status": 200
+  }
+}

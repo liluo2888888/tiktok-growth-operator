@@ -2,7 +2,8 @@
 
 ## Use When
 
-- the user wants the likely generation prompt, shot brief, or production brief behind a video
+- the user wants the likely prompt, production brief, or generator-ready structure behind a video
+- the next step is to adapt the winning logic onto a new product
 
 ## Minimum Inputs
 
@@ -10,38 +11,57 @@
 
 ## Ideal Inputs
 
-- video
-- transcript
-- screenshots
+- video link
+- transcript or subtitle notes
+- screenshots by shot
+- pacing notes
 - target product to adapt onto
 
 ## Workflow
 
-1. infer the likely creative intent
-2. describe the visual style, shot language, pacing, and voiceover logic
-3. turn that into a structured prompt or brief
-4. optionally rewrite it for the user’s product
+1. infer the original creative intent
+2. map the piece into structured brief blocks
+3. produce a shot-level breakdown
+4. separate inferred-original brief from product-adapted brief
+5. mark low-confidence inferences field by field
+6. output generator-ready handoff fields when product context exists
 
 ## Output Contract
 
-- reverse-engineered prompt
-- shot/scene brief
-- optional product-adapted version
+- executive summary of likely creative intent
+- inferred original brief
+- generator-ready schema:
+  `Style`, `Environment`, `Tone & Pacing`, `Camera`, `Lighting`, `Character`, `Shots`, `Background Sound`, `Transition / Editing`
+- shot-level table:
+  `Shot | Duration | Scene / Subject | Action | Voiceover / Overlay | Purpose | Asset Need`
+- product-adapted brief
+- generator handoff fields
+- field-level confidence labels
 
 ## Direct Prompt
 
 ```text
-请反推这条视频背后的生成提示词或创作简报。
+按场景 05 执行：反推这条视频背后的提示词或制作 brief。
+不要只写风格词，要分成两层输出：
+第一层是原视频的 inferred brief：
+1. Style
+2. Environment
+3. Tone & Pacing
+4. Camera
+5. Lighting
+6. Character
+7. Shots
+8. Background Sound
+9. Transition / Editing
 
-不要只写风格词。请输出：
-1. 画面风格
-2. 镜头语言
-3. 叙事节奏
-4. 口播逻辑
-5. 一版通用提示词
-6. 一版适配我产品的改写版
+第二层是 shot 级拆解：
+- 每个 shot 的时长、主体、动作、口播或字幕、作用
+
+如果我提供了产品信息，再给我一版 product-adapted brief。
+还要把结果做成 generator-ready handoff，不要只停留在分析笔记。
+所有证据不足的字段都要单独标低置信度，不要假装确定。
 ```
 
 ## Fallback
 
-If visual evidence is too thin, output a low-confidence prompt plus the missing evidence checklist.
+If visual evidence is too thin, output a low-confidence brief plus a missing-evidence checklist instead of fabricating hidden production details.

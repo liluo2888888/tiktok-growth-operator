@@ -8,6 +8,51 @@ from scene_report_presets import SCENE_OPERATOR_GUIDE, SCENE_PRESETS
 
 
 REQUIRED_SECTION_HEADERS = {
+    "01": {
+        "Objects To Track": ["Rank", "Video / Link", "Core Topic", "Performance Signal", "Publish Window", "TikTok Shop Signal", "Commerce Confidence", "Useful For", "Why Selected", "Best Next Scene"],
+        "Why They Matter": ["Video", "Hook Strength", "Proof Style", "Conversion Signal", "Why Worth Studying", "Suitable Product / Niche"],
+        "Next Action": ["Priority", "Video", "Why It Should Move Now", "Scene 03 Role", "Open Evidence Gap"],
+    },
+    "02": {
+        "Objects To Track": ["Field", "Description", "Why It Matters", "Daily / Weekly", "Append Every Run?"],
+        "Why They Matter": ["Signal Type", "What It Might Mean", "Follow-up Action", "Escalate To Scene 03?"],
+        "Next Action": ["Daily Summary Block", "Template", "Must Include"],
+    },
+    "03": {
+        "Structure Logic": ["Rank", "Video", "Hook", "Proof", "Conversion Signal", "Commerce Signal", "Why It Made Top Set"],
+        "Core Mechanism": ["Video", "Opening Hook", "Full Script / Key Lines", "Time-Axis Rhythm", "Proof Device", "CTA / Close", "Main Reuse Value"],
+        "Reusable Formula": ["Element", "Observed Pattern", "How To Reuse It", "What Not To Copy Blindly", "Evidence Ref"],
+        "Risks And Adaptation Notes": ["Risk Area", "Why It Can Mislead", "What To Check Before Reuse"],
+        "Next Action": ["Output Block", "What Must Be Delivered", "Who Uses It Next"],
+    },
+    "04": {
+        "Structure Logic": ["Time Range", "Scene Type", "Visual Content", "Spoken / On-Screen Script", "Role In Conversion", "Asset / Talent Needed", "Evidence Ref"],
+        "Core Mechanism": ["Mechanism Layer", "Observed Pattern", "Why It Works", "Failure Mode If Removed", "Evidence Ref"],
+        "Risks And Adaptation Notes": ["Lens", "Observed Pattern", "Why It Works", "Adaptation Guardrail", "Evidence Ref"],
+        "BGM And Sensory Layer": ["Element", "Observed", "Strategic Role", "Adaptation Note", "Evidence Ref"],
+        "Production-Spec Handoff": ["Beat / Shot", "What Must Happen", "Purpose", "Subtitle / VO Beat", "Proof Block", "Asset / Talent Needed", "Confidence"],
+        "Next Action": ["Path", "What To Keep", "What To Change", "Primary Asset Need", "Primary Risk"],
+    },
+    "05": {
+        "Structure Logic": ["Dimension", "Observed Evidence", "Likely Intent", "Generator Handoff", "Confidence"],
+        "Core Mechanism": ["Creative Layer", "Why It Likely Works", "What Evidence Supports It", "Asset Dependency", "Confidence"],
+        "Reusable Formula": ["Block", "Prompt / Brief Content", "Generator Handoff Field", "Confidence", "Evidence Ref"],
+        "Risks And Adaptation Notes": ["Shot", "Duration", "Scene / Subject", "Action", "Voiceover / Overlay", "Purpose", "Asset Need", "Generator Handoff", "Confidence"],
+        "Next Action": ["Adaptation Layer", "Keep From Reference", "Rewrite For Product", "Generator Handoff Field", "Asset / Talent Dependency", "Open Risk"],
+        "Production-Spec Handoff": ["Delivery Block", "What Must Be Finalized", "Who Uses It", "Blocking Gap", "Next Owner"],
+    },
+    "07": {
+        "High-Level Judgment": ["Dimension", "Judgment", "Evidence", "Decision Strength"],
+        "Evidence Clusters": ["Keyword", "Content Heat", "Product Performance", "Decision", "Why"],
+        "Recommended Action": ["Cluster", "What Repeats", "Implication"],
+        "Open Questions": ["Decision Surface", "Answer", "Why"],
+    },
+    "08": {
+        "High-Level Judgment": ["Source Product", "Price Band", "Volume", "Primary Purchase Trigger", "Primary Complaint"],
+        "Evidence Clusters": ["Cluster Type", "Repeated Phrase / Theme", "Source Product", "What It Suggests", "Product / Content Implication"],
+        "Recommended Action": ["Decision Area", "Recommendation", "Why", "Base Value Or Improvement Opportunity?"],
+        "Open Questions": ["Price Band", "Repeated Driver", "Repeated Complaint", "Implication"],
+    },
     "09": {
         "Target": ["Field", "Answer", "Why It Matters"],
         "Message": ["Layer", "Reference Logic", "Adapted Version", "Required Product Evidence"],
@@ -57,6 +102,26 @@ REQUIRED_SECTION_HEADERS = {
         "Structure": ["Layer", "New Direction", "Purpose", "Must Be Visible?", "Asset Need"],
         "Creative Constraints": ["Constraint", "Emphasize / Avoid", "Reason", "Owner / Check"],
         "Production Handoff": ["Handoff Item", "Decision", "Owner", "Risk Before Design"],
+    },
+    "17": {
+        "Structure Logic": ["Overview Field", "Observation", "Evidence Ref"],
+        "Core Mechanism": ["Comparison Lens", "High-Interaction Pattern", "Low-Interaction Pattern", "Implication", "Evidence Ref"],
+        "Reusable Formula": ["Layer", "Transferable Pattern", "Why It Transfers", "How To Adapt", "Evidence Ref"],
+        "Risks And Adaptation Notes": ["Formula Type", "Original Example", "Reusable Template", "Where It Works Best"],
+        "Visual And Distribution Signature": ["Dimension", "Observed Pattern", "Why It Matters", "Evidence Ref"],
+        "Next Action": ["Bridge Step", "What To Borrow", "What To Rewrite", "Risk / Caveat"],
+    },
+    "18": {
+        "Objects To Track": ["账号", "发帖量", "本周胜出帖子", "主主题", "爆点信号", "相对上周变化", "策略变化"],
+        "Why They Matter": ["观察到的变化", "是谁变了", "为什么重要", "爆点归因", "启发"],
+        "Fields To Capture Next Time": ["比较维度", "账号 A", "账号 B", "账号 C", "运营结论"],
+        "Next Action": ["动作领域", "建议", "紧急度", "策略变化点"],
+    },
+    "19": {
+        "High-Level Judgment": ["表现分组", "模式", "可能原因", "对增长 / ROI 的意义"],
+        "Evidence Clusters": ["聚类", "内容模式", "代表帖子", "共同特征", "信号强度"],
+        "Recommended Action": ["规则类型", "建议", "原因", "下轮负责人 / 检查项"],
+        "Open Questions": ["下轮测试", "假设", "具体改什么", "成功信号"],
     },
 }
 
@@ -183,6 +248,7 @@ def main() -> int:
             heading = str(section.get("heading", "")).strip()
             instruction = str(section.get("instruction", "")).strip()
             table = section.get("table") or {}
+            evidence_refs = section.get("evidence_refs", []) or []
             headers = [str(item).strip() for item in table.get("headers", []) if str(item).strip()]
             rows = table.get("rows", []) or []
             has_content_hint = bool(
@@ -190,6 +256,7 @@ def main() -> int:
                 or section.get("paragraphs")
                 or section.get("bullets")
                 or section.get("numbered")
+                or evidence_refs
                 or headers
             )
             if not heading:
@@ -200,6 +267,12 @@ def main() -> int:
                 table_count += 1
                 if rows and any(len(row) > len(headers) for row in rows):
                     errors.append(f"Scene {scene['id']} section '{heading}' has a row longer than its headers")
+            for ref_index, item in enumerate(evidence_refs, start=1):
+                for key in ["source_type", "source_id", "source_url", "time_range", "excerpt", "supports"]:
+                    if not str(item.get(key, "")).strip():
+                        warnings.append(
+                            f"Scene {scene['id']} section '{heading}' evidence ref {ref_index} is missing '{key}'"
+                        )
 
         if table_count == 0:
             warnings.append(f"Scene {scene['id']} has no starter tables")

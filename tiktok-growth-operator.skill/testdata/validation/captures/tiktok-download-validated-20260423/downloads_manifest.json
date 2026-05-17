@@ -1,0 +1,17 @@
+[
+  {
+    "video_url": "https://www.tiktok.com/@tiktok/video/7631201918366289165",
+    "video_id": "7631201918366289165",
+    "unique_id": "tiktok",
+    "video": {
+      "ok": false,
+      "path": "D:\\我的文档\\Documents\\Playground 4\\captures\\tiktok-download-validated-20260423\\downloads\\videos\\01_tiktok_7631201918366289165_PSA_ always sing your ❤️ out, you'll never know who's going to listen 👀   tune into the full episode of Behind the Break.mp4",
+      "error": "403 Client Error: Forbidden for url: https://v16-webapp-prime.us.tiktok.com/video/tos/useast5/tos-useast5-ve-0068c002-tx/osXEd84fQqvESo5BnOUDfDsRnNAFgI3gItCpIj/?a=1988&bti=ODszNWYuMDE6&&bt=1123&ft=aEeq8qT0mIoPD12iSXks3wUeYOAbMeF~O5&mime_type=video_mp4&rc=ZTRnNmZpZzQ3ZmhoZjk5aUBpM211bnE5cm1xOjMzZzczNEBjNl8uLjZeNTAxX14xMGMvYSNvbGFuMmRjZ2dhLS1kMS9zcw%3D%3D&btag=e00088000&expire=1777091645&l=2026042304333633556B46495D0F426CE7&ply_type=2&policy=2&signature=66664e73bc52a5357152ce9312af7cf4&tk=tt_chain_token"
+    },
+    "cover": {
+      "ok": true,
+      "path": "D:\\我的文档\\Documents\\Playground 4\\captures\\tiktok-download-validated-20260423\\downloads\\covers\\01_tiktok_7631201918366289165_PSA_ always sing your ❤️ out, you'll never know who's going to listen 👀   tune into the full episode of Behind the Break.jpg",
+      "bytes": 154367
+    }
+  }
+]

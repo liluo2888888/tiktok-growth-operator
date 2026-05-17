@@ -1,0 +1,17 @@
+{
+  "profile_url": "https://www.tiktok.com/@validation.orangecat",
+  "output_dir": "validation-fixture",
+  "exit_code": 0,
+  "reachable": true,
+  "session_quality": "tikmatrix_profile_posts_export",
+  "link_count": 3,
+  "detail_collected_count": 3,
+  "ranked_video_count": 3,
+  "qualified_video_count": 3,
+  "api_item_count": 3,
+  "browser_api_item_count": 3,
+  "comment_sampled_video_count": 0,
+  "video_download_success_count": 0,
+  "cover_download_success_count": 0,
+  "checked_at": "2026-04-23T13:49:11"
+}

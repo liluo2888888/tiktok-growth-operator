@@ -1,0 +1,22 @@
+[
+  {
+    "video_id": "7624057229930450192",
+    "output_path": "E:\\tiktok\\TikMatrix\\tmp\\skill-batch-download\\7624057229930450192.mp4",
+    "metadata_path": "E:\\tiktok\\TikMatrix\\tmp\\skill-batch-download\\7624057229930450192.json",
+    "bytes_written": 17607286,
+    "duplicate_policy": "skip",
+    "skipped": false,
+    "attempts_used": 1,
+    "task_id": 2
+  },
+  {
+    "video_id": "7618517319177800980",
+    "output_path": "E:\\tiktok\\TikMatrix\\tmp\\skill-batch-download\\7618517319177800980.mp4",
+    "metadata_path": "E:\\tiktok\\TikMatrix\\tmp\\skill-batch-download\\7618517319177800980.json",
+    "bytes_written": 4312904,
+    "duplicate_policy": "skip",
+    "skipped": false,
+    "attempts_used": 1,
+    "task_id": 4
+  }
+]

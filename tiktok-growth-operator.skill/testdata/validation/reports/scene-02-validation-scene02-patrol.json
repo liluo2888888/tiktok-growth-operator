@@ -1,0 +1,455 @@
+{
+  "metadata": {
+    "scene": "02",
+    "scene_slug": "daily-category-patrol",
+    "scene_title": "Daily Category Patrol",
+    "project": "Validation Scene 02 Patrol",
+    "title": "Scene 02 Report - Validation Scene 02 Patrol",
+    "deliverable_type": "collection_board",
+    "generated_at": "2026-05-17T19:27:42",
+    "scenario_file": "scenarios/02-daily-category-patrol.md",
+    "status": "imported"
+  },
+  "working_context": {
+    "summary": "真实 TikTok capture-pack 导入自 tgo-fixture-gen/scene02/capture-pack，当前用于Orange Cat，市场 US。当前看板规模：8 条已排序 / 3 条达标，最低点赞阈值 1000.\n来源账号：https://www.tiktok.com/@orangecat0088/video/7636206423080226070; 会话质量：scene02_patrol_runtime; 查询词：orange cat; 主题：orangecat.\n头部候选：https://www.tiktok.com/@orangecat0088/video/7636206423080226070 | #foryou #foryoupage #catlover #cartoon #kitten | 2610 点赞，55700 播放，62 分享.\n达标对照：https://www.tiktok.com/@orangecat0088/video/7636206423080226070 | #foryou, #foryoupage, #catlover, #cartoon | 2610 点赞，55700 播放，62 分享.\n采集根目录：tgo-fixture-gen/scene02/capture-pack",
+    "inputs": [
+      "Profile: https://www.tiktok.com/@orangecat0088/video/7636206423080226070",
+      "Ranked video count: 8",
+      "Qualified video count: 3",
+      "Capture root: tgo-fixture-gen/scene02/capture-pack",
+      "类别：Orange Cat",
+      "地区：US",
+      "频率：daily",
+      "关键词：orange cat",
+      "主题：orangecat"
+    ],
+    "constraints": [
+      "如果没有自动化数据源，就输出可手工执行的 SOP，不要伪造自动化。",
+      "Real TikTok anonymous-session capture. Comment sampling is missing in this pack.",
+      "Conclusions should stay tied to ranked metrics, captions, and capture-pack summaries only.",
+      "This Scene 02 report is generated from a persisted patrol snapshot and delta, not from one isolated ranked list.",
+      "If no previous snapshot exists, treat this run as the baseline and hold delta conclusions lightly.",
+      "Rows from the same category / market / cadence should append into one continuing board with stable headers."
+    ],
+    "requested_outputs": [
+      "日常巡检清单",
+      "巡检主表结构",
+      "预警逻辑",
+      "日报模板",
+      "TikTok-native ranked-pattern conclusions",
+      "Reusable adaptation rules grounded in the capture pack",
+      "Snapshot delta interpretation",
+      "Scene 03 escalation shortlist"
+    ],
+    "minimum_evidence": [
+      "One category",
+      "One market",
+      "Initial keyword set",
+      "summary.json or aggregate_summary.json",
+      "profile_summary.json or summary.json",
+      "ranked_videos.json or aggregate_ranked_videos.json"
+    ],
+    "ideal_evidence": [
+      "3-10 patrol keywords",
+      "Prior daily notes",
+      "Preferred alert conditions",
+      "Append-to-history rule",
+      "Fixed patrol time",
+      "Whether rows append into one long-lived sheet",
+      "aggregate_qualified_videos.json or qualified_video_links.txt",
+      "aggregate_report.md",
+      "video_details.json"
+    ],
+    "ready_checklist": [
+      "Cadence is defined",
+      "Tracked fields are agreed",
+      "Manual vs automated patrol mode is explicit",
+      "New / rising / abnormal signals are separated",
+      "Scene 03 escalation rules are explicit",
+      "Top-ranked videos are clearly identified",
+      "Transferable pattern is separated from profile-specific brand power"
+    ]
+  },
+  "executive_summary": {
+    "conclusion": "This Scene 02 pack now behaves like a real patrol loop: it tracks one TikTok category over time, compares the latest snapshot to the previous run, and flags which content changes deserve escalation.",
+    "why_it_matters": "The patrol is useful because it separates routine logging from actual operator triggers, so the next step is no longer vague monitoring but a ranked decision on what to deep-teardown next.",
+    "next_action": "Review the alert rows first, then send the strongest new or fast-rising videos into Scene 03 instead of re-tearing down the whole patrol pool.",
+    "confidence": "medium"
+  },
+  "operator_guide": {
+    "operator_checklist": [
+      "Lock the patrol cadence before defining the table.",
+      "Separate routine fields from alert-trigger fields.",
+      "Highlight only new, rising, and abnormal signals in the daily surface.",
+      "Write the daily summary template before claiming the patrol is reusable.",
+      "Define which rows auto-escalate into scene 03 and which stay as patrol history."
+    ],
+    "common_failure_modes": [
+      "Trying to automate before the manual SOP is stable.",
+      "Tracking too many fields to sustain daily use.",
+      "Appending rows with inconsistent headers or no capture date.",
+      "No clear threshold for what counts as a meaningful change."
+    ]
+  },
+  "execution_template": {
+    "recommended_request": "按场景 02 执行：设计一个 TikTok 品类日常巡检体系。固定巡检频率、固定巡检时间、同表追加策略、采集日期字段、多关键词 watchlist 组织方式、预警逻辑和日报模板，让它像产品一样可持续运行，而不是一份一次性研究建议。",
+    "recommended_request_zh": "按场景 02 执行：为一个品类搭建日常巡检 SOP，输出可重复使用的巡检表、预警逻辑和日报模板，不要只给研究结论。",
+    "recommended_runner_args": [
+      "python scripts/run_operator_workflow.py --mode scene --scene 02 --project \"<project-name>\" --output-root \".\\tmp\\daily-category-patrol\"",
+      "python scripts/generate_scene_report.py --scene 02 --project \"<project-name>\" --output \".\\tmp\\daily-category-patrol.json\" --format json"
+    ],
+    "variable_inputs": [
+      {
+        "name": "project_name",
+        "meaning": "便于识别的运行名或项目名",
+        "example": "美妆品类日常巡检",
+        "required": "是"
+      },
+      {
+        "name": "market",
+        "meaning": "当场景依赖单一市场时的目标市场或地区",
+        "example": "美国",
+        "required": "建议"
+      },
+      {
+        "name": "evidence_pack",
+        "meaning": "作为源证据使用的链接、截图、转写、导出文件、OCR 文本或摘录备注",
+        "example": "当前关键词集合、巡检入口、历史巡检备注与同表追加规则",
+        "required": "是"
+      },
+      {
+        "name": "success_goal",
+        "meaning": "操作者希望该场景产出的结果",
+        "example": "可重复运行的巡检 SOP、主表结构、日报模板与 Scene 03 升级规则",
+        "required": "建议"
+      }
+    ],
+    "codex_prompt_scaffold": [
+      "以场景 02 作为本次工作的主流程。",
+      "分析前先把现有证据归整为以下输入：品类名称, 主市场, 关键词集合, 巡检频率, 追加策略, 预警条件偏好。",
+      "如果证据不足，先明确缺口再继续。最低开工证据：One category, One market, Initial keyword set。",
+      "最终必须产出以下可直接给运营使用的结果：日常巡检清单, 巡检主表结构, 预警逻辑, 日报模板。",
+      "把例行追踪字段与预警触发字段分开。",
+      "没有自动化时，也要保留一个单人可执行的手工 SOP。",
+      "日报默认突出新增、上升与异常，不要重复抄老内容。",
+      "明确哪些结果自动进入场景 03，哪些只沉淀进 patrol 历史库。",
+      "优先填入可复用结论、表格、排序逻辑和下一步动作，不要停留在泛泛点评。"
+    ],
+    "codex_prompt_scaffold_zh": [
+      "按场景 02 执行：为一个品类搭建日常巡检 SOP，输出可重复使用的巡检表、预警逻辑和日报模板，不要只给研究结论。",
+      "先把我提供的材料整理成这组输入：品类名称, 主市场, 关键词集合, 巡检频率, 追加策略, 预警条件偏好。",
+      "如果证据不足，先明确缺口再继续。最低开工证据：One category, One market, Initial keyword set。",
+      "最终必须产出：日常巡检清单, 巡检主表结构, 预警逻辑, 日报模板。",
+      "输出必须可直接给运营、拆解、脚本、测试或交付使用，优先给表格、排序逻辑、复用规则和下一步动作。"
+    ],
+    "workflow_steps": [
+      "Lock the patrol cadence before defining the table.",
+      "Separate routine fields from alert-trigger fields.",
+      "Highlight only new, rising, and abnormal signals in the daily surface.",
+      "Write the daily summary template before claiming the patrol is reusable.",
+      "Define which rows auto-escalate into scene 03 and which stay as patrol history."
+    ],
+    "output_checklist": [
+      "巡检频率与固定巡检时间已明确。",
+      "主表字段与预警字段可长期维护。",
+      "日报已明确区分新增、上升、异常与弱信号。",
+      "已给出可复用日报模板与 Scene 03 升级规则。"
+    ]
+  },
+  "evidence": [
+    {
+      "label": "汇总",
+      "detail": "已排序=8; 达标=3; 最低点赞=1000",
+      "source": "aggregate_summary.json"
+    },
+    {
+      "label": "账号汇总",
+      "detail": "账号=https://www.tiktok.com/@orangecat0088/video/7636206423080226070; 会话=scene02_patrol_runtime; 已排序=8",
+      "source": "profile_summary.json"
+    },
+    {
+      "label": "排序视频 7636206423080226070",
+      "detail": "#foryou #foryoupage #catlover #cartoon #kitten",
+      "source": "https://www.tiktok.com/@orangecat0088/video/7636206423080226070"
+    },
+    {
+      "label": "排序视频 7636373657828347158",
+      "detail": "SuperCat Papa #kitten #catvideo #storycat #cutecat #orangecat",
+      "source": "https://www.tiktok.com/@usatiktoker23/video/7636373657828347158"
+    },
+    {
+      "label": "排序视频 7636137611576282399",
+      "detail": "sad cat #ai #aicat #aicatfunnyvideo #orangecat",
+      "source": "https://www.tiktok.com/@aicatstories44/video/7636137611576282399"
+    },
+    {
+      "label": "可下载视频源",
+      "detail": "该 capture pack 保留了可播放或可下载的视频细节，可继续用于逐帧复核。",
+      "source": "https://www.tiktok.com/aweme/v1/play/?faid=1988&file_id=209bbc66d6974df3904ccc3b928171ac&is_play_url=1&item_id=7636206423080226070&line=0&ply_type=2&signaturev3=dmlkZW9faWQ7ZmlsZV9pZDtpdGVtX2lkLjMxNTAxNjgzOGM2OWU0YTc1YTNkM2RjNTE3NzRlZmM2&tk=tt_chain_token&video_id=v24044gl0000d7sk0tnog65n0c0vab90"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "Executive Conclusion",
+      "instruction": "用一段面向运营的结论说明这套巡检设计是什么、为什么要这么做。",
+      "paragraphs": [
+        "这份 Scene 02 已经不只是每天重搜一次关键词，而是更像同一张品类看板的持续追加与变化解释层。",
+        "Category: Orange Cat | Market: US | Cadence: daily",
+        "Append strategy: append each patrol run into the same logical board keyed by category + market + cadence",
+        "Tracked videos this cycle: 5 | New videos vs prior snapshot: 8 | Breakout videos: 0"
+      ],
+      "bullets": [
+        "Queries: orange cat",
+        "Topics: orangecat",
+        "Alert count this cycle: 3",
+        "Same-board key: Orange Cat::US::daily"
+      ],
+      "numbered": [],
+      "table": {
+        "title": "",
+        "headers": [],
+        "rows": []
+      },
+      "evidence_refs": []
+    },
+    {
+      "heading": "Objects To Track",
+      "instruction": "定义日常巡检主表结构。",
+      "paragraphs": [],
+      "bullets": [],
+      "numbered": [],
+      "table": {
+        "title": "Patrol Board Schema",
+        "headers": [
+          "Field",
+          "Description",
+          "Why It Matters",
+          "Daily / Weekly",
+          "Append Every Run?"
+        ],
+        "rows": [
+          [
+            "Patrol date / snapshot time",
+            "Pin each cycle to one comparable timepoint",
+            "Prevents false trend reads caused by uneven sampling windows",
+            "Daily"
+          ],
+          [
+            "Tracked query / topic",
+            "Keep the keyword and hashtag entry points stable",
+            "Makes repeated hook or creator changes comparable over time",
+            "Daily"
+          ],
+          [
+            "Top video IDs / URLs",
+            "Preserve the exact posts currently leading the category",
+            "Needed for Scene 03 escalation and later rerank checks",
+            "Daily"
+          ],
+          [
+            "Metric deltas",
+            "Track likes, comments, shares, plays, and score movement",
+            "Separates steady incumbents from breakout movers",
+            "Daily"
+          ],
+          [
+            "Repeated hooks / packaging",
+            "Record hook text or caption patterns repeated across accounts",
+            "Signals category convergence and clone pressure",
+            "Daily"
+          ],
+          [
+            "Creator / authority shift",
+            "Track whether breakout posts depend on verified or niche authority",
+            "Helps separate portable format from account advantage",
+            "Weekly"
+          ]
+        ]
+      },
+      "evidence_refs": []
+    },
+    {
+      "heading": "Why They Matter",
+      "instruction": "解释这些变化该如何理解，而不是只做记录。",
+      "paragraphs": [
+        "先看今日新增 / 今日上升 / 今日异常，再用下表抽样确认这轮巡检到底监控到了什么。"
+      ],
+      "bullets": [
+        "Tracked sample rows stay in notes / dispatch context; the main operator view should prioritize change over inventory.",
+        "If no strong delta exists, keep the standing queue stable instead of widening search scope.",
+        "Dispatch queue preview:",
+        "P1 https://www.tiktok.com/@orangecat0088/video/7636206423080226070 -> High-likes candidate for deeper teardown; lane: 钩子 / 包装拆解; metrics: 点赞=2610 / 评论=0 / 分享=62 (运营 / 策略)",
+        "P2 https://www.tiktok.com/@usatiktoker23/video/7636373657828347158 -> High-likes candidate for deeper teardown; lane: 钩子 / 包装拆解; metrics: 点赞=1194 / 评论=18 / 分享=40 (运营 / 策略)",
+        "P3 https://www.tiktok.com/@aicatstories44/video/7636137611576282399 -> Top-ranked fallback candidate; lane: 钩子 / 包装拆解; metrics: 点赞=606 / 评论=12 / 分享=29 (运营 / 策略)",
+        "Tracked sample rows:",
+        "orangecat | https://www.tiktok.com/@orangecat0088/video/7636206423080226070 | #foryou #foryoupage #catlover #cartoon #kitten | 点赞=2610 | 分数=10447",
+        "orangecat | https://www.tiktok.com/@usatiktoker23/video/7636373657828347158 | SuperCat Papa #kitten #catvideo #storycat #cutecat #orangecat | 点赞=1194 | 分数=4990",
+        "orange cat | https://www.tiktok.com/@aicatstories44/video/7636137611576282399 | sad cat #ai #aicat #aicatfunnyvideo #orangecat | 点赞=606 | 分数=2958"
+      ],
+      "numbered": [],
+      "table": {
+        "title": "Tracked Sample Rows",
+        "headers": [
+          "今日信号",
+          "发生了什么",
+          "为什么值得看",
+          "是否升级 Scene 03"
+        ],
+        "rows": [
+          [
+            "今日新增",
+            "新增 8 条进入监控面板；代表样本：https://www.tiktok.com/@orangecat0088/video/7636206423080226070",
+            "#foryou #foryoupage #catlover #cartoon #kitten",
+            "是，优先看是否进入 Scene 03 队列"
+          ],
+          [
+            "New entrant",
+            "A new post entered the tracked category and may represent a fresh angle or creator.",
+            "Compare it against current shortlist quality before escalating.",
+            "视信号强度决定"
+          ]
+        ]
+      },
+      "evidence_refs": []
+    },
+    {
+      "heading": "Capture Gaps Next Round",
+      "instruction": "如果当前巡检还偏浅，明确下次必须补采哪些字段。",
+      "paragraphs": [
+        "Use the alert logic below to decide whether the patrol should escalate into teardown, stay in watch mode, or request better enrichment on the next cycle.",
+        "Current enrichment backlog: author_signature, downloaded_metadata_path"
+      ],
+      "bullets": [
+        "Keep alert thresholds stable across runs so comparisons stay meaningful.",
+        "Treat missing enrichment as an operator backlog, not as a reason to skip the patrol handoff.",
+        "同一类别 / 地区 / 频率必须持续追加到同一逻辑主表，而不是每次另起一张表。"
+      ],
+      "numbered": [],
+      "table": {
+        "title": "Alert Logic",
+        "headers": [
+          "Priority",
+          "Signal",
+          "What It Might Mean",
+          "Follow-up Action"
+        ],
+        "rows": [
+          [
+            "P1",
+            "New entrant",
+            "A new post entered the tracked category and may represent a fresh angle or creator.",
+            "Compare it against current shortlist quality before escalating."
+          ],
+          [
+            "P1",
+            "New entrant",
+            "A new post entered the tracked category and may represent a fresh angle or creator.",
+            "Compare it against current shortlist quality before escalating."
+          ],
+          [
+            "P1",
+            "New entrant",
+            "A new post entered the tracked category and may represent a fresh angle or creator.",
+            "Compare it against current shortlist quality before escalating."
+          ]
+        ]
+      },
+      "evidence_refs": []
+    },
+    {
+      "heading": "Next Action",
+      "instruction": "给运营留下一套可以直接执行的巡检日报例行流程。",
+      "paragraphs": [
+        "Use the daily summary block below as the operator note, then hand the prioritized Scene 03 queue to teardown instead of reopening the whole patrol board."
+      ],
+      "bullets": [
+        "No breakout does not mean no action; it means operate from the standing queue and data-quality backlog.",
+        "The handoff should always name one top Scene 03 control plus one or two contrast references."
+      ],
+      "numbered": [
+        "Run the patrol on the same cadence and compare to the previous snapshot before drawing conclusions.",
+        "Escalate only the rows that triggered a real alert or showed strong breakout movement.",
+        "Send the top Scene 03 candidates below into the deep-teardown path instead of reprocessing the full patrol pool."
+      ],
+      "table": {
+        "title": "Reusable Daily Summary Template",
+        "headers": [
+          "Daily Summary Block",
+          "Template",
+          "Must Include"
+        ],
+        "rows": [
+          [
+            "Which board to append",
+            "Orange Cat::US::daily"
+          ],
+          [
+            "What changed",
+            "8 new videos, 0 positive movers"
+          ],
+          [
+            "What broke out",
+            "0 videos crossed breakout thresholds"
+          ],
+          [
+            "What needs deeper teardown",
+            "https://www.tiktok.com/@orangecat0088/video/7636206423080226070, https://www.tiktok.com/@usatiktoker23/video/7636373657828347158, https://www.tiktok.com/@aicatstories44/video/7636137611576282399"
+          ],
+          [
+            "What to watch tomorrow",
+            "Watch whether today's repeated hooks persist or collapse in the next cycle"
+          ]
+        ]
+      },
+      "evidence_refs": []
+    }
+  ],
+  "assets": [
+    {
+      "label": "aggregate_report.md",
+      "path": "aggregate_report.md",
+      "note": "真实 TikTok capture pack 的汇总 Markdown 报告。"
+    },
+    {
+      "label": "patrol_snapshot.json",
+      "path": "patrol_snapshot.json",
+      "note": "Scene 02 标准化巡检快照。"
+    },
+    {
+      "label": "patrol_delta.json",
+      "path": "patrol_delta.json",
+      "note": "Scene 02 相对上一轮的快照差异。"
+    },
+    {
+      "label": "patrol_alerts.json",
+      "path": "patrol_alerts.json",
+      "note": "Scene 02 基于巡检差异得出的告警决策。"
+    },
+    {
+      "label": "scene03_candidates.json",
+      "path": "scene03_candidates.json",
+      "note": "Scene 02 巡检后交给 Scene 03 的短名单。"
+    },
+    {
+      "label": "patrol_config.json",
+      "path": "patrol_config.json",
+      "note": "本轮使用的 Scene 02 巡检配置。"
+    },
+    {
+      "label": "Cover / key frame source",
+      "path": "https://p16-common-sign.tiktokcdn.com/tos-no1a-p-0037-no/oAAAyFD4HevfDgzArf8FUgE7AIE7LHAQ1T6bIY~tplv-tiktokx-origin.image?dr=14575&x-expires=1778184000&x-signature=1EW6gjL%2BYAmcd11up2OJX6rVfW8%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=sg1",
+      "note": "Recovered cover image URL that can support frame review or first-frame comparison."
+    }
+  ],
+  "notes": [
+    "Dispatch board: P1 https://www.tiktok.com/@orangecat0088/video/7636206423080226070: High-likes candidate for deeper teardown; lane: 钩子 / 包装拆解; metrics: 点赞=2610 / 评论=0 / 分享=62; P2 https://www.tiktok.com/@usatiktoker23/video/7636373657828347158: High-likes candidate for deeper teardown; lane: 钩子 / 包装拆解; metrics: 点赞=1194 / 评论=18 / 分享=40; P3 https://www.tiktok.com/@aicatstories44/video/7636137611576282399: Top-ranked fallback candidate; lane: 钩子 / 包装拆解; metrics: 点赞=606 / 评论=12 / 分享=29",
+    "Data backlog: author_signature, downloaded_metadata_path.",
+    "Operating rule: keep alert thresholds stable, escalate from the standing queue, and treat missing enrichment as a fix list rather than a reason to stop the patrol.",
+    "The schema table defines what the patrol should watch every cycle; the tracked sample rows are only a sanity-check view of the current run."
+  ],
+  "sources": [
+    "aggregate_summary.json",
+    "aggregate_ranked_videos.json",
+    "https://www.tiktok.com/@orangecat0088/video/7636206423080226070"
+  ]
+}

@@ -1,0 +1,354 @@
+[
+  {
+    "video_url": "https://www.tiktok.com/@glowlab/video/7620000000000000001",
+    "video_id": "7620000000000000001",
+    "unique_id": "glowlab",
+    "source_product": "lip-oil-berry",
+    "comment_count": 1243,
+    "sample_count": 8,
+    "samples": [
+      {
+        "cid": "7620000000000000101",
+        "text": "I bought the berry shade after seeing the before and after. It actually looks glossy without feeling sticky.",
+        "digg_count": 422,
+        "reply_comment_total": 21,
+        "nickname": "user-berry-1",
+        "unique_id": "berrybuyer1",
+        "comment_language": "en",
+        "sample_kind": "top_level",
+        "is_high_purchase_intent": true
+      },
+      {
+        "cid": "7620000000000000102",
+        "text": "Shipping was faster than I expected and the color is flattering on medium skin.",
+        "digg_count": 305,
+        "reply_comment_total": 14,
+        "nickname": "user-berry-2",
+        "unique_id": "midtoneshop",
+        "comment_language": "en",
+        "sample_kind": "top_level",
+        "is_high_purchase_intent": true
+      },
+      {
+        "cid": "7620000000000000103",
+        "text": "Can someone compare berry vs rose? I only want one and I need the one that looks better without makeup.",
+        "digg_count": 264,
+        "reply_comment_total": 17,
+        "nickname": "user-berry-3",
+        "unique_id": "shadecompare",
+        "comment_language": "en",
+        "sample_kind": "top_level"
+      },
+      {
+        "cid": "7620000000000000104",
+        "text": "I like the shine but mine arrived leaking in the cap. Customer service did send a replacement though.",
+        "digg_count": 181,
+        "reply_comment_total": 28,
+        "nickname": "user-berry-4",
+        "unique_id": "leakycap",
+        "comment_language": "en",
+        "sample_kind": "top_level"
+      },
+      {
+        "cid": "7620000000000000105",
+        "text": "Worth it if you want a juicy lip look for everyday, not worth it if you expect strong pigment.",
+        "digg_count": 239,
+        "reply_comment_total": 12,
+        "nickname": "user-berry-5",
+        "unique_id": "juicylipsdaily",
+        "comment_language": "en",
+        "sample_kind": "top_level"
+      },
+      {
+        "cid": "7620000000000000106",
+        "text": "Repurchased because this is the only lip oil my teen daughter and I both finish.",
+        "digg_count": 198,
+        "reply_comment_total": 9,
+        "nickname": "user-berry-6",
+        "unique_id": "repurchasepair",
+        "comment_language": "en",
+        "sample_kind": "top_level",
+        "is_high_purchase_intent": true
+      },
+      {
+        "cid": "7620000000000000107",
+        "text": "The packaging looks expensive on camera which is honestly why I added it to cart.",
+        "digg_count": 144,
+        "reply_comment_total": 6,
+        "nickname": "user-berry-7",
+        "unique_id": "cartcamera",
+        "comment_language": "en",
+        "sample_kind": "top_level",
+        "is_high_purchase_intent": true
+      },
+      {
+        "cid": "7620000000000000108",
+        "text": "I need proof that it survives iced coffee because every glossy product disappears in an hour on me.",
+        "digg_count": 157,
+        "reply_comment_total": 11,
+        "nickname": "user-berry-8",
+        "unique_id": "icedcoffeetest",
+        "comment_language": "en",
+        "sample_kind": "top_level"
+      },
+      {
+        "cid": "7620000000000000109",
+        "text": "Mine leaked too but support replaced it after I sent one photo, so I would still repurchase for the shine.",
+        "digg_count": 93,
+        "reply_comment_total": 4,
+        "nickname": "user-berry-9",
+        "unique_id": "supportreplacedmine",
+        "comment_language": "en",
+        "sample_kind": "reply",
+        "reply_summary": "Reply users reassure others that leak complaints were handled quickly and did not fully block repurchase.",
+        "is_high_purchase_intent": true
+      },
+      {
+        "cid": "7620000000000000110",
+        "text": "For anyone asking, berry looked more neutral on medium olive skin than rose and the before-after in daylight convinced me.",
+        "digg_count": 88,
+        "reply_comment_total": 3,
+        "nickname": "user-berry-10",
+        "unique_id": "berryoliveproof",
+        "comment_language": "en",
+        "sample_kind": "reply",
+        "reply_summary": "Reply-chain centers on shade choice and daylight proof before checkout.",
+        "is_high_purchase_intent": true
+      }
+    ]
+  },
+  {
+    "video_url": "https://www.tiktok.com/@glowlab/video/7620000000000000002",
+    "video_id": "7620000000000000002",
+    "unique_id": "glowlab",
+    "source_product": "concealer-pen-neutral",
+    "comment_count": 978,
+    "sample_count": 8,
+    "samples": [
+      {
+        "cid": "7620000000000000201",
+        "text": "Bought this because the click pen looked easy for quick mornings. The coverage is light but the brightening is real.",
+        "digg_count": 351,
+        "reply_comment_total": 19,
+        "nickname": "user-concealer-1",
+        "unique_id": "clickpenrush",
+        "comment_language": "en",
+        "sample_kind": "top_level",
+        "is_high_purchase_intent": true
+      },
+      {
+        "cid": "7620000000000000202",
+        "text": "Is neutral 02 olive-friendly or does it pull too peach? Please show it on under-eye circles in daylight.",
+        "digg_count": 287,
+        "reply_comment_total": 13,
+        "nickname": "user-concealer-2",
+        "unique_id": "oliveundertone",
+        "comment_language": "en",
+        "sample_kind": "top_level"
+      },
+      {
+        "cid": "7620000000000000203",
+        "text": "Mine creased by lunch, but I also skipped powder. Anyone got a combo that keeps it smooth?",
+        "digg_count": 205,
+        "reply_comment_total": 32,
+        "nickname": "user-concealer-3",
+        "unique_id": "creasehelp",
+        "comment_language": "en",
+        "sample_kind": "top_level"
+      },
+      {
+        "cid": "7620000000000000204",
+        "text": "The demo sold me because they showed dark circles instead of perfect skin. More creators need to do that.",
+        "digg_count": 189,
+        "reply_comment_total": 8,
+        "nickname": "user-concealer-4",
+        "unique_id": "realproofbuyer",
+        "comment_language": "en",
+        "sample_kind": "top_level",
+        "is_high_purchase_intent": true
+      },
+      {
+        "cid": "7620000000000000205",
+        "text": "For the price it is fine, but if you already own a premium concealer I do not think this replaces it.",
+        "digg_count": 173,
+        "reply_comment_total": 7,
+        "nickname": "user-concealer-5",
+        "unique_id": "pricecompare",
+        "comment_language": "en",
+        "sample_kind": "top_level"
+      },
+      {
+        "cid": "7620000000000000206",
+        "text": "I reordered during the second sale because this is the only one my mom can use without tugging the under-eye.",
+        "digg_count": 166,
+        "reply_comment_total": 10,
+        "nickname": "user-concealer-6",
+        "unique_id": "mombuyer",
+        "comment_language": "en",
+        "sample_kind": "top_level",
+        "is_high_purchase_intent": true
+      },
+      {
+        "cid": "7620000000000000207",
+        "text": "Customer service answered my shade question in under an hour so I finally placed the order.",
+        "digg_count": 122,
+        "reply_comment_total": 5,
+        "nickname": "user-concealer-7",
+        "unique_id": "shadeqaorder",
+        "comment_language": "en",
+        "sample_kind": "top_level",
+        "is_high_purchase_intent": true
+      },
+      {
+        "cid": "7620000000000000208",
+        "text": "Please stop using filters in concealer ads. I need texture closeups before I trust another viral pen.",
+        "digg_count": 214,
+        "reply_comment_total": 22,
+        "nickname": "user-concealer-8",
+        "unique_id": "texturefirst",
+        "comment_language": "en",
+        "sample_kind": "top_level"
+      },
+      {
+        "cid": "7620000000000000209",
+        "text": "Replying because neutral 02 did oxidize a little on me, so if you are olive maybe go lighter and test in daylight before opening the second shade.",
+        "digg_count": 97,
+        "reply_comment_total": 6,
+        "nickname": "user-concealer-9",
+        "unique_id": "oxidizereply",
+        "comment_language": "en",
+        "sample_kind": "reply",
+        "reply_summary": "Reply users trade undertone and oxidation advice before purchase or exchange.",
+        "is_high_purchase_intent": true
+      },
+      {
+        "cid": "7620000000000000210",
+        "text": "I returned mine the first time because the shade was off, but customer service let me swap and the second color finally worked.",
+        "digg_count": 84,
+        "reply_comment_total": 5,
+        "nickname": "user-concealer-10",
+        "unique_id": "swapshadeworked",
+        "comment_language": "en",
+        "sample_kind": "reply",
+        "reply_summary": "Reply-chain shows return friction matters, but a smooth exchange path can rescue conversion.",
+        "is_high_purchase_intent": true
+      }
+    ]
+  },
+  {
+    "video_url": "https://www.tiktok.com/@glowlab/video/7620000000000000003",
+    "video_id": "7620000000000000003",
+    "unique_id": "glowlab",
+    "source_product": "heatless-curl-ribbon",
+    "comment_count": 1104,
+    "sample_count": 8,
+    "samples": [
+      {
+        "cid": "7620000000000000301",
+        "text": "I ordered this because my hair is fried from hot tools and the overnight result actually looked smooth in the morning clip.",
+        "digg_count": 401,
+        "reply_comment_total": 15,
+        "nickname": "user-curl-1",
+        "unique_id": "overnightwaves",
+        "comment_language": "en",
+        "sample_kind": "top_level",
+        "is_high_purchase_intent": true
+      },
+      {
+        "cid": "7620000000000000302",
+        "text": "Does it work on layered hair or only long blunt cuts? I do not want another tool that only works for creators with extensions.",
+        "digg_count": 318,
+        "reply_comment_total": 18,
+        "nickname": "user-curl-2",
+        "unique_id": "layeredhairq",
+        "comment_language": "en",
+        "sample_kind": "top_level"
+      },
+      {
+        "cid": "7620000000000000303",
+        "text": "Mine slipped out overnight the first time, but after I twisted tighter and used the clip it finally worked.",
+        "digg_count": 206,
+        "reply_comment_total": 24,
+        "nickname": "user-curl-3",
+        "unique_id": "slipfix",
+        "comment_language": "en",
+        "sample_kind": "top_level"
+      },
+      {
+        "cid": "7620000000000000304",
+        "text": "The low heat damage angle got me. Showing actual morning frizz before styling was what made the ad believable.",
+        "digg_count": 194,
+        "reply_comment_total": 6,
+        "nickname": "user-curl-4",
+        "unique_id": "believableproof",
+        "comment_language": "en",
+        "sample_kind": "top_level",
+        "is_high_purchase_intent": true
+      },
+      {
+        "cid": "7620000000000000305",
+        "text": "It is cute but overpriced unless the satin really lasts. Mine started pilling after two weeks.",
+        "digg_count": 181,
+        "reply_comment_total": 17,
+        "nickname": "user-curl-5",
+        "unique_id": "satinvalue",
+        "comment_language": "en",
+        "sample_kind": "top_level"
+      },
+      {
+        "cid": "7620000000000000306",
+        "text": "Bought two when they did free shipping because my sister stole mine after trying it once.",
+        "digg_count": 149,
+        "reply_comment_total": 4,
+        "nickname": "user-curl-6",
+        "unique_id": "twobundlebuyer",
+        "comment_language": "en",
+        "sample_kind": "top_level",
+        "is_high_purchase_intent": true
+      },
+      {
+        "cid": "7620000000000000307",
+        "text": "I need a side-by-side on thick hair that air dries weird. Most of these videos only show already smooth hair.",
+        "digg_count": 175,
+        "reply_comment_total": 12,
+        "nickname": "user-curl-7",
+        "unique_id": "thickhairproof",
+        "comment_language": "en",
+        "sample_kind": "top_level"
+      },
+      {
+        "cid": "7620000000000000308",
+        "text": "Package arrived crushed but the product was fine. Please use a better mailer because this is giftable.",
+        "digg_count": 112,
+        "reply_comment_total": 9,
+        "nickname": "user-curl-8",
+        "unique_id": "giftmailers",
+        "comment_language": "en",
+        "sample_kind": "top_level"
+      },
+      {
+        "cid": "7620000000000000309",
+        "text": "Replying to the layered hair question: it worked on my shoulder-length layers only after I watched a true before-after from someone with frizz, not salon curls.",
+        "digg_count": 91,
+        "reply_comment_total": 4,
+        "nickname": "user-curl-9",
+        "unique_id": "frizzproofreply",
+        "comment_language": "en",
+        "sample_kind": "reply",
+        "reply_summary": "Reply-chain asks for real-hair proof and before-after evidence before buying.",
+        "is_high_purchase_intent": true
+      },
+      {
+        "cid": "7620000000000000310",
+        "text": "Mine was a gift and the torn package honestly made it feel cheap, so better packaging would help if they want people to order bundles.",
+        "digg_count": 79,
+        "reply_comment_total": 3,
+        "nickname": "user-curl-10",
+        "unique_id": "giftbundlepackaging",
+        "comment_language": "en",
+        "sample_kind": "reply",
+        "reply_summary": "Reply users connect packaging quality directly to gifting confidence and bundle purchase intent."
+      }
+    ]
+  }
+]

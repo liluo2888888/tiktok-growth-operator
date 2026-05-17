@@ -1,0 +1,386 @@
+[
+  {
+    "video_url": "https://www.tiktok.com/@proofboostlab/video/7619100000000000001",
+    "video_id": "7619100000000000001",
+    "unique_id": "proofboostlab",
+    "source_product": "proofboostlab-w16",
+    "comment_count": 150,
+    "sample_count": 2,
+    "samples": [
+      {
+        "cid": "divergent-c-2001",
+        "text": "proof-first format clearly increased trust and saves",
+        "digg_count": 39,
+        "reply_comment_total": 5,
+        "nickname": "user2001",
+        "unique_id": "user2001",
+        "sample_kind": "top_level",
+        "comment_language": "en"
+      },
+      {
+        "cid": "divergent-c-2002",
+        "text": "reply-chain pressure is about trust / speed / event-noise depending on the account",
+        "digg_count": 33,
+        "reply_comment_total": 7,
+        "nickname": "user2002",
+        "unique_id": "user2002",
+        "sample_kind": "reply",
+        "reply_summary": "proof-first format clearly increased trust and saves",
+        "comment_language": "en",
+        "is_high_purchase_intent": true
+      }
+    ]
+  },
+  {
+    "video_url": "https://www.tiktok.com/@proofboostlab/video/7619100000000000002",
+    "video_id": "7619100000000000002",
+    "unique_id": "proofboostlab",
+    "source_product": "proofboostlab-w16",
+    "comment_count": 172,
+    "sample_count": 2,
+    "samples": [
+      {
+        "cid": "divergent-c-2003",
+        "text": "proof-first format clearly increased trust and saves",
+        "digg_count": 41,
+        "reply_comment_total": 6,
+        "nickname": "user2003",
+        "unique_id": "user2003",
+        "sample_kind": "top_level",
+        "comment_language": "en"
+      },
+      {
+        "cid": "divergent-c-2004",
+        "text": "reply-chain pressure is about trust / speed / event-noise depending on the account",
+        "digg_count": 35,
+        "reply_comment_total": 8,
+        "nickname": "user2004",
+        "unique_id": "user2004",
+        "sample_kind": "reply",
+        "reply_summary": "proof-first format clearly increased trust and saves",
+        "comment_language": "en",
+        "is_high_purchase_intent": true
+      }
+    ]
+  },
+  {
+    "video_url": "https://www.tiktok.com/@proofboostlab/video/7619200000000000001",
+    "video_id": "7619200000000000001",
+    "unique_id": "proofboostlab",
+    "source_product": "proofboostlab-w17",
+    "comment_count": 421,
+    "sample_count": 2,
+    "samples": [
+      {
+        "cid": "divergent-c-2005",
+        "text": "proof-first format clearly increased trust and saves",
+        "digg_count": 43,
+        "reply_comment_total": 5,
+        "nickname": "user2005",
+        "unique_id": "user2005",
+        "sample_kind": "top_level",
+        "comment_language": "en"
+      },
+      {
+        "cid": "divergent-c-2006",
+        "text": "reply-chain pressure is about trust / speed / event-noise depending on the account",
+        "digg_count": 37,
+        "reply_comment_total": 7,
+        "nickname": "user2006",
+        "unique_id": "user2006",
+        "sample_kind": "reply",
+        "reply_summary": "proof-first format clearly increased trust and saves",
+        "comment_language": "en",
+        "is_high_purchase_intent": true
+      }
+    ]
+  },
+  {
+    "video_url": "https://www.tiktok.com/@proofboostlab/video/7619200000000000002",
+    "video_id": "7619200000000000002",
+    "unique_id": "proofboostlab",
+    "source_product": "proofboostlab-w17",
+    "comment_count": 388,
+    "sample_count": 2,
+    "samples": [
+      {
+        "cid": "divergent-c-2007",
+        "text": "proof-first format clearly increased trust and saves",
+        "digg_count": 45,
+        "reply_comment_total": 6,
+        "nickname": "user2007",
+        "unique_id": "user2007",
+        "sample_kind": "top_level",
+        "comment_language": "en"
+      },
+      {
+        "cid": "divergent-c-2008",
+        "text": "reply-chain pressure is about trust / speed / event-noise depending on the account",
+        "digg_count": 39,
+        "reply_comment_total": 8,
+        "nickname": "user2008",
+        "unique_id": "user2008",
+        "sample_kind": "reply",
+        "reply_summary": "proof-first format clearly increased trust and saves",
+        "comment_language": "en",
+        "is_high_purchase_intent": true
+      }
+    ]
+  },
+  {
+    "video_url": "https://www.tiktok.com/@slowstoryroom/video/7619300000000000001",
+    "video_id": "7619300000000000001",
+    "unique_id": "slowstoryroom",
+    "source_product": "slowstoryroom-w16",
+    "comment_count": 322,
+    "sample_count": 2,
+    "samples": [
+      {
+        "cid": "divergent-c-2009",
+        "text": "people ask for faster payoff and less setup this week",
+        "digg_count": 47,
+        "reply_comment_total": 5,
+        "nickname": "user2009",
+        "unique_id": "user2009",
+        "sample_kind": "top_level",
+        "comment_language": "en"
+      },
+      {
+        "cid": "divergent-c-2010",
+        "text": "reply-chain pressure is about trust / speed / event-noise depending on the account",
+        "digg_count": 41,
+        "reply_comment_total": 7,
+        "nickname": "user2010",
+        "unique_id": "user2010",
+        "sample_kind": "reply",
+        "reply_summary": "people ask for faster payoff and less setup this week",
+        "comment_language": "en",
+        "is_high_purchase_intent": true
+      }
+    ]
+  },
+  {
+    "video_url": "https://www.tiktok.com/@slowstoryroom/video/7619300000000000002",
+    "video_id": "7619300000000000002",
+    "unique_id": "slowstoryroom",
+    "source_product": "slowstoryroom-w16",
+    "comment_count": 280,
+    "sample_count": 2,
+    "samples": [
+      {
+        "cid": "divergent-c-2011",
+        "text": "people ask for faster payoff and less setup this week",
+        "digg_count": 39,
+        "reply_comment_total": 6,
+        "nickname": "user2011",
+        "unique_id": "user2011",
+        "sample_kind": "top_level",
+        "comment_language": "en"
+      },
+      {
+        "cid": "divergent-c-2012",
+        "text": "reply-chain pressure is about trust / speed / event-noise depending on the account",
+        "digg_count": 33,
+        "reply_comment_total": 8,
+        "nickname": "user2012",
+        "unique_id": "user2012",
+        "sample_kind": "reply",
+        "reply_summary": "people ask for faster payoff and less setup this week",
+        "comment_language": "en",
+        "is_high_purchase_intent": true
+      }
+    ]
+  },
+  {
+    "video_url": "https://www.tiktok.com/@slowstoryroom/video/7619400000000000001",
+    "video_id": "7619400000000000001",
+    "unique_id": "slowstoryroom",
+    "source_product": "slowstoryroom-w17",
+    "comment_count": 211,
+    "sample_count": 2,
+    "samples": [
+      {
+        "cid": "divergent-c-2013",
+        "text": "people ask for faster payoff and less setup this week",
+        "digg_count": 41,
+        "reply_comment_total": 5,
+        "nickname": "user2013",
+        "unique_id": "user2013",
+        "sample_kind": "top_level",
+        "comment_language": "en"
+      },
+      {
+        "cid": "divergent-c-2014",
+        "text": "reply-chain pressure is about trust / speed / event-noise depending on the account",
+        "digg_count": 35,
+        "reply_comment_total": 7,
+        "nickname": "user2014",
+        "unique_id": "user2014",
+        "sample_kind": "reply",
+        "reply_summary": "people ask for faster payoff and less setup this week",
+        "comment_language": "en",
+        "is_high_purchase_intent": true
+      }
+    ]
+  },
+  {
+    "video_url": "https://www.tiktok.com/@slowstoryroom/video/7619400000000000002",
+    "video_id": "7619400000000000002",
+    "unique_id": "slowstoryroom",
+    "source_product": "slowstoryroom-w17",
+    "comment_count": 188,
+    "sample_count": 2,
+    "samples": [
+      {
+        "cid": "divergent-c-2015",
+        "text": "people ask for faster payoff and less setup this week",
+        "digg_count": 43,
+        "reply_comment_total": 6,
+        "nickname": "user2015",
+        "unique_id": "user2015",
+        "sample_kind": "top_level",
+        "comment_language": "en"
+      },
+      {
+        "cid": "divergent-c-2016",
+        "text": "reply-chain pressure is about trust / speed / event-noise depending on the account",
+        "digg_count": 37,
+        "reply_comment_total": 8,
+        "nickname": "user2016",
+        "unique_id": "user2016",
+        "sample_kind": "reply",
+        "reply_summary": "people ask for faster payoff and less setup this week",
+        "comment_language": "en",
+        "is_high_purchase_intent": true
+      }
+    ]
+  },
+  {
+    "video_url": "https://www.tiktok.com/@eventspikelab/video/7619500000000000001",
+    "video_id": "7619500000000000001",
+    "unique_id": "eventspikelab",
+    "source_product": "eventspikelab-w16",
+    "comment_count": 244,
+    "sample_count": 2,
+    "samples": [
+      {
+        "cid": "divergent-c-2017",
+        "text": "attention comes from event chatter more than reusable product proof",
+        "digg_count": 45,
+        "reply_comment_total": 5,
+        "nickname": "user2017",
+        "unique_id": "user2017",
+        "sample_kind": "top_level",
+        "comment_language": "en"
+      },
+      {
+        "cid": "divergent-c-2018",
+        "text": "reply-chain pressure is about trust / speed / event-noise depending on the account",
+        "digg_count": 39,
+        "reply_comment_total": 7,
+        "nickname": "user2018",
+        "unique_id": "user2018",
+        "sample_kind": "reply",
+        "reply_summary": "attention comes from event chatter more than reusable product proof",
+        "comment_language": "en",
+        "is_high_purchase_intent": true
+      }
+    ]
+  },
+  {
+    "video_url": "https://www.tiktok.com/@eventspikelab/video/7619500000000000002",
+    "video_id": "7619500000000000002",
+    "unique_id": "eventspikelab",
+    "source_product": "eventspikelab-w16",
+    "comment_count": 251,
+    "sample_count": 2,
+    "samples": [
+      {
+        "cid": "divergent-c-2019",
+        "text": "attention comes from event chatter more than reusable product proof",
+        "digg_count": 47,
+        "reply_comment_total": 6,
+        "nickname": "user2019",
+        "unique_id": "user2019",
+        "sample_kind": "top_level",
+        "comment_language": "en"
+      },
+      {
+        "cid": "divergent-c-2020",
+        "text": "reply-chain pressure is about trust / speed / event-noise depending on the account",
+        "digg_count": 41,
+        "reply_comment_total": 8,
+        "nickname": "user2020",
+        "unique_id": "user2020",
+        "sample_kind": "reply",
+        "reply_summary": "attention comes from event chatter more than reusable product proof",
+        "comment_language": "en",
+        "is_high_purchase_intent": true
+      }
+    ]
+  },
+  {
+    "video_url": "https://www.tiktok.com/@eventspikelab/video/7619600000000000001",
+    "video_id": "7619600000000000001",
+    "unique_id": "eventspikelab",
+    "source_product": "eventspikelab-w17",
+    "comment_count": 260,
+    "sample_count": 2,
+    "samples": [
+      {
+        "cid": "divergent-c-2021",
+        "text": "attention comes from event chatter more than reusable product proof",
+        "digg_count": 39,
+        "reply_comment_total": 5,
+        "nickname": "user2021",
+        "unique_id": "user2021",
+        "sample_kind": "top_level",
+        "comment_language": "en"
+      },
+      {
+        "cid": "divergent-c-2022",
+        "text": "reply-chain pressure is about trust / speed / event-noise depending on the account",
+        "digg_count": 33,
+        "reply_comment_total": 7,
+        "nickname": "user2022",
+        "unique_id": "user2022",
+        "sample_kind": "reply",
+        "reply_summary": "attention comes from event chatter more than reusable product proof",
+        "comment_language": "en",
+        "is_high_purchase_intent": true
+      }
+    ]
+  },
+  {
+    "video_url": "https://www.tiktok.com/@eventspikelab/video/7619600000000000002",
+    "video_id": "7619600000000000002",
+    "unique_id": "eventspikelab",
+    "source_product": "eventspikelab-w17",
+    "comment_count": 249,
+    "sample_count": 2,
+    "samples": [
+      {
+        "cid": "divergent-c-2023",
+        "text": "attention comes from event chatter more than reusable product proof",
+        "digg_count": 41,
+        "reply_comment_total": 6,
+        "nickname": "user2023",
+        "unique_id": "user2023",
+        "sample_kind": "top_level",
+        "comment_language": "en"
+      },
+      {
+        "cid": "divergent-c-2024",
+        "text": "reply-chain pressure is about trust / speed / event-noise depending on the account",
+        "digg_count": 35,
+        "reply_comment_total": 8,
+        "nickname": "user2024",
+        "unique_id": "user2024",
+        "sample_kind": "reply",
+        "reply_summary": "attention comes from event chatter more than reusable product proof",
+        "comment_language": "en",
+        "is_high_purchase_intent": true
+      }
+    ]
+  }
+]

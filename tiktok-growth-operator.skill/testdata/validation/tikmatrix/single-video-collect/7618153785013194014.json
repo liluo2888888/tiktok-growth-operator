@@ -1,0 +1,31 @@
+{
+  "video_id": "7618153785013194014",
+  "title": "Lip combo hook test for validation fixture",
+  "create_time": "1776168000",
+  "music_title": "original sound",
+  "author": {
+    "unique_id": "honmaggie",
+    "nickname": "Hon Maggie",
+    "verified": false,
+    "signature": "Beauty creator validation fixture"
+  },
+  "stats": {
+    "digg_count": 12840,
+    "comment_count": 356,
+    "share_count": 92,
+    "play_count": 482000
+  },
+  "media": {
+    "url": "https://v16-webapp-prime.tiktok.com/video/validation-fixture.mp4",
+    "cover": "https://p16-sign.tiktokcdn.com/validation-cover.jpeg"
+  },
+  "raw": {
+    "challenges": [
+      {"title": "lipcombo"},
+      {"title": "beauty"}
+    ],
+    "stats": {
+      "collectCount": 128
+    }
+  }
+}

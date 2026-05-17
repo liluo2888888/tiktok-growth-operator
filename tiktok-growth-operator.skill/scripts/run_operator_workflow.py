@@ -6,6 +6,7 @@ import re
 from datetime import datetime
 from pathlib import Path
 
+from feishu_push_runtime import maybe_push_feishu_bundle
 from generate_operator_pack import generate_pack_output
 from generate_scene_report import load_catalog
 from recommend_entry_board import recommend_family, recommend_items
@@ -15,6 +16,7 @@ from start_entry_board import create_entry_board_starter
 from start_capture_pack_run import create_capture_pack_run
 from start_goal_workflow import create_goal_workflow
 from summarize_run_history import build_summary, discover_entries, render_markdown
+from text_normalization import read_utf8_text, write_json_file, write_utf8_text
 
 
 STOPWORDS = {
@@ -66,6 +68,18 @@ PACK_KEYWORDS = {
         "直播包",
         "直播话术",
         "场控包",
+    ],
+    "account-ops-assist": [
+        "account ops",
+        "account-ops",
+        "inbox assist",
+        "inbox pack",
+        "notice pack",
+        "reply pack",
+        "account operations",
+        "账号运营包",
+        "收件箱运营包",
+        "通知运营包",
     ],
     "creative-production-handoff": [
         "creative-production-handoff",
@@ -151,7 +165,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--generate", action="store_true", help="In board mode, generate the local queue after scaffolding.")
     parser.add_argument("--dry-run", action="store_true", help="In board mode, preview the queue after generation.")
     parser.add_argument("--run", action="store_true", help="In board mode, execute the generated queue after generation.")
-    parser.add_argument("--type", choices=["publish-prep", "live-assist", "creative-production-handoff"], help="Operator pack type for pack mode.")
+    parser.add_argument("--type", choices=["publish-prep", "live-assist", "creative-production-handoff", "account-ops-assist"], help="Operator pack type for pack mode.")
     parser.add_argument("--capture-root", default="", help="Capture-pack root for capture-pack mode.")
     parser.add_argument("--target-markets", default="", help="Optional comma-separated target markets for scene 13 capture-pack localization blueprints.")
     parser.add_argument("--target-languages", default="", help="Optional comma-separated target languages for scene 15 capture-pack image-translation blueprints.")
@@ -169,6 +183,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--history-output-json", default="", help="Optional JSON output path for history mode.")
     parser.add_argument("--history-output-md", default="", help="Optional Markdown output path for history mode.")
     parser.add_argument("--history-limit", type=int, default=50, help="Maximum number of history entries to keep.")
+    parser.add_argument("--push-feishu", action="store_true", help="After generating report outputs, also push them to Feishu.")
+    parser.add_argument("--feishu-app-id", default="", help="Optional explicit Feishu app ID for push mode.")
+    parser.add_argument("--feishu-app-secret", default="", help="Optional explicit Feishu app secret for push mode.")
+    parser.add_argument("--feishu-title", default="", help="Optional explicit Feishu Doc title.")
+    parser.add_argument("--feishu-base-name", default="", help="Optional explicit Feishu Bitable app name.")
     return parser.parse_args()
 
 
@@ -476,6 +495,27 @@ def infer_mode_from_request(args: argparse.Namespace) -> tuple[str, dict]:
             },
         }
 
+    if scene_preview["explicit_scene"] and not multi_stage:
+        reasons.append("The request explicitly named one scene, so scene routing takes priority over board inference.")
+        return "scene", {
+            "scene": scene_preview["selected_scene"] or scene_preview["explicit_scene"],
+            "request": request_text,
+            "reason": "explicit-scene-match",
+            "explanation": {
+                "decision": "scene",
+                "reasons": reasons,
+                "board_intent": board_intent,
+                "pack_scores": pack_scores,
+                "scene_preview": scene_preview,
+                "multi_stage": {
+                    "value": multi_stage,
+                    "matched_markers": matched_stage_markers,
+                },
+                "goal_preview": goal_preview,
+                "board_preview": board_preview,
+            },
+        }
+
     if inferred_pack and not multi_stage:
         reasons.append("Pack keywords were stronger than scene/goal signals and no multi-stage markers were present.")
         return "pack", {
@@ -638,7 +678,7 @@ def run_pack_mode(args: argparse.Namespace, pack_type_override: str | None = Non
     if not project and not args.source_report:
         raise SystemExit("Pack mode requires --project, --request, or --source-report.")
     output_dir = args.output_dir or make_default_pack_output_dir(pack_type, project or pack_type)
-    context = Path(args.context_file).read_text(encoding="utf-8") if args.context_file else ""
+    context = read_utf8_text(Path(args.context_file)) if args.context_file else ""
     return generate_pack_output(
         pack_type=pack_type,
         output_dir=Path(output_dir).resolve(),
@@ -684,12 +724,12 @@ def run_history_mode(args: argparse.Namespace) -> dict:
     if args.history_output_json.strip():
         json_path = Path(args.history_output_json).expanduser().resolve()
         json_path.parent.mkdir(parents=True, exist_ok=True)
-        json_path.write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8-sig")
+        write_json_file(json_path, summary)
         output_json = str(json_path)
     if args.history_output_md.strip():
         md_path = Path(args.history_output_md).expanduser().resolve()
         md_path.parent.mkdir(parents=True, exist_ok=True)
-        md_path.write_text(render_markdown(summary), encoding="utf-8-sig")
+        write_utf8_text(md_path, render_markdown(summary))
         output_md = str(md_path)
 
     return {
@@ -701,6 +741,39 @@ def run_history_mode(args: argparse.Namespace) -> dict:
         "output_md": output_md,
         "summary": summary,
     }
+
+
+def find_primary_report_json(result: dict) -> str:
+    for key in ("report_json", "report_json_path"):
+        value = result.get(key)
+        if isinstance(value, str) and value.strip():
+            return value.strip()
+    scene_runs = result.get("scene_runs")
+    if isinstance(scene_runs, list) and scene_runs:
+        last = scene_runs[-1]
+        if isinstance(last, dict):
+            value = last.get("report_json")
+            if isinstance(value, str) and value.strip():
+                return value.strip()
+    return ""
+
+
+def maybe_push_feishu(args: argparse.Namespace, result: dict) -> dict | None:
+    if not args.push_feishu:
+        return None
+    report_json = find_primary_report_json(result)
+    if not report_json:
+        return {
+            "status": "skipped",
+            "reason": "no-report-json",
+        }
+    return maybe_push_feishu_bundle(
+        report_json,
+        args.feishu_app_id,
+        args.feishu_app_secret,
+        title=args.feishu_title.strip() or args.project.strip(),
+        base_name=args.feishu_base_name.strip() or args.project.strip(),
+    )
 
 
 def main() -> None:
@@ -735,6 +808,10 @@ def main() -> None:
         result = run_history_mode(args)
     else:
         result = run_pack_mode(args)
+
+    feishu_result = maybe_push_feishu(args, result)
+    if feishu_result is not None:
+        result["feishu_push"] = feishu_result
 
     if args.mode == "auto":
         result = {"route": route_meta, **result}

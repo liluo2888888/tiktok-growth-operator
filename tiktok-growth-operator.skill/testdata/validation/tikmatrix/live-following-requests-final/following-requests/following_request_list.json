@@ -1,0 +1,37 @@
+{
+  "source_url": "https://www.tiktok.com/following",
+  "has_more": false,
+  "total": 0,
+  "min_time": 20,
+  "myself_user_id": "7631575449005769741",
+  "item_count": 0,
+  "request_users": [],
+  "raw": {
+    "extra": {
+      "fatal_item_ids": [],
+      "logid": "20260506144029A9138FE0D565F20A42D8",
+      "now": 1778078429000
+    },
+    "has_more": false,
+    "log_pb": {
+      "impr_id": "20260506144029A9138FE0D565F20A42D8"
+    },
+    "min_time": 20,
+    "myself_user_id": "7631575449005769741",
+    "request_users": [],
+    "status_code": 0,
+    "status_msg": "",
+    "total": 0
+  },
+  "auth_mode": "browser",
+  "browser_mode": {
+    "headless": false,
+    "user_data_dir": "E:\\tiktok\\TikMatrix\\tmp\\browser-profile",
+    "executable_path": "C:\\Users\\Administrator\\AppData\\Local\\Google\\Chrome\\Application\\chrome.exe",
+    "remote_debugging_port": 9223,
+    "attached_via_cdp": true,
+    "captured_via": "same_origin_fetch",
+    "request_url": "/api/user/following/request/list/?aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F135.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&data_collection_enabled=true&device_platform=web_pc&focus_state=true&from_page=user&history_len=4&is_page_visible=true&os=windows&priority_region=SG&region=SG&screen_height=864&screen_width=1536&tz_name=Asia%2FShanghai&user_is_login=true&webcast_language=zh-Hans&count=20&max_time=0",
+    "request_status": 200
+  }
+}

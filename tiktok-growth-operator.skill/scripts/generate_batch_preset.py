@@ -5,6 +5,9 @@ import json
 from datetime import datetime
 from pathlib import Path
 
+from feishu_naming import build_task_title, normalize_scene_id, scene_label_zh
+from text_normalization import read_json_file, write_json_file, write_utf8_text
+
 
 PRESETS = {
     "topic-to-publish": {
@@ -542,6 +545,9 @@ STAGE_ORDER = {
     "capture-pack": 4,
 }
 
+FEISHU_WEEKLY_SCENES = {"18", "19"}
+FEISHU_DATE_SCENES = {"01", "02", "03"}
+
 
 def slugify(value: str) -> str:
     cleaned = "".join(ch.lower() if ch.isalnum() else "-" for ch in value.strip())
@@ -552,17 +558,56 @@ def slugify(value: str) -> str:
 
 def write_json(path: Path, payload: dict | list) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8-sig")
+    write_json_file(path, payload)
 
 
 def write_markdown(path: Path, content: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(content, encoding="utf-8-sig")
+    write_utf8_text(path, content)
 
 
 def write_text(path: Path, content: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(content, encoding="utf-8-sig")
+    write_utf8_text(path, content)
+
+
+def build_feishu_period(scene_id: str) -> str:
+    now = datetime.now()
+    if scene_id in FEISHU_WEEKLY_SCENES:
+        iso_year, iso_week, _ = now.isocalendar()
+        return f"{iso_year}-W{iso_week:02d}"
+    return now.strftime("%Y-%m-%d")
+
+
+def build_feishu_title_from_task(task: dict) -> str:
+    return build_task_title(task)
+
+
+def build_feishu_handoff(tasks: list[dict], helper_scripts: dict[str, str], batch_result_path: Path) -> dict:
+    task_templates: list[dict[str, str]] = []
+    for index, task in enumerate(tasks, start=1):
+        scene_id = normalize_scene_id(task.get("scene"))
+        if not scene_id:
+            continue
+        title = build_feishu_title_from_task(task)
+        task_templates.append(
+            {
+                "index": str(index),
+                "scene": scene_id,
+                "scene_label": scene_label_zh(scene_id),
+                "project": str(task.get("project", "")).strip(),
+                "market": str(task.get("market", "")).strip(),
+                "recommended_title": title,
+                "recommended_base_name": title,
+            }
+        )
+    return {
+        "recommended_batch_result": str(batch_result_path),
+        "helper_script": helper_scripts.get("push_feishu_ps1", ""),
+        "helper_wrapper": helper_scripts.get("push_feishu_cmd", ""),
+        "requires_env": ["FEISHU_APP_ID", "FEISHU_APP_SECRET"],
+        "task_templates": task_templates,
+    }
 
 
 def parse_args() -> argparse.Namespace:
@@ -602,7 +647,7 @@ def parse_args() -> argparse.Namespace:
 
 
 def read_json(path: Path) -> dict | list:
-    return json.loads(path.read_text(encoding="utf-8-sig"))
+    return read_json_file(path)
 
 
 def get_config_value(config: dict, *keys: str) -> object:
@@ -1145,6 +1190,8 @@ def build_helper_script_paths(output_path: Path) -> dict[str, Path]:
         "input_json": parent / f"{stem}.input.json",
         "generate_ps1": parent / f"{stem}.generate.ps1",
         "generate_cmd": parent / f"{stem}.generate.cmd",
+        "push_feishu_ps1": parent / f"{stem}.push-feishu.ps1",
+        "push_feishu_cmd": parent / f"{stem}.push-feishu.cmd",
     }
 
 
@@ -1192,6 +1239,42 @@ def render_helper_cmd(ps1_path: Path) -> str:
             "set EXIT_CODE=%ERRORLEVEL%",
             "if not \"%EXIT_CODE%\"==\"0\" pause",
             "exit /b %EXIT_CODE%",
+            "",
+        ]
+    )
+
+
+def render_push_feishu_ps1(
+    title: str,
+    batch_result_path: Path,
+    skill_root: Path,
+    push_script_path: Path,
+) -> str:
+    return "\n".join(
+        [
+            "$ErrorActionPreference = 'Stop'",
+            f"$Host.UI.RawUI.WindowTitle = {shell_quote(title)}",
+            f"Set-Location -LiteralPath {shell_quote(str(skill_root))}",
+            "",
+            "if (-not $env:FEISHU_APP_ID) {",
+            "  throw 'Set FEISHU_APP_ID before running this helper.'",
+            "}",
+            "if (-not $env:FEISHU_APP_SECRET) {",
+            "  throw 'Set FEISHU_APP_SECRET before running this helper.'",
+            "}",
+            f"$BatchResult = {shell_quote(str(batch_result_path))}",
+            "if (-not (Test-Path -LiteralPath $BatchResult)) {",
+            "  throw \"Expected batch result file not found: $BatchResult\"",
+            "}",
+            "",
+            format_powershell_command(
+                "python",
+                [
+                    str(push_script_path),
+                    "--batch-result",
+                    str(batch_result_path),
+                ],
+            ),
             "",
         ]
     )
@@ -1369,6 +1452,7 @@ def build_manifest(
         for item in preset.get("variables", []):
             if item not in combined_variables:
                 combined_variables.append(item)
+    feishu_handoff = build_feishu_handoff(tasks, helper_scripts, build_recommended_output_file(output_path))
     return {
         "created_at": datetime.now().isoformat(timespec="seconds"),
         "preset": preset_slugs[0] if len(preset_slugs) == 1 else "",
@@ -1391,6 +1475,7 @@ def build_manifest(
         "output_file": str(output_path),
         "report_file": str(report_path),
         "helper_scripts": helper_scripts,
+        "feishu_handoff": feishu_handoff,
         "input_payload": input_payload,
         "task_count": len(tasks),
         "task_modes": [task["mode"] for task in tasks],
@@ -1413,6 +1498,7 @@ def render_preset_report(
     batch_root = build_recommended_batch_root(output_path)
     batch_output_file = build_recommended_output_file(output_path)
     helper_scripts = manifest["helper_scripts"]
+    feishu_handoff = manifest.get("feishu_handoff", {})
     dry_run_command = format_command(
         "python scripts/batch_run_operator_workflows.py",
         [
@@ -1512,7 +1598,9 @@ def render_preset_report(
             "",
             f"- input file: `{helper_scripts['input_json']}`",
             f"- PowerShell regenerate: `{helper_scripts['generate_ps1']}`",
+            f"- PowerShell push Feishu: `{helper_scripts['push_feishu_ps1']}`",
             f"- CMD regenerate wrapper: `{helper_scripts['generate_cmd']}`",
+            f"- CMD push Feishu wrapper: `{helper_scripts['push_feishu_cmd']}`",
             "",
             "### Helper Scripts",
             "",
@@ -1520,10 +1608,12 @@ def render_preset_report(
             f"- PowerShell run: `{helper_scripts['run_ps1']}`",
             f"- PowerShell rerun: `{helper_scripts['rerun_ps1']}`",
             f"- PowerShell regenerate: `{helper_scripts['generate_ps1']}`",
+            f"- PowerShell push Feishu: `{helper_scripts['push_feishu_ps1']}`",
             f"- CMD dry-run wrapper: `{helper_scripts['dry_run_cmd']}`",
             f"- CMD run wrapper: `{helper_scripts['run_cmd']}`",
             f"- CMD rerun wrapper: `{helper_scripts['rerun_cmd']}`",
             f"- CMD regenerate wrapper: `{helper_scripts['generate_cmd']}`",
+            f"- CMD push Feishu wrapper: `{helper_scripts['push_feishu_cmd']}`",
             "",
             "### Dry Run",
             "",
@@ -1551,6 +1641,46 @@ def render_preset_report(
                 [f"--config {shell_quote(helper_scripts['input_json'])}"],
             ),
             "```",
+            "",
+            "## 飞书推送跟进",
+            "",
+            f"- 预期批量结果文件：`{feishu_handoff.get('recommended_batch_result', '')}`",
+            f"- PowerShell 推送助手：`{helper_scripts['push_feishu_ps1']}`",
+            f"- CMD 推送助手：`{helper_scripts['push_feishu_cmd']}`",
+            "- 必需环境变量：`FEISHU_APP_ID`、`FEISHU_APP_SECRET`",
+            "",
+            "### 设置凭证",
+            "",
+            "```powershell",
+            '$env:FEISHU_APP_ID="cli_xxx"',
+            '$env:FEISHU_APP_SECRET="xxx"',
+            "```",
+            "",
+            "### 推送本批次里所有成功的 Scene 报告",
+            "",
+            "```powershell",
+            format_command(
+                "python scripts/push_batch_results_to_feishu.py",
+                [f"--batch-result {shell_quote(str(batch_output_file))}"],
+            ),
+            "```",
+            "",
+            "### 用生成好的助手脚本直接推送",
+            "",
+            "```powershell",
+            f'& {shell_quote(helper_scripts["push_feishu_ps1"])}',
+            "```",
+            "",
+            "### 推荐飞书命名",
+            "",
+        ]
+    )
+    for template in feishu_handoff.get("task_templates", []):
+        lines.append(
+            f"- 任务 `{template['index']}` 场景 `{template['scene']}`（{template['scene_label']}） -> `{template['recommended_title']}`"
+        )
+    lines.extend(
+        [
             "",
             "## Tasks",
             "",
@@ -1678,6 +1808,7 @@ def main() -> None:
     report_path = output_path.with_name(f"{output_path.stem}.report.md")
     helper_script_paths = build_helper_script_paths(output_path)
     batch_runner_path = Path(__file__).resolve().parent / "batch_run_operator_workflows.py"
+    push_batch_feishu_path = Path(__file__).resolve().parent / "push_batch_results_to_feishu.py"
     skill_root = Path(__file__).resolve().parents[1]
     dry_run_args = [
         str(batch_runner_path),
@@ -1761,10 +1892,20 @@ def main() -> None:
             skill_root,
         ),
     )
+    write_text(
+        helper_script_paths["push_feishu_ps1"],
+        render_push_feishu_ps1(
+            "TikTok Growth Operator Push Batch Results To Feishu",
+            build_recommended_output_file(output_path),
+            skill_root,
+            push_batch_feishu_path,
+        ),
+    )
     write_text(helper_script_paths["dry_run_cmd"], render_helper_cmd(helper_script_paths["dry_run_ps1"]))
     write_text(helper_script_paths["run_cmd"], render_helper_cmd(helper_script_paths["run_ps1"]))
     write_text(helper_script_paths["rerun_cmd"], render_helper_cmd(helper_script_paths["rerun_ps1"]))
     write_text(helper_script_paths["generate_cmd"], render_helper_cmd(helper_script_paths["generate_ps1"]))
+    write_text(helper_script_paths["push_feishu_cmd"], render_helper_cmd(helper_script_paths["push_feishu_ps1"]))
 
     print(
         json.dumps(

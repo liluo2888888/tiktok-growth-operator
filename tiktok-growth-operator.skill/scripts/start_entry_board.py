@@ -19,6 +19,7 @@ from recommend_entry_board import (
     recommend_items,
     resolve_bundle_root,
 )
+from text_normalization import read_json_file, write_json_file, write_utf8_text
 
 
 def parse_args() -> argparse.Namespace:
@@ -76,11 +77,14 @@ def copy_if_exists(source: str, destination: Path) -> str:
 
 
 def read_json(path: Path) -> dict:
-    return json.loads(path.read_text(encoding="utf-8-sig"))
+    loaded = read_json_file(path)
+    if not isinstance(loaded, dict):
+        raise SystemExit(f"Expected JSON object: {path}")
+    return loaded
 
 
 def write_json(path: Path, payload: dict) -> None:
-    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8-sig")
+    write_json_file(path, payload)
 
 
 def prepare_local_config(selected_item: dict, starter_root: Path) -> dict[str, str]:
@@ -166,21 +170,21 @@ def build_local_helper_scripts(selected_item: dict, starter_root: Path, local_pa
         local_paths["local_result_json"],
     ]
 
-    local_generate_ps1.write_text(
+    write_utf8_text(
+        local_generate_ps1,
         render_helper_ps1(f"TikTok Growth Operator Starter Generate - {slug}", "python", generate_args, skill_root),
-        encoding="utf-8-sig",
     )
-    local_dry_run_ps1.write_text(
+    write_utf8_text(
+        local_dry_run_ps1,
         render_helper_ps1(f"TikTok Growth Operator Starter Dry Run - {slug}", "python", dry_run_args, skill_root),
-        encoding="utf-8-sig",
     )
-    local_run_ps1.write_text(
+    write_utf8_text(
+        local_run_ps1,
         render_helper_ps1(f"TikTok Growth Operator Starter Run - {slug}", "python", run_args, skill_root),
-        encoding="utf-8-sig",
     )
-    local_generate_cmd.write_text(render_helper_cmd(local_generate_ps1), encoding="utf-8-sig")
-    local_dry_run_cmd.write_text(render_helper_cmd(local_dry_run_ps1), encoding="utf-8-sig")
-    local_run_cmd.write_text(render_helper_cmd(local_run_ps1), encoding="utf-8-sig")
+    write_utf8_text(local_generate_cmd, render_helper_cmd(local_generate_ps1))
+    write_utf8_text(local_dry_run_cmd, render_helper_cmd(local_dry_run_ps1))
+    write_utf8_text(local_run_cmd, render_helper_cmd(local_run_ps1))
 
     return {
         "local_generate_ps1": str(local_generate_ps1),
@@ -458,13 +462,13 @@ def create_entry_board_starter(
     }
 
     recommendation_json = starter_root / "entry-board-recommendation.json"
-    recommendation_json.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8-sig")
+    write_json_file(recommendation_json, manifest)
     local_paths["recommendation_json"] = str(recommendation_json)
 
     readme_path = starter_root / "README.md"
-    readme_path.write_text(
+    write_utf8_text(
+        readme_path,
         build_readme(query, family_pick, selected_item, starter_root, local_paths, fallbacks, local_next_steps),
-        encoding="utf-8-sig",
     )
     operator_handoff = build_operator_handoff(local_paths, local_next_steps)
     status_summary = build_status_summary(

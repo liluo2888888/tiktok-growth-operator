@@ -1,0 +1,486 @@
+{
+  "metadata": {
+    "scene": "15",
+    "scene_slug": "image-translation-brief",
+    "scene_title": "Image Translation Brief",
+    "project": "TikTok Validation Scene 15 Capture",
+    "title": "Scene 15 Report - TikTok Validation Scene 15 Capture",
+    "deliverable_type": "creation_brief",
+    "generated_at": "2026-05-08T02:02:36",
+    "scenario_file": "scenarios/15-image-translation-brief.md",
+    "status": "imported"
+  },
+  "working_context": {
+    "summary": "Real TikTok capture-pack import from Playground 4/captures/tiktok-analysis-pack-smoke-20260423f for uncategorized lane. Current board size: 3 ranked / 1 qualified with min-like threshold 50000.\nSource profile: https://www.tiktok.com/@tiktok; session quality: browser_same_origin_api_ok; queries: none; topics: none.\nLead candidate: https://www.tiktok.com/@tiktok/video/7631201918366289165 | PSA: always sing your heart out, you'll never know who's going to listen | 104600 likes, 4200000 plays, 941 shares, 671 comments.",
+    "inputs": [
+      "Profile: https://www.tiktok.com/@tiktok",
+      "Ranked video count: 3",
+      "Qualified video count: 1",
+      "Capture root: Playground 4/captures/tiktok-analysis-pack-smoke-20260423f"
+    ],
+    "constraints": [
+      "Translate for conversion, not literal fidelity alone.",
+      "Real TikTok anonymous-session capture. Comment sampling is missing in this pack.",
+      "Conclusions should stay tied to ranked metrics, captions, and capture-pack summaries only."
+    ],
+    "requested_outputs": [
+      "Translated copy",
+      "Layout notes",
+      "Text hierarchy",
+      "Localization cautions",
+      "Render handoff",
+      "TikTok-native ranked-pattern conclusions",
+      "Reusable adaptation rules grounded in the capture pack"
+    ],
+    "minimum_evidence": [
+      "Source image text or OCR",
+      "Target language",
+      "summary.json or aggregate_summary.json",
+      "profile_summary.json or summary.json",
+      "ranked_videos.json or aggregate_ranked_videos.json"
+    ],
+    "ideal_evidence": [
+      "Image layout",
+      "Product context",
+      "Market note",
+      "Conversion goal",
+      "aggregate_qualified_videos.json or qualified_video_links.txt",
+      "aggregate_report.md",
+      "video_details.json"
+    ],
+    "ready_checklist": [
+      "Text hierarchy is recoverable",
+      "Literal vs persuasive text is separated",
+      "Layout notes exist for rendering",
+      "Top-ranked videos are clearly identified",
+      "Transferable pattern is separated from profile-specific brand power"
+    ]
+  },
+  "executive_summary": {
+    "conclusion": "This TikTok capture pack can support an image-translation blueprint by mapping text hierarchy and localization risk, but it cannot produce final translated image copy because the pack does not include OCR-ready source blocks.",
+    "why_it_matters": "The safe output here is a localization planning grid for image copy layers, not fabricated OCR text or ready-to-render translated creative.",
+    "next_action": "Confirm the target languages now, then add OCR output, product context, and native-language review before any final image-copy translation.",
+    "confidence": "low"
+  },
+  "operator_guide": {
+    "operator_checklist": [
+      "Separate literal information from persuasive copy blocks.",
+      "Preserve hierarchy while adapting for local conversion language.",
+      "Add layout notes so the localized copy can actually fit."
+    ],
+    "common_failure_modes": [
+      "Direct translation that breaks persuasion or tone.",
+      "Localized copy that no longer fits the original layout.",
+      "Failing to note which lines should be headline versus support text."
+    ]
+  },
+  "execution_template": {
+    "recommended_request": "Run scene 15 to translate and localize image copy for conversion. Separate literal information from persuasive copy blocks, preserve hierarchy, and include layout notes so the localized copy can actually fit.",
+    "recommended_request_zh": "按场景 15 执行：做图片文案翻译与本地化 brief，区分信息性文案和转化型文案，保留层级关系，并说明新文案如何适配原布局。",
+    "recommended_runner_args": [
+      "python scripts/run_operator_workflow.py --mode scene --scene 15 --project \"<project-name>\" --output-root \".\\tmp\\image-translation-brief\"",
+      "python scripts/generate_scene_report.py --scene 15 --project \"<project-name>\" --output \".\\tmp\\image-translation-brief.json\" --format json"
+    ],
+    "variable_inputs": [
+      {
+        "name": "project_name",
+        "meaning": "Human-readable run or campaign name",
+        "example": "Localized Image Copy Brief",
+        "required": "yes"
+      },
+      {
+        "name": "market",
+        "meaning": "Target market or locale when the scene depends on one market",
+        "example": "US",
+        "required": "recommended"
+      },
+      {
+        "name": "evidence_pack",
+        "meaning": "Links, screenshots, transcripts, exports, OCR text, or copied notes used as source evidence",
+        "example": "Image OCR text, layout notes, target language, and conversion goal",
+        "required": "yes"
+      },
+      {
+        "name": "success_goal",
+        "meaning": "What the operator wants this scene to produce",
+        "example": "localized image-copy brief that still fits the layout",
+        "required": "recommended"
+      }
+    ],
+    "codex_prompt_scaffold": [
+      "Use scene 15 as the governing workflow.",
+      "Normalize the provided evidence into this input set before analysis: Source image text or OCR, Target language, Product context, Target market.",
+      "If evidence is missing, state the gap explicitly before continuing. Minimum evidence to proceed: Source image text or OCR, Target language.",
+      "Produce these outputs in operator-ready form: Translated copy, Layout notes, Text hierarchy, Localization cautions, Render handoff.",
+      "Do not stop at literal translation when the image is meant to convert.",
+      "Call out where copy length or emphasis must shift to preserve layout hierarchy.",
+      "Fill the scaffold with reusable conclusions, tables, ranking logic, and next actions instead of generic commentary."
+    ],
+    "codex_prompt_scaffold_zh": [
+      "按场景 15 执行：做图片文案翻译与本地化 brief，区分信息性文案和转化型文案，保留层级关系，并说明新文案如何适配原布局。",
+      "先把我提供的材料整理成这组输入：Source image text or OCR, Target language, Product context, Target market。",
+      "如果证据不足，先明确缺口再继续。最低开工证据：Source image text or OCR, Target language。",
+      "最终必须产出：Translated copy, Layout notes, Text hierarchy, Localization cautions, Render handoff。",
+      "输出必须可直接给运营、拆解、脚本、测试或交付使用，优先给表格、排序逻辑、复用规则和下一步动作。"
+    ],
+    "workflow_steps": [
+      "Separate literal information from persuasive copy blocks.",
+      "Preserve hierarchy while adapting for local conversion language.",
+      "Add layout notes so the localized copy can actually fit."
+    ],
+    "output_checklist": [
+      "Headline, support copy, and literal information are separated.",
+      "Localized copy is compatible with the original layout constraints.",
+      "Conversion tone is adapted for the target market instead of translated blindly."
+    ]
+  },
+  "evidence": [
+    {
+      "label": "Summary",
+      "detail": "ranked=3; qualified=1; min_likes=50000",
+      "source": "aggregate_summary.json"
+    },
+    {
+      "label": "Profile summary",
+      "detail": "profile=https://www.tiktok.com/@tiktok; session=browser_same_origin_api_ok; ranked=3",
+      "source": "profile_summary.json"
+    },
+    {
+      "label": "Ranked video 7631201918366289165",
+      "detail": "PSA: always sing your heart out, you'll never know who's going to listen",
+      "source": "https://www.tiktok.com/@tiktok/video/7631201918366289165"
+    },
+    {
+      "label": "Ranked video 7628619815690833183",
+      "detail": "a reminder to romanticize the little moments",
+      "source": "https://www.tiktok.com/@tiktok/video/7628619815690833183"
+    },
+    {
+      "label": "Ranked video 7631229398531788062",
+      "detail": "this STEMTok creativity is blowing us away",
+      "source": "https://www.tiktok.com/@tiktok/video/7631229398531788062"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "Executive Conclusion",
+      "instruction": "Summarize the localization approach for this image asset.",
+      "paragraphs": [
+        "This TikTok capture pack can support an image-translation blueprint by mapping text hierarchy and localization risk, but it cannot produce final translated image copy because the pack does not include OCR-ready source blocks.",
+        "Reference account baseline: https://www.tiktok.com/@tiktok"
+      ],
+      "bullets": [
+        "This import stays at image-localization blueprint level.",
+        "Ranked TikTok references can suggest hierarchy and packaging pressure, but not recover missing image text faithfully."
+      ],
+      "numbered": [],
+      "table": {
+        "title": "",
+        "headers": [],
+        "rows": []
+      }
+    },
+    {
+      "heading": "Target",
+      "instruction": "Clarify market, language, and conversion goal.",
+      "paragraphs": [],
+      "bullets": [],
+      "numbered": [],
+      "table": {
+        "title": "",
+        "headers": [
+          "Field",
+          "Answer",
+          "Why It Matters"
+        ],
+        "rows": [
+          [
+            "Platform",
+            "TikTok"
+          ],
+          [
+            "Requested target languages",
+            "English, Japanese, German"
+          ],
+          [
+            "Source image text status",
+            "Missing from current capture pack; OCR required before final translation"
+          ],
+          [
+            "Safe output",
+            "Blueprint for hierarchy, fit risk, and review steps"
+          ]
+        ]
+      }
+    },
+    {
+      "heading": "Audience",
+      "instruction": "Describe what the target viewer needs from the copy.",
+      "paragraphs": [
+        "Treat the target viewer need as a conversion-language problem, not a literal translation problem. The ranked TikTok pack only helps infer how compressed and legible the image message likely needs to be."
+      ],
+      "bullets": [
+        "Target languages requested: English, Japanese, German"
+      ],
+      "numbered": [],
+      "table": {
+        "title": "",
+        "headers": [],
+        "rows": []
+      }
+    },
+    {
+      "heading": "Message",
+      "instruction": "Translate each block with hierarchy preserved.",
+      "paragraphs": [],
+      "bullets": [],
+      "numbered": [],
+      "table": {
+        "title": "Localized Copy Grid",
+        "headers": [
+          "Source Block",
+          "Function",
+          "Localized Copy",
+          "Length Risk",
+          "Layout Fit",
+          "Native Review Needed?",
+          "Notes"
+        ],
+        "rows": [
+          [
+            "Primary image text block | English | source text missing, OCR required",
+            "Headline",
+            "Requires native translation after OCR, product context, and layout review",
+            "Infer hierarchy from 7631201918366289165; do not treat ranked captions as final translated image copy"
+          ],
+          [
+            "Secondary support block | English | source text missing, OCR required",
+            "Support line",
+            "Requires native translation after OCR, product context, and layout review",
+            "Infer hierarchy from 7631201918366289165; do not treat ranked captions as final translated image copy"
+          ],
+          [
+            "CTA or badge block | English | source text missing, OCR required",
+            "CTA placeholder",
+            "Requires native translation after OCR, product context, and layout review",
+            "Infer hierarchy from 7631201918366289165; do not treat ranked captions as final translated image copy"
+          ],
+          [
+            "Primary image text block | Japanese | source text missing, OCR required",
+            "Headline",
+            "Requires native translation after OCR, product context, and layout review",
+            "Infer hierarchy from 7631201918366289165; do not treat ranked captions as final translated image copy"
+          ],
+          [
+            "Secondary support block | Japanese | source text missing, OCR required",
+            "Support line",
+            "Requires native translation after OCR, product context, and layout review",
+            "Infer hierarchy from 7631201918366289165; do not treat ranked captions as final translated image copy"
+          ],
+          [
+            "CTA or badge block | Japanese | source text missing, OCR required",
+            "CTA placeholder",
+            "Requires native translation after OCR, product context, and layout review",
+            "Infer hierarchy from 7631201918366289165; do not treat ranked captions as final translated image copy"
+          ],
+          [
+            "Primary image text block | German | source text missing, OCR required",
+            "Headline",
+            "Requires native translation after OCR, product context, and layout review",
+            "Infer hierarchy from 7631201918366289165; do not treat ranked captions as final translated image copy"
+          ],
+          [
+            "Secondary support block | German | source text missing, OCR required",
+            "Support line",
+            "Requires native translation after OCR, product context, and layout review",
+            "Infer hierarchy from 7631201918366289165; do not treat ranked captions as final translated image copy"
+          ],
+          [
+            "CTA or badge block | German | source text missing, OCR required",
+            "CTA placeholder",
+            "Requires native translation after OCR, product context, and layout review",
+            "Infer hierarchy from 7631201918366289165; do not treat ranked captions as final translated image copy"
+          ]
+        ]
+      }
+    },
+    {
+      "heading": "Structure",
+      "instruction": "Describe text hierarchy and placement logic.",
+      "paragraphs": [
+        "Recover the source text blocks first, then localize headline, support, and CTA layers in that order so fit risk is managed before rendering."
+      ],
+      "bullets": [],
+      "numbered": [],
+      "table": {
+        "title": "",
+        "headers": [
+          "Text Layer",
+          "Priority",
+          "Placement Note",
+          "Can Be Shortened?",
+          "Design Action"
+        ],
+        "rows": [
+          [
+            "Headline",
+            "P1",
+            "Preserve the shortest, highest-contrast message area; expect length expansion in many languages."
+          ],
+          [
+            "Support line",
+            "P2",
+            "Keep supporting proof or qualifier text visually subordinate to the headline."
+          ],
+          [
+            "CTA / badge",
+            "P3",
+            "Leave room for shorter action language or localized trust cue without crowding the image."
+          ]
+        ]
+      }
+    },
+    {
+      "heading": "Creative Constraints",
+      "instruction": "List localization cautions, banned phrasing, and readability notes.",
+      "paragraphs": [],
+      "bullets": [
+        "Do not pretend OCR-extracted source copy already exists in this capture pack.",
+        "Do not fabricate final localized image copy from ranked captions or post descriptions alone.",
+        "Do not force translated strings into the original layout without checking expansion, hierarchy, and readability."
+      ],
+      "numbered": [],
+      "table": {
+        "title": "",
+        "headers": [
+          "Constraint",
+          "Localized Rule",
+          "Reason",
+          "Review Owner"
+        ],
+        "rows": [
+          [
+            "Banned phrasing",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Tone guardrail",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Layout limit",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Readability note",
+            "",
+            "",
+            ""
+          ]
+        ]
+      }
+    },
+    {
+      "heading": "Production Handoff",
+      "instruction": "State what the design or rendering team can execute immediately.",
+      "paragraphs": [],
+      "bullets": [],
+      "numbered": [],
+      "table": {
+        "title": "",
+        "headers": [
+          "Handoff Item",
+          "Localized Decision",
+          "Needs Review?",
+          "Owner"
+        ],
+        "rows": [
+          [
+            "Headline block",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Support copy",
+            "",
+            "",
+            ""
+          ],
+          [
+            "CTA line",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Final layout check",
+            "",
+            "",
+            ""
+          ]
+        ]
+      }
+    },
+    {
+      "heading": "Next Action",
+      "instruction": "State whether the asset is ready for rendering or needs copy review.",
+      "paragraphs": [],
+      "bullets": [],
+      "numbered": [
+        "Run OCR or manually recover the source image text blocks in reading order.",
+        "Add product context and one native-language reviewer for each requested language.",
+        "Only then convert this blueprint into a real localized image-copy brief or render-ready file."
+      ],
+      "table": {
+        "title": "",
+        "headers": [],
+        "rows": []
+      }
+    }
+  ],
+  "assets": [
+    {
+      "label": "aggregate_report.md",
+      "path": "aggregate_report.md",
+      "note": "Aggregate markdown report from the real TikTok capture pack."
+    },
+    {
+      "label": "aggregate_analysis.xlsx",
+      "path": "aggregate_analysis.xlsx",
+      "note": "Aggregate workbook from the real TikTok capture pack."
+    },
+    {
+      "label": "aggregate_ranked_videos.xlsx",
+      "path": "aggregate_ranked_videos.xlsx",
+      "note": "Ranked-video workbook."
+    },
+    {
+      "label": "aggregate_qualified_videos.xlsx",
+      "path": "aggregate_qualified_videos.xlsx",
+      "note": "Qualified-video workbook."
+    },
+    {
+      "label": "ranked_videos.xlsx",
+      "path": "01-tiktok/ranked_videos.xlsx",
+      "note": "Ranked-video workbook from the single TikTok capture pack."
+    },
+    {
+      "label": "comments_flat.csv",
+      "path": "01-tiktok/comments_flat.csv",
+      "note": "Flattened comment export from the single TikTok capture pack."
+    }
+  ],
+  "notes": [],
+  "sources": [
+    "aggregate_summary.json",
+    "aggregate_ranked_videos.json",
+    "https://www.tiktok.com/@tiktok"
+  ]
+}

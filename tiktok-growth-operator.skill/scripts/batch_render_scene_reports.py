@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 
 from render_scene_report import infer_base_name, render_markdown_from_payload, resolve_payload, write_docx, write_xlsx
+from text_normalization import write_utf8_text
 
 
 def parse_args() -> argparse.Namespace:
@@ -35,7 +36,7 @@ def main() -> None:
         item: dict[str, str] = {"input": str(path)}
         if "md" in formats:
             md_path = output_dir / f"{base_name}.md"
-            md_path.write_text(render_markdown_from_payload(payload), encoding="utf-8")
+            write_utf8_text(md_path, render_markdown_from_payload(payload))
             item["md"] = str(md_path)
         if "docx" in formats:
             docx_path = output_dir / f"{base_name}.docx"

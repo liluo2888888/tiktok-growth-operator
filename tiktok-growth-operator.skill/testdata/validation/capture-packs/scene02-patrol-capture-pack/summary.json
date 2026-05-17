@@ -1,0 +1,13 @@
+{
+  "checked_at": "2026-05-08T02:01:56",
+  "platform": "tiktok",
+  "reachable": true,
+  "session_quality": "scene02_patrol_runtime",
+  "profile_final_url": "https://www.tiktok.com/@orangecat0088/video/7636206423080226070",
+  "ranked_video_count": 8,
+  "qualified_video_count": 3,
+  "notes": [
+    "Scene 02 patrol runtime pack generated inside tiktok-growth-operator.skill.",
+    "Snapshot delta is derived against the previous local patrol state when present."
+  ]
+}

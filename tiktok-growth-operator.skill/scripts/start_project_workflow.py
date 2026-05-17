@@ -6,6 +6,7 @@ from datetime import datetime
 from pathlib import Path
 
 from run_operator_workflow import infer_mode_from_request, run_board_mode, run_capture_pack_mode, run_goal_mode, run_pack_mode, run_scene_mode
+from text_normalization import write_json_file, write_utf8_text
 
 
 def parse_args() -> argparse.Namespace:
@@ -55,7 +56,7 @@ def write_project_readme(project_root: Path, payload: dict) -> None:
         f"`{json.dumps(payload['result'], ensure_ascii=False)}`",
         "",
     ]
-    (project_root / "README.md").write_text("\n".join(lines), encoding="utf-8-sig")
+    write_utf8_text(project_root / "README.md", "\n".join(lines))
 
 
 def main() -> None:
@@ -102,7 +103,7 @@ def main() -> None:
         "route": route_meta if args.mode == "auto" else {},
         "result": result,
     }
-    (project_root / "project_manifest.json").write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8-sig")
+    write_json_file(project_root / "project_manifest.json", payload)
     write_project_readme(project_root, payload)
     print(json.dumps({"project_root": str(project_root), **payload}, ensure_ascii=False, indent=2))
 

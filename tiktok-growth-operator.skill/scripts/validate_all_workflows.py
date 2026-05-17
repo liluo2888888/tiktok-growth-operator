@@ -6,6 +6,8 @@ import sys
 from pathlib import Path
 
 from load_route_eval_fixtures import load_route_eval_fixtures
+from text_normalization import write_json_file
+from validator_runtime import create_validator_runtime
 
 
 VALIDATORS = [
@@ -13,6 +15,8 @@ VALIDATORS = [
     "validate_scene_presets.py",
     "validate_capture_pack_workflows.py",
     "validate_export_outputs.py",
+    "validate_tikmatrix_bridge.py",
+    "validate_tikmatrix_account_ops_bridge.py",
 ]
 
 EXTRA_COMPILE_ONLY = [
@@ -21,6 +25,8 @@ EXTRA_COMPILE_ONLY = [
     "generate_scene_quick_reference.py",
     "generate_creative_brief_quick_reference.py",
     "load_route_eval_fixtures.py",
+    "run_tikmatrix_capture_bridge.py",
+    "run_tikmatrix_account_ops_bridge.py",
 ]
 
 
@@ -75,7 +81,7 @@ def require_non_empty_string(result: dict, actual: object, message: str) -> dict
 
 
 def build_validation_bundle(skill_root: Path, scripts_root: Path) -> dict:
-    bundle_root = skill_root / "tmp" / "20260505_validate_bundle_fixture"
+    bundle_root = create_validator_runtime(skill_root, "bundle")
     result = run(
         [
             sys.executable,
@@ -104,6 +110,7 @@ def build_validation_bundle(skill_root: Path, scripts_root: Path) -> dict:
 def main() -> None:
     skill_root = Path(__file__).resolve().parents[1]
     scripts_root = skill_root / "scripts"
+    validation_root = create_validator_runtime(skill_root, "all")
 
     results = []
     for script_name in VALIDATORS:
@@ -111,7 +118,7 @@ def main() -> None:
     for script_name in EXTRA_COMPILE_ONLY:
         results.append(run([sys.executable, "-m", "py_compile", str(scripts_root / script_name)]))
 
-    export_root = skill_root / "tmp" / "20260504_validate_all_export_suite"
+    export_root = validation_root / "export_suite"
     results.append(run([sys.executable, str(scripts_root / "generate_scene_quick_reference.py")]))
     results.append(run([sys.executable, str(scripts_root / "generate_creative_brief_quick_reference.py")]))
     for script_name in VALIDATORS:
@@ -135,7 +142,7 @@ def main() -> None:
                 "--bundle-root",
                 validation_bundle_root,
                 "--output-root",
-                str(skill_root / "tmp" / "20260505_validate_entry_board_starter"),
+                str(validation_root / "entry_board_starter"),
                 "--generate",
                 "--dry-run",
             ]
@@ -147,14 +154,15 @@ def main() -> None:
         query = str(case.get("query", ""))
         expected_mode = case.get("expected_mode")
         expected_board_slug = case.get("expected_board_slug")
-        route_result = run(
-            [
-                sys.executable,
-                str(scripts_root / "run_operator_workflow.py"),
-                "--request",
-                query,
-            ]
-        )
+        route_command = [
+            sys.executable,
+            str(scripts_root / "run_operator_workflow.py"),
+            "--request",
+            query,
+        ]
+        if expected_mode == "board":
+            route_command.extend(["--bundle-root", validation_bundle_root])
+        route_result = run(route_command)
         if route_result["returncode"] == 0:
             payload, route_result = parse_json_stdout(route_result, "run_operator_workflow.py")
             if payload is not None:
@@ -216,6 +224,8 @@ def main() -> None:
                 str(scripts_root / "recommend_entry_board.py"),
                 "--query",
                 str(case.get("query", "")),
+                "--bundle-root",
+                validation_bundle_root,
                 "--format",
                 "json",
             ]
@@ -246,8 +256,10 @@ def main() -> None:
             str(scripts_root / "run_operator_workflow.py"),
             "--request",
             "Give me a daily board for TikTok beauty ops",
+            "--bundle-root",
+            validation_bundle_root,
             "--output-root",
-            str(skill_root / "tmp" / "20260505_validate_auto_board_route"),
+            str(validation_root / "auto_board_route"),
         ]
     )
     if auto_board_result["returncode"] == 0:
@@ -268,31 +280,28 @@ def main() -> None:
                 str(scripts_root / "start_project_workflow.py"),
                 "--request",
                 "Give me a daily board for TikTok beauty ops",
+                "--bundle-root",
+                validation_bundle_root,
                 "--name",
                 "validate-board-project",
                 "--output-root",
-                str(skill_root / "tmp" / "20260505_validate_project_board_route"),
+                str(validation_root / "project_board_route"),
             ]
         )
     )
 
-    batch_board_file = skill_root / "tmp" / "20260505_validate_board_batch.json"
-    batch_board_file.write_text(
-        json.dumps(
-            [
-                {
-                    "mode": "board",
-                    "query": "I'm the live operator for tonight's session",
-                    "bundle_root": validation_bundle_root,
-                    "name": "validate-board-batch-item",
-                    "output_root": str(skill_root / "tmp" / "20260505_validate_board_batch_item"),
-                }
-            ],
-            ensure_ascii=False,
-            indent=2,
-        )
-        + "\n",
-        encoding="utf-8-sig",
+    batch_board_file = validation_root / "validate_board_batch.json"
+    write_json_file(
+        batch_board_file,
+        [
+            {
+                "mode": "board",
+                "query": "I'm the live operator for tonight's session",
+                "bundle_root": validation_bundle_root,
+                "name": "validate-board-batch-item",
+                "output_root": str(validation_root / "board_batch_item"),
+            }
+        ],
     )
     results.append(
         run(
@@ -303,7 +312,7 @@ def main() -> None:
                 str(batch_board_file),
                 "--dry-run",
                 "--batch-root",
-                str(skill_root / "tmp" / "20260505_validate_board_batch_preview"),
+                str(validation_root / "board_batch_preview"),
             ]
         )
     )
@@ -332,26 +341,21 @@ def main() -> None:
                     batch_result = force_failure(batch_result, "batch board preview should expose task_run=false by default")
         results[-1] = batch_result
 
-    batch_board_execute_file = skill_root / "tmp" / "20260505_validate_board_batch_execute.json"
-    batch_board_execute_root = skill_root / "tmp" / "20260505_validate_board_batch_execute_item"
-    batch_board_execute_file.write_text(
-        json.dumps(
-            [
-                {
-                    "mode": "board",
-                    "query": "Give me a daily board for TikTok beauty ops",
-                    "bundle_root": validation_bundle_root,
-                    "name": "validate-board-batch-execute-item",
-                    "output_root": str(batch_board_execute_root),
-                    "generate": True,
-                    "dry_run": True,
-                }
-            ],
-            ensure_ascii=False,
-            indent=2,
-        )
-        + "\n",
-        encoding="utf-8-sig",
+    batch_board_execute_file = validation_root / "validate_board_batch_execute.json"
+    batch_board_execute_root = validation_root / "board_batch_execute_item"
+    write_json_file(
+        batch_board_execute_file,
+        [
+            {
+                "mode": "board",
+                "query": "Give me a daily board for TikTok beauty ops",
+                "bundle_root": validation_bundle_root,
+                "name": "validate-board-batch-execute-item",
+                "output_root": str(batch_board_execute_root),
+                "generate": True,
+                "dry_run": True,
+            }
+        ],
     )
     results.append(
         run(
@@ -361,7 +365,7 @@ def main() -> None:
                 "--batch-file",
                 str(batch_board_execute_file),
                 "--batch-root",
-                str(skill_root / "tmp" / "20260505_validate_board_batch_execute"),
+                str(validation_root / "board_batch_execute"),
             ]
         )
     )

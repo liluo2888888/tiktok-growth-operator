@@ -1,0 +1,374 @@
+{
+  "metadata": {
+    "scene": "17",
+    "scene_slug": "creator-distillation",
+    "scene_title": "Creator Distillation",
+    "project": "TikTok Validation Routed Capture",
+    "title": "Scene 17 Report - TikTok Validation Routed Capture",
+    "deliverable_type": "breakdown_report",
+    "generated_at": "2026-05-08T02:02:23",
+    "scenario_file": "scenarios/17-creator-distillation.md",
+    "status": "imported"
+  },
+  "working_context": {
+    "summary": "Real TikTok capture-pack import from Playground 4/captures/tiktok-analysis-pack-smoke-20260423f for uncategorized lane. Current board size: 3 ranked / 1 qualified with min-like threshold 50000.\nSource profile: https://www.tiktok.com/@tiktok; session quality: browser_same_origin_api_ok; queries: none; topics: none.\nLead candidate: https://www.tiktok.com/@tiktok/video/7631201918366289165 | PSA: always sing your heart out, you'll never know who's going to listen | 104600 likes, 4200000 plays, 941 shares, 671 comments.",
+    "inputs": [
+      "Profile: https://www.tiktok.com/@tiktok",
+      "Ranked video count: 3",
+      "Qualified video count: 1",
+      "Capture root: Playground 4/captures/tiktok-analysis-pack-smoke-20260423f"
+    ],
+    "constraints": [
+      "Separate creator-specific advantage from transferable pattern.",
+      "Real TikTok anonymous-session capture. Comment sampling is missing in this pack.",
+      "Conclusions should stay tied to ranked metrics, captions, and capture-pack summaries only."
+    ],
+    "requested_outputs": [
+      "Creator playbook",
+      "Repeatable formulas",
+      "Non-transferable advantages",
+      "Adaptation path",
+      "TikTok-native ranked-pattern conclusions",
+      "Reusable adaptation rules grounded in the capture pack"
+    ],
+    "minimum_evidence": [
+      "One creator account or several videos from one creator",
+      "summary.json or aggregate_summary.json",
+      "profile_summary.json or summary.json",
+      "ranked_videos.json or aggregate_ranked_videos.json"
+    ],
+    "ideal_evidence": [
+      "Top videos",
+      "Transcripts",
+      "Performance notes",
+      "aggregate_qualified_videos.json or qualified_video_links.txt",
+      "aggregate_report.md",
+      "video_details.json"
+    ],
+    "ready_checklist": [
+      "Repeated patterns appear across multiple videos",
+      "Creator-specific advantages are separated",
+      "Adaptation path for user product is possible",
+      "Top-ranked videos are clearly identified",
+      "Transferable pattern is separated from profile-specific brand power"
+    ]
+  },
+  "executive_summary": {
+    "conclusion": "This TikTok account sample suggests a repeatable editorial formula: attach the post to a recognizable creator, story, or cultural moment, then use minimal copy to let affinity do the work.",
+    "why_it_matters": "The pattern is useful for TikTok projects that need stronger social-native packaging without long explanation-heavy intros.",
+    "next_action": "Translate the account's strongest editorial packaging moves into a reusable creator- or community-led content brief.",
+    "confidence": "medium"
+  },
+  "operator_guide": {
+    "operator_checklist": [
+      "Use multiple creator samples before declaring a repeatable formula.",
+      "Map repeated hook, pacing, proof, and CTA patterns separately.",
+      "Explicitly separate transferable pattern from creator advantage."
+    ],
+    "common_failure_modes": [
+      "Overfitting one breakout video into a full creator formula.",
+      "Ignoring trust or identity advantages unique to the creator.",
+      "Ending with admiration instead of adaptation rules."
+    ]
+  },
+  "execution_template": {
+    "recommended_request": "Run scene 17 to distill one creator's repeatable content formula across multiple videos. Map repeated hook, pacing, proof, and CTA patterns, then separate transferable logic from creator-specific advantage.",
+    "recommended_request_zh": "按场景 17 执行：提炼一个创作者在多条视频里重复出现的内容公式，拆开 hook、节奏、证明和 CTA，并区分可迁移规则与创作者独有优势。",
+    "recommended_runner_args": [
+      "python scripts/run_operator_workflow.py --mode scene --scene 17 --project \"<project-name>\" --output-root \".\\tmp\\creator-distillation\"",
+      "python scripts/generate_scene_report.py --scene 17 --project \"<project-name>\" --output \".\\tmp\\creator-distillation.json\" --format json"
+    ],
+    "variable_inputs": [
+      {
+        "name": "project_name",
+        "meaning": "Human-readable run or campaign name",
+        "example": "Creator Formula Distillation",
+        "required": "yes"
+      },
+      {
+        "name": "market",
+        "meaning": "Target market or locale when the scene depends on one market",
+        "example": "US",
+        "required": "recommended"
+      },
+      {
+        "name": "evidence_pack",
+        "meaning": "Links, screenshots, transcripts, exports, OCR text, or copied notes used as source evidence",
+        "example": "Several top creator videos with transcript and performance notes",
+        "required": "yes"
+      },
+      {
+        "name": "success_goal",
+        "meaning": "What the operator wants this scene to produce",
+        "example": "repeatable creator formula and adaptation rules",
+        "required": "recommended"
+      }
+    ],
+    "codex_prompt_scaffold": [
+      "Use scene 17 as the governing workflow.",
+      "Normalize the provided evidence into this input set before analysis: One creator account or several videos from one creator, Top videos, Transcripts, Performance notes.",
+      "If evidence is missing, state the gap explicitly before continuing. Minimum evidence to proceed: One creator account or several videos from one creator.",
+      "Produce these outputs in operator-ready form: Creator playbook, Repeatable formulas, Non-transferable advantages, Adaptation path.",
+      "Use several creator samples before declaring a formula.",
+      "Do not confuse admiration for the creator with reusable production rules.",
+      "Fill the scaffold with reusable conclusions, tables, ranking logic, and next actions instead of generic commentary."
+    ],
+    "codex_prompt_scaffold_zh": [
+      "按场景 17 执行：提炼一个创作者在多条视频里重复出现的内容公式，拆开 hook、节奏、证明和 CTA，并区分可迁移规则与创作者独有优势。",
+      "先把我提供的材料整理成这组输入：One creator account or several videos from one creator, Top videos, Transcripts, Performance notes。",
+      "如果证据不足，先明确缺口再继续。最低开工证据：One creator account or several videos from one creator。",
+      "最终必须产出：Creator playbook, Repeatable formulas, Non-transferable advantages, Adaptation path。",
+      "输出必须可直接给运营、拆解、脚本、测试或交付使用，优先给表格、排序逻辑、复用规则和下一步动作。"
+    ],
+    "workflow_steps": [
+      "Use multiple creator samples before declaring a repeatable formula.",
+      "Map repeated hook, pacing, proof, and CTA patterns separately.",
+      "Explicitly separate transferable pattern from creator advantage."
+    ],
+    "output_checklist": [
+      "Repeated patterns are supported by multiple creator samples.",
+      "Transferable rules are separated from creator-only advantages.",
+      "The report ends with adaptation guidance for a new product or account."
+    ]
+  },
+  "evidence": [
+    {
+      "label": "Summary",
+      "detail": "ranked=3; qualified=1; min_likes=50000",
+      "source": "aggregate_summary.json"
+    },
+    {
+      "label": "Profile summary",
+      "detail": "profile=https://www.tiktok.com/@tiktok; session=browser_same_origin_api_ok; ranked=3",
+      "source": "profile_summary.json"
+    },
+    {
+      "label": "Ranked video 7631201918366289165",
+      "detail": "PSA: always sing your heart out, you'll never know who's going to listen",
+      "source": "https://www.tiktok.com/@tiktok/video/7631201918366289165"
+    },
+    {
+      "label": "Ranked video 7628619815690833183",
+      "detail": "a reminder to romanticize the little moments",
+      "source": "https://www.tiktok.com/@tiktok/video/7628619815690833183"
+    },
+    {
+      "label": "Ranked video 7631229398531788062",
+      "detail": "this STEMTok creativity is blowing us away",
+      "source": "https://www.tiktok.com/@tiktok/video/7631229398531788062"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "Executive Conclusion",
+      "instruction": "Summarize the creator's repeatable winning pattern.",
+      "paragraphs": [
+        "This TikTok account sample suggests a repeatable editorial formula: attach the post to a recognizable creator, story, or cultural moment, then use minimal copy to let affinity do the work.",
+        "Profile session quality: browser_same_origin_api_ok"
+      ],
+      "bullets": [],
+      "numbered": [],
+      "table": {
+        "title": "",
+        "headers": [],
+        "rows": []
+      }
+    },
+    {
+      "heading": "Structure Logic",
+      "instruction": "Map the creator's recurring content structure.",
+      "paragraphs": [],
+      "bullets": [],
+      "numbered": [],
+      "table": {
+        "title": "",
+        "headers": [
+          "Pattern Area",
+          "What Repeats",
+          "Example Evidence"
+        ],
+        "rows": [
+          [
+            "Hook formula",
+            "Human-first, emotion-first, or culture-first caption packaging",
+            "PSA: always sing your heart out, you'll never know who's going to listen"
+          ],
+          [
+            "Visual rhythm",
+            "Likely dependent on featured creator/performance clip rather than explanation-led structure",
+            "a reminder to romanticize the little moments"
+          ],
+          [
+            "Proof style",
+            "Trust rides on official account authority, featured people, and recognizable context",
+            "this STEMTok creativity is blowing us away"
+          ],
+          [
+            "CTA style",
+            "Soft teaser or continuation toward more content",
+            ""
+          ]
+        ]
+      }
+    },
+    {
+      "heading": "Core Mechanism",
+      "instruction": "Describe why the creator's pattern works.",
+      "paragraphs": [
+        "The account does not need to over-explain. It packages a familiar person or cultural cue and relies on fast recognition plus account trust.",
+        "The transferable lesson is not 'be TikTok'. It is to reduce friction between first-frame recognition and the emotional reason to keep watching."
+      ],
+      "bullets": [],
+      "numbered": [],
+      "table": {
+        "title": "",
+        "headers": [],
+        "rows": []
+      }
+    },
+    {
+      "heading": "Reusable Formula",
+      "instruction": "Extract what can transfer to another account or product.",
+      "paragraphs": [],
+      "bullets": [],
+      "numbered": [],
+      "table": {
+        "title": "",
+        "headers": [
+          "Layer",
+          "Transferable Pattern",
+          "Why It Transfers",
+          "How To Adapt"
+        ],
+        "rows": [
+          [
+            "Hook",
+            "Open with immediate recognition or emotional clarity",
+            "Recognition compresses decision time on TikTok",
+            "Swap in a figure, object, or cue your audience already cares about"
+          ],
+          [
+            "Pacing",
+            "Stay short and premise-led",
+            "The format works because it does not over-teach",
+            "Strip excess setup before the main cue lands"
+          ],
+          [
+            "Trust-building",
+            "Borrow trust from the account, featured talent, or event context",
+            "Trust can be transferred via stronger proof objects",
+            "Use receipts, social proof, or known collaborators if account authority is weaker"
+          ],
+          [
+            "Conversion move",
+            "Use continuation energy instead of hard closing",
+            "Soft progression fits social-native viewing better",
+            "Route toward next watch, next profile action, or soft save/share"
+          ]
+        ]
+      }
+    },
+    {
+      "heading": "Risks And Adaptation Notes",
+      "instruction": "List the parts that depend on this specific creator.",
+      "paragraphs": [],
+      "bullets": [],
+      "numbered": [],
+      "table": {
+        "title": "",
+        "headers": [
+          "Creator-Specific Advantage",
+          "Why It Does Not Transfer Cleanly"
+        ],
+        "rows": [
+          [
+            "Official-account authority",
+            "A large platform account has built-in distribution and credibility most projects do not have."
+          ],
+          [
+            "Featured-talent lift",
+            "Recognition from known creators or cultural moments may be doing part of the ranking work."
+          ],
+          [
+            "Missing comments",
+            "Without sampled comments, true audience-language resonance is under-evidenced in this import."
+          ]
+        ]
+      }
+    },
+    {
+      "heading": "Next Action",
+      "instruction": "Describe how to migrate the pattern to the user's product.",
+      "paragraphs": [],
+      "bullets": [],
+      "numbered": [
+        "Assign one top-ranked post to a creator-led rewrite lane and one to a moment/outcome rewrite lane.",
+        "Build one smaller-account version with a stronger owned proof object before filming anything else.",
+        "Measure whether lighter copy plus faster recognition improves early engagement enough to justify reusing the formula."
+      ],
+      "table": {
+        "title": "Operator Dispatch",
+        "headers": [
+          "Lane",
+          "What To Do Now",
+          "Why This Lane Exists"
+        ],
+        "rows": [
+          [
+            "Watch",
+            "Keep tracking which winners depend on featured-person recognition or official-account lift.",
+            "This stops the team from mistaking distribution advantage for portable format logic."
+          ],
+          [
+            "Test",
+            "Run one creator-led rewrite and one proof-object-led rewrite from the top account references.",
+            "This is the fastest way to learn whether the pattern survives after authority replacement."
+          ],
+          [
+            "Suppress",
+            "Do not escalate rows whose only real edge is platform-scale authority.",
+            "Those rows distort smaller-account replication planning."
+          ]
+        ]
+      }
+    }
+  ],
+  "assets": [
+    {
+      "label": "aggregate_report.md",
+      "path": "aggregate_report.md",
+      "note": "Aggregate markdown report from the real TikTok capture pack."
+    },
+    {
+      "label": "aggregate_analysis.xlsx",
+      "path": "aggregate_analysis.xlsx",
+      "note": "Aggregate workbook from the real TikTok capture pack."
+    },
+    {
+      "label": "aggregate_ranked_videos.xlsx",
+      "path": "aggregate_ranked_videos.xlsx",
+      "note": "Ranked-video workbook."
+    },
+    {
+      "label": "aggregate_qualified_videos.xlsx",
+      "path": "aggregate_qualified_videos.xlsx",
+      "note": "Qualified-video workbook."
+    },
+    {
+      "label": "ranked_videos.xlsx",
+      "path": "01-tiktok/ranked_videos.xlsx",
+      "note": "Ranked-video workbook from the single TikTok capture pack."
+    },
+    {
+      "label": "comments_flat.csv",
+      "path": "01-tiktok/comments_flat.csv",
+      "note": "Flattened comment export from the single TikTok capture pack."
+    }
+  ],
+  "notes": [],
+  "sources": [
+    "aggregate_summary.json",
+    "aggregate_ranked_videos.json",
+    "https://www.tiktok.com/@tiktok"
+  ]
+}

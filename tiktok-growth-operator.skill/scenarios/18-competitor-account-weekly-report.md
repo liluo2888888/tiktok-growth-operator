@@ -3,6 +3,7 @@
 ## Use When
 
 - the user wants a weekly view of what competitor accounts changed
+- the real goal is to react to strategy shifts, not just list posts
 
 ## Minimum Inputs
 
@@ -10,38 +11,48 @@
 
 ## Ideal Inputs
 
+- 3-5 competitor accounts
 - account links
 - latest posts
-- previous week’s notes
+- prior-week notes
+- 2 or more weekly snapshots when available
 - target market
 
 ## Workflow
 
-1. collect each account’s weekly output
-2. summarize what each account pushed
-3. identify breakout content and pattern shifts
-4. compare accounts horizontally
-5. output a weekly operator brief
+1. group posts by account and week
+2. summarize weekly output per account
+3. compare accounts horizontally
+4. identify breakout causes and strategy changes
+5. separate baseline observations from real multi-week trend claims
+6. end with operator actions for this week
 
 ## Output Contract
 
 - per-account weekly summary
 - cross-account comparison
 - notable shifts
-- implications for the user
+- breakout-cause view
+- strategy-shift view
+- weekly operator response
 
 ## Direct Prompt
 
 ```text
-请做一份“竞对账号矩阵周报”。
+按场景 18 执行：做一份竞品账号周报。
+不要把它写成几个单账号小结，而要把 3-5 个账号当成一个矩阵。
 
-目标：
-1. 看竞对上周发了什么
-2. 哪些内容明显跑出来了
-3. 哪些策略变了
-4. 对我本周应该有什么启发
+必须回答：
+1. 上周每个账号发了什么
+2. 哪些内容跑出来了
+3. 为什么跑出来
+4. 每个账号策略上变了什么
+5. 账号之间最大的差异是什么
+6. 我本周该跟进什么动作
+
+如果只有 1 周数据，不要装作有趋势判断，要明确标成 baseline week。
 ```
 
 ## Fallback
 
-If only one week of raw data exists, mark it as baseline week instead of pretending trend certainty.
+If only one week of data exists, mark it as a baseline week instead of pretending long-term trend certainty.

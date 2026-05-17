@@ -99,6 +99,18 @@ Each item:
 }
 ```
 
+When a major finding must remain reviewable, prefer adding a compact `evidence_ref` inside the relevant table row or paragraph. Recommended fields:
+
+```json
+{
+  "source_type": "video | comment | creator | account_week | transcript | screenshot",
+  "source_id": "video id, comment id, or local fixture key",
+  "source_url": "https://example.com/video-1",
+  "time_range": "00:00-00:03",
+  "excerpt": "short quoted or paraphrased supporting evidence"
+}
+```
+
 ### `sections`
 
 Each section is the main reusable delivery unit.
@@ -110,6 +122,7 @@ Each section is the main reusable delivery unit.
   "paragraphs": [],
   "bullets": [],
   "numbered": [],
+  "evidence_refs": [],
   "table": {
     "title": "",
     "headers": [],
@@ -123,7 +136,21 @@ Use:
 - `paragraphs` for explanation
 - `bullets` for scan-friendly conclusions
 - `numbered` for workflows or ordered logic
+- `evidence_refs` for section-local proof objects that must survive review and export
 - `table` for shortlist, matrix, dashboard, or benchmarking output
+
+Recommended `evidence_refs` row shape:
+
+```json
+{
+  "source_type": "video | comment | creator | account_week | transcript | screenshot",
+  "source_id": "video id, comment id, or local fixture key",
+  "source_url": "https://example.com/video-1",
+  "time_range": "00:00-00:03",
+  "excerpt": "short quoted or paraphrased supporting evidence",
+  "supports": "which section claim, row, or finding this evidence supports"
+}
+```
 
 ### `execution_template`
 
@@ -181,6 +208,57 @@ Scene-aware starter structures live in:
 - `scripts/validate_scene_presets.py`
 
 Use this file when you want to make one scene more directly usable without changing the top-level contract.
+
+## Public-Parity Notes For High-Value Scenes
+
+The May 8, 2026 parity pass tightened several scene-specific expectations using the reviewed DOCX bundle plus public Clipcat surfaces.
+
+### Scene `04` expected blocks
+
+- timeline table should be close to:
+  - `Time Range | Scene Type | Visual Content | Spoken / On-Screen Script | Role In Conversion | Asset / Talent Needed | Evidence Ref`
+- add one mechanism breakdown table, not only freeform bullets:
+  - `Mechanism Layer | Observed Pattern | Why It Works | Failure Mode If Removed | Evidence Ref`
+- include BGM analysis
+- include a three-part viral interpretation:
+  - opening hook
+  - conversion rhythm
+  - visual style
+- support no-voiceover videos explicitly
+- label the video type for downstream reuse
+- include one production-spec handoff table close to:
+  - `Beat / Shot | What Must Happen | Purpose | Subtitle / VO Beat | Proof Block | Asset / Talent Needed | Confidence`
+
+### Scene `05` expected blocks
+
+- keep a generator-ready brief schema with:
+  - `Style`
+  - `Environment`
+  - `Tone & Pacing`
+  - `Camera`
+  - `Lighting`
+  - `Character`
+  - `Shots`
+  - `Background Sound`
+  - `Transition / Editing`
+- include shot-level rows, not only one top-level prompt
+- shot-level rows may also include an `Asset Need` column when the scene is intended to hand off into production or render planning
+- generator-ready brief rows may also include a `Generator Handoff Field` column so the output can map more directly into downstream render or editing systems
+- include both:
+  - inferred original brief
+  - adapted brief for the user's product
+- preserve field-level low-confidence marking
+- adapted brief tables may include an explicit generator-handoff field when the output is meant for downstream model or production routing
+- include one direct production handoff block close to:
+  - `Delivery Block | What Must Be Finalized | Who Uses It | Blocking Gap | Next Owner`
+
+### Scene `17` expected blocks
+
+- include an account overview layer before formula distillation
+- compare high-interaction and low-interaction samples
+- output reusable hook formulas and pacing models
+- keep visual style, BGM, hashtag, and posting-time sections visible
+- end with a new-script bridge or adaptation path
 
 ## Example
 
