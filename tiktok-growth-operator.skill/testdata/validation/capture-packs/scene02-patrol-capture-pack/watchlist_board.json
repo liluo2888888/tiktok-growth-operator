@@ -1,0 +1,26 @@
+{
+  "capture_date": "2026-05-08",
+  "snapshot_at": "2026-05-08T02:01:56",
+  "append_scope_key": "Orange Cat::US::daily",
+  "append_mode": "append_to_same_board",
+  "entries": [
+    {
+      "entry_kind": "search query",
+      "keyword_or_topic": "orange cat",
+      "source_kind": "search",
+      "priority": "P1",
+      "capture_date": "2026-05-08",
+      "snapshot_at": "2026-05-08T02:01:56",
+      "append_scope_key": "Orange Cat::US::daily"
+    },
+    {
+      "entry_kind": "topic tag",
+      "keyword_or_topic": "#orangecat",
+      "source_kind": "topic",
+      "priority": "P1",
+      "capture_date": "2026-05-08",
+      "snapshot_at": "2026-05-08T02:01:56",
+      "append_scope_key": "Orange Cat::US::daily"
+    }
+  ]
+}

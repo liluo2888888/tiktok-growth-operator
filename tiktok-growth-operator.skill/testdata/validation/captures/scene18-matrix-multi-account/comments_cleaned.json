@@ -1,0 +1,184 @@
+[
+  {
+    "comment_id": "matrix-c-5",
+    "video_id": "7618200000000000001",
+    "video_url": "https://www.tiktok.com/@mustsharebeauty/video/7618200000000000001",
+    "text": "This works better because the proof lands faster",
+    "raw_text": "This works better because the proof lands faster",
+    "digg_count": 63,
+    "reply_comment_total": 5,
+    "nickname": "user5",
+    "unique_id": "user5",
+    "source_product": "mustsharebeauty-w17, velvetglowlab-w17, lipstorydaily-w17",
+    "sample_kind": "top_level",
+    "reply_summary": "",
+    "is_reply": false,
+    "comment_language": "en",
+    "author_verified": false,
+    "high_purchase_intent": false,
+    "quote_text": "This works better because the proof lands faster",
+    "canonical_text": "top:this works better because the proof lands faster",
+    "duplicate_count": 6,
+    "source_products": [
+      "mustsharebeauty-w17",
+      "velvetglowlab-w17",
+      "lipstorydaily-w17"
+    ],
+    "comment_languages": [
+      "en"
+    ],
+    "sample_kinds": [
+      "top_level"
+    ],
+    "theme": "一般反应",
+    "cluster_type": "好评关键词",
+    "price_band": "不明确",
+    "reply_signal": "有一定回复链活动（5 条回复），值得继续检查追问、补充证据和售后语言。",
+    "signal_tier": "high"
+  },
+  {
+    "comment_id": "matrix-c-1",
+    "video_id": "7618100000000000001",
+    "video_url": "https://www.tiktok.com/@mustsharebeauty/video/7618100000000000001",
+    "text": "This still feels too slow",
+    "raw_text": "This still feels too slow",
+    "digg_count": 59,
+    "reply_comment_total": 5,
+    "nickname": "user1",
+    "unique_id": "user1",
+    "source_product": "mustsharebeauty-w16, velvetglowlab-w16, lipstorydaily-w16",
+    "sample_kind": "top_level",
+    "reply_summary": "",
+    "is_reply": false,
+    "comment_language": "en",
+    "author_verified": false,
+    "high_purchase_intent": false,
+    "quote_text": "This still feels too slow",
+    "canonical_text": "top:this still feels too slow",
+    "duplicate_count": 6,
+    "source_products": [
+      "mustsharebeauty-w16",
+      "velvetglowlab-w16",
+      "lipstorydaily-w16"
+    ],
+    "comment_languages": [
+      "en"
+    ],
+    "sample_kinds": [
+      "top_level"
+    ],
+    "theme": "一般反应",
+    "cluster_type": "好评关键词",
+    "price_band": "不明确",
+    "reply_signal": "有一定回复链活动（5 条回复），值得继续检查追问、补充证据和售后语言。",
+    "signal_tier": "high"
+  },
+  {
+    "comment_id": "matrix-c-18",
+    "video_id": "7618500000000000001",
+    "video_url": "https://www.tiktok.com/@lipstorydaily/video/7618500000000000001",
+    "text": "trust rises when wear note is inside the video",
+    "raw_text": "trust rises when wear note is inside the video",
+    "digg_count": 59,
+    "reply_comment_total": 7,
+    "nickname": "user18",
+    "unique_id": "user18",
+    "source_product": "lipstorydaily-w16, lipstorydaily-w17",
+    "sample_kind": "reply",
+    "reply_summary": "trust rises when wear note is inside the video",
+    "is_reply": true,
+    "comment_language": "en",
+    "author_verified": false,
+    "high_purchase_intent": true,
+    "quote_text": "trust rises when wear note is inside the video",
+    "canonical_text": "reply:trust rises when wear note is inside the video",
+    "duplicate_count": 4,
+    "source_products": [
+      "lipstorydaily-w16",
+      "lipstorydaily-w17"
+    ],
+    "comment_languages": [
+      "en"
+    ],
+    "sample_kinds": [
+      "reply"
+    ],
+    "theme": "一般反应",
+    "cluster_type": "好评关键词",
+    "price_band": "不明确",
+    "reply_signal": "trust rises when wear note is inside the video",
+    "signal_tier": "high"
+  },
+  {
+    "comment_id": "matrix-c-10",
+    "video_id": "7618300000000000001",
+    "video_url": "https://www.tiktok.com/@velvetglowlab/video/7618300000000000001",
+    "text": "confusion drops when comparison is faster",
+    "raw_text": "confusion drops when comparison is faster",
+    "digg_count": 51,
+    "reply_comment_total": 7,
+    "nickname": "user10",
+    "unique_id": "user10",
+    "source_product": "velvetglowlab-w16, velvetglowlab-w17",
+    "sample_kind": "reply",
+    "reply_summary": "confusion drops when comparison is faster",
+    "is_reply": true,
+    "comment_language": "en",
+    "author_verified": false,
+    "high_purchase_intent": true,
+    "quote_text": "confusion drops when comparison is faster",
+    "canonical_text": "reply:confusion drops when comparison is faster",
+    "duplicate_count": 4,
+    "source_products": [
+      "velvetglowlab-w16",
+      "velvetglowlab-w17"
+    ],
+    "comment_languages": [
+      "en"
+    ],
+    "sample_kinds": [
+      "reply"
+    ],
+    "theme": "一般反应",
+    "cluster_type": "好评关键词",
+    "price_band": "不明确",
+    "reply_signal": "confusion drops when comparison is faster",
+    "signal_tier": "high"
+  },
+  {
+    "comment_id": "matrix-c-2",
+    "video_id": "7618100000000000001",
+    "video_url": "https://www.tiktok.com/@mustsharebeauty/video/7618100000000000001",
+    "text": "daylight / wear-test trust proof",
+    "raw_text": "daylight / wear-test trust proof",
+    "digg_count": 43,
+    "reply_comment_total": 7,
+    "nickname": "user2",
+    "unique_id": "user2",
+    "source_product": "mustsharebeauty-w16, mustsharebeauty-w17",
+    "sample_kind": "reply",
+    "reply_summary": "daylight / wear-test trust proof",
+    "is_reply": true,
+    "comment_language": "en",
+    "author_verified": false,
+    "high_purchase_intent": true,
+    "quote_text": "daylight / wear-test trust proof",
+    "canonical_text": "reply:daylight wear test trust proof",
+    "duplicate_count": 4,
+    "source_products": [
+      "mustsharebeauty-w16",
+      "mustsharebeauty-w17"
+    ],
+    "comment_languages": [
+      "en"
+    ],
+    "sample_kinds": [
+      "reply"
+    ],
+    "theme": "一般反应",
+    "cluster_type": "好评关键词",
+    "price_band": "不明确",
+    "reply_signal": "daylight / wear-test trust proof",
+    "signal_tier": "high"
+  }
+]

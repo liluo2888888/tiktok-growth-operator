@@ -270,9 +270,12 @@ validator 与历史运行清理策略：
 2. downstream renderer hooks for scenes `09` to `16` — `render_scene_report.py` 为创意简报场景与矩阵场景增加封面 spotlight、章节动作卡和表格版式
 3. route-eval expansion and fixture hardening — `references/route-eval-fixtures.json` 扩充 scene / pack / board 语料；`testdata/validation/reports/scene-11-pipeline-scaffold.json` 进入导出验证
 
+4. delivery adapters and operator push surfaces — `scripts/deliver_operator_run.py` 支持 `local-bundle` 与 `feishu`；`start_scene_run.py --deliver` 已接入；`validate_delivery_adapters.py` 已纳入全量验证
+5. visual-only export polish — 场景 `09` 到 `16` 的 DOCX / XLSX 封面主题色与项目卡 kicker 已区分创意简报与创意流程场景
+
 仍建议后续单独推进：
 
-1. delivery adapters and operator push surfaces
-2. visual-only export polish
+1. 更完整的 delivery 目标（例如批量 board 结果、历史 run 归档包）
+2. 创意场景 XLSX 章节热力图与 section overview 的进一步平台卡强化
 
 除非出现新的验证缺口或可见缺陷，否则不要重开核心 exporter 结构。

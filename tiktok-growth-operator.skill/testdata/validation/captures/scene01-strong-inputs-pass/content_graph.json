@@ -1,0 +1,80 @@
+{
+  "version": "1.0",
+  "node_count": 6,
+  "edge_count": 3,
+  "nodes": [
+    {
+      "id": "video:7636206423080226070",
+      "type": "video",
+      "label": "PSA: always sing your heart out, you'll never know who's going to liste…",
+      "video_id": "7636206423080226070",
+      "video_url": "https://www.tiktok.com/@orangecat0088/video/7636206423080226070"
+    },
+    {
+      "id": "video:7636373657828347158",
+      "type": "video",
+      "label": "SuperCat Papa #kitten #catvideo #storycat #cutecat #orangecat",
+      "video_id": "7636373657828347158",
+      "video_url": "https://www.tiktok.com/@usatiktoker23/video/7636373657828347158"
+    },
+    {
+      "id": "video:7636137611576282399",
+      "type": "video",
+      "label": "sad cat #ai #aicat #aicatfunnyvideo #orangecat",
+      "video_id": "7636137611576282399",
+      "video_url": "https://www.tiktok.com/@aicatstories44/video/7636137611576282399"
+    },
+    {
+      "id": "creator:orangecat0088",
+      "type": "creator",
+      "label": "orangecat0088",
+      "member_count": 1
+    },
+    {
+      "id": "creator:usatiktoker23",
+      "type": "creator",
+      "label": "usatiktoker23",
+      "member_count": 1
+    },
+    {
+      "id": "creator:aicatstories44",
+      "type": "creator",
+      "label": "aicatstories44",
+      "member_count": 1
+    }
+  ],
+  "edges": [
+    {
+      "from": "video:7636206423080226070",
+      "to": "creator:orangecat0088",
+      "type": "authored_by"
+    },
+    {
+      "from": "video:7636373657828347158",
+      "to": "creator:usatiktoker23",
+      "type": "authored_by"
+    },
+    {
+      "from": "video:7636137611576282399",
+      "to": "creator:aicatstories44",
+      "type": "authored_by"
+    }
+  ],
+  "shortlist_provenance": {
+    "7636206423080226070": [
+      "reuse-value rank #1"
+    ],
+    "7636373657828347158": [
+      "reuse-value rank #2"
+    ],
+    "7636137611576282399": [
+      "reuse-value rank #3"
+    ]
+  },
+  "cluster_summary": {
+    "creator_clusters": 0,
+    "sound_clusters": 0,
+    "hashtag_neighborhoods": 0,
+    "video_count": 3
+  }
+}

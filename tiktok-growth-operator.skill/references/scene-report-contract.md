@@ -99,6 +99,49 @@ Each item:
 }
 ```
 
+### `content_graph` (optional, capture-backed scenes)
+
+When a capture pack or TikMatrix bridge supplies ranked candidates, the importer may attach a compact graph summary:
+
+```json
+{
+  "version": "1.0",
+  "cluster_summary": {
+    "creator_clusters": 1,
+    "sound_clusters": 0,
+    "hashtag_neighborhoods": 2,
+    "video_count": 15
+  },
+  "edge_count": 42,
+  "node_count": 28
+}
+```
+
+Per-video `shortlist_provenance` / `shortlist_provenance_text` should explain why a row entered the shortlist using creator, sound, hashtag, and reuse-rank paths. Scene tables for `01`, `03`, `07`, `17`, `18`, and `19` should surface this in an `入选溯源` column when present.
+
+### `reuse_value_score` (capture-backed shortlists)
+
+Importer and TikMatrix bridge paths should rank candidates with reuse-value-first scoring instead of raw popularity only. Each ranked video may carry:
+
+```json
+{
+  "reuse_value_score": 78,
+  "popularity_score": 61,
+  "profile_rank": 1,
+  "score_breakdown": {
+    "caption_completeness": 82,
+    "comment_density": 55,
+    "proof_strength": 48,
+    "popularity": 61
+  },
+  "why_selected": "Selected for caption/hook completeness, proof strength; supporting traction: likes=18000"
+}
+```
+
+Scene `01`, `03`, and `07` tables should continue to expose `reuse` / `popularity` / `caption` signals so operators can see why the shortlist order changed.
+
+Importer-backed scenes `03`, `04`, `05`, `08`, `17`, `18`, and `19` should attach structured `evidence_refs` to insight-bearing sections (executive conclusions, mechanism summaries, comment clusters, weekly shifts, and recommended actions). Use `scripts/scene_evidence_refs.py` builders so Markdown, DOCX, and XLSX exports all retain the same proof table.
+
 When a major finding must remain reviewable, prefer adding a compact `evidence_ref` inside the relevant table row or paragraph. Recommended fields:
 
 ```json

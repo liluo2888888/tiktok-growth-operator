@@ -1,0 +1,422 @@
+[
+  {
+    "comment_id": "roi-007",
+    "video_id": "7642000000000000001",
+    "video_url": "https://www.tiktok.com/@ownerglowlab/video/7642000000000000001",
+    "text": "This version made me click because the problem was obvious in the first second.",
+    "raw_text": "This version made me click because the problem was obvious in the first second.",
+    "digg_count": 142,
+    "reply_comment_total": 10,
+    "nickname": "firstsecondhook",
+    "unique_id": "firstsecondhook",
+    "source_product": "ownerglowlab-window2-founder-proof",
+    "sample_kind": "top_level",
+    "reply_summary": "",
+    "is_reply": false,
+    "comment_language": "en",
+    "author_verified": false,
+    "high_purchase_intent": true,
+    "quote_text": "This version made me click because the problem was obvious in the first second.",
+    "canonical_text": "top:this version made me click because the problem was obvious in the first second",
+    "duplicate_count": 1,
+    "source_products": [
+      "ownerglowlab-window2-founder-proof"
+    ],
+    "comment_languages": [
+      "en"
+    ],
+    "sample_kinds": [
+      "top_level"
+    ],
+    "theme": "一般反应",
+    "cluster_type": "好评关键词",
+    "price_band": "不明确",
+    "reply_signal": "回复链活跃（10 条回复），已经足够视为真实的购买前确认或异议处理信号。",
+    "signal_tier": "high"
+  },
+  {
+    "comment_id": "roi-008",
+    "video_id": "7642000000000000001",
+    "video_url": "https://www.tiktok.com/@ownerglowlab/video/7642000000000000001",
+    "text": "I saved this because the founder actually showed the proof instead of just saying trust me.",
+    "raw_text": "I saved this because the founder actually showed the proof instead of just saying trust me.",
+    "digg_count": 126,
+    "reply_comment_total": 11,
+    "nickname": "showtheproof",
+    "unique_id": "showtheproof",
+    "source_product": "ownerglowlab-window2-founder-proof",
+    "sample_kind": "reply",
+    "reply_summary": "Save intent rises when proof arrives early.",
+    "is_reply": true,
+    "comment_language": "en",
+    "author_verified": false,
+    "high_purchase_intent": false,
+    "quote_text": "I saved this because the founder actually showed the proof instead of just saying trust me.",
+    "canonical_text": "reply:i saved this because the founder actually showed the proof instead of just saying trust me",
+    "duplicate_count": 1,
+    "source_products": [
+      "ownerglowlab-window2-founder-proof"
+    ],
+    "comment_languages": [
+      "en"
+    ],
+    "sample_kinds": [
+      "reply"
+    ],
+    "theme": "一般反应",
+    "cluster_type": "好评关键词",
+    "price_band": "不明确",
+    "reply_signal": "Save intent rises when proof arrives early.",
+    "signal_tier": "high"
+  },
+  {
+    "comment_id": "roi-009",
+    "video_id": "7642000000000000001",
+    "video_url": "https://www.tiktok.com/@ownerglowlab/video/7642000000000000001",
+    "text": "This is the only format that feels close to buying, not just browsing.",
+    "raw_text": "This is the only format that feels close to buying, not just browsing.",
+    "digg_count": 118,
+    "reply_comment_total": 7,
+    "nickname": "closetobuying",
+    "unique_id": "closetobuying",
+    "source_product": "ownerglowlab-window2-founder-proof",
+    "sample_kind": "top_level",
+    "reply_summary": "",
+    "is_reply": false,
+    "comment_language": "en",
+    "author_verified": false,
+    "high_purchase_intent": true,
+    "quote_text": "This is the only format that feels close to buying, not just browsing.",
+    "canonical_text": "top:this is the only format that feels close to buying not just browsing",
+    "duplicate_count": 1,
+    "source_products": [
+      "ownerglowlab-window2-founder-proof"
+    ],
+    "comment_languages": [
+      "en"
+    ],
+    "sample_kinds": [
+      "top_level"
+    ],
+    "theme": "购买意向",
+    "cluster_type": "购买因素",
+    "price_band": "不明确",
+    "reply_signal": "有一定回复链活动（7 条回复），值得继续检查追问、补充证据和售后语言。",
+    "signal_tier": "high"
+  },
+  {
+    "comment_id": "roi-001",
+    "video_id": "7641000000000000001",
+    "video_url": "https://www.tiktok.com/@ownerglowlab/video/7641000000000000001",
+    "text": "This is the first one that made me ask where to buy because I understood the result immediately.",
+    "raw_text": "This is the first one that made me ask where to buy because I understood the result immediately.",
+    "digg_count": 111,
+    "reply_comment_total": 9,
+    "nickname": "buywherepls",
+    "unique_id": "buywherepls",
+    "source_product": "ownerglowlab-window1-founder-proof",
+    "sample_kind": "top_level",
+    "reply_summary": "",
+    "is_reply": false,
+    "comment_language": "en",
+    "author_verified": false,
+    "high_purchase_intent": true,
+    "quote_text": "This is the first one that made me ask where to buy because I understood the result immediately.",
+    "canonical_text": "top:this is the first one that made me ask where to buy because i understood the result immediately",
+    "duplicate_count": 1,
+    "source_products": [
+      "ownerglowlab-window1-founder-proof"
+    ],
+    "comment_languages": [
+      "en"
+    ],
+    "sample_kinds": [
+      "top_level"
+    ],
+    "theme": "购买意向",
+    "cluster_type": "购买因素",
+    "price_band": "不明确",
+    "reply_signal": "回复链活跃（9 条回复），已经足够视为真实的购买前确认或异议处理信号。",
+    "signal_tier": "high"
+  },
+  {
+    "comment_id": "roi-002",
+    "video_id": "7641000000000000001",
+    "video_url": "https://www.tiktok.com/@ownerglowlab/video/7641000000000000001",
+    "text": "Founder talking while showing the proof feels more trustworthy than just pretty shots.",
+    "raw_text": "Founder talking while showing the proof feels more trustworthy than just pretty shots.",
+    "digg_count": 94,
+    "reply_comment_total": 8,
+    "nickname": "foundertrust",
+    "unique_id": "foundertrust",
+    "source_product": "ownerglowlab-window1-founder-proof",
+    "sample_kind": "reply",
+    "reply_summary": "Founder-plus-proof language drives trust.",
+    "is_reply": true,
+    "comment_language": "en",
+    "author_verified": false,
+    "high_purchase_intent": false,
+    "quote_text": "Founder talking while showing the proof feels more trustworthy than just pretty shots.",
+    "canonical_text": "reply:founder talking while showing the proof feels more trustworthy than just pretty shots",
+    "duplicate_count": 1,
+    "source_products": [
+      "ownerglowlab-window1-founder-proof"
+    ],
+    "comment_languages": [
+      "en"
+    ],
+    "sample_kinds": [
+      "reply"
+    ],
+    "theme": "价格 / 性价比顾虑",
+    "cluster_type": "购买因素",
+    "price_band": "不明确",
+    "reply_signal": "Founder-plus-proof language drives trust.",
+    "signal_tier": "high"
+  },
+  {
+    "comment_id": "roi-003",
+    "video_id": "7641000000000000001",
+    "video_url": "https://www.tiktok.com/@ownerglowlab/video/7641000000000000001",
+    "text": "Can you pin the exact product because this one actually answered my main hesitation?",
+    "raw_text": "Can you pin the exact product because this one actually answered my main hesitation?",
+    "digg_count": 83,
+    "reply_comment_total": 6,
+    "nickname": "pinproductpls",
+    "unique_id": "pinproductpls",
+    "source_product": "ownerglowlab-window1-founder-proof",
+    "sample_kind": "top_level",
+    "reply_summary": "",
+    "is_reply": false,
+    "comment_language": "en",
+    "author_verified": false,
+    "high_purchase_intent": false,
+    "quote_text": "Can you pin the exact product because this one actually answered my main hesitation?",
+    "canonical_text": "top:can you pin the exact product because this one actually answered my main hesitation",
+    "duplicate_count": 1,
+    "source_products": [
+      "ownerglowlab-window1-founder-proof"
+    ],
+    "comment_languages": [
+      "en"
+    ],
+    "sample_kinds": [
+      "top_level"
+    ],
+    "theme": "一般反应",
+    "cluster_type": "好评关键词",
+    "price_band": "不明确",
+    "reply_signal": "有一定回复链活动（6 条回复），值得继续检查追问、补充证据和售后语言。",
+    "signal_tier": "high"
+  },
+  {
+    "comment_id": "roi-005",
+    "video_id": "7641000000000000003",
+    "video_url": "https://www.tiktok.com/@ownerglowlab/video/7641000000000000003",
+    "text": "Too much talking before the product actually does anything.",
+    "raw_text": "Too much talking before the product actually does anything.",
+    "digg_count": 63,
+    "reply_comment_total": 7,
+    "nickname": "toomuchtalk",
+    "unique_id": "toomuchtalk",
+    "source_product": "ownerglowlab-window1-slow-explainer",
+    "sample_kind": "reply",
+    "reply_summary": "Slow explainer loses purchase intent before proof arrives.",
+    "is_reply": true,
+    "comment_language": "en",
+    "author_verified": false,
+    "high_purchase_intent": false,
+    "quote_text": "Too much talking before the product actually does anything.",
+    "canonical_text": "reply:too much talking before the product actually does anything",
+    "duplicate_count": 1,
+    "source_products": [
+      "ownerglowlab-window1-slow-explainer"
+    ],
+    "comment_languages": [
+      "en"
+    ],
+    "sample_kinds": [
+      "reply"
+    ],
+    "theme": "一般反应",
+    "cluster_type": "好评关键词",
+    "price_band": "不明确",
+    "reply_signal": "Slow explainer loses purchase intent before proof arrives.",
+    "signal_tier": "high"
+  },
+  {
+    "comment_id": "roi-004",
+    "video_id": "7641000000000000003",
+    "video_url": "https://www.tiktok.com/@ownerglowlab/video/7641000000000000003",
+    "text": "This looked nice but I still do not know why I need it.",
+    "raw_text": "This looked nice but I still do not know why I need it.",
+    "digg_count": 59,
+    "reply_comment_total": 5,
+    "nickname": "needreasonfirst",
+    "unique_id": "needreasonfirst",
+    "source_product": "ownerglowlab-window1-slow-explainer",
+    "sample_kind": "top_level",
+    "reply_summary": "",
+    "is_reply": false,
+    "comment_language": "en",
+    "author_verified": false,
+    "high_purchase_intent": false,
+    "quote_text": "This looked nice but I still do not know why I need it.",
+    "canonical_text": "top:this looked nice but i still do not know why i need it",
+    "duplicate_count": 1,
+    "source_products": [
+      "ownerglowlab-window1-slow-explainer"
+    ],
+    "comment_languages": [
+      "en"
+    ],
+    "sample_kinds": [
+      "top_level"
+    ],
+    "theme": "购买意向",
+    "cluster_type": "购买因素",
+    "price_band": "不明确",
+    "reply_signal": "有一定回复链活动（5 条回复），值得继续检查追问、补充证据和售后语言。",
+    "signal_tier": "high"
+  },
+  {
+    "comment_id": "roi-010",
+    "video_id": "7642000000000000003",
+    "video_url": "https://www.tiktok.com/@ownerglowlab/video/7642000000000000003",
+    "text": "Looks nice again but I still need a reason this is better than what I have.",
+    "raw_text": "Looks nice again but I still need a reason this is better than what I have.",
+    "digg_count": 51,
+    "reply_comment_total": 4,
+    "nickname": "needwhy",
+    "unique_id": "needwhy",
+    "source_product": "ownerglowlab-window2-aesthetic",
+    "sample_kind": "top_level",
+    "reply_summary": "",
+    "is_reply": false,
+    "comment_language": "en",
+    "author_verified": false,
+    "high_purchase_intent": false,
+    "quote_text": "Looks nice again but I still need a reason this is better than what I have.",
+    "canonical_text": "top:looks nice again but i still need a reason this is better than what i have",
+    "duplicate_count": 1,
+    "source_products": [
+      "ownerglowlab-window2-aesthetic"
+    ],
+    "comment_languages": [
+      "en"
+    ],
+    "sample_kinds": [
+      "top_level"
+    ],
+    "theme": "购买意向",
+    "cluster_type": "购买因素",
+    "price_band": "不明确",
+    "reply_signal": "有一定回复链活动（4 条回复），值得继续检查追问、补充证据和售后语言。",
+    "signal_tier": "high"
+  },
+  {
+    "comment_id": "roi-011",
+    "video_id": "7642000000000000003",
+    "video_url": "https://www.tiktok.com/@ownerglowlab/video/7642000000000000003",
+    "text": "This version feels scrollable, not saveable.",
+    "raw_text": "This version feels scrollable, not saveable.",
+    "digg_count": 48,
+    "reply_comment_total": 3,
+    "nickname": "scrollnotsave",
+    "unique_id": "scrollnotsave",
+    "source_product": "ownerglowlab-window2-aesthetic",
+    "sample_kind": "reply",
+    "reply_summary": "Aesthetic-first post draws light interest but weak purchase follow-through.",
+    "is_reply": true,
+    "comment_language": "en",
+    "author_verified": false,
+    "high_purchase_intent": false,
+    "quote_text": "This version feels scrollable, not saveable.",
+    "canonical_text": "reply:this version feels scrollable not saveable",
+    "duplicate_count": 1,
+    "source_products": [
+      "ownerglowlab-window2-aesthetic"
+    ],
+    "comment_languages": [
+      "en"
+    ],
+    "sample_kinds": [
+      "reply"
+    ],
+    "theme": "一般反应",
+    "cluster_type": "好评关键词",
+    "price_band": "不明确",
+    "reply_signal": "Aesthetic-first post draws light interest but weak purchase follow-through.",
+    "signal_tier": "high"
+  },
+  {
+    "comment_id": "roi-006",
+    "video_id": "7641000000000000003",
+    "video_url": "https://www.tiktok.com/@ownerglowlab/video/7641000000000000003",
+    "text": "Pretty video, weak reason to save it.",
+    "raw_text": "Pretty video, weak reason to save it.",
+    "digg_count": 41,
+    "reply_comment_total": 3,
+    "nickname": "weaksave",
+    "unique_id": "weaksave",
+    "source_product": "ownerglowlab-window1-slow-explainer",
+    "sample_kind": "top_level",
+    "reply_summary": "",
+    "is_reply": false,
+    "comment_language": "en",
+    "author_verified": false,
+    "high_purchase_intent": false,
+    "quote_text": "Pretty video, weak reason to save it.",
+    "canonical_text": "top:pretty video weak reason to save it",
+    "duplicate_count": 1,
+    "source_products": [
+      "ownerglowlab-window1-slow-explainer"
+    ],
+    "comment_languages": [
+      "en"
+    ],
+    "sample_kinds": [
+      "top_level"
+    ],
+    "theme": "一般反应",
+    "cluster_type": "好评关键词",
+    "price_band": "不明确",
+    "reply_signal": "有一定回复链活动（3 条回复），值得继续检查追问、补充证据和售后语言。",
+    "signal_tier": "high"
+  },
+  {
+    "comment_id": "roi-012",
+    "video_id": "7642000000000000003",
+    "video_url": "https://www.tiktok.com/@ownerglowlab/video/7642000000000000003",
+    "text": "Good vibes, low urgency.",
+    "raw_text": "Good vibes, low urgency.",
+    "digg_count": 37,
+    "reply_comment_total": 2,
+    "nickname": "goodvibeslowurgency",
+    "unique_id": "goodvibeslowurgency",
+    "source_product": "ownerglowlab-window2-aesthetic",
+    "sample_kind": "top_level",
+    "reply_summary": "",
+    "is_reply": false,
+    "comment_language": "en",
+    "author_verified": false,
+    "high_purchase_intent": false,
+    "quote_text": "Good vibes, low urgency.",
+    "canonical_text": "top:good vibes low urgency",
+    "duplicate_count": 1,
+    "source_products": [
+      "ownerglowlab-window2-aesthetic"
+    ],
+    "comment_languages": [
+      "en"
+    ],
+    "sample_kinds": [
+      "top_level"
+    ],
+    "theme": "一般反应",
+    "cluster_type": "好评关键词",
+    "price_band": "不明确",
+    "reply_signal": "未恢复出有意义的回复链信号。",
+    "signal_tier": "high"
+  }
+]

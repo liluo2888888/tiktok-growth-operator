@@ -1,0 +1,14 @@
+{
+  "version": "1.0",
+  "node_count": 0,
+  "edge_count": 0,
+  "nodes": [],
+  "edges": [],
+  "shortlist_provenance": {},
+  "cluster_summary": {
+    "creator_clusters": 0,
+    "sound_clusters": 0,
+    "hashtag_neighborhoods": 0,
+    "video_count": 0
+  }
+}

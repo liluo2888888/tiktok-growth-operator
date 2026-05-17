@@ -1,0 +1,144 @@
+{
+  "version": "1.0",
+  "node_count": 7,
+  "edge_count": 11,
+  "nodes": [
+    {
+      "id": "video:7616000000000000001",
+      "type": "video",
+      "label": "GRWM but the result reveal comes too late. Soft intro, light proof, lot…",
+      "video_id": "7616000000000000001",
+      "video_url": "https://www.tiktok.com/@mustsharebeauty/video/7616000000000000001"
+    },
+    {
+      "id": "video:7616000000000000002",
+      "type": "video",
+      "label": "Shade match story with decent trust but slow first frame. Comments ask…",
+      "video_id": "7616000000000000002",
+      "video_url": "https://www.tiktok.com/@mustsharebeauty/video/7616000000000000002"
+    },
+    {
+      "id": "video:7616000000000000003",
+      "type": "video",
+      "label": "Texture demo with calm narration. Useful but not urgent, so it underper…",
+      "video_id": "7616000000000000003",
+      "video_url": "https://www.tiktok.com/@mustsharebeauty/video/7616000000000000003"
+    },
+    {
+      "id": "video:7617000000000000001",
+      "type": "video",
+      "label": "Before-after reveal in the first two seconds. Fast recognition, direct…",
+      "video_id": "7617000000000000001",
+      "video_url": "https://www.tiktok.com/@mustsharebeauty/video/7617000000000000001"
+    },
+    {
+      "id": "video:7617000000000000002",
+      "type": "video",
+      "label": "Hook opens on the problem face, then switches straight into proof. Less…",
+      "video_id": "7617000000000000002",
+      "video_url": "https://www.tiktok.com/@mustsharebeauty/video/7617000000000000002"
+    },
+    {
+      "id": "video:7617000000000000003",
+      "type": "video",
+      "label": "Creator shows result under indoor and daylight lighting with a quick we…",
+      "video_id": "7617000000000000003",
+      "video_url": "https://www.tiktok.com/@mustsharebeauty/video/7617000000000000003"
+    },
+    {
+      "id": "creator:mustsharebeauty",
+      "type": "creator",
+      "label": "mustsharebeauty",
+      "member_count": 6
+    }
+  ],
+  "edges": [
+    {
+      "from": "video:7616000000000000001",
+      "to": "creator:mustsharebeauty",
+      "type": "authored_by"
+    },
+    {
+      "from": "video:7616000000000000002",
+      "to": "creator:mustsharebeauty",
+      "type": "authored_by"
+    },
+    {
+      "from": "video:7616000000000000003",
+      "to": "creator:mustsharebeauty",
+      "type": "authored_by"
+    },
+    {
+      "from": "video:7617000000000000001",
+      "to": "creator:mustsharebeauty",
+      "type": "authored_by"
+    },
+    {
+      "from": "video:7617000000000000002",
+      "to": "creator:mustsharebeauty",
+      "type": "authored_by"
+    },
+    {
+      "from": "video:7617000000000000003",
+      "to": "creator:mustsharebeauty",
+      "type": "authored_by"
+    },
+    {
+      "from": "video:7616000000000000001",
+      "to": "video:7616000000000000002",
+      "type": "shared_creator_cluster"
+    },
+    {
+      "from": "video:7616000000000000002",
+      "to": "video:7616000000000000003",
+      "type": "shared_creator_cluster"
+    },
+    {
+      "from": "video:7616000000000000003",
+      "to": "video:7617000000000000001",
+      "type": "shared_creator_cluster"
+    },
+    {
+      "from": "video:7617000000000000001",
+      "to": "video:7617000000000000002",
+      "type": "shared_creator_cluster"
+    },
+    {
+      "from": "video:7617000000000000002",
+      "to": "video:7617000000000000003",
+      "type": "shared_creator_cluster"
+    }
+  ],
+  "shortlist_provenance": {
+    "7616000000000000001": [
+      "creator cluster (@mustsharebeauty, 6 posts)",
+      "reuse-value rank #1"
+    ],
+    "7616000000000000002": [
+      "creator cluster (@mustsharebeauty, 6 posts)",
+      "reuse-value rank #2"
+    ],
+    "7616000000000000003": [
+      "creator cluster (@mustsharebeauty, 6 posts)",
+      "reuse-value rank #3"
+    ],
+    "7617000000000000001": [
+      "creator cluster (@mustsharebeauty, 6 posts)",
+      "reuse-value rank #4"
+    ],
+    "7617000000000000002": [
+      "creator cluster (@mustsharebeauty, 6 posts)",
+      "reuse-value rank #5"
+    ],
+    "7617000000000000003": [
+      "creator cluster (@mustsharebeauty, 6 posts)",
+      "reuse-value rank #6"
+    ]
+  },
+  "cluster_summary": {
+    "creator_clusters": 1,
+    "sound_clusters": 0,
+    "hashtag_neighborhoods": 0,
+    "video_count": 6
+  }
+}

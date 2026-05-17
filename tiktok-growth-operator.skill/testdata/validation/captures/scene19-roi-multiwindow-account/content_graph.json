@@ -1,0 +1,144 @@
+{
+  "version": "1.0",
+  "node_count": 7,
+  "edge_count": 11,
+  "nodes": [
+    {
+      "id": "video:7641000000000000001",
+      "type": "video",
+      "label": "Founder face opens with the problem, then shows the proof object fast.…",
+      "video_id": "7641000000000000001",
+      "video_url": "https://www.tiktok.com/@ownerglowlab/video/7641000000000000001"
+    },
+    {
+      "id": "video:7641000000000000002",
+      "type": "video",
+      "label": "Aesthetic montage first, product proof later. Nice but less direct for…",
+      "video_id": "7641000000000000002",
+      "video_url": "https://www.tiktok.com/@ownerglowlab/video/7641000000000000002"
+    },
+    {
+      "id": "video:7641000000000000003",
+      "type": "video",
+      "label": "Explainer-heavy problem setup with too much scene building before the p…",
+      "video_id": "7641000000000000003",
+      "video_url": "https://www.tiktok.com/@ownerglowlab/video/7641000000000000003"
+    },
+    {
+      "id": "video:7642000000000000001",
+      "type": "video",
+      "label": "Problem-first close-up, founder credibility, and immediate proof with a…",
+      "video_id": "7642000000000000001",
+      "video_url": "https://www.tiktok.com/@ownerglowlab/video/7642000000000000001"
+    },
+    {
+      "id": "video:7642000000000000002",
+      "type": "video",
+      "label": "Proof object opens immediately and uses a tighter CTA. Stronger save an…",
+      "video_id": "7642000000000000002",
+      "video_url": "https://www.tiktok.com/@ownerglowlab/video/7642000000000000002"
+    },
+    {
+      "id": "video:7642000000000000003",
+      "type": "video",
+      "label": "Lifestyle montage still looks polished, but the proof is too soft and t…",
+      "video_id": "7642000000000000003",
+      "video_url": "https://www.tiktok.com/@ownerglowlab/video/7642000000000000003"
+    },
+    {
+      "id": "creator:ownerglowlab",
+      "type": "creator",
+      "label": "ownerglowlab",
+      "member_count": 6
+    }
+  ],
+  "edges": [
+    {
+      "from": "video:7641000000000000001",
+      "to": "creator:ownerglowlab",
+      "type": "authored_by"
+    },
+    {
+      "from": "video:7641000000000000002",
+      "to": "creator:ownerglowlab",
+      "type": "authored_by"
+    },
+    {
+      "from": "video:7641000000000000003",
+      "to": "creator:ownerglowlab",
+      "type": "authored_by"
+    },
+    {
+      "from": "video:7642000000000000001",
+      "to": "creator:ownerglowlab",
+      "type": "authored_by"
+    },
+    {
+      "from": "video:7642000000000000002",
+      "to": "creator:ownerglowlab",
+      "type": "authored_by"
+    },
+    {
+      "from": "video:7642000000000000003",
+      "to": "creator:ownerglowlab",
+      "type": "authored_by"
+    },
+    {
+      "from": "video:7641000000000000001",
+      "to": "video:7641000000000000002",
+      "type": "shared_creator_cluster"
+    },
+    {
+      "from": "video:7641000000000000002",
+      "to": "video:7641000000000000003",
+      "type": "shared_creator_cluster"
+    },
+    {
+      "from": "video:7641000000000000003",
+      "to": "video:7642000000000000001",
+      "type": "shared_creator_cluster"
+    },
+    {
+      "from": "video:7642000000000000001",
+      "to": "video:7642000000000000002",
+      "type": "shared_creator_cluster"
+    },
+    {
+      "from": "video:7642000000000000002",
+      "to": "video:7642000000000000003",
+      "type": "shared_creator_cluster"
+    }
+  ],
+  "shortlist_provenance": {
+    "7641000000000000001": [
+      "creator cluster (@ownerglowlab, 6 posts)",
+      "reuse-value rank #1"
+    ],
+    "7641000000000000002": [
+      "creator cluster (@ownerglowlab, 6 posts)",
+      "reuse-value rank #2"
+    ],
+    "7641000000000000003": [
+      "creator cluster (@ownerglowlab, 6 posts)",
+      "reuse-value rank #3"
+    ],
+    "7642000000000000001": [
+      "creator cluster (@ownerglowlab, 6 posts)",
+      "reuse-value rank #4"
+    ],
+    "7642000000000000002": [
+      "creator cluster (@ownerglowlab, 6 posts)",
+      "reuse-value rank #5"
+    ],
+    "7642000000000000003": [
+      "creator cluster (@ownerglowlab, 6 posts)",
+      "reuse-value rank #6"
+    ]
+  },
+  "cluster_summary": {
+    "creator_clusters": 1,
+    "sound_clusters": 0,
+    "hashtag_neighborhoods": 0,
+    "video_count": 6
+  }
+}
