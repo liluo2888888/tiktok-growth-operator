@@ -64,4 +64,6 @@
 | --- | --- |
 | `python scripts/validate_all_workflows.py` | durable 全量验证：scene preset、capture pack、导出、board 路由、`references/route-eval-fixtures.json` |
 | `python scripts/validate_export_outputs.py` | 仅验证 Markdown / DOCX / XLSX 导出（含场景 `11` 创意矩阵夹具） |
+| `python scripts/validate_delivery_adapters.py` | 验证 `local-bundle` 与无凭证时的 `feishu` 跳过行为 |
+| `python scripts/deliver_operator_run.py --run-root "<run>" --targets local-bundle` | 把一次 scene run 收成可分享的本地交付包 |
 | `python scripts/recommend_entry_board.py --query "<request>" --format json` | 单独调试 board 路由语料 |

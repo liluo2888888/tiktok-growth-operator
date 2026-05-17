@@ -432,15 +432,30 @@ def build_delta(current_rows: list[dict], previous_snapshot: dict, *, alert_like
             )
 
     repeated_hooks = build_repeated_hooks(current_rows)
+    breakout_keys = {
+        clean_text(item.get("video_id") or item.get("video_url"))
+        for item in breakout_videos
+        if clean_text(item.get("video_id") or item.get("video_url"))
+    }
+    rising_videos = [
+        item
+        for item in changed_videos
+        if clean_text(item.get("video_id") or item.get("video_url")) not in breakout_keys
+    ]
+    rising_videos.sort(
+        key=lambda item: (safe_int(item.get("like_jump")), safe_int(item.get("score_jump"))),
+        reverse=True,
+    )
     return {
         "previous_snapshot_at": clean_text(previous_snapshot.get("snapshot_at")),
         "current_snapshot_count": len(current_rows),
         "previous_snapshot_count": len(previous_rows),
         "new_videos": new_videos,
         "changed_videos": changed_videos,
+        "rising_videos": rising_videos,
         "breakout_videos": breakout_videos,
         "repeated_hooks": repeated_hooks,
-        "summary_change": f"{len(new_videos)} new videos, {len(changed_videos)} positive movers",
+        "summary_change": f"{len(new_videos)} new videos, {len(changed_videos)} positive movers, {len(rising_videos)} mild risers",
         "summary_breakout": f"{len(breakout_videos)} videos crossed breakout thresholds",
         "watch_tomorrow": "Watch whether today's repeated hooks persist or collapse in the next cycle",
     }
@@ -484,7 +499,84 @@ def build_alerts(delta: dict) -> list[dict]:
                 "next_action": "Review in Scene 03 only if the examples also carry strong proof.",
             }
         )
+    for item in (delta.get("rising_videos") or [])[:2]:
+        alerts.append(
+            {
+                "alert_type": "rising_video",
+                "signal": "Mild rise",
+                "label": clean_text(item.get("video_id") or item.get("video_url")),
+                "detail": f"like_jump={safe_int(item.get('like_jump'))}, score_jump={safe_int(item.get('score_jump'))}",
+                "meaning": "A tracked post is gaining but has not crossed the breakout threshold yet.",
+                "follow_up": "Keep it on the same board and re-check on the next patrol cycle before escalating.",
+                "next_action": "Watch one more cycle; escalate only if acceleration continues.",
+            }
+        )
     return alerts
+
+
+def build_watchlist_board(
+    *,
+    capture_date: str,
+    snapshot_at: str,
+    queries: list[str],
+    topics: list[str],
+    ranked_rows: list[dict],
+    append_scope_key: str,
+) -> dict:
+    entries: list[dict] = []
+    for query in queries:
+        text = clean_text(query)
+        if text:
+            entries.append(
+                {
+                    "entry_kind": "search query",
+                    "keyword_or_topic": text,
+                    "source_kind": "search",
+                    "priority": "P1",
+                    "capture_date": capture_date,
+                    "snapshot_at": snapshot_at,
+                    "append_scope_key": append_scope_key,
+                }
+            )
+    for topic in topics:
+        text = clean_text(topic)
+        if text:
+            entries.append(
+                {
+                    "entry_kind": "topic tag",
+                    "keyword_or_topic": f"#{text.lstrip('#')}",
+                    "source_kind": "topic",
+                    "priority": "P1",
+                    "capture_date": capture_date,
+                    "snapshot_at": snapshot_at,
+                    "append_scope_key": append_scope_key,
+                }
+            )
+    for row in ranked_rows[:6]:
+        entries.append(
+            {
+                "entry_kind": "tracked video",
+                "keyword_or_topic": clean_text(row.get("source_label")) or "ranked pool",
+                "video_url": clean_text(row.get("video_url")),
+                "video_id": clean_text(row.get("video_id")),
+                "score": safe_int(row.get("score")),
+                "digg_count": safe_int(row.get("digg_count")),
+                "comment_count": safe_int(row.get("comment_count")),
+                "share_count": safe_int(row.get("share_count")),
+                "shortlist_status": "tracked",
+                "scene03_dispatch": "pending",
+                "capture_date": capture_date,
+                "snapshot_at": snapshot_at,
+                "append_scope_key": append_scope_key,
+            }
+        )
+    return {
+        "capture_date": capture_date,
+        "snapshot_at": snapshot_at,
+        "append_scope_key": append_scope_key,
+        "append_mode": "append_to_same_board",
+        "entries": entries,
+    }
 
 
 def scene03_candidates(rows: list[dict], delta: dict, *, scene03_count: int, min_likes: int) -> list[dict]:
@@ -579,7 +671,17 @@ def write_capture_pack(
     shortlist_count: int,
 ) -> dict:
     snapshot_at = datetime.now().isoformat(timespec="seconds")
+    capture_date = snapshot_at[:10]
+    append_scope_key = f"{category}::{market}::{cadence}"
     tracked = build_tracked_videos(ranked_rows, cadence=cadence, shortlist_count=shortlist_count)
+    watchlist_board = build_watchlist_board(
+        capture_date=capture_date,
+        snapshot_at=snapshot_at,
+        queries=queries,
+        topics=topics,
+        ranked_rows=ranked_rows,
+        append_scope_key=append_scope_key,
+    )
     snapshot = {
         "snapshot_at": snapshot_at,
         "category": category,
@@ -613,7 +715,8 @@ def write_capture_pack(
         "min_likes": min_likes,
         "output_root": str(capture_root),
         "append_mode": "append_to_same_board",
-        "append_scope_key": f"{category}::{market}::{cadence}",
+        "append_scope_key": append_scope_key,
+        "capture_date": capture_date,
     }
     summary = {
         "checked_at": snapshot_at,
@@ -640,18 +743,27 @@ def write_capture_pack(
     write_json_file(capture_root / "patrol_alerts.json", alerts)
     write_json_file(capture_root / "scene03_candidates.json", scene03_rows)
     write_json_file(capture_root / "source_manifest.json", source_manifest)
+    write_json_file(capture_root / "watchlist_board.json", watchlist_board)
     write_json_file(
         capture_root / "patrol_config.json",
         {
             "category": category,
             "market": market,
             "cadence": cadence,
+            "capture_date": capture_date,
+            "snapshot_at": snapshot_at,
+            "board_header": {
+                "append_scope_key": append_scope_key,
+                "capture_date": capture_date,
+                "queries": queries,
+                "topics": topics,
+            },
             "queries": queries,
             "topics": topics,
             "min_likes": min_likes,
             "shortlist_count": shortlist_count,
             "append_mode": "append_to_same_board",
-            "append_scope_key": f"{category}::{market}::{cadence}",
+            "append_scope_key": append_scope_key,
             "append_strategy": "append each patrol run into the same logical board keyed by category + market + cadence",
             "append_columns": [
                 "capture_date",
@@ -684,6 +796,7 @@ def write_capture_pack(
                 f"- current ranked rows: `{len(ranked_rows)}`",
                 f"- new videos: `{len(delta.get('new_videos') or [])}`",
                 f"- breakout videos: `{len(delta.get('breakout_videos') or [])}`",
+                f"- rising videos (sub-breakout): `{len(delta.get('rising_videos') or [])}`",
                 f"- scene03 candidates: `{len(scene03_rows)}`",
                 f"- previous snapshot: `{clean_text(previous_snapshot.get('snapshot_at')) or 'none'}`",
             ]

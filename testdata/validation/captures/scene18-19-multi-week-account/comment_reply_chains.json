@@ -1,0 +1,317 @@
+[
+  {
+    "video_id": "7617000000000000001",
+    "video_url": "https://www.tiktok.com/@mustsharebeauty/video/7617000000000000001",
+    "theme": "一般反应",
+    "cluster_type": "好评关键词",
+    "source_product": "mustsharebeauty-week17-before-after",
+    "reply_pressure": 17,
+    "top_level_quotes": [
+      "The first two seconds sold me. I knew exactly why I should keep watching.",
+      "This format is way easier to save because the result is obvious immediately."
+    ],
+    "reply_quotes": [],
+    "member_count": 2,
+    "anchor_entry": {
+      "comment_id": "mw-c-007",
+      "video_id": "7617000000000000001",
+      "video_url": "https://www.tiktok.com/@mustsharebeauty/video/7617000000000000001",
+      "text": "The first two seconds sold me. I knew exactly why I should keep watching.",
+      "raw_text": "The first two seconds sold me. I knew exactly why I should keep watching.",
+      "digg_count": 203,
+      "reply_comment_total": 12,
+      "nickname": "hookwatcher",
+      "unique_id": "hookwatcher",
+      "source_product": "mustsharebeauty-week17-before-after",
+      "sample_kind": "top_level",
+      "reply_summary": "",
+      "is_reply": false,
+      "comment_language": "en",
+      "author_verified": false,
+      "high_purchase_intent": false,
+      "quote_text": "The first two seconds sold me. I knew exactly why I should keep watching.",
+      "canonical_text": "top:the first two seconds sold me i knew exactly why i should keep watching",
+      "duplicate_count": 1,
+      "source_products": [
+        "mustsharebeauty-week17-before-after"
+      ],
+      "comment_languages": [
+        "en"
+      ],
+      "sample_kinds": [
+        "top_level"
+      ],
+      "theme": "一般反应",
+      "cluster_type": "好评关键词",
+      "price_band": "不明确",
+      "reply_signal": "回复链活跃（12 条回复），已经足够视为真实的购买前确认或异议处理信号。",
+      "signal_tier": "high"
+    },
+    "top_level_excerpt": "The first two seconds sold me. I knew exactly why I should keep watching.",
+    "reply_excerpt": "The first two seconds sold me. I knew exactly why I should keep watching.",
+    "synthesis": "回复链活跃（12 条回复），已经足够视为真实的购买前确认或异议处理信号。",
+    "signal_role": "好评关键词"
+  },
+  {
+    "video_id": "7617000000000000003",
+    "video_url": "https://www.tiktok.com/@mustsharebeauty/video/7617000000000000003",
+    "theme": "购买意向",
+    "cluster_type": "购买因素",
+    "source_product": "mustsharebeauty-week17-dual-light",
+    "reply_pressure": 15,
+    "top_level_quotes": [
+      "Indoor plus daylight is exactly the proof I needed before buying.",
+      "This is the first version that feels immediately buyable instead of just pretty."
+    ],
+    "reply_quotes": [],
+    "member_count": 2,
+    "anchor_entry": {
+      "comment_id": "mw-c-010",
+      "video_id": "7617000000000000003",
+      "video_url": "https://www.tiktok.com/@mustsharebeauty/video/7617000000000000003",
+      "text": "Indoor plus daylight is exactly the proof I needed before buying.",
+      "raw_text": "Indoor plus daylight is exactly the proof I needed before buying.",
+      "digg_count": 166,
+      "reply_comment_total": 11,
+      "nickname": "daylightdecider",
+      "unique_id": "daylightdecider",
+      "source_product": "mustsharebeauty-week17-dual-light",
+      "sample_kind": "top_level",
+      "reply_summary": "",
+      "is_reply": false,
+      "comment_language": "en",
+      "author_verified": false,
+      "high_purchase_intent": true,
+      "quote_text": "Indoor plus daylight is exactly the proof I needed before buying.",
+      "canonical_text": "top:indoor plus daylight is exactly the proof i needed before buying",
+      "duplicate_count": 1,
+      "source_products": [
+        "mustsharebeauty-week17-dual-light"
+      ],
+      "comment_languages": [
+        "en"
+      ],
+      "sample_kinds": [
+        "top_level"
+      ],
+      "theme": "购买意向",
+      "cluster_type": "购买因素",
+      "price_band": "不明确",
+      "reply_signal": "回复链活跃（11 条回复），已经足够视为真实的购买前确认或异议处理信号。",
+      "signal_tier": "high"
+    },
+    "top_level_excerpt": "Indoor plus daylight is exactly the proof I needed before buying.",
+    "reply_excerpt": "Indoor plus daylight is exactly the proof I needed before buying.",
+    "synthesis": "回复链活跃（11 条回复），已经足够视为真实的购买前确认或异议处理信号。",
+    "signal_role": "购买因素"
+  },
+  {
+    "video_id": "7617000000000000001",
+    "video_url": "https://www.tiktok.com/@mustsharebeauty/video/7617000000000000001",
+    "theme": "shade / 色号适配",
+    "cluster_type": "购买因素",
+    "source_product": "mustsharebeauty-week17-before-after",
+    "reply_pressure": 10,
+    "top_level_quotes": [],
+    "reply_quotes": [
+      "Thank you for showing the before after first and then the final shade close-up."
+    ],
+    "member_count": 1,
+    "anchor_entry": {
+      "comment_id": "mw-c-008",
+      "video_id": "7617000000000000001",
+      "video_url": "https://www.tiktok.com/@mustsharebeauty/video/7617000000000000001",
+      "text": "Thank you for showing the before after first and then the final shade close-up.",
+      "raw_text": "Thank you for showing the before after first and then the final shade close-up.",
+      "digg_count": 187,
+      "reply_comment_total": 10,
+      "nickname": "prooffirstplease",
+      "unique_id": "prooffirstplease",
+      "source_product": "mustsharebeauty-week17-before-after",
+      "sample_kind": "reply",
+      "reply_summary": "Positive reply-chain centers on fast proof and clarity.",
+      "is_reply": true,
+      "comment_language": "en",
+      "author_verified": false,
+      "high_purchase_intent": true,
+      "quote_text": "Thank you for showing the before after first and then the final shade close-up.",
+      "canonical_text": "reply:thank you for showing the before after first and then the final shade close up",
+      "duplicate_count": 1,
+      "source_products": [
+        "mustsharebeauty-week17-before-after"
+      ],
+      "comment_languages": [
+        "en"
+      ],
+      "sample_kinds": [
+        "reply"
+      ],
+      "theme": "shade / 色号适配",
+      "cluster_type": "购买因素",
+      "price_band": "不明确",
+      "reply_signal": "Positive reply-chain centers on fast proof and clarity.",
+      "signal_tier": "high"
+    },
+    "top_level_excerpt": "",
+    "reply_excerpt": "Thank you for showing the before after first and then the final shade close-up.",
+    "synthesis": "Positive reply-chain centers on fast proof and clarity.",
+    "signal_role": "购买因素"
+  },
+  {
+    "video_id": "7616000000000000001",
+    "video_url": "https://www.tiktok.com/@mustsharebeauty/video/7616000000000000001",
+    "theme": "一般反应",
+    "cluster_type": "好评关键词",
+    "source_product": "mustsharebeauty-week16-soft-intro",
+    "reply_pressure": 9,
+    "top_level_quotes": [
+      "Pretty result but I had to wait too long to understand the point.",
+      "Too much story before the proof for me."
+    ],
+    "reply_quotes": [],
+    "member_count": 2,
+    "anchor_entry": {
+      "comment_id": "mw-c-001",
+      "video_id": "7616000000000000001",
+      "video_url": "https://www.tiktok.com/@mustsharebeauty/video/7616000000000000001",
+      "text": "Pretty result but I had to wait too long to understand the point.",
+      "raw_text": "Pretty result but I had to wait too long to understand the point.",
+      "digg_count": 74,
+      "reply_comment_total": 6,
+      "nickname": "glowtestdaily",
+      "unique_id": "glowtestdaily",
+      "source_product": "mustsharebeauty-week16-soft-intro",
+      "sample_kind": "top_level",
+      "reply_summary": "",
+      "is_reply": false,
+      "comment_language": "en",
+      "author_verified": false,
+      "high_purchase_intent": false,
+      "quote_text": "Pretty result but I had to wait too long to understand the point.",
+      "canonical_text": "top:pretty result but i had to wait too long to understand the point",
+      "duplicate_count": 1,
+      "source_products": [
+        "mustsharebeauty-week16-soft-intro"
+      ],
+      "comment_languages": [
+        "en"
+      ],
+      "sample_kinds": [
+        "top_level"
+      ],
+      "theme": "一般反应",
+      "cluster_type": "好评关键词",
+      "price_band": "不明确",
+      "reply_signal": "有一定回复链活动（6 条回复），值得继续检查追问、补充证据和售后语言。",
+      "signal_tier": "high"
+    },
+    "top_level_excerpt": "Pretty result but I had to wait too long to understand the point.",
+    "reply_excerpt": "Pretty result but I had to wait too long to understand the point.",
+    "synthesis": "有一定回复链活动（6 条回复），值得继续检查追问、补充证据和售后语言。",
+    "signal_role": "好评关键词"
+  },
+  {
+    "video_id": "7616000000000000001",
+    "video_url": "https://www.tiktok.com/@mustsharebeauty/video/7616000000000000001",
+    "theme": "shade / 色号适配",
+    "cluster_type": "购买因素",
+    "source_product": "mustsharebeauty-week16-soft-intro",
+    "reply_pressure": 9,
+    "top_level_quotes": [],
+    "reply_quotes": [
+      "Can you show it in daylight first next time? Indoor light hides the real shade."
+    ],
+    "member_count": 1,
+    "anchor_entry": {
+      "comment_id": "mw-c-002",
+      "video_id": "7616000000000000001",
+      "video_url": "https://www.tiktok.com/@mustsharebeauty/video/7616000000000000001",
+      "text": "Can you show it in daylight first next time? Indoor light hides the real shade.",
+      "raw_text": "Can you show it in daylight first next time? Indoor light hides the real shade.",
+      "digg_count": 58,
+      "reply_comment_total": 9,
+      "nickname": "shadecheck88",
+      "unique_id": "shadecheck88",
+      "source_product": "mustsharebeauty-week16-soft-intro",
+      "sample_kind": "reply",
+      "reply_summary": "Daylight proof request repeats across the thread.",
+      "is_reply": true,
+      "comment_language": "en",
+      "author_verified": false,
+      "high_purchase_intent": true,
+      "quote_text": "Can you show it in daylight first next time? Indoor light hides the real shade.",
+      "canonical_text": "reply:can you show it in daylight first next time indoor light hides the real shade",
+      "duplicate_count": 1,
+      "source_products": [
+        "mustsharebeauty-week16-soft-intro"
+      ],
+      "comment_languages": [
+        "en"
+      ],
+      "sample_kinds": [
+        "reply"
+      ],
+      "theme": "shade / 色号适配",
+      "cluster_type": "购买因素",
+      "price_band": "不明确",
+      "reply_signal": "Daylight proof request repeats across the thread.",
+      "signal_tier": "high"
+    },
+    "top_level_excerpt": "",
+    "reply_excerpt": "Can you show it in daylight first next time? Indoor light hides the real shade.",
+    "synthesis": "Daylight proof request repeats across the thread.",
+    "signal_role": "购买因素"
+  },
+  {
+    "video_id": "7617000000000000003",
+    "video_url": "https://www.tiktok.com/@mustsharebeauty/video/7617000000000000003",
+    "theme": "一般反应",
+    "cluster_type": "好评关键词",
+    "source_product": "mustsharebeauty-week17-dual-light",
+    "reply_pressure": 8,
+    "top_level_quotes": [],
+    "reply_quotes": [
+      "More trust in this one because you answered the wear question inside the video."
+    ],
+    "member_count": 1,
+    "anchor_entry": {
+      "comment_id": "mw-c-011",
+      "video_id": "7617000000000000003",
+      "video_url": "https://www.tiktok.com/@mustsharebeauty/video/7617000000000000003",
+      "text": "More trust in this one because you answered the wear question inside the video.",
+      "raw_text": "More trust in this one because you answered the wear question inside the video.",
+      "digg_count": 139,
+      "reply_comment_total": 8,
+      "nickname": "weartrust88",
+      "unique_id": "weartrust88",
+      "source_product": "mustsharebeauty-week17-dual-light",
+      "sample_kind": "reply",
+      "reply_summary": "Reply-chain shifts from skepticism to trust when wear proof is included.",
+      "is_reply": true,
+      "comment_language": "en",
+      "author_verified": false,
+      "high_purchase_intent": true,
+      "quote_text": "More trust in this one because you answered the wear question inside the video.",
+      "canonical_text": "reply:more trust in this one because you answered the wear question inside the video",
+      "duplicate_count": 1,
+      "source_products": [
+        "mustsharebeauty-week17-dual-light"
+      ],
+      "comment_languages": [
+        "en"
+      ],
+      "sample_kinds": [
+        "reply"
+      ],
+      "theme": "一般反应",
+      "cluster_type": "好评关键词",
+      "price_band": "不明确",
+      "reply_signal": "Reply-chain shifts from skepticism to trust when wear proof is included.",
+      "signal_tier": "high"
+    },
+    "top_level_excerpt": "",
+    "reply_excerpt": "More trust in this one because you answered the wear question inside the video.",
+    "synthesis": "Reply-chain shifts from skepticism to trust when wear proof is included.",
+    "signal_role": "好评关键词"
+  }
+]

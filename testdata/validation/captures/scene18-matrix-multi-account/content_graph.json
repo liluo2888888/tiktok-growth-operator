@@ -1,0 +1,272 @@
+{
+  "version": "1.0",
+  "node_count": 15,
+  "edge_count": 21,
+  "nodes": [
+    {
+      "id": "video:7618100000000000001",
+      "type": "video",
+      "label": "Soft GRWM intro before any payoff. Pretty but too slow to identify.",
+      "video_id": "7618100000000000001",
+      "video_url": "https://www.tiktok.com/@mustsharebeauty/video/7618100000000000001"
+    },
+    {
+      "id": "video:7618100000000000002",
+      "type": "video",
+      "label": "Shade story lands, but daylight proof comes too late.",
+      "video_id": "7618100000000000002",
+      "video_url": "https://www.tiktok.com/@mustsharebeauty/video/7618100000000000002"
+    },
+    {
+      "id": "video:7618200000000000001",
+      "type": "video",
+      "label": "Before-after lands in the first frame with immediate shade context.",
+      "video_id": "7618200000000000001",
+      "video_url": "https://www.tiktok.com/@mustsharebeauty/video/7618200000000000001"
+    },
+    {
+      "id": "video:7618200000000000002",
+      "type": "video",
+      "label": "Problem face to proof payoff with cleaner trust layer.",
+      "video_id": "7618200000000000002",
+      "video_url": "https://www.tiktok.com/@mustsharebeauty/video/7618200000000000002"
+    },
+    {
+      "id": "video:7618300000000000001",
+      "type": "video",
+      "label": "Texture-first explainer. Educational but not immediately clickable.",
+      "video_id": "7618300000000000001",
+      "video_url": "https://www.tiktok.com/@velvetglowlab/video/7618300000000000001"
+    },
+    {
+      "id": "video:7618300000000000002",
+      "type": "video",
+      "label": "Long setup on ingredients before showing any result.",
+      "video_id": "7618300000000000002",
+      "video_url": "https://www.tiktok.com/@velvetglowlab/video/7618300000000000002"
+    },
+    {
+      "id": "video:7618400000000000001",
+      "type": "video",
+      "label": "Split-screen result payoff appears early and gets the point across fast…",
+      "video_id": "7618400000000000001",
+      "video_url": "https://www.tiktok.com/@velvetglowlab/video/7618400000000000001"
+    },
+    {
+      "id": "video:7618400000000000002",
+      "type": "video",
+      "label": "Comparison hook plus quick proof beats lowers confusion in comments.",
+      "video_id": "7618400000000000002",
+      "video_url": "https://www.tiktok.com/@velvetglowlab/video/7618400000000000002"
+    },
+    {
+      "id": "video:7618500000000000001",
+      "type": "video",
+      "label": "Creator talks through feelings first, proof second. Warm but weak for s…",
+      "video_id": "7618500000000000001",
+      "video_url": "https://www.tiktok.com/@lipstorydaily/video/7618500000000000001"
+    },
+    {
+      "id": "video:7618500000000000002",
+      "type": "video",
+      "label": "Narrative voice is strong, but the result reveal needs to happen earlie…",
+      "video_id": "7618500000000000002",
+      "video_url": "https://www.tiktok.com/@lipstorydaily/video/7618500000000000002"
+    },
+    {
+      "id": "video:7618600000000000001",
+      "type": "video",
+      "label": "Packaging shifts toward proof-first with clearer close-up and result fr…",
+      "video_id": "7618600000000000001",
+      "video_url": "https://www.tiktok.com/@lipstorydaily/video/7618600000000000001"
+    },
+    {
+      "id": "video:7618600000000000002",
+      "type": "video",
+      "label": "Dual-light proof plus short wear note increases trust without long expl…",
+      "video_id": "7618600000000000002",
+      "video_url": "https://www.tiktok.com/@lipstorydaily/video/7618600000000000002"
+    },
+    {
+      "id": "creator:mustsharebeauty",
+      "type": "creator",
+      "label": "mustsharebeauty",
+      "member_count": 4
+    },
+    {
+      "id": "creator:velvetglowlab",
+      "type": "creator",
+      "label": "velvetglowlab",
+      "member_count": 4
+    },
+    {
+      "id": "creator:lipstorydaily",
+      "type": "creator",
+      "label": "lipstorydaily",
+      "member_count": 4
+    }
+  ],
+  "edges": [
+    {
+      "from": "video:7618100000000000001",
+      "to": "creator:mustsharebeauty",
+      "type": "authored_by"
+    },
+    {
+      "from": "video:7618100000000000002",
+      "to": "creator:mustsharebeauty",
+      "type": "authored_by"
+    },
+    {
+      "from": "video:7618200000000000001",
+      "to": "creator:mustsharebeauty",
+      "type": "authored_by"
+    },
+    {
+      "from": "video:7618200000000000002",
+      "to": "creator:mustsharebeauty",
+      "type": "authored_by"
+    },
+    {
+      "from": "video:7618300000000000001",
+      "to": "creator:velvetglowlab",
+      "type": "authored_by"
+    },
+    {
+      "from": "video:7618300000000000002",
+      "to": "creator:velvetglowlab",
+      "type": "authored_by"
+    },
+    {
+      "from": "video:7618400000000000001",
+      "to": "creator:velvetglowlab",
+      "type": "authored_by"
+    },
+    {
+      "from": "video:7618400000000000002",
+      "to": "creator:velvetglowlab",
+      "type": "authored_by"
+    },
+    {
+      "from": "video:7618500000000000001",
+      "to": "creator:lipstorydaily",
+      "type": "authored_by"
+    },
+    {
+      "from": "video:7618500000000000002",
+      "to": "creator:lipstorydaily",
+      "type": "authored_by"
+    },
+    {
+      "from": "video:7618600000000000001",
+      "to": "creator:lipstorydaily",
+      "type": "authored_by"
+    },
+    {
+      "from": "video:7618600000000000002",
+      "to": "creator:lipstorydaily",
+      "type": "authored_by"
+    },
+    {
+      "from": "video:7618100000000000001",
+      "to": "video:7618100000000000002",
+      "type": "shared_creator_cluster"
+    },
+    {
+      "from": "video:7618100000000000002",
+      "to": "video:7618200000000000001",
+      "type": "shared_creator_cluster"
+    },
+    {
+      "from": "video:7618200000000000001",
+      "to": "video:7618200000000000002",
+      "type": "shared_creator_cluster"
+    },
+    {
+      "from": "video:7618300000000000001",
+      "to": "video:7618300000000000002",
+      "type": "shared_creator_cluster"
+    },
+    {
+      "from": "video:7618300000000000002",
+      "to": "video:7618400000000000001",
+      "type": "shared_creator_cluster"
+    },
+    {
+      "from": "video:7618400000000000001",
+      "to": "video:7618400000000000002",
+      "type": "shared_creator_cluster"
+    },
+    {
+      "from": "video:7618500000000000001",
+      "to": "video:7618500000000000002",
+      "type": "shared_creator_cluster"
+    },
+    {
+      "from": "video:7618500000000000002",
+      "to": "video:7618600000000000001",
+      "type": "shared_creator_cluster"
+    },
+    {
+      "from": "video:7618600000000000001",
+      "to": "video:7618600000000000002",
+      "type": "shared_creator_cluster"
+    }
+  ],
+  "shortlist_provenance": {
+    "7618100000000000001": [
+      "creator cluster (@mustsharebeauty, 4 posts)",
+      "reuse-value rank #1"
+    ],
+    "7618100000000000002": [
+      "creator cluster (@mustsharebeauty, 4 posts)",
+      "reuse-value rank #2"
+    ],
+    "7618200000000000001": [
+      "creator cluster (@mustsharebeauty, 4 posts)",
+      "reuse-value rank #3"
+    ],
+    "7618200000000000002": [
+      "creator cluster (@mustsharebeauty, 4 posts)",
+      "reuse-value rank #4"
+    ],
+    "7618300000000000001": [
+      "creator cluster (@velvetglowlab, 4 posts)",
+      "reuse-value rank #5"
+    ],
+    "7618300000000000002": [
+      "creator cluster (@velvetglowlab, 4 posts)",
+      "reuse-value rank #6"
+    ],
+    "7618400000000000001": [
+      "creator cluster (@velvetglowlab, 4 posts)",
+      "reuse-value rank #7"
+    ],
+    "7618400000000000002": [
+      "creator cluster (@velvetglowlab, 4 posts)",
+      "reuse-value rank #8"
+    ],
+    "7618500000000000001": [
+      "creator cluster (@lipstorydaily, 4 posts)",
+      "reuse-value rank #9"
+    ],
+    "7618500000000000002": [
+      "creator cluster (@lipstorydaily, 4 posts)",
+      "reuse-value rank #10"
+    ],
+    "7618600000000000001": [
+      "creator cluster (@lipstorydaily, 4 posts)",
+      "reuse-value rank #11"
+    ],
+    "7618600000000000002": [
+      "creator cluster (@lipstorydaily, 4 posts)",
+      "reuse-value rank #12"
+    ]
+  },
+  "cluster_summary": {
+    "creator_clusters": 3,
+    "sound_clusters": 0,
+    "hashtag_neighborhoods": 0,
+    "video_count": 12
+  }
+}

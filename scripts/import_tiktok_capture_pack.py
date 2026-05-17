@@ -180,11 +180,22 @@ def load_pack_files(capture_root: Path) -> tuple[dict, dict, list[dict], list[di
         ranked_videos = merge_detail_rows(ranked_videos)
         qualified_videos = merge_detail_rows(qualified_videos)
 
+    from content_graph import ensure_pack_content_graph
+    from reuse_value_scoring import align_qualified_to_ranked, apply_reuse_value_scoring
+
+    ranked_list = ranked_videos if isinstance(ranked_videos, list) else []
+    qualified_list = qualified_videos if isinstance(qualified_videos, list) else []
+    if ranked_list:
+        ranked_list[:] = apply_reuse_value_scoring(ranked_list)
+    if qualified_list and ranked_list:
+        qualified_list[:] = align_qualified_to_ranked(ranked_list, qualified_list)
+    ensure_pack_content_graph(capture_root, ranked_list, qualified_list)
+
     return (
         aggregate_summary if isinstance(aggregate_summary, dict) else {},
         profile_summary if isinstance(profile_summary, dict) else {},
-        ranked_videos if isinstance(ranked_videos, list) else [],
-        qualified_videos if isinstance(qualified_videos, list) else [],
+        ranked_list,
+        qualified_list,
     )
 
 
@@ -627,6 +638,39 @@ def scene02_candidate_owner(entry: dict) -> str:
     if lane == "选题 / 角度拆解":
         return "研究 / 策略"
     return "运营 / 策略"
+
+
+def build_scene02_watchlist_rows(
+    queries: list[object],
+    topics: list[object],
+    source_manifest: list[dict],
+) -> list[list[str]]:
+    rows: list[list[str]] = []
+    for query in queries:
+        text = clean_text(query)
+        if text:
+            rows.append(["search query", text, "search", "P1", "固定关键词入口", "每日复用同一查询词", "是"])
+    for topic in topics:
+        text = clean_text(topic)
+        if text:
+            rows.append(["topic tag", f"#{text.lstrip('#')}", "topic", "P1", "固定话题入口", "每日复用同一话题标签", "是"])
+    for item in source_manifest[:4]:
+        if not isinstance(item, dict):
+            continue
+        rows.append(
+            [
+                clean_text(item.get("source_kind")) or "source",
+                clean_text(item.get("source_label")) or "未命名来源",
+                clean_text(item.get("source_kind")) or "mixed",
+                "P2",
+                f"本轮采集 {safe_int(item.get('item_count'))} 条",
+                f"metadata={safe_int(item.get('metadata_count'))}",
+                "视排名决定",
+            ]
+        )
+    if not rows:
+        rows.append(["watch item", "待补关键词或话题", "search", "P1", "先锁定品类入口", "下轮开始追加到同一主表", "否"])
+    return rows[:8]
 
 
 def build_scene02_alert_rows(
@@ -1773,8 +1817,10 @@ def scene02_change_digest_rows(
     breakout_videos: list[dict],
     repeated_hooks: list[dict],
     next_scene03: list[dict],
+    rising_videos: list[dict] | None = None,
 ) -> list[list[str]]:
     rows: list[list[str]] = []
+    rising_videos = rising_videos or []
     if new_videos:
         top_new = new_videos[0]
         rows.append(
@@ -1796,6 +1842,16 @@ def scene02_change_digest_rows(
                 f"爆发或明显上升 {len(breakout_videos)} 条；代表样本：{clean_text(top_breakout.get('video_url') or top_breakout.get('video_id'))}",
                 compact_metric_snapshot(top_breakout) or ranked_metric_summary(top_breakout),
                 "是，进入深拆候选",
+            ]
+        )
+    elif rising_videos:
+        top_rising = rising_videos[0]
+        rows.append(
+            [
+                "今日温和上升",
+                f"有 {len(rising_videos)} 条指标在涨但未过爆发阈值；代表样本：{clean_text(top_rising.get('video_url') or top_rising.get('video_id'))}",
+                f"like_jump={safe_int(top_rising.get('like_jump'))}, score_jump={safe_int(top_rising.get('score_jump'))}",
+                "先观察一轮，若继续加速再进 Scene 03",
             ]
         )
     if alerts:
@@ -2180,6 +2236,8 @@ def scene17_high_low_compare_rows(high_video: dict, low_video: dict) -> list[lis
 
 
 def scene17_formula_library_rows(videos: list[dict]) -> list[list[str]]:
+    from content_graph import shortlist_provenance_cell
+
     rows: list[list[str]] = []
     for index, video in enumerate(videos[:3], start=1):
         lane = teardown_lane_label(video)
@@ -2197,7 +2255,7 @@ def scene17_formula_library_rows(videos: list[dict]) -> list[list[str]]:
                 hook_text(video) or display_cue_text(video, limit=80, fallback=video.get("desc")) or "原始钩子待补",
                 template,
                 scene17_publish_slot_label(video),
-                clean_text(video.get("video_url")) or f"creator-top-{index}",
+                f"{clean_text(video.get('video_url')) or f'creator-top-{index}'} | {shortlist_provenance_cell(video)}",
             ]
         )
     return rows
@@ -2454,414 +2512,24 @@ def infer_scene_from_capture_pack(ranked_videos: list[dict], qualified_videos: l
     raise SystemExit("Could not infer a scene from the capture pack. No ranked videos or comment samples were found.")
 
 
-def detect_theme(text: str) -> str:
-    lowered = text.lower()
-    if any(
-        token in lowered
-        for token in [
-            "shipping",
-            "arrived",
-            "delivery",
-            "package",
-            "packaging",
-            "damaged box",
-            "mailer",
-            "arrived crushed",
-            "slow shipping",
-            "broken seal",
-            "sealed",
-            "leaking",
-            "leaked",
-            "pilling",
-        ]
-    ):
-        return "物流 / 包装顾虑"
-    if any(token in lowered for token in ["fake", "authentic", "real or fake", "counterfeit", "dupe?", "real product", "original or fake"]):
-        return "真假 / 正品顾虑"
-    if any(
-        token in lowered
-        for token in ["shade", "undertone", "tone match", "my skin tone", "which color", "which shade", "olive-friendly", "oxidiz", "pull too peach"]
-    ):
-        return "shade / 色号适配"
-    if any(token in lowered for token in ["return", "refund", "send it back", "returned", "exchange", "money back"]):
-        return "退货 / 退款顾虑"
-    if any(
-        token in lowered
-        for token in ["before and after", "before/after", "results after", "did this work", "worked for me", "daylight proof", "texture closeups", "morning clip"]
-    ):
-        return "前后对比证明"
-    if "ai remix" in lowered or "ai " in lowered:
-        return "AI 控制 / 隐私顾虑"
-    if "verified" in lowered or "verification" in lowered:
-        return "认证 / 可信度"
-    if "support" in lowered:
-        return "售后 / 求助需求"
-    if "watching tiktok on tiktok" in lowered or "tiktok posting on tiktok" in lowered:
-        return "平台自反应"
-    if "turn off" in lowered or "opt out" in lowered or "remove" in lowered:
-        return "关闭功能 / 用户控制"
-    if "price" in lowered or "expensive" in lowered or "cheap" in lowered or "worth" in lowered:
-        return "价格 / 性价比顾虑"
-    if "buy" in lowered or "need" in lowered or "want" in lowered or "where" in lowered:
-        return "购买意向"
-    if any(token in lowered for token in ["watched it twice", "watch it twice", "can't stop", "so beautiful", "hermosos", "laughed", "smiled"]):
-        return "反复观看 / 愉悦感"
-    if any(token in lowered for token in ["cartoons used to be", "how old are we", "childhood", "used to be", "remember this"]):
-        return "怀旧反应"
-    return "一般反应"
+from comment_pipeline import (
+    build_comment_cluster_rows,
+    build_scene08_price_band_rows,
+    build_scene08_source_product_rows,
+    clean_comment_entries,
+    comment_signal_snapshot,
+    ensure_comment_pack_artifacts,
+    scene08_cluster_note,
+    scene08_reply_chain_line,
+    scene08_reply_chain_synthesis,
+    summarize_comment_clusters,
+    summarize_reply_patterns,
+)
 
 
-COMMENT_NOISE_PATTERNS = [
-    re.compile(r"^[\W_]+$"),
-    re.compile(r"^(ha)+$", re.IGNORECASE),
-    re.compile(r"^(lol)+$", re.IGNORECASE),
-]
-
-
-def normalize_comment_text(text: str) -> str:
-    compact = unicodedata.normalize("NFKC", clean_text(text))
-    compact = " ".join(compact.split())
-    compact = strip_display_noise(compact)
-    for token in ["棣冦亙", "馃槀", "馃ぃ", "馃槶", "鉂わ笍", "鈾"]:
-        compact = compact.replace(token, "")
-    compact = re.sub(r"([!?.,])\1{2,}", r"\1", compact)
-    compact = re.sub(r"\b(\w{2,})(?:\s+\1\b)+", r"\1", compact, flags=re.IGNORECASE)
-    compact = compact.replace("  ", " ")
-    return compact.strip(" ,;:-")
-
-
-def is_low_signal_comment(text: str) -> bool:
-    normalized = normalize_comment_text(text)
-    if len(normalized) < 4:
-        return True
-    lowered = normalized.lower()
-    if lowered in {"lol", "haha", "omg", "wow", "same", "nice", "cool", "first"}:
-        return True
-    if any(token in lowered for token in ["follow me", "let be friends", "sub back", "friend me"]):
-        return True
-    return any(pattern.fullmatch(lowered) for pattern in COMMENT_NOISE_PATTERNS)
-
-
-def comment_cluster_type(theme: str) -> str:
-    if theme in {"购买意向", "价格 / 性价比顾虑", "shade / 色号适配", "前后对比证明"}:
-        return "购买因素"
-    if theme in {"AI 控制 / 隐私顾虑", "关闭功能 / 用户控制", "售后 / 求助需求", "物流 / 包装顾虑", "真假 / 正品顾虑", "退货 / 退款顾虑"}:
-        return "差评痛点"
-    if theme in {"认证 / 可信度"}:
-        return "信任信号"
-    return "好评关键词"
-
-
-def estimate_price_band(text: str) -> str:
-    lowered = text.lower()
-    if any(token in lowered for token in ["cheap", "affordable", "budget", "$", "price"]):
-        return "价格敏感"
-    if any(token in lowered for token in ["premium", "worth it", "expensive", "luxury", "high end", "splurge"]):
-        return "偏高端"
-    return "不明确"
-
-
-def synthesize_reply_signal(entry: dict) -> str:
-    reply_total = safe_int(entry.get("reply_comment_total"))
-    summary = clean_text(entry.get("reply_summary"))
-    if summary:
-        return summary
-    theme = clean_text(entry.get("theme"))
-    sample_kind = clean_text(entry.get("sample_kind"))
-    if sample_kind == "reply" and reply_total >= 1:
-        return f"这是直接回复样本，显示评论区已经在围绕“{theme or '该议题'}”做追问或经验补充。"
-    if reply_total >= 25 and theme in {"认证 / 可信度", "售后 / 求助需求", "关闭功能 / 用户控制", "价格 / 性价比顾虑", "购买意向", "物流 / 包装顾虑", "退货 / 退款顾虑"}:
-        return f"回复链压力较重（{reply_total} 条回复），大概率集中在质疑、追问、售后或下单前确认。"
-    if reply_total >= 8:
-        return f"回复链活跃（{reply_total} 条回复），已经足够视为真实的购买前确认或异议处理信号。"
-    if reply_total >= 3:
-        return f"有一定回复链活动（{reply_total} 条回复），值得继续检查追问、补充证据和售后语言。"
-    return "未恢复出有意义的回复链信号。"
-
-
-def canonical_comment_key(text: str) -> str:
-    normalized = normalize_comment_text(text).lower()
-    normalized = re.sub(r"[^\w\s]", " ", normalized)
-    normalized = re.sub(r"\s+", " ", normalized)
-    return normalized.strip()
-
-
-def clean_comment_entries(comment_entries: list[dict]) -> list[dict]:
-    aggregated: dict[str, dict] = {}
-    for entry in comment_entries:
-        raw_text = clean_text(entry.get("raw_text") or entry.get("text"))
-        normalized_text = normalize_comment_text(raw_text)
-        if not normalized_text or is_low_signal_comment(normalized_text):
-            continue
-        dedupe_key = canonical_comment_key(normalized_text)
-        if not dedupe_key:
-            continue
-        merged = aggregated.get(dedupe_key)
-        if merged is None:
-            merged = dict(entry)
-            merged["text"] = normalized_text
-            merged["quote_text"] = raw_text or normalized_text
-            merged["canonical_text"] = dedupe_key
-            merged["duplicate_count"] = 0
-            merged["source_products"] = []
-            merged["comment_languages"] = []
-            merged["sample_kinds"] = []
-            aggregated[dedupe_key] = merged
-        merged["duplicate_count"] += 1
-        if len(raw_text) > len(clean_text(merged.get("quote_text"))):
-            merged["quote_text"] = raw_text
-        merged["digg_count"] = max(safe_int(merged.get("digg_count")), safe_int(entry.get("digg_count")))
-        merged["reply_comment_total"] = max(safe_int(merged.get("reply_comment_total")), safe_int(entry.get("reply_comment_total")))
-        merged["author_verified"] = bool(merged.get("author_verified")) or bool(entry.get("author_verified"))
-        merged["high_purchase_intent"] = bool(merged.get("high_purchase_intent")) or bool(entry.get("high_purchase_intent"))
-        for key_name, field_name in [
-            ("source_products", "source_product"),
-            ("comment_languages", "comment_language"),
-            ("sample_kinds", "sample_kind"),
-        ]:
-            value = clean_text(entry.get(field_name))
-            if value and value not in merged[key_name]:
-                merged[key_name].append(value)
-        if not clean_text(merged.get("source_product")):
-            merged["source_product"] = clean_text(entry.get("source_product"))
-    cleaned = list(aggregated.values())
-    for merged in cleaned:
-        merged["theme"] = detect_theme(clean_text(merged.get("text")))
-        merged["cluster_type"] = comment_cluster_type(merged["theme"])
-        merged["price_band"] = estimate_price_band(" ".join([clean_text(merged.get("text")), clean_text(merged.get("reply_summary"))]))
-        merged["reply_signal"] = synthesize_reply_signal(merged)
-        merged["source_product"] = short_list_text(merged.get("source_products", []), limit=3) or clean_text(merged.get("source_product"))
-    cleaned.sort(
-        key=lambda item: (
-            safe_int(item.get("duplicate_count")),
-            safe_int(item.get("digg_count")),
-            safe_int(item.get("reply_comment_total")),
-            len(clean_text(item.get("text"))),
-        ),
-        reverse=True,
-    )
-    return cleaned
-
-
-def summarize_comment_clusters(comment_entries: list[dict]) -> list[dict]:
-    grouped: dict[tuple[str, str], dict] = {}
-    for entry in comment_entries:
-        cluster_type = clean_text(entry.get("cluster_type")) or "一般"
-        theme = clean_text(entry.get("theme")) or "一般反应"
-        key = (cluster_type, theme)
-        bucket = grouped.setdefault(
-            key,
-            {
-                "cluster_type": cluster_type,
-                "theme": theme,
-                "count": 0,
-                "top_entry": entry,
-                "source_products": [],
-                "price_bands": [],
-                "reply_signals": [],
-                "reply_pressure": 0,
-                "duplicate_count": 0,
-            },
-        )
-        bucket["count"] += max(1, safe_int(entry.get("duplicate_count")))
-        bucket["duplicate_count"] += max(1, safe_int(entry.get("duplicate_count")))
-        bucket["reply_pressure"] += safe_int(entry.get("reply_comment_total"))
-        if safe_int(entry.get("digg_count")) > safe_int(bucket["top_entry"].get("digg_count")):
-            bucket["top_entry"] = entry
-        source_product = clean_text(entry.get("source_product"))
-        if source_product and source_product not in bucket["source_products"]:
-            bucket["source_products"].append(source_product)
-        price_band = clean_text(entry.get("price_band"))
-        if price_band and price_band not in bucket["price_bands"]:
-            bucket["price_bands"].append(price_band)
-        reply_signal = clean_text(entry.get("reply_signal"))
-        if reply_signal and reply_signal not in bucket["reply_signals"]:
-            bucket["reply_signals"].append(reply_signal)
-    return sorted(
-        grouped.values(),
-        key=lambda item: (
-            safe_int(item.get("count")),
-            safe_int(item.get("reply_pressure")),
-            safe_int(item["top_entry"].get("digg_count")),
-        ),
-        reverse=True,
-    )
-
-
-def build_comment_cluster_rows(comment_entries: list[dict]) -> list[list[str]]:
-    rows: list[list[str]] = []
-    for cluster in summarize_comment_clusters(clean_comment_entries(comment_entries))[:6]:
-        entry = cluster["top_entry"]
-        reply_pressure = safe_int(cluster.get("reply_pressure"))
-        price_band = short_list_text(cluster.get("price_bands", []), limit=2) or "价格带待补"
-        implication = {
-            "AI 控制 / 隐私顾虑": "脚本里应直接回应用户控制权、退出阻力和信任问题。",
-            "认证 / 可信度": "用户会快速公开地读取账号或创作者的可信度线索。",
-            "售后 / 求助需求": "客服或评论区需要有快速响应这类问题的路径。",
-            "平台自反应": "这类平台自指反应能带来互动，但不等于购买意图。",
-            "关闭功能 / 用户控制": "用户需要更简单、直白的解决方式和指引。",
-            "价格 / 性价比顾虑": "需要更强的价格框架、价值证明或预期管理。",
-            "购买意向": "适合反哺 offer、FAQ 和转化角度设计。",
-            "反复观看 / 愉悦感": "这类愉悦表述可以反哺开头钩子和留存语言。",
-            "怀旧反应": "真正驱动反应的是识别感与记忆线索，而不只是功能解释。",
-            "一般反应": "除非它持续重复出现且更具体，否则先视为弱信号。",
-        }.get(cluster["theme"], "把这句重复出现的话翻译成可执行的运营或信息规则。")
-        rows.append(
-            [
-                cluster["cluster_type"],
-                sentence_clip(clean_text(entry.get("quote_text") or entry.get("text")), limit=120),
-                short_list_text(cluster.get("source_products", []), limit=3) or clean_text(entry.get("source_product")) or "来源待补",
-                (
-                    f"{cluster['theme']} | 重复提及={cluster.get('count', 0)}"
-                    f" | 回复压力={reply_pressure} | 价位={price_band}"
-                ),
-                f"{implication} 回复链：{clean_text(entry.get('reply_signal')) or '未恢复出有意义的回复链信号'}",
-            ]
-        )
-    return rows
-
-
-def strongest_cluster_by_type(comment_clusters: list[dict], cluster_type: str) -> dict | None:
-    return next((cluster for cluster in comment_clusters if clean_text(cluster.get("cluster_type")) == cluster_type), None)
-
-
-def build_scene08_source_product_rows(comment_entries: list[dict]) -> list[list[str]]:
-    rows: list[list[str]] = []
-    grouped: dict[str, list[dict]] = {}
-    for entry in comment_entries:
-        product = clean_text(entry.get("source_product")) or "来源待补"
-        grouped.setdefault(product, []).append(entry)
-    for product, entries in sorted(grouped.items(), key=lambda item: len(item[1]), reverse=True)[:4]:
-        product_clusters = summarize_comment_clusters(entries)
-        purchase_cluster = strongest_cluster_by_type(product_clusters, "购买因素")
-        complaint_cluster = strongest_cluster_by_type(product_clusters, "差评痛点")
-        bands = [clean_text(entry.get("price_band")) for entry in entries if clean_text(entry.get("price_band")) and clean_text(entry.get("price_band")) != "不明确"]
-        band = Counter(bands).most_common(1)[0][0] if bands else "不明确"
-        purchase_text = (
-            f"{clean_text(purchase_cluster.get('theme'))} | {sentence_clip(clean_text((purchase_cluster.get('top_entry') or {}).get('quote_text')), limit=72)}"
-            if purchase_cluster
-            else "未恢复出强购买触发点"
-        )
-        complaint_text = (
-            f"{clean_text(complaint_cluster.get('theme'))} | {sentence_clip(clean_text((complaint_cluster.get('top_entry') or {}).get('quote_text')), limit=72)}"
-            if complaint_cluster
-            else "未恢复出强差评痛点簇"
-        )
-        rows.append(
-            [
-                product,
-                band,
-                str(sum(max(1, safe_int(entry.get("duplicate_count"))) for entry in entries)),
-                purchase_text,
-                complaint_text,
-            ]
-        )
-    return rows
-
-
-def build_scene08_price_band_rows(comment_entries: list[dict]) -> list[list[str]]:
-    rows: list[list[str]] = []
-    clusters = summarize_comment_clusters(comment_entries)
-    for band in ["价格敏感", "偏高端", "不明确"]:
-        band_entries = [entry for entry in comment_entries if clean_text(entry.get("price_band")) == band]
-        if not band_entries and band != "不明确":
-            rows.append([band, "未恢复出强重复驱动", "未恢复出强重复抱怨", "这个价格带还需要更多来源商品"])
-            continue
-        band_clusters = summarize_comment_clusters(band_entries) if band_entries else []
-        purchase_cluster = strongest_cluster_by_type(band_clusters, "购买因素")
-        complaint_cluster = strongest_cluster_by_type(band_clusters, "差评痛点")
-        fallback_cluster = clusters[0] if clusters else None
-        driver = clean_text((purchase_cluster or fallback_cluster or {}).get("theme")) or "未恢复出明确的重复驱动"
-        complaint = clean_text((complaint_cluster or {}).get("theme")) or "未恢复出明确的重复抱怨"
-        implication = {
-            "价格敏感": "需要更轻的承诺语言、更强的价值证明或更简单的预期管理。",
-            "偏高端": "需要更强的信任转移、差异化收益或高端证明语言。",
-            "不明确": "当前样本更偏一般反应，价格分层还不够清晰。",
-        }.get(band, "还需要更多按价格分层的商品样本。")
-        rows.append([band, driver, complaint, implication])
-    return rows
-
-
-def scene08_reply_chain_line(pattern: dict | None) -> str:
-    if not pattern:
-        return "未恢复出强回复链压力。"
-    theme = clean_text(pattern.get("theme")) or "一般反应"
-    top_entry = pattern.get("top_entry") or {}
-    quote = sentence_clip(clean_text(top_entry.get("quote_text") or top_entry.get("text")), limit=92)
-    reply_pressure = safe_int(pattern.get("reply_pressure"))
-    parts = [f"{theme} | 回复压力={reply_pressure}"]
-    if quote:
-        parts.append(quote)
-    return " | ".join(parts)
-
-
-def scene08_reply_chain_synthesis(patterns: list[dict]) -> list[list[str]]:
-    rows: list[list[str]] = []
-    for pattern in patterns[:3]:
-        top_entry = pattern.get("top_entry") or {}
-        rows.append(
-            [
-                clean_text(pattern.get("theme")) or "一般反应",
-                str(safe_int(pattern.get("reply_pressure"))),
-                clean_text(top_entry.get("source_product")) or "来源待补",
-                sentence_clip(clean_text(top_entry.get("quote_text") or top_entry.get("text")), limit=96) or "回复链代表原话待补",
-                clean_text(top_entry.get("reply_signal")) or synthesize_reply_signal(top_entry),
-            ]
-        )
-    return rows
-
-
-def scene08_cluster_note(cluster: dict | None, fallback: str) -> str:
-    if not cluster:
-        return fallback
-    theme = clean_text(cluster.get("theme"))
-    quote = clean_text((cluster.get("top_entry") or {}).get("quote_text"))
-    if theme and quote:
-        return f"{theme}: {sentence_clip(quote, limit=88)}"
-    if theme:
-        return theme
-    return fallback
-
-
-def summarize_reply_patterns(comment_entries: list[dict]) -> list[dict]:
-    patterns: dict[str, dict] = {}
-    for entry in comment_entries:
-        reply_total = safe_int(entry.get("reply_comment_total"))
-        if reply_total < 3 and not clean_text(entry.get("reply_summary")):
-            continue
-        theme = clean_text(entry.get("theme")) or "一般反应"
-        bucket = patterns.setdefault(
-            theme,
-            {
-                "theme": theme,
-                "count": 0,
-                "reply_pressure": 0,
-                "top_entry": entry,
-            },
-        )
-        bucket["count"] += max(1, safe_int(entry.get("duplicate_count")))
-        bucket["reply_pressure"] += reply_total
-        if reply_total > safe_int(bucket["top_entry"].get("reply_comment_total")):
-            bucket["top_entry"] = entry
-    return sorted(
-        patterns.values(),
-        key=lambda item: (safe_int(item.get("reply_pressure")), safe_int(item.get("count"))),
-        reverse=True,
-    )
-
-
-def comment_signal_snapshot(comment_entries: list[dict]) -> dict:
-    cleaned = clean_comment_entries(comment_entries)
-    clusters = summarize_comment_clusters(cleaned)
-    reply_patterns = summarize_reply_patterns(cleaned)
-    return {
-        "cleaned_count": len(cleaned),
-        "top_cluster": clusters[0] if clusters else None,
-        "top_trust_cluster": strongest_cluster_by_type(clusters, "信任信号"),
-        "top_complaint_cluster": strongest_cluster_by_type(clusters, "差评痛点"),
-        "top_purchase_cluster": strongest_cluster_by_type(clusters, "购买因素"),
-        "top_reply_pattern": reply_patterns[0] if reply_patterns else None,
-    }
+def load_comment_pack(capture_root: Path) -> dict:
+    raw_entries = collect_comment_entries(capture_root)
+    return ensure_comment_pack_artifacts(capture_root, raw_entries)
 
 
 def week_sort_key(week_label: str) -> tuple[int, int]:
@@ -3465,7 +3133,17 @@ def build_scene_15_structure_rows() -> list[list[str]]:
     ]
 
 
-def fill_common(payload: dict, project: str, context: str, capture_root: Path, aggregate_summary: dict, profile_summary: dict, ranked_videos: list[dict], qualified_videos: list[dict]) -> None:
+def fill_common(
+    payload: dict,
+    project: str,
+    context: str,
+    capture_root: Path,
+    aggregate_summary: dict,
+    profile_summary: dict,
+    ranked_videos: list[dict],
+    qualified_videos: list[dict],
+    content_graph: dict | None = None,
+) -> None:
     payload["metadata"]["project"] = project
     payload["metadata"]["title"] = f"Scene {payload['metadata']['scene']} Report - {project}"
     payload["metadata"]["generated_at"] = datetime.now().isoformat(timespec="seconds")
@@ -3535,6 +3213,26 @@ def fill_common(payload: dict, project: str, context: str, capture_root: Path, a
         format_source_reference(capture_root / ("aggregate_ranked_videos.json" if (capture_root / "aggregate_ranked_videos.json").exists() else "ranked_videos.json"), anchor=capture_root),
         clean_text(profile_summary.get("profile_url") or profile_summary.get("profile_final_url")),
     ]))
+    if content_graph:
+        payload["content_graph"] = {
+            "version": content_graph.get("version"),
+            "cluster_summary": content_graph.get("cluster_summary", {}),
+            "edge_count": content_graph.get("edge_count", 0),
+            "node_count": content_graph.get("node_count", 0),
+        }
+        summary = content_graph.get("cluster_summary") or {}
+        payload["evidence"].append(
+            {
+                "label": "Content graph clusters",
+                "detail": (
+                    f"creator={summary.get('creator_clusters', 0)}; "
+                    f"sound={summary.get('sound_clusters', 0)}; "
+                    f"hashtag={summary.get('hashtag_neighborhoods', 0)}; "
+                    f"videos={summary.get('video_count', 0)}"
+                ),
+                "source": format_source_reference(capture_root / "content_graph.json", anchor=capture_root),
+            }
+        )
     execution_template = payload.get("execution_template", {}) or {}
     if contains_dirty_zh_markers(execution_template.get("recommended_request_zh")):
         execution_template["recommended_request_zh"] = ""
@@ -3544,6 +3242,8 @@ def fill_common(payload: dict, project: str, context: str, capture_root: Path, a
 
 
 def fill_scene_03(payload: dict, ranked_videos: list[dict], qualified_videos: list[dict], aggregate_summary: dict, capture_root: Path | None = None) -> None:
+    from content_graph import shortlist_provenance_cell
+
     sections = {section["heading"]: section for section in payload["sections"]}
     scene03_candidates = load_scene03_runtime_candidates(capture_root) if capture_root else []
     candidate_pool = scene03_candidates or qualified_videos or ranked_videos
@@ -3590,11 +3290,17 @@ def fill_scene_03(payload: dict, ranked_videos: list[dict], qualified_videos: li
                 sentence_clip(hook_text(video), limit=100) or "钩子文本缺失",
                 proof_style_text(video),
                 f"{ranked_metric_summary(video)} | 商业置信度={safe_int(video.get('commerce_confidence'))} | 购物车信号={clean_text(video.get('tkshop_signal')) or '未检测到'}",
+                shortlist_provenance_cell(video),
                 clean_text(video.get("scene03_reason")) or f"{why_selected_text(video)}；交接方向：{teardown_lane_label(video)}",
                 clean_text(video.get("shortlist_decision")) or "立即深拆",
             ]
         )
     sections["Structure Logic"]["table"]["rows"] = shortlist_rows
+    if sections["Structure Logic"]["table"].get("headers"):
+        headers = list(sections["Structure Logic"]["table"]["headers"])
+        if len(headers) == 7:
+            headers.insert(5, "入选溯源")
+            sections["Structure Logic"]["table"]["headers"] = headers
 
     per_video_rows = []
     for video in top_ranked:
@@ -3654,6 +3360,9 @@ def fill_scene_03(payload: dict, ranked_videos: list[dict], qualified_videos: li
             + scene03_dispatch_memo(top_ranked, scene03_candidates)
         )
     )
+    from scene_evidence_refs import attach_scene_03_evidence_refs
+
+    attach_scene_03_evidence_refs(sections, top_ranked, winner)
 
 
 def fill_scene_02(payload: dict, capture_root: Path, aggregate_summary: dict, ranked_videos: list[dict], qualified_videos: list[dict]) -> None:
@@ -3676,6 +3385,12 @@ def fill_scene_02(payload: dict, capture_root: Path, aggregate_summary: dict, ra
         patrol_config = {}
     append_scope_key = clean_text(patrol_config.get("append_scope_key") or aggregate_summary.get("append_scope_key"))
     append_strategy = clean_text(patrol_config.get("append_strategy") or "append each run into the same board")
+    rising_videos = delta.get("rising_videos") or []
+    source_manifest = maybe_load(capture_root / "source_manifest.json")
+    if not isinstance(source_manifest, list):
+        source_manifest = []
+    watchlist_rows = build_scene02_watchlist_rows(queries, topics, source_manifest)
+    capture_date = clean_text(patrol_config.get("capture_date") or snapshot.get("snapshot_at") or aggregate_summary.get("started_at"))[:10]
 
     payload["executive_summary"]["conclusion"] = (
         "This Scene 02 pack now behaves like a real patrol loop: it tracks one TikTok category over time, compares the latest snapshot to the previous run, and flags which content changes deserve escalation."
@@ -3695,9 +3410,10 @@ def fill_scene_02(payload: dict, capture_root: Path, aggregate_summary: dict, ra
         f"Tracked videos this cycle: {len(tracked_videos)} | New videos vs prior snapshot: {len(new_videos)} | Breakout videos: {len(breakout_videos)}",
     ]
     sections["Executive Conclusion"]["bullets"] = [
+        f"Capture date: {capture_date or 'pending'}",
         f"Queries: {compact_join([clean_text(item) for item in queries]) or 'none'}",
         f"Topics: {compact_join([clean_text(item) for item in topics]) or 'none'}",
-        f"Alert count this cycle: {len(alerts)}",
+        f"Alert count this cycle: {len(alerts)} | Rising (sub-breakout): {len(rising_videos)}",
         f"Same-board key: {append_scope_key or 'not declared'}",
     ]
 
@@ -3710,6 +3426,11 @@ def fill_scene_02(payload: dict, capture_root: Path, aggregate_summary: dict, ra
         ["Creator / authority shift", "Track whether breakout posts depend on verified or niche authority", "Helps separate portable format from account advantage", "Weekly"],
     ]
     sections["Objects To Track"]["table"]["rows"] = object_rows
+    if watchlist_rows:
+        sections["Objects To Track"]["bullets"] = [
+            "多关键词 / 多话题看板：同一 append_scope_key 下持续追加，不另起一张表。",
+            *[f"{row[0]}={row[1]} ({row[2]})" for row in watchlist_rows[:6]],
+        ]
 
     tracked_sample_rows: list[list[str]] = []
     for entry in tracked_videos[:5]:
@@ -3725,7 +3446,14 @@ def fill_scene_02(payload: dict, capture_root: Path, aggregate_summary: dict, ra
                 patrol_entry_metric_summary(entry) or "metrics unavailable",
             ]
         )
-    change_digest_rows = scene02_change_digest_rows(alerts, new_videos, breakout_videos, repeated_hooks, next_scene03)
+    change_digest_rows = scene02_change_digest_rows(
+        alerts,
+        new_videos,
+        breakout_videos,
+        repeated_hooks,
+        next_scene03,
+        rising_videos,
+    )
     if tracked_sample_rows:
         sections["Why They Matter"]["paragraphs"] = [
             "先看今日新增 / 今日上升 / 今日异常，再用下表抽样确认这轮巡检到底监控到了什么。"
@@ -3922,15 +3650,19 @@ def fill_scene_17(payload: dict, ranked_videos: list[dict], profile_summary: dic
         ["证明格式", proof_style_text(high_video), "无法证明的权威借用", "证明太弱会拉平整套公式"],
         ["发布实验", "测试创作者驱动版与证明物驱动版", "假设同一赛道适用于所有账号体量", "需要干净的 A/B 设置"],
     ]
+    from scene_evidence_refs import attach_scene_17_evidence_refs
+
+    attach_scene_17_evidence_refs(sections, top_ranked, high_video, low_video, profile_summary)
 
 
 def fill_scene_08(payload: dict, capture_root: Path, ranked_videos: list[dict]) -> None:
     sections = {section["heading"]: section for section in payload["sections"]}
-    raw_comment_entries = collect_comment_entries(capture_root)
-    comment_entries = clean_comment_entries(raw_comment_entries)
+    comment_pack = load_comment_pack(capture_root)
+    comment_entries = comment_pack["cleaned"]
+    reply_chains = comment_pack["reply_chains"]
     comment_clusters = summarize_comment_clusters(comment_entries)
     reply_patterns = summarize_reply_patterns(comment_entries)
-    snapshot = comment_signal_snapshot(raw_comment_entries)
+    snapshot = comment_pack["snapshot"]
     sampled_video_count = len({entry["video_id"] for entry in comment_entries if entry["video_id"]})
     top_texts = [clean_text(entry.get("quote_text") or entry.get("text")) for entry in comment_entries if clean_text(entry.get("quote_text") or entry.get("text"))][:6]
     price_sensitive = next((cluster for cluster in comment_clusters if "price" in clean_text(cluster.get("theme")).lower()), None)
@@ -3959,13 +3691,14 @@ def fill_scene_08(payload: dict, capture_root: Path, ranked_videos: list[dict]) 
         "核心教训是：一旦把低信号表情噪音、病毒式重复留言和浅层互动诱饵清理掉，真正重复出现的买家语言就会更可执行。"
     ]
     sections["High-Level Judgment"]["table"]["rows"] = build_scene08_source_product_rows(comment_entries)
+    stats = comment_pack.get("stats") or {}
     sections["High-Level Judgment"]["bullets"] = [
-        f"用于综合判断的清洗后评论数：{snapshot.get('cleaned_count', len(comment_entries))}",
+        f"原始评论={stats.get('raw_count', len(comment_entries))} | 清洗后={snapshot.get('cleaned_count', len(comment_entries))} | 过滤噪音={stats.get('rejected_count', 0)}",
         f"最强购买因素：{clean_text((top_purchase or {}).get('theme')) or '未恢复出明确购买因素'}",
         f"最强差评痛点簇：{clean_text((top_complaint or {}).get('theme')) or '未恢复出明确差评痛点'}",
-        f"最有价值的回复链簇：{clean_text((top_reply or {}).get('theme')) or clean_text(comment_clusters[0]['theme']) if comment_clusters else '未恢复出明确回复链簇'}",
+        f"最有价值的回复链簇：{scene08_reply_chain_line(snapshot.get('top_reply_chain') or top_reply)}",
         f"价格带信号：{clean_text(price_sensitive['theme']) if price_sensitive else '未恢复出强价格带分层'}",
-        f"回复链压力摘要：{scene08_reply_chain_line(top_reply)}",
+        f"回复链合成条数：{stats.get('reply_chain_count', len(reply_chains))}",
     ]
 
     sections["Evidence Clusters"]["table"]["rows"] = build_comment_cluster_rows(comment_entries)
@@ -3974,10 +3707,10 @@ def fill_scene_08(payload: dict, capture_root: Path, ranked_videos: list[dict]) 
         "每个聚类都尽量保留来源商品、重复原话、回复链压力和价格带线索，方便直接翻译成 FAQ、评论回复和卖点脚本。",
     ]
     sections["Evidence Clusters"]["bullets"] = [
-        "回复链综合：",
+        "回复链综合（顶层评论 + 追问回复已分开清洗）：",
         *[
             f"{row[0]} | 回复压力={row[1]} | 来源={row[2]} | {row[4]}"
-            for row in scene08_reply_chain_synthesis(reply_patterns)
+            for row in scene08_reply_chain_synthesis(reply_chains or reply_patterns)
         ],
     ]
 
@@ -4022,19 +3755,35 @@ def fill_scene_08(payload: dict, capture_root: Path, ranked_videos: list[dict]) 
             + [scene08_reply_chain_line(top_reply)]
         )
     )
+    from scene_evidence_refs import attach_scene_08_evidence_refs
+
+    attach_scene_08_evidence_refs(
+        sections,
+        comment_entries,
+        snapshot,
+        top_purchase if isinstance(top_purchase, dict) else None,
+        top_complaint if isinstance(top_complaint, dict) else None,
+        top_reply if isinstance(top_reply, dict) else None,
+        top_trust if isinstance(top_trust, dict) else None,
+        snapshot.get("top_reply_chain") if isinstance(snapshot, dict) else None,
+    )
 
 
 def fill_scene_18(payload: dict, capture_root: Path, ranked_videos: list[dict], profile_summary: dict) -> None:
+    from content_graph import shortlist_provenance_cell
+
     sections = {section["heading"]: section for section in payload["sections"]}
     top_ranked = top_videos(ranked_videos, limit=3)
     profile_url = clean_text(profile_summary.get("profile_url") or profile_summary.get("profile_final_url"))
-    comment_snapshot = comment_signal_snapshot(collect_comment_entries(capture_root))
+    comment_pack = load_comment_pack(capture_root) if capture_root else {"cleaned": [], "reply_chains": [], "snapshot": {}}
+    comment_snapshot = comment_pack["snapshot"]
     compare = compare_latest_two_weeks(ranked_videos)
     coverage = weekly_coverage_summary(ranked_videos, profile_summary, comment_snapshot)
     evidence_grade = weekly_evidence_grade(coverage)
     multi_week_rows = multi_week_pattern_rows(ranked_videos)
     matrix_mode = safe_int(coverage.get("account_count")) >= 2
     account_label = profile_url or "TikTok account"
+    top_reply_chain = comment_snapshot.get("top_reply_chain")
 
     if matrix_mode and compare.get("mode") == "compare":
         payload["executive_summary"]["conclusion"] = (
@@ -4081,9 +3830,17 @@ def fill_scene_18(payload: dict, capture_root: Path, ranked_videos: list[dict], 
     sections["Executive Conclusion"]["bullets"] = [
         f"本周最强包装线：{teardown_lane_label(top_ranked[0]) if top_ranked else '未恢复'}",
         f"爆点帖子关键信号：{display_cue_text(top_ranked[0], limit=88, fallback=top_ranked[0].get('desc')) if top_ranked else '缺失'}",
-        f"评论侧信任 / 质疑线索：{clean_text((comment_snapshot.get('top_reply_pattern') or {}).get('theme')) or '本包暂无评论采样'}",
+        f"评论侧信任 / 质疑线索：{scene08_reply_chain_line(top_reply_chain or comment_snapshot.get('top_reply_pattern')) or '本包暂无评论采样'}",
         "如果还没有上周对照，就把本次视为基线周报；若账号数不足，也不要包装成完整矩阵级结论。",
     ]
+    if top_ranked:
+        sections["Executive Conclusion"]["bullets"].append(
+            f"头部样本入选溯源：{shortlist_provenance_cell(top_ranked[0])}"
+        )
+    if top_reply_chain:
+        sections["Executive Conclusion"]["bullets"].append(
+            f"评论回复链信号：{scene08_reply_chain_line(top_reply_chain)}"
+        )
 
     sections["Objects To Track"]["table"]["rows"] = (
         scene18_matrix_summary_rows(ranked_videos)[:5]
@@ -4141,9 +3898,14 @@ def fill_scene_18(payload: dict, capture_root: Path, ranked_videos: list[dict], 
     sections["Next Action"]["paragraphs"] = [
         "本周响应动作必须更像运营调度单：继续追谁、借鉴谁、忽略谁，都要回到策略变化而不是只回到热度高低。",
     ]
+    from scene_evidence_refs import attach_scene_18_evidence_refs
+
+    attach_scene_18_evidence_refs(sections, top_ranked, compare, profile_summary, comment_snapshot)
 
 
 def fill_scene_19(payload: dict, capture_root: Path, ranked_videos: list[dict], profile_summary: dict) -> None:
+    from content_graph import shortlist_provenance_cell
+
     sections = {section["heading"]: section for section in payload["sections"]}
     ordered_ranked = sorted(
         ranked_videos,
@@ -4153,7 +3915,9 @@ def fill_scene_19(payload: dict, capture_root: Path, ranked_videos: list[dict], 
     top_ranked = top_videos(ordered_ranked, limit=4)
     high_video = ordered_ranked[0] if ordered_ranked else {}
     low_video = ordered_ranked[-1] if len(ordered_ranked) > 1 else high_video
-    comment_snapshot = comment_signal_snapshot(collect_comment_entries(capture_root))
+    comment_pack = load_comment_pack(capture_root) if capture_root else {"cleaned": [], "reply_chains": [], "snapshot": {}}
+    comment_snapshot = comment_pack["snapshot"]
+    top_reply_chain = comment_snapshot.get("top_reply_chain")
     compare = compare_latest_two_weeks(ranked_videos)
     coverage = weekly_coverage_summary(ranked_videos, profile_summary, comment_snapshot)
     evidence_grade = weekly_evidence_grade(coverage)
@@ -4201,9 +3965,17 @@ def fill_scene_19(payload: dict, capture_root: Path, ranked_videos: list[dict], 
         f"高表现窗口 / 信号：{scene19_window_label(clean_text(high_video.get('publish_window')) or publish_week_label(high_video) or '未标记')} / {scene19_signal_label(high_video.get('conversion_proxy'))} / {scene19_signal_label(high_video.get('roi_proxy'))}",
         f"低表现窗口 / 信号：{scene19_window_label(clean_text(low_video.get('publish_window')) or publish_week_label(low_video) or '未标记')} / {scene19_signal_label(low_video.get('conversion_proxy'))} / {scene19_signal_label(low_video.get('roi_proxy'))}",
         f"当前最佳发布时间窗：{publish_window_rows[0][0] if publish_window_rows else '尚不足以判断'}",
-        f"最强评论侧阻力 / 信任线索：{clean_text((comment_snapshot.get('top_reply_pattern') or {}).get('theme')) or clean_text((comment_snapshot.get('top_complaint_cluster') or {}).get('theme')) or '本包暂无评论采样'}",
+        f"最强评论侧阻力 / 信任线索：{scene08_reply_chain_line(top_reply_chain or comment_snapshot.get('top_reply_pattern') or comment_snapshot.get('top_complaint_cluster')) or '本包暂无评论采样'}",
         "把这份复盘当成下轮调度单，不要只当被动总结；若当前只是外部样本包，请把它当模板，不要直接当自家账号最终判决。",
     ]
+    if high_video:
+        sections["Executive Conclusion"]["bullets"].append(
+            f"高表现样本入选溯源：{shortlist_provenance_cell(high_video)}"
+        )
+    if top_reply_chain:
+        sections["Executive Conclusion"]["bullets"].append(
+            f"评论回复链合成：{scene08_reply_chain_line(top_reply_chain)}"
+        )
 
     sections["High-Level Judgment"]["table"]["rows"] = high_low_rows
     if publish_window_rows:
@@ -4273,9 +4045,21 @@ def fill_scene_19(payload: dict, capture_root: Path, ranked_videos: list[dict], 
     sections["Open Questions"]["table"]["title"] = "下轮测试计划"
     sections["Open Questions"]["table"]["headers"] = ["下轮测试", "假设", "具体改什么", "成功信号"]
     sections["Open Questions"]["table"]["rows"] = scene19_test_plan_rows(high_video, low_video)
+    from scene_evidence_refs import attach_scene_19_evidence_refs
+
+    attach_scene_19_evidence_refs(
+        sections,
+        high_video,
+        low_video,
+        compare,
+        comment_snapshot,
+        top_ranked,
+    )
 
 
 def fill_scene_01(payload: dict, ranked_videos: list[dict], aggregate_summary: dict, capture_root: Path) -> None:
+    from content_graph import shortlist_provenance_cell
+
     sections = {section["heading"]: section for section in payload["sections"]}
     top_ranked = top_videos(ranked_videos, limit=5)
     top_hook = hook_text(top_ranked[0]) if top_ranked else ""
@@ -4317,6 +4101,7 @@ def fill_scene_01(payload: dict, ranked_videos: list[dict], aggregate_summary: d
             [
                 clean_text(video.get("shortlist_priority")) or f"P{index}",
                 scene01_row_handoff_status(video, required_rows),
+                shortlist_provenance_cell(video),
                 clean_text(video.get("video_url")),
                 scene01_study_value_text(video),
                 scene01_reuse_fit_text(video),
@@ -4334,6 +4119,7 @@ def fill_scene_01(payload: dict, ranked_videos: list[dict], aggregate_summary: d
     sections["Objects To Track"]["table"]["headers"] = [
         "优先级",
         "交接状态",
+        "入选溯源",
         "视频 / 链接",
         "为什么值得研究",
         "适合复用在哪",
@@ -4356,6 +4142,7 @@ def fill_scene_01(payload: dict, ranked_videos: list[dict], aggregate_summary: d
             sentence_clip(hook_text(video), limit=84) or "钩子文本缺失",
             proof_style_text(video),
             f"reuse={video.get('reuse_value_score', 0)} / popularity={video.get('popularity_score', 0)} / caption={video.get('caption_quality', 'unknown')}",
+            shortlist_provenance_cell(video),
             scene01_study_value_text(video),
             scene01_reuse_fit_text(video),
         ]
@@ -4366,6 +4153,7 @@ def fill_scene_01(payload: dict, ranked_videos: list[dict], aggregate_summary: d
         "钩子强度",
         "证明风格",
         "转化信号",
+        "入选溯源",
         "为什么值得研究",
         "适合复用在哪",
     ]
@@ -4417,6 +4205,8 @@ def fill_scene_01(payload: dict, ranked_videos: list[dict], aggregate_summary: d
 
 
 def fill_scene_07(payload: dict, ranked_videos: list[dict], comment_entries: list[dict]) -> None:
+    from content_graph import shortlist_provenance_cell
+
     sections = {section["heading"]: section for section in payload["sections"]}
     top_ranked = top_videos(ranked_videos, limit=4)
 
@@ -4449,9 +4239,15 @@ def fill_scene_07(payload: dict, ranked_videos: list[dict], comment_entries: lis
             f"score={video.get('score', 0)} / likes={safe_int(video.get('digg_count'))}",
             "优先做" if index == 0 else "做",
             display_cue_text(video, limit=80, fallback=video.get("desc")) or "Cue text missing",
+            shortlist_provenance_cell(video),
         ]
         for index, video in enumerate(top_ranked[:3])
     ]
+    if sections["Evidence Clusters"]["table"].get("headers"):
+        headers = list(sections["Evidence Clusters"]["table"]["headers"])
+        if len(headers) == 5:
+            headers.append("入选溯源")
+            sections["Evidence Clusters"]["table"]["headers"] = headers
 
     sections["Recommended Action"]["table"]["rows"] = [
         ["Hot angles", "人物 / 时刻感优先", "说明内容池还奖励一眼能懂的社会识别信号"],
@@ -4694,7 +4490,7 @@ def fill_scene_04(payload: dict, ranked_videos: list[dict], qualified_videos: li
     ]
     sections["Core Mechanism"]["table"]["rows"] = scene04_mechanism_rows(source, video_type, authority, source_url)
 
-    sections["Reusable Formula"]["table"]["rows"] = [
+    sections["可复用公式"]["table"]["rows"] = [
         ["钩子逻辑", source_hook or "先给一个短而可识别的首屏线索", "是", "保留一眼能懂的识别感，但把原视频里的人物 / 对象 / 话题换成自有资产。", "medium"],
         ["画面风格", "偏 editorial / social-native 的原生包装", "部分可复用", "只保留有助于证明顺序的视觉组织，不要抄纯装饰层。", "medium"],
         ["证明逻辑", authority or "借来的权威 / 语境 / 结果感", "是，但要替换", "改成自有 proof、凭证、产品证据或合作方信任，而不是继续借原账号外壳。", "medium"],
@@ -4740,6 +4536,9 @@ def fill_scene_04(payload: dict, ranked_videos: list[dict], qualified_videos: li
         source_topic,
         authority,
     )
+    from scene_evidence_refs import attach_scene_04_evidence_refs
+
+    attach_scene_04_evidence_refs(sections, source, profile_summary)
 
 
 def fill_scene_05(payload: dict, ranked_videos: list[dict], qualified_videos: list[dict], profile_summary: dict) -> None:
@@ -4842,6 +4641,9 @@ def fill_scene_05(payload: dict, ranked_videos: list[dict], qualified_videos: li
         ["产品适配简报", "hook / proof / scene_character / cta_close 改写版", "创意 / 生成器", "没有产品卖点与素材就无法真正 adapt", "运营 / 创意"],
         ["素材 / 人员清单", "人物、产品、证明物、字幕与音频需求", "制片 / 执行", "缺实物素材时必须标红，不要假设资产存在", "制片"],
     ]
+    from scene_evidence_refs import attach_scene_05_evidence_refs
+
+    attach_scene_05_evidence_refs(sections, source, profile_summary)
 
 
 def fill_scene_10(payload: dict, ranked_videos: list[dict], qualified_videos: list[dict], profile_summary: dict) -> None:
@@ -5315,7 +5117,18 @@ def main() -> None:
     project = clean_text(args.project) or default_project or "tiktok-capture-pack"
     context = make_context(capture_root, aggregate_summary, profile_summary, ranked_videos, qualified_videos)
     payload = build_report_payload(scene, project, context)
-    fill_common(payload, project, context, capture_root, aggregate_summary, profile_summary, ranked_videos, qualified_videos)
+    content_graph = read_json_file(capture_root / "content_graph.json") if (capture_root / "content_graph.json").exists() else {}
+    fill_common(
+        payload,
+        project,
+        context,
+        capture_root,
+        aggregate_summary,
+        profile_summary,
+        ranked_videos,
+        qualified_videos,
+        content_graph=content_graph if isinstance(content_graph, dict) else None,
+    )
     target_markets = parse_target_markets(args.target_markets)
     target_languages = parse_target_languages(args.target_languages)
     if scene["id"] == "15" and not target_languages:

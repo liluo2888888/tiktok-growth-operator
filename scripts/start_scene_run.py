@@ -6,6 +6,7 @@ from datetime import datetime
 from pathlib import Path
 
 from feishu_naming import scene_label_zh
+from deliver_operator_run import deliver_feishu, deliver_local_bundle, load_run_context, parse_targets
 from feishu_push_runtime import maybe_push_feishu_bundle
 from generate_operator_pack import generate_pack_output
 from generate_scene_report import build_report_payload, load_catalog, resolve_scene
@@ -39,6 +40,16 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--platform", default="Douyin", help="Platform label for derived operator packs.")
     parser.add_argument("--market", default="China", help="Target market label for derived operator packs.")
     parser.add_argument("--push-feishu", action="store_true", help="After generating the run, also push the report to Feishu.")
+    parser.add_argument(
+        "--deliver",
+        default="",
+        help="Comma-separated delivery targets via deliver_operator_run.py: local-bundle, feishu.",
+    )
+    parser.add_argument(
+        "--delivery-root",
+        default="",
+        help="Optional output directory when --deliver includes local-bundle.",
+    )
     parser.add_argument("--feishu-app-id", default="", help="Optional explicit Feishu app ID.")
     parser.add_argument("--feishu-app-secret", default="", help="Optional explicit Feishu app secret.")
     parser.add_argument("--feishu-title", default="", help="Optional explicit Feishu Doc title.")
@@ -196,6 +207,17 @@ def main() -> None:
             title=args.feishu_title.strip() or project,
             base_name=args.feishu_base_name.strip() or project,
         )
+
+    if args.deliver.strip():
+        delivery_targets = parse_targets(args.deliver)
+        delivery_context = load_run_context(run_root, str(report_json_path))
+        delivery_root = Path(args.delivery_root) if args.delivery_root.strip() else (run_root / "delivery")
+        delivery_result: dict[str, object] = {"targets": delivery_targets}
+        if "local-bundle" in delivery_targets:
+            delivery_result["local_bundle"] = deliver_local_bundle(delivery_context, delivery_root, dry_run=False)
+        if "feishu" in delivery_targets:
+            delivery_result["feishu"] = deliver_feishu(delivery_context, args, dry_run=False)
+        result["delivery"] = delivery_result
 
     print(json.dumps(result, ensure_ascii=False, indent=2))
 

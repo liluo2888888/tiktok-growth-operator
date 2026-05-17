@@ -2,6 +2,18 @@
   "category": "Orange Cat",
   "market": "US",
   "cadence": "daily",
+  "capture_date": "2026-05-08",
+  "snapshot_at": "2026-05-08T02:01:56",
+  "board_header": {
+    "append_scope_key": "Orange Cat::US::daily",
+    "capture_date": "2026-05-08",
+    "queries": [
+      "orange cat"
+    ],
+    "topics": [
+      "orangecat"
+    ]
+  },
   "queries": [
     "orange cat"
   ],
@@ -9,5 +21,8 @@
     "orangecat"
   ],
   "min_likes": 1000,
-  "shortlist_count": 5
+  "shortlist_count": 5,
+  "append_mode": "append_to_same_board",
+  "append_scope_key": "Orange Cat::US::daily",
+  "append_strategy": "append each patrol run into the same logical board keyed by category + market + cadence"
 }

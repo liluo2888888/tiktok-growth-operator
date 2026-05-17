@@ -1,0 +1,81 @@
+{
+  "version": "1.0",
+  "node_count": 4,
+  "edge_count": 5,
+  "nodes": [
+    {
+      "id": "video:7631201918366289165",
+      "type": "video",
+      "label": "PSA: always sing your 鉂わ笍 out, you'll never know who's going to listen…",
+      "video_id": "7631201918366289165",
+      "video_url": "https://www.tiktok.com/@tiktok/video/7631201918366289165"
+    },
+    {
+      "id": "video:7628619815690833183",
+      "type": "video",
+      "label": "a reminder to romanticize the little moments 鉂わ笍",
+      "video_id": "7628619815690833183",
+      "video_url": "https://www.tiktok.com/@tiktok/video/7628619815690833183"
+    },
+    {
+      "id": "video:7631229398531788062",
+      "type": "video",
+      "label": "this STEMTok creativity is blowing us away 馃憦",
+      "video_id": "7631229398531788062",
+      "video_url": "https://www.tiktok.com/@tiktok/video/7631229398531788062"
+    },
+    {
+      "id": "creator:tiktok",
+      "type": "creator",
+      "label": "tiktok",
+      "member_count": 3
+    }
+  ],
+  "edges": [
+    {
+      "from": "video:7631201918366289165",
+      "to": "creator:tiktok",
+      "type": "authored_by"
+    },
+    {
+      "from": "video:7628619815690833183",
+      "to": "creator:tiktok",
+      "type": "authored_by"
+    },
+    {
+      "from": "video:7631229398531788062",
+      "to": "creator:tiktok",
+      "type": "authored_by"
+    },
+    {
+      "from": "video:7631201918366289165",
+      "to": "video:7628619815690833183",
+      "type": "shared_creator_cluster"
+    },
+    {
+      "from": "video:7628619815690833183",
+      "to": "video:7631229398531788062",
+      "type": "shared_creator_cluster"
+    }
+  ],
+  "shortlist_provenance": {
+    "7631201918366289165": [
+      "creator cluster (@tiktok, 3 posts)",
+      "reuse-value rank #1"
+    ],
+    "7628619815690833183": [
+      "creator cluster (@tiktok, 3 posts)",
+      "reuse-value rank #2"
+    ],
+    "7631229398531788062": [
+      "creator cluster (@tiktok, 3 posts)",
+      "reuse-value rank #3"
+    ]
+  },
+  "cluster_summary": {
+    "creator_clusters": 1,
+    "sound_clusters": 0,
+    "hashtag_neighborhoods": 0,
+    "video_count": 3
+  }
+}

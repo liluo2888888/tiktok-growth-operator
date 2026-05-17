@@ -1,0 +1,306 @@
+[
+  {
+    "video_id": "7631201918366289165",
+    "video_url": "https://www.tiktok.com/@tiktok/video/7631201918366289165",
+    "theme": "认证 / 可信度",
+    "cluster_type": "信任信号",
+    "source_product": "tiktok",
+    "reply_pressure": 11,
+    "top_level_quotes": [
+      "Yet she’s still not verified"
+    ],
+    "reply_quotes": [],
+    "member_count": 1,
+    "anchor_entry": {
+      "comment_id": "7631264614248825622",
+      "video_id": "7631201918366289165",
+      "video_url": "https://www.tiktok.com/@tiktok/video/7631201918366289165",
+      "text": "Yet she’s still not verified",
+      "raw_text": "Yet she’s still not verified",
+      "digg_count": 2102,
+      "reply_comment_total": 11,
+      "nickname": "lolal9128",
+      "unique_id": "lolal9128",
+      "source_product": "tiktok",
+      "sample_kind": "top_level",
+      "reply_summary": "",
+      "is_reply": false,
+      "comment_language": "",
+      "author_verified": false,
+      "high_purchase_intent": false,
+      "quote_text": "Yet she’s still not verified",
+      "canonical_text": "top:yet she s still not verified",
+      "duplicate_count": 1,
+      "source_products": [
+        "tiktok"
+      ],
+      "comment_languages": [],
+      "sample_kinds": [
+        "top_level"
+      ],
+      "theme": "认证 / 可信度",
+      "cluster_type": "信任信号",
+      "price_band": "不明确",
+      "reply_signal": "回复链活跃（11 条回复），已经足够视为真实的购买前确认或异议处理信号。",
+      "signal_tier": "high"
+    },
+    "top_level_excerpt": "Yet she’s still not verified",
+    "reply_excerpt": "Yet she’s still not verified",
+    "synthesis": "回复链活跃（11 条回复），已经足够视为真实的购买前确认或异议处理信号。",
+    "signal_role": "信任信号"
+  },
+  {
+    "video_id": "7631201918366289165",
+    "video_url": "https://www.tiktok.com/@tiktok/video/7631201918366289165",
+    "theme": "一般反应",
+    "cluster_type": "好评关键词",
+    "source_product": "tiktok",
+    "reply_pressure": 7,
+    "top_level_quotes": [
+      "[Sticker] Tiktok in my fyp of tiktok",
+      "[Sticker] damn tiktok has titok"
+    ],
+    "reply_quotes": [],
+    "member_count": 2,
+    "anchor_entry": {
+      "comment_id": "7631267929561039638",
+      "video_id": "7631201918366289165",
+      "video_url": "https://www.tiktok.com/@tiktok/video/7631201918366289165",
+      "text": "[Sticker] Tiktok in my fyp of tiktok",
+      "raw_text": "[Sticker] Tiktok in my fyp of tiktok",
+      "digg_count": 6532,
+      "reply_comment_total": 5,
+      "nickname": "🎭🏯",
+      "unique_id": "cmbrt.zza",
+      "source_product": "tiktok",
+      "sample_kind": "top_level",
+      "reply_summary": "",
+      "is_reply": false,
+      "comment_language": "",
+      "author_verified": false,
+      "high_purchase_intent": false,
+      "quote_text": "[Sticker] Tiktok in my fyp of tiktok",
+      "canonical_text": "top:sticker tiktok in my fyp of tiktok",
+      "duplicate_count": 1,
+      "source_products": [
+        "tiktok"
+      ],
+      "comment_languages": [],
+      "sample_kinds": [
+        "top_level"
+      ],
+      "theme": "一般反应",
+      "cluster_type": "好评关键词",
+      "price_band": "不明确",
+      "reply_signal": "有一定回复链活动（5 条回复），值得继续检查追问、补充证据和售后语言。",
+      "signal_tier": "high"
+    },
+    "top_level_excerpt": "[Sticker] Tiktok in my fyp of tiktok",
+    "reply_excerpt": "[Sticker] Tiktok in my fyp of tiktok",
+    "synthesis": "有一定回复链活动（5 条回复），值得继续检查追问、补充证据和售后语言。",
+    "signal_role": "好评关键词"
+  },
+  {
+    "video_id": "7628619815690833183",
+    "video_url": "https://www.tiktok.com/@tiktok/video/7628619815690833183",
+    "theme": "AI 控制 / 隐私顾虑",
+    "cluster_type": "差评痛点",
+    "source_product": "tiktok",
+    "reply_pressure": 6,
+    "top_level_quotes": [
+      "Give us a master switch off for AI remix. You can’t make us go back through everything on our page for a feature that was just added.",
+      "Remove the ai remix feature",
+      "Why is the \"ALLOW AI TO remix content automatically\" setting on for all videos in privacy settings?",
+      "I WANT AN EASIER OPTION TO OPT OUT OF ALL AI USAGE ON MY POSTS.... WHY IS IT AUTOMATICALLY ON AND WHY DO I HAVE TO GO THROUGH ALL MY POSTS JUST TO TURN IT OFF?!?!?"
+    ],
+    "reply_quotes": [],
+    "member_count": 4,
+    "anchor_entry": {
+      "comment_id": "7629717687844832013",
+      "video_id": "7628619815690833183",
+      "video_url": "https://www.tiktok.com/@tiktok/video/7628619815690833183",
+      "text": "Give us a master switch off for AI remix. You can’t make us go back through everything on our page for a feature that was just added.",
+      "raw_text": "Give us a master switch off for AI remix. You can’t make us go back through everything on our page for a feature that was just added.",
+      "digg_count": 247,
+      "reply_comment_total": 5,
+      "nickname": "MalikaNgozi🇸🇩🇵🇸🇨🇩",
+      "unique_id": "malikangozi",
+      "source_product": "tiktok",
+      "sample_kind": "top_level",
+      "reply_summary": "",
+      "is_reply": false,
+      "comment_language": "",
+      "author_verified": false,
+      "high_purchase_intent": false,
+      "quote_text": "Give us a master switch off for AI remix. You can’t make us go back through everything on our page for a feature that was just added.",
+      "canonical_text": "top:give us a master switch off for ai remix you can t make us go back through everything on our page for a feature that was just added",
+      "duplicate_count": 1,
+      "source_products": [
+        "tiktok"
+      ],
+      "comment_languages": [],
+      "sample_kinds": [
+        "top_level"
+      ],
+      "theme": "AI 控制 / 隐私顾虑",
+      "cluster_type": "差评痛点",
+      "price_band": "不明确",
+      "reply_signal": "有一定回复链活动（5 条回复），值得继续检查追问、补充证据和售后语言。",
+      "signal_tier": "high"
+    },
+    "top_level_excerpt": "Give us a master switch off for AI remix. You can’t make us go back through everything on our p…",
+    "reply_excerpt": "Give us a master switch off for AI remix. You can’t make us go back through everything on our p…",
+    "synthesis": "有一定回复链活动（5 条回复），值得继续检查追问、补充证据和售后语言。",
+    "signal_role": "差评痛点"
+  },
+  {
+    "video_id": "7628619815690833183",
+    "video_url": "https://www.tiktok.com/@tiktok/video/7628619815690833183",
+    "theme": "平台自反应",
+    "cluster_type": "好评关键词",
+    "source_product": "tiktok",
+    "reply_pressure": 4,
+    "top_level_quotes": [
+      "tiktok posting on tiktok"
+    ],
+    "reply_quotes": [],
+    "member_count": 1,
+    "anchor_entry": {
+      "comment_id": "7628860465363632916",
+      "video_id": "7628619815690833183",
+      "video_url": "https://www.tiktok.com/@tiktok/video/7628619815690833183",
+      "text": "tiktok posting on tiktok",
+      "raw_text": "tiktok posting on tiktok",
+      "digg_count": 228,
+      "reply_comment_total": 4,
+      "nickname": "💤",
+      "unique_id": "kynniiii_",
+      "source_product": "tiktok",
+      "sample_kind": "top_level",
+      "reply_summary": "",
+      "is_reply": false,
+      "comment_language": "",
+      "author_verified": false,
+      "high_purchase_intent": false,
+      "quote_text": "tiktok posting on tiktok",
+      "canonical_text": "top:tiktok posting on tiktok",
+      "duplicate_count": 1,
+      "source_products": [
+        "tiktok"
+      ],
+      "comment_languages": [],
+      "sample_kinds": [
+        "top_level"
+      ],
+      "theme": "平台自反应",
+      "cluster_type": "好评关键词",
+      "price_band": "不明确",
+      "reply_signal": "有一定回复链活动（4 条回复），值得继续检查追问、补充证据和售后语言。",
+      "signal_tier": "high"
+    },
+    "top_level_excerpt": "tiktok posting on tiktok",
+    "reply_excerpt": "tiktok posting on tiktok",
+    "synthesis": "有一定回复链活动（4 条回复），值得继续检查追问、补充证据和售后语言。",
+    "signal_role": "好评关键词"
+  },
+  {
+    "video_id": "7631201918366289165",
+    "video_url": "https://www.tiktok.com/@tiktok/video/7631201918366289165",
+    "theme": "售后 / 求助需求",
+    "cluster_type": "差评痛点",
+    "source_product": "tiktok",
+    "reply_pressure": 4,
+    "top_level_quotes": [
+      "[Sticker] Who needs support??"
+    ],
+    "reply_quotes": [],
+    "member_count": 1,
+    "anchor_entry": {
+      "comment_id": "7631218349641745174",
+      "video_id": "7631201918366289165",
+      "video_url": "https://www.tiktok.com/@tiktok/video/7631201918366289165",
+      "text": "[Sticker] Who needs support??",
+      "raw_text": "[Sticker] Who needs support??",
+      "digg_count": 65,
+      "reply_comment_total": 4,
+      "nickname": "whowins616",
+      "unique_id": "whowins616",
+      "source_product": "tiktok",
+      "sample_kind": "top_level",
+      "reply_summary": "",
+      "is_reply": false,
+      "comment_language": "",
+      "author_verified": false,
+      "high_purchase_intent": false,
+      "quote_text": "[Sticker] Who needs support??",
+      "canonical_text": "top:sticker who needs support",
+      "duplicate_count": 1,
+      "source_products": [
+        "tiktok"
+      ],
+      "comment_languages": [],
+      "sample_kinds": [
+        "top_level"
+      ],
+      "theme": "售后 / 求助需求",
+      "cluster_type": "差评痛点",
+      "price_band": "不明确",
+      "reply_signal": "有一定回复链活动（4 条回复），值得继续检查追问、补充证据和售后语言。",
+      "signal_tier": "high"
+    },
+    "top_level_excerpt": "[Sticker] Who needs support??",
+    "reply_excerpt": "[Sticker] Who needs support??",
+    "synthesis": "有一定回复链活动（4 条回复），值得继续检查追问、补充证据和售后语言。",
+    "signal_role": "差评痛点"
+  },
+  {
+    "video_id": "7631229398531788062",
+    "video_url": "https://www.tiktok.com/@tiktok/video/7631229398531788062",
+    "theme": "认证 / 可信度",
+    "cluster_type": "信任信号",
+    "source_product": "tiktok",
+    "reply_pressure": 3,
+    "top_level_quotes": [
+      "Hey TikTok thanks for the verification badge 🙏🏼🫶🏼"
+    ],
+    "reply_quotes": [],
+    "member_count": 1,
+    "anchor_entry": {
+      "comment_id": "7631477430184723213",
+      "video_id": "7631229398531788062",
+      "video_url": "https://www.tiktok.com/@tiktok/video/7631229398531788062",
+      "text": "Hey TikTok thanks for the verification badge 🙏🏼🫶🏼",
+      "raw_text": "Hey TikTok thanks for the verification badge 🙏🏼🫶🏼",
+      "digg_count": 16,
+      "reply_comment_total": 3,
+      "nickname": "IZMA",
+      "unique_id": "izmamusic",
+      "source_product": "tiktok",
+      "sample_kind": "top_level",
+      "reply_summary": "",
+      "is_reply": false,
+      "comment_language": "",
+      "author_verified": false,
+      "high_purchase_intent": false,
+      "quote_text": "Hey TikTok thanks for the verification badge 🙏🏼🫶🏼",
+      "canonical_text": "top:hey tiktok thanks for the verification badge",
+      "duplicate_count": 1,
+      "source_products": [
+        "tiktok"
+      ],
+      "comment_languages": [],
+      "sample_kinds": [
+        "top_level"
+      ],
+      "theme": "认证 / 可信度",
+      "cluster_type": "信任信号",
+      "price_band": "不明确",
+      "reply_signal": "有一定回复链活动（3 条回复），值得继续检查追问、补充证据和售后语言。",
+      "signal_tier": "high"
+    },
+    "top_level_excerpt": "Hey TikTok thanks for the verification badge 🙏🏼🫶🏼",
+    "reply_excerpt": "Hey TikTok thanks for the verification badge 🙏🏼🫶🏼",
+    "synthesis": "有一定回复链活动（3 条回复），值得继续检查追问、补充证据和售后语言。",
+    "signal_role": "信任信号"
+  }
+]

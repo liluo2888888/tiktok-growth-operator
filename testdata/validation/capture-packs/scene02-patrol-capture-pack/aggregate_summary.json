@@ -14,5 +14,7 @@
   "aggregated_ranked_count": 8,
   "aggregated_qualified_count": 3,
   "min_likes": 1000,
-  "output_root": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\tmp\\20260507_validation_capture_scene02\\capture-pack"
+  "append_mode": "append_to_same_board",
+  "append_scope_key": "Orange Cat::US::daily",
+  "output_root": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\capture-packs\\scene02-patrol-capture-pack"
 }

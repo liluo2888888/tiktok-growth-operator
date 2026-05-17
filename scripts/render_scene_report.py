@@ -1664,6 +1664,29 @@ CREATIVE_BRIEF_SCENE_IDS = frozenset({"09", "10", "13", "15", "16"})
 CREATIVE_MATRIX_SCENE_IDS = frozenset({"11", "12", "14"})
 
 
+def scene_doc_visual_theme(scene_id: str) -> dict[str, str]:
+    if scene_id in CREATIVE_BRIEF_SCENE_IDS:
+        return {
+            "kicker": "创意制作项目卡",
+            "accent": "6B4E71",
+            "card_accent": "4A2C4F",
+            "title_fill": "6B4E71",
+        }
+    if scene_id in CREATIVE_MATRIX_SCENE_IDS:
+        return {
+            "kicker": "创意流程项目卡",
+            "accent": "2E6F5E",
+            "card_accent": "1F4D42",
+            "title_fill": "2E6F5E",
+        }
+    return {
+        "kicker": "TikTok 增长运营项目卡",
+        "accent": "355C7D",
+        "card_accent": "1F4E78",
+        "title_fill": "1F4E78",
+    }
+
+
 def creative_scene_section_layout_map() -> dict[tuple[str, str], dict[str, object]]:
     message_layout = {
         "doc_widths": [1.0, 1.55, 1.55, 1.7],
@@ -2270,8 +2293,9 @@ def add_doc_cover_page(document: Document, report: dict) -> None:
     metadata = report["metadata"]
     executive = report["executive_summary"]
     working_context = report["working_context"]
+    theme = scene_doc_visual_theme(normalize_text(metadata.get("scene", "")))
 
-    add_doc_kicker(document, "TikTok 增长运营项目卡")
+    add_doc_kicker(document, theme["kicker"])
 
     title = document.add_paragraph()
     title.alignment = WD_ALIGN_PARAGRAPH.CENTER
@@ -2321,7 +2345,7 @@ def add_doc_cover_page(document: Document, report: dict) -> None:
         "项目快照",
         "把这次交付当成平台项目卡而不是单次本地导出，先看关键动作、证据状态和执行优先级。",
         scene_cover_spotlight_rows(report),
-        accent_fill="355C7D",
+        accent_fill=theme["accent"],
         widths=[1.45, 5.35],
     )
 
@@ -2332,7 +2356,7 @@ def add_doc_cover_page(document: Document, report: dict) -> None:
     overview_card.cell(1, 0).text = localized_scene_display(metadata)
     overview_card.cell(1, 1).text = localize_status_text(metadata.get("status", "")) or "草稿"
     overview_card.cell(1, 2).text = normalize_text(metadata.get("deliverable_type", "")) or "TikTok 增长运营交付"
-    style_doc_card_table(overview_card, accent_fill="1F4E78")
+    style_doc_card_table(overview_card, accent_fill=theme["card_accent"])
     for run in overview_card.cell(0, 0).paragraphs[0].runs + overview_card.cell(0, 1).paragraphs[0].runs + overview_card.cell(0, 2).paragraphs[0].runs:
         run.font.color.rgb = None
     set_doc_table_widths(overview_card, [2.0, 1.2, 3.6])
@@ -2758,12 +2782,12 @@ def write_docx(report: dict, output: Path) -> None:
     document.save(output)
 
 
-def style_title_row(ws, row: int, start_col: int, end_col: int, text: str) -> None:
+def style_title_row(ws, row: int, start_col: int, end_col: int, text: str, fill_hex: str = "") -> None:
     ws.merge_cells(start_row=row, start_column=start_col, end_row=row, end_column=end_col)
     cell = ws.cell(row=row, column=start_col)
     cell.value = text
     cell.font = Font(bold=True, color="FFFFFF", size=12)
-    cell.fill = TITLE_FILL
+    cell.fill = PatternFill(fill_type="solid", fgColor=fill_hex or "1F4E78")
     cell.alignment = Alignment(horizontal="center", vertical="center")
     cell.border = THIN_BORDER
 
@@ -2853,7 +2877,8 @@ def asset_path_exists(value: str) -> bool:
 def write_summary_sheet(workbook: Workbook, report: dict) -> None:
     ws = workbook.active
     ws.title = get_sheet_title("summary")
-    style_title_row(ws, 1, 1, 6, localized_report_title(report["metadata"]))
+    theme = scene_doc_visual_theme(normalize_text(report.get("metadata", {}).get("scene", "")))
+    style_title_row(ws, 1, 1, 6, localized_report_title(report["metadata"]), fill_hex=theme["title_fill"])
     metrics = [
         ("章节数", len(report["sections"])),
         ("证据条数", len(report["evidence"])),

@@ -6,6 +6,7 @@ import re
 from datetime import datetime
 from pathlib import Path
 
+from deliver_operator_run import deliver_feishu, deliver_local_bundle, load_run_context, parse_targets
 from feishu_push_runtime import maybe_push_feishu_bundle
 from generate_operator_pack import generate_pack_output
 from generate_scene_report import load_catalog
@@ -16,7 +17,7 @@ from start_entry_board import create_entry_board_starter
 from start_capture_pack_run import create_capture_pack_run
 from start_goal_workflow import create_goal_workflow
 from summarize_run_history import build_summary, discover_entries, render_markdown
-from text_normalization import read_utf8_text, write_json_file, write_utf8_text
+from text_normalization import normalize_text, read_utf8_text, write_json_file, write_utf8_text
 
 
 STOPWORDS = {
@@ -188,6 +189,16 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--feishu-app-secret", default="", help="Optional explicit Feishu app secret for push mode.")
     parser.add_argument("--feishu-title", default="", help="Optional explicit Feishu Doc title.")
     parser.add_argument("--feishu-base-name", default="", help="Optional explicit Feishu Bitable app name.")
+    parser.add_argument(
+        "--deliver",
+        default="",
+        help="Comma-separated delivery targets via deliver_operator_run.py: local-bundle, feishu.",
+    )
+    parser.add_argument(
+        "--delivery-root",
+        default="",
+        help="Optional output directory when --deliver includes local-bundle.",
+    )
     return parser.parse_args()
 
 
@@ -812,6 +823,24 @@ def main() -> None:
     feishu_result = maybe_push_feishu(args, result)
     if feishu_result is not None:
         result["feishu_push"] = feishu_result
+
+    if args.deliver.strip():
+        run_root_text = normalize_text(result.get("run_root", ""))
+        report_json = find_primary_report_json(result)
+        if run_root_text or report_json:
+            delivery_targets = parse_targets(args.deliver)
+            delivery_context = load_run_context(Path(run_root_text) if run_root_text else None, report_json)
+            delivery_root = (
+                Path(args.delivery_root)
+                if normalize_text(args.delivery_root)
+                else (Path(run_root_text) / "delivery" if run_root_text else Path(report_json).parent / "delivery")
+            )
+            delivery_result: dict[str, object] = {"targets": delivery_targets}
+            if "local-bundle" in delivery_targets:
+                delivery_result["local_bundle"] = deliver_local_bundle(delivery_context, delivery_root, dry_run=False)
+            if "feishu" in delivery_targets:
+                delivery_result["feishu"] = deliver_feishu(delivery_context, args, dry_run=False)
+            result["delivery"] = delivery_result
 
     if args.mode == "auto":
         result = {"route": route_meta, **result}
