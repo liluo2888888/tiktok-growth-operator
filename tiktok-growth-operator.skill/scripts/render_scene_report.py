@@ -1660,9 +1660,86 @@ def infer_doc_table_widths(headers: list[str], rows: list[list[str]], usable_wid
     return widths
 
 
+CREATIVE_BRIEF_SCENE_IDS = frozenset({"09", "10", "13", "15", "16"})
+CREATIVE_MATRIX_SCENE_IDS = frozenset({"11", "12", "14"})
+
+
+def creative_scene_section_layout_map() -> dict[tuple[str, str], dict[str, object]]:
+    message_layout = {
+        "doc_widths": [1.0, 1.55, 1.55, 1.7],
+        "xlsx_preferred_widths": [14.0, 24.0, 24.0, 28.0],
+        "xlsx_per_column_max": [16.0, 30.0, 30.0, 34.0],
+        "xlsx_chars_per_line": 22,
+    }
+    structure_layout = {
+        "doc_widths": [0.65, 1.35, 0.95, 1.35, 1.25, 1.15],
+        "xlsx_preferred_widths": [10.0, 24.0, 16.0, 24.0, 22.0, 20.0],
+        "xlsx_per_column_max": [12.0, 30.0, 18.0, 30.0, 26.0, 24.0],
+        "xlsx_chars_per_line": 20,
+    }
+    constraints_layout = {
+        "doc_widths": [1.15, 0.95, 1.55, 1.35],
+        "xlsx_preferred_widths": [18.0, 16.0, 26.0, 22.0],
+        "xlsx_per_column_max": [20.0, 18.0, 30.0, 26.0],
+        "xlsx_chars_per_line": 22,
+    }
+    production_handoff_layout = {
+        "doc_widths": [1.25, 1.65, 1.15, 1.15],
+        "xlsx_preferred_widths": [20.0, 28.0, 18.0, 18.0],
+        "xlsx_per_column_max": [22.0, 32.0, 20.0, 20.0],
+        "xlsx_chars_per_line": 22,
+    }
+    variable_matrix_layout = {
+        "doc_widths": [0.95, 1.15, 1.35, 1.1, 0.85, 1.15, 0.95],
+        "xlsx_preferred_widths": [16.0, 18.0, 24.0, 18.0, 14.0, 18.0, 16.0],
+        "xlsx_per_column_max": [18.0, 20.0, 30.0, 20.0, 16.0, 22.0, 18.0],
+        "xlsx_chars_per_line": 20,
+    }
+    what_to_learn_layout = {
+        "doc_widths": [1.2, 1.15, 1.0, 1.35, 1.0, 1.0],
+        "xlsx_preferred_widths": [18.0, 18.0, 16.0, 24.0, 18.0, 18.0],
+        "xlsx_per_column_max": [20.0, 20.0, 18.0, 28.0, 20.0, 20.0],
+        "xlsx_chars_per_line": 22,
+    }
+    execution_handoff_layout = {
+        "doc_widths": [1.35, 1.0, 1.0, 1.45],
+        "xlsx_preferred_widths": [22.0, 16.0, 16.0, 26.0],
+        "xlsx_per_column_max": [26.0, 18.0, 18.0, 30.0],
+        "xlsx_chars_per_line": 22,
+    }
+    entries: dict[tuple[str, str], dict[str, object]] = {}
+    for scene_id in CREATIVE_BRIEF_SCENE_IDS:
+        entries[(scene_id, "Message")] = message_layout
+        entries[(scene_id, "Structure")] = structure_layout
+        entries[(scene_id, "Creative Constraints")] = constraints_layout
+        entries[(scene_id, "Production Handoff")] = production_handoff_layout
+    for scene_id in CREATIVE_MATRIX_SCENE_IDS:
+        entries[(scene_id, "Variable Matrix")] = variable_matrix_layout
+        entries[(scene_id, "What To Learn")] = what_to_learn_layout
+        entries[(scene_id, "Execution Handoff")] = execution_handoff_layout
+        if scene_id == "14":
+            entries[(scene_id, "Production Handoff")] = production_handoff_layout
+    return entries
+
+
+def first_table_cell(section: dict | None, row_index: int = 0, column_index: int = 0) -> str:
+    if not section:
+        return ""
+    rows = ((section.get("table") or {}).get("rows") or [])
+    if row_index >= len(rows):
+        return ""
+    row = rows[row_index]
+    if column_index >= len(row):
+        return ""
+    return normalize_text(row[column_index])
+
+
 def scene_section_layout(report: dict, section: dict) -> dict[str, object]:
     scene_id = normalize_text(report.get("metadata", {}).get("scene", ""))
     heading = normalize_text(section.get("heading", ""))
+    creative_layout = creative_scene_section_layout_map().get((scene_id, heading))
+    if creative_layout is not None:
+        return creative_layout
     layout_map: dict[tuple[str, str], dict[str, object]] = {
         ("01", "Objects To Track"): {
             "doc_widths": [0.7, 1.55, 1.65, 1.1, 1.15, 1.15, 0.9, 0.85, 0.75],
@@ -1945,6 +2022,30 @@ def scene_cover_spotlight_rows(report: dict) -> list[tuple[str, str]]:
             ("多做 / 少做", more_less or executive.get("next_action", "").strip() or "动作结论待补"),
             ("下轮测试", test_line),
         ]
+    if scene_id in CREATIVE_BRIEF_SCENE_IDS:
+        message = sections.get("Message") or {}
+        structure = sections.get("Structure") or {}
+        handoff = sections.get("Production Handoff") or {}
+        hook_line = first_table_cell(message, 0, 1) or first_table_cell(message, 0, 0)
+        proof_line = first_table_cell(structure, 1, 1) or first_table_cell(structure, 0, 1)
+        owner_line = first_table_cell(handoff, 0, 2) or first_table_cell(handoff, 0, 0)
+        return [
+            ("创意模式", scene_label_zh(scene_id)),
+            ("核心承诺 / Hook", hook_line or executive.get("conclusion", "").strip() or "核心承诺待补"),
+            ("主证明镜头", proof_line or "主证明镜头待补"),
+            ("制作交接", owner_line or executive.get("next_action", "").strip() or "制作交接待补"),
+        ]
+    if scene_id in CREATIVE_MATRIX_SCENE_IDS:
+        matrix = sections.get("Variable Matrix") or {}
+        handoff = sections.get("Execution Handoff") or sections.get("Production Handoff") or {}
+        stage_line = first_table_cell(matrix, 0, 0) or ((matrix.get("table") or {}).get("title") or "")
+        queue_line = first_table_cell(handoff, 0, 0) or first_table_cell(handoff, 1, 0)
+        return [
+            ("创意模式", scene_label_zh(scene_id)),
+            ("当前主阶段", stage_line or executive.get("conclusion", "").strip() or "主阶段待补"),
+            ("队列焦点", queue_line or "队列焦点待补"),
+            ("下一步", executive.get("next_action", "").strip() or "下一步动作待补"),
+        ]
     return [
         ("当前判断", executive.get("conclusion", "").strip() or "执行结论待补"),
         ("首要动作", executive.get("next_action", "").strip() or "下一步动作待补"),
@@ -1981,6 +2082,38 @@ def scene_section_action_rows(report: dict, section: dict) -> list[tuple[str, st
             ("本章焦点", "；".join(first_row[:2]) if len(first_row) >= 2 else "高低表现对照待补"),
             ("交付去向", "用于多做 / 少做 / 停止 与下轮测试排期"),
         ]
+    if scene_id in CREATIVE_BRIEF_SCENE_IDS and heading == "Production Handoff":
+        first_row = (table.get("rows") or [[]])[0]
+        return [
+            ("先看什么", table.get("title") or "制作交接表"),
+            ("为什么重要", "把锁定决策、责任人和阻塞风险一次性交给脚本、设计或渲染执行方。"),
+            ("本章焦点", "；".join(cell for cell in first_row[:2] if normalize_text(cell)) or "制作交接项待补"),
+            ("交付去向", "可继续生成 creative-production-handoff 运营包"),
+        ]
+    if scene_id in CREATIVE_BRIEF_SCENE_IDS and heading == "Message":
+        first_row = (table.get("rows") or [[]])[0]
+        return [
+            ("先看什么", table.get("title") or "信息层改写表"),
+            ("为什么重要", "先确认参考逻辑与适配版本是否分离，再进入镜头执行。"),
+            ("本章焦点", "；".join(cell for cell in first_row[:2] if normalize_text(cell)) or "信息层待补"),
+            ("交付去向", "用于锁定 hook、证明路径与 CTA"),
+        ]
+    if scene_id in CREATIVE_MATRIX_SCENE_IDS and heading == "Variable Matrix":
+        first_row = (table.get("rows") or [[]])[0]
+        return [
+            ("先看什么", table.get("title") or "变量矩阵 / 阶段表"),
+            ("为什么重要", "先看清阶段门槛、输入和产出，再决定本周该推进哪一段 pipeline。"),
+            ("本章焦点", "；".join(cell for cell in first_row[:2] if normalize_text(cell)) or "阶段定义待补"),
+            ("交付去向", "用于周度复制、测试或上新素材队列排期"),
+        ]
+    if scene_id in CREATIVE_MATRIX_SCENE_IDS and heading in {"Execution Handoff", "Production Handoff"}:
+        first_row = (table.get("rows") or [[]])[0]
+        return [
+            ("先看什么", table.get("title") or "执行交接表"),
+            ("为什么重要", "明确每个队列产物由谁拥有、何时可开工、卡在哪。"),
+            ("本章焦点", "；".join(cell for cell in first_row[:2] if normalize_text(cell)) or "队列交接待补"),
+            ("交付去向", "可继续生成 creative-production-handoff 运营包"),
+        ]
     action_hint = table.get("title") or ("优先看结构化表格" if table.get("headers") else "优先看段落与要点")
     evidence_rows = len(section.get("evidence_refs", []) or [])
     evidence_hint = "已带证据引用，可直接回看来源。" if evidence_rows else "当前章节未带结构化证据引用。"
@@ -1999,6 +2132,10 @@ def scene_summary_rows_xlsx(report: dict) -> list[tuple[str, str]]:
         return rows + [("阅读建议", "先看对象跟踪和关注理由，再看下一步动作分发。")]
     if scene_id == "19":
         return rows + [("阅读建议", "先看高低表现主判断，再看证据聚类与下轮测试计划。")]
+    if scene_id in CREATIVE_BRIEF_SCENE_IDS:
+        return rows + [("阅读建议", "先看 Message 与 Structure，再用 Production Handoff 进入制作执行。")]
+    if scene_id in CREATIVE_MATRIX_SCENE_IDS:
+        return rows + [("阅读建议", "先看 Variable Matrix，再用 Execution Handoff 推进周度队列。")]
     return rows
 
 

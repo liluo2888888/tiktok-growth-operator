@@ -57,3 +57,11 @@
 4. 再执行。
 5. 如果是异步任务，返回 task ID 和轮询计划。
 6. 后续跨轮使用 `query_task` 直到完成或失败。
+
+## 本包验证入口
+
+| 脚本 | 用途 |
+| --- | --- |
+| `python scripts/validate_all_workflows.py` | durable 全量验证：scene preset、capture pack、导出、board 路由、`references/route-eval-fixtures.json` |
+| `python scripts/validate_export_outputs.py` | 仅验证 Markdown / DOCX / XLSX 导出（含场景 `11` 创意矩阵夹具） |
+| `python scripts/recommend_entry_board.py --query "<request>" --format json` | 单独调试 board 路由语料 |

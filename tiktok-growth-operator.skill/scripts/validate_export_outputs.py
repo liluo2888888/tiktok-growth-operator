@@ -649,6 +649,12 @@ def main() -> None:
                 Path(".codex-tmp") / "spotcheck-scene18-rich" / "operator-run" / "scene-18" / "scene-18-spotcheck-scene18-rich.json",
             ),
         },
+        {
+            "name": "scene11_creative",
+            "input": resolve_fixture_path(
+                validation_fixture_root() / "reports" / "scene-11-pipeline-scaffold.json",
+            ),
+        },
     ]
     synthetic_fixtures = [
         {"name": "synthetic_duplicate_heading", "report": synthetic_duplicate_heading_report()},
