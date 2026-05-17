@@ -56,6 +56,41 @@
       "query": "按场景 06 执行：没有 TikTok Shop API 也要给我竞品商品看板降级方案",
       "expected_mode": "scene",
       "expected_scene": "06"
+    },
+    {
+      "query": "Run scene 09 reference replication brief for a new product",
+      "expected_mode": "scene",
+      "expected_scene": "09"
+    },
+    {
+      "query": "按场景 11 执行：把发现、筛选、深拆、入池和生产交接拆成明确阶段和门槛",
+      "expected_mode": "scene",
+      "expected_scene": "11"
+    },
+    {
+      "query": "按场景 13 执行：把一个产品概念做成多市场本地化包",
+      "expected_mode": "scene",
+      "expected_scene": "13"
+    },
+    {
+      "query": "Run scene 15 image translation localization brief",
+      "expected_mode": "scene",
+      "expected_scene": "15"
+    },
+    {
+      "query": "Create a creative production handoff pack for script and design owners",
+      "expected_mode": "pack",
+      "expected_pack_type": "creative-production-handoff"
+    },
+    {
+      "query": "帮我生成创意制作交接包，给脚本和设计负责人",
+      "expected_mode": "pack",
+      "expected_pack_type": "creative-production-handoff"
+    },
+    {
+      "query": "Run scene 02 daily category patrol and keep the SOP reusable",
+      "expected_mode": "scene",
+      "expected_scene": "02"
     }
   ],
   "recommend_entry_board_cases": [
@@ -83,6 +118,21 @@
       "query": "给我一个直播班次运营板",
       "expected_family": "cadence-board",
       "expected_slug": "live-shift-board"
+    },
+    {
+      "query": "给我一个选题到发布运营板",
+      "expected_family": "launch-board",
+      "expected_slug": "publish-week-board"
+    },
+    {
+      "query": "competitor to publish workflow board",
+      "expected_family": "single",
+      "expected_slug": "competitor-to-publish"
+    },
+    {
+      "query": "Set up competitor account weekly review",
+      "expected_family": "cadence-board",
+      "expected_slug": "weekly-ops-board"
     }
   ]
 }

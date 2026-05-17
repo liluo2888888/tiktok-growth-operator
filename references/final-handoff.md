@@ -262,14 +262,17 @@ validator 与历史运行清理策略：
 - fabricated OCR or translated image copy in scene `15`
 - unsupported data extraction from capture packs that do not contain the needed evidence
 
-## 如果后续继续迭代
+## P3 收口状态（2026-05-17）
 
-建议按这个顺序继续：
+已完成：
 
-1. docs and operator guidance cleanup
-2. downstream renderer hooks for scenes `09` to `16`
-3. delivery adapters and operator push surfaces
-4. visual-only export polish
-5. route-eval expansion and fixture hardening
+1. docs and operator guidance cleanup — `direct-use.md`、`command-map.md`、本文件与 `creative-production-handoff-pack.md` 对齐当前入口与创意场景导出行为
+2. downstream renderer hooks for scenes `09` to `16` — `render_scene_report.py` 为创意简报场景与矩阵场景增加封面 spotlight、章节动作卡和表格版式
+3. route-eval expansion and fixture hardening — `references/route-eval-fixtures.json` 扩充 scene / pack / board 语料；`testdata/validation/reports/scene-11-pipeline-scaffold.json` 进入导出验证
 
-Do not reopen core exporter structure unless a validation gap or user-visible defect appears.
+仍建议后续单独推进：
+
+1. delivery adapters and operator push surfaces
+2. visual-only export polish
+
+除非出现新的验证缺口或可见缺陷，否则不要重开核心 exporter 结构。

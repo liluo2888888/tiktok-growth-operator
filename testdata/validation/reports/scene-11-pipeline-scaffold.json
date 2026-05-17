@@ -1,0 +1,369 @@
+{
+  "metadata": {
+    "scene": "11",
+    "scene_slug": "hot-video-replication-pipeline",
+    "scene_title": "Hot-Video Replication Pipeline",
+    "project": "Pipeline Validation",
+    "title": "Scene 11 Report - Pipeline Validation",
+    "deliverable_type": "testing_matrix",
+    "generated_at": "2026-05-17T19:42:22",
+    "scenario_file": "scenarios/11-hot-video-replication-pipeline.md",
+    "status": "draft"
+  },
+  "working_context": {
+    "summary": "",
+    "inputs": [
+      "Category or product",
+      "Keyword set",
+      "Target market",
+      "Testing goal"
+    ],
+    "constraints": [
+      "If no live candidates exist, output the pipeline and intake checklist anyway."
+    ],
+    "requested_outputs": [
+      "Candidate ladder",
+      "Replication brief bank",
+      "Production queue",
+      "Testing recommendation",
+      "Weekly runbook"
+    ],
+    "minimum_evidence": [
+      "One category or product and a testing goal"
+    ],
+    "ideal_evidence": [
+      "Hot-video shortlist",
+      "Product assets",
+      "Weekly operating cadence"
+    ],
+    "ready_checklist": [
+      "Discovery and shortlist stages are separated",
+      "Replication gate is defined",
+      "Output queue can be prioritized"
+    ]
+  },
+  "executive_summary": {
+    "conclusion": "",
+    "why_it_matters": "",
+    "next_action": "",
+    "confidence": ""
+  },
+  "operator_guide": {
+    "operator_checklist": [
+      "Define the pipeline stages and decision gates clearly.",
+      "Decide what makes a hot video worth entering the replication queue.",
+      "Tie the workflow to a repeatable daily or weekly cadence."
+    ],
+    "common_failure_modes": [
+      "Blurring discovery, teardown, and production into one vague step.",
+      "Queueing too many candidates with no ranking gate.",
+      "Building a pipeline that cannot be run repeatedly by one operator."
+    ]
+  },
+  "execution_template": {
+    "recommended_request": "Run scene 11 to build a repeatable hot-video replication pipeline from discovery through ranking, teardown, and creative queueing. Make the decision gates explicit so the workflow can run every week.",
+    "recommended_request_zh": "按场景 11 执行：搭一个可重复跑的热点视频复制 pipeline，把发现、筛选、深拆、入池和生产交接拆成明确阶段和门槛。",
+    "recommended_runner_args": [
+      "python scripts/run_operator_workflow.py --mode scene --scene 11 --project \"<project-name>\" --output-root \".\\tmp\\hot-video-replication-pipeline\"",
+      "python scripts/generate_scene_report.py --scene 11 --project \"<project-name>\" --output \".\\tmp\\hot-video-replication-pipeline.json\" --format json"
+    ],
+    "variable_inputs": [
+      {
+        "name": "project_name",
+        "meaning": "便于识别的运行名或项目名",
+        "example": "Hot Video Replication Pipeline",
+        "required": "是"
+      },
+      {
+        "name": "market",
+        "meaning": "当场景依赖单一市场时的目标市场或地区",
+        "example": "美国",
+        "required": "建议"
+      },
+      {
+        "name": "evidence_pack",
+        "meaning": "作为源证据使用的链接、截图、转写、导出文件、OCR 文本或摘录备注",
+        "example": "Discovery inputs, shortlist rules, and weekly operator cadence",
+        "required": "是"
+      },
+      {
+        "name": "success_goal",
+        "meaning": "操作者希望该场景产出的结果",
+        "example": "repeatable discovery-to-replication pipeline",
+        "required": "建议"
+      }
+    ],
+    "codex_prompt_scaffold": [
+      "以场景 11 作为本次工作的主流程。",
+      "分析前先把现有证据归整为以下输入：Category or product, Keyword set, Target market, Testing goal。",
+      "如果证据不足，先明确缺口再继续。最低开工证据：One category or product and a testing goal。",
+      "最终必须产出以下可直接给运营使用的结果：Candidate ladder, Replication brief bank, Production queue, Testing recommendation, Weekly runbook。",
+      "Separate discovery, teardown, queue-entry, and production handoff into distinct stages.",
+      "Define what makes a hot video worth entering the replication queue.",
+      "优先填入可复用结论、表格、排序逻辑和下一步动作，不要停留在泛泛点评。"
+    ],
+    "codex_prompt_scaffold_zh": [
+      "按场景 11 执行：搭一个可重复跑的热点视频复制 pipeline，把发现、筛选、深拆、入池和生产交接拆成明确阶段和门槛。",
+      "先把我提供的材料整理成这组输入：Category or product, Keyword set, Target market, Testing goal。",
+      "如果证据不足，先明确缺口再继续。最低开工证据：One category or product and a testing goal。",
+      "最终必须产出：Candidate ladder, Replication brief bank, Production queue, Testing recommendation, Weekly runbook。",
+      "输出必须可直接给运营、拆解、脚本、测试或交付使用，优先给表格、排序逻辑、复用规则和下一步动作。"
+    ],
+    "workflow_steps": [
+      "Define the pipeline stages and decision gates clearly.",
+      "Decide what makes a hot video worth entering the replication queue.",
+      "Tie the workflow to a repeatable daily or weekly cadence."
+    ],
+    "output_checklist": [
+      "Pipeline stages and gates are explicit.",
+      "The replication queue has ranking logic, not only intake logic.",
+      "The workflow is light enough to repeat on a real cadence."
+    ]
+  },
+  "evidence": [
+    {
+      "label": "Discovery pool",
+      "detail": "Paste the hot-video shortlist feeding the pipeline.",
+      "source": ""
+    }
+  ],
+  "sections": [
+    {
+      "heading": "Executive Conclusion",
+      "instruction": "State what this replication pipeline should optimize for.",
+      "paragraphs": [],
+      "bullets": [],
+      "numbered": [],
+      "table": {
+        "title": "",
+        "headers": [],
+        "rows": []
+      },
+      "evidence_refs": []
+    },
+    {
+      "heading": "Core Invariant",
+      "instruction": "Define the operating principle that stays constant.",
+      "paragraphs": [],
+      "bullets": [],
+      "numbered": [],
+      "table": {
+        "title": "",
+        "headers": [
+          "Invariant",
+          "Rule",
+          "Why It Cannot Drift"
+        ],
+        "rows": [
+          [
+            "Entry threshold",
+            "",
+            ""
+          ],
+          [
+            "Teardown lens",
+            "",
+            ""
+          ],
+          [
+            "Queue standard",
+            "",
+            ""
+          ]
+        ]
+      },
+      "evidence_refs": []
+    },
+    {
+      "heading": "Variable Matrix",
+      "instruction": "Map the pipeline from discovery to production.",
+      "paragraphs": [],
+      "bullets": [],
+      "numbered": [],
+      "table": {
+        "title": "Pipeline Stages",
+        "headers": [
+          "Stage",
+          "Input",
+          "Decision Rule",
+          "Asset Need",
+          "Owner",
+          "Output",
+          "SLA / Cadence"
+        ],
+        "rows": [
+          [
+            "Discovery",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Shortlist",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Teardown",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Replication brief",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Production queue",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ]
+        ]
+      },
+      "evidence_refs": []
+    },
+    {
+      "heading": "Expected Effect",
+      "instruction": "Explain what this pipeline should improve operationally.",
+      "paragraphs": [],
+      "bullets": [
+        "Which step becomes faster or more selective after this pipeline exists?",
+        "Where should weak candidates get filtered out before wasting production time?"
+      ],
+      "numbered": [],
+      "table": {
+        "title": "",
+        "headers": [],
+        "rows": []
+      },
+      "evidence_refs": []
+    },
+    {
+      "heading": "What To Learn",
+      "instruction": "State what each cycle should teach the operator.",
+      "paragraphs": [],
+      "bullets": [],
+      "numbered": [],
+      "table": {
+        "title": "",
+        "headers": [
+          "Cycle Question",
+          "Why It Matters",
+          "How To Measure",
+          "What Decision It Changes",
+          "If Confirmed",
+          "If Rejected"
+        ],
+        "rows": [
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ]
+        ]
+      },
+      "evidence_refs": []
+    },
+    {
+      "heading": "Execution Handoff",
+      "instruction": "Define the artifacts and owners needed to keep the pipeline moving each week.",
+      "paragraphs": [],
+      "bullets": [],
+      "numbered": [],
+      "table": {
+        "title": "",
+        "headers": [
+          "Queue Artifact",
+          "Who Owns It",
+          "Ready When",
+          "Blocking Risk"
+        ],
+        "rows": [
+          [
+            "Discovery shortlist",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Teardown packet",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Replication brief bank",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Production queue",
+            "",
+            "",
+            ""
+          ]
+        ]
+      },
+      "evidence_refs": []
+    },
+    {
+      "heading": "Next Action",
+      "instruction": "Give the first weekly implementation sequence.",
+      "paragraphs": [],
+      "bullets": [],
+      "numbered": [
+        "Run one discovery pass and force-rank candidates with the entry rule.",
+        "Deep-teardown only the shortlisted videos.",
+        "Move only the strongest replication briefs into the production queue."
+      ],
+      "table": {
+        "title": "",
+        "headers": [],
+        "rows": []
+      },
+      "evidence_refs": []
+    }
+  ],
+  "assets": [],
+  "notes": [],
+  "sources": []
+}

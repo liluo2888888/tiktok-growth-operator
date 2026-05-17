@@ -10,6 +10,7 @@
 - 读 [scene-quick-reference.md](scene-quick-reference.md)：看 19 个 scene 的一页式可复制索引
 - 读 [creative-brief-quick-reference.md](creative-brief-quick-reference.md)：看场景 `09` 到 `16` 的创意制作简报速查
 - 读 [creative-production-handoff-pack.md](creative-production-handoff-pack.md)：看适合脚本、剪辑、设计或本地化执行的安全交付包
+- 场景 `09` 到 `16` 的结构化报告导出会走专用 renderer hooks：封面 spotlight 优先展示 Message / Structure / Production Handoff（或 Variable Matrix / Execution Handoff），便于直接交接制作
 - 读 [clipcat-openclaw-parity-audit.md](clipcat-openclaw-parity-audit.md)：看哪些能力已完整复刻，哪些仍依赖外部基础设施
 - 读 [account-ops-assist-pack.md](account-ops-assist-pack.md)：看 TikTok 收件箱、通知、关注请求和关系监控操作包
 
