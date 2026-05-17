@@ -1,0 +1,12 @@
+# Confirmed real scene report JSON inputs for Chinese finished-doc Feishu repush
+# Use with:
+# python scripts/push_scene_reports_to_feishu_doc.py --confirmed --app-id $env:FEISHU_APP_ID --app-secret $env:FEISHU_APP_SECRET --title-prefix "中文成品复推"
+# python scripts/push_scene_reports_to_feishu_doc.py --input-file references/feishu-confirmed-scene-inputs.txt --app-id $env:FEISHU_APP_ID --app-secret $env:FEISHU_APP_SECRET --title-prefix "中文成品复推"
+
+.codex-tmp/spotcheck-scene01-rich/operator-run/scene-01/scene-01-spotcheck-scene01-rich.json
+.codex-tmp/spotcheck-scene04-capture-rich/scene-04/scene-04-spotcheck-scene04-capture-rich.json
+.codex-tmp/tgo-validate-capture-mrm774fv/scene05_capture/scene-05/scene-05-validation-scene05-capture.json
+.codex-tmp/spotcheck-scene08-rich/operator-run/scene-08/scene-08-spotcheck-scene08-rich.json
+.codex-tmp/spotcheck-scene17-rich/operator-run/scene-17/scene-17-spotcheck-scene17-rich.json
+tiktok-growth-operator.skill/tmp/20260508_152850-batch-preset-tiktok-account-watch-capture-feishu-batch-smoke/capture-scene-18-account-weekly/scene-18/scene-18-feishu-batch-smoke-glowofficial-account-weekly.json
+tiktok-growth-operator.skill/tmp/20260508_152850-batch-preset-tiktok-account-watch-capture-feishu-batch-smoke/capture-scene-19-account-retro/scene-19/scene-19-feishu-batch-smoke-glowofficial-account-retro.json

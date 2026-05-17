@@ -1,0 +1,19 @@
+{
+  "started_at": "2026-04-23T13:47:54",
+  "ended_at": "2026-04-23T13:49:11",
+  "profile_count": 1,
+  "aggregated_ranked_count": 3,
+  "aggregated_qualified_count": 3,
+  "min_likes": 1000,
+  "output_root": "validation-fixture",
+  "ranked_json": "aggregate_ranked_videos.json",
+  "qualified_json": "aggregate_qualified_videos.json",
+  "profile_summary_json": "profile_summary.json",
+  "market": "US",
+  "publish_window": "2026-04-20 to 2026-04-23",
+  "sort_by": "digg_count_desc_then_reuse_value",
+  "shop_only": false,
+  "shortlist_count": 3,
+  "scene03_top_n": 3,
+  "scene03_search_count": 10
+}

@@ -1,0 +1,29 @@
+{
+  "checked_at": "2026-04-23T05:50:05+00:00",
+  "platform": "tiktok",
+  "reachable": true,
+  "session_quality": "browser_same_origin_api_ok",
+  "base_status_code": 200,
+  "profile_status_code": 200,
+  "base_final_url": "https://www.tiktok.com/",
+  "profile_final_url": "https://www.tiktok.com/@tiktok",
+  "profile_title": "TikTok - Make Your Day",
+  "browser_mode": true,
+  "browser_final_url": "https://www.tiktok.com/@tiktok",
+  "browser_title": "登录 | TikTok",
+  "browser_same_origin_api_mode": true,
+  "browser_same_origin_api_status": 200,
+  "browser_same_origin_api_empty_response": false,
+  "api_mode": true,
+  "api_status_code": 200,
+  "api_empty_response": true,
+  "cookie_count": 0,
+  "detail_collected_count": 2,
+  "ranked_video_count": 3,
+  "qualified_video_count": 1,
+  "notes": [
+    "This script validates reachability and session health.",
+    "Browser mode exports first-pass profile video links and can enrich detail pages for ranking.",
+    "API mode follows the Douyin_TikTok_Download_API-style TikTok web endpoint flow."
+  ]
+}

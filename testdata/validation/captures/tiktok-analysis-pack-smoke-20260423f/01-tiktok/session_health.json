@@ -1,0 +1,517 @@
+{
+  "checked_at": "2026-04-23T05:50:05+00:00",
+  "base_probe": {
+    "url": "https://www.tiktok.com",
+    "status_code": 200,
+    "ok": true,
+    "final_url": "https://www.tiktok.com/",
+    "elapsed_ms": 2460.6,
+    "content_length": 1451,
+    "title": "",
+    "page_signals": {
+      "contains_sig_iid": false,
+      "contains_universal_data": false,
+      "mentions_login": true,
+      "mentions_captcha": false,
+      "mentions_region_notice": false,
+      "mentions_explore": false
+    },
+    "server": "TLB",
+    "content_type": "text/html",
+    "sec_uid": ""
+  },
+  "profile_probe": {
+    "url": "https://www.tiktok.com/@tiktok",
+    "status_code": 200,
+    "ok": true,
+    "final_url": "https://www.tiktok.com/@tiktok",
+    "elapsed_ms": 1593.7,
+    "content_length": 314177,
+    "title": "TikTok - Make Your Day",
+    "page_signals": {
+      "contains_sig_iid": true,
+      "contains_universal_data": false,
+      "mentions_login": true,
+      "mentions_captcha": true,
+      "mentions_region_notice": false,
+      "mentions_explore": false
+    },
+    "server": "TLB",
+    "content_type": "text/html; charset=utf-8",
+    "sec_uid": "MS4wLjABAAAAv7iSuuXDJGDvJkmH_vz1qkDZYo1apxgzaxdBSeIuPiM"
+  },
+  "browser_probe": {
+    "checked_at": "2026-04-23T05:50:01+00:00",
+    "ok": true,
+    "final_url": "https://www.tiktok.com/@tiktok",
+    "title": "登录 | TikTok",
+    "elapsed_ms": 67313.8,
+    "content_length": 778949,
+    "body_text_sample": "TikTok\n搜索\n推荐\n探索\n已关注\n直播\n上传\n主页\n更多\n登录\n公司\n计划\n条款和政策\n© 2026 TikTok\n137.5K\n134.6K\n210.1K\n87.6M\n366.4K\n217.3K\n56.5M\n11.8M\n182.2K\n149.2K\n252.3K\n363.9K\n5.4M\n419.1K\n177.4K\n342.6K\n628.7K\n256.5K\n377.6K\n271.9M\n303.7K\n479.7M\n360.4K\n338.3K\n317.6K\n610K\n364.3K\n359.3K\n232K\n187.8K\n651.4K\n387.8K\n1.5M\n763.5K\n308.6K\n871.3K\n2.5M\n658.2K\n414.1K\n393K\n293.3K\n438.2K\n348.1K\n352.1K\n944.8K\n326.7K\n541.8K\n259.9K\n983.9K\n209.7K\n2.2M\n856.1K\n362.2K\n270.3K\n登录\n登录 TikTok\n使用二维码登录\n使用手机号码/电子邮箱/用户名登录\n使用 Facebook 登录\n使用 Google 登录\n使用 LINE 登录\n使用 KakaoTalk 登录\n使用 Apple 登录\n继续即表示你同意 TikTok 的《服务条款》，同时确认你已阅读 TikTok 的《隐私政策》。\n还没有账号？\n注册",
+    "page_signals": {
+      "contains_sig_iid": true,
+      "contains_universal_data": false,
+      "mentions_login": true,
+      "mentions_captcha": true,
+      "mentions_region_notice": false,
+      "mentions_explore": true
+    },
+    "video_candidates": [
+      {
+        "video_url": "https://www.tiktok.com/@tiktok/video/7631229398531788062",
+        "anchor_text": "",
+        "aria_label": ""
+      },
+      {
+        "video_url": "https://www.tiktok.com/@tiktok/video/7631201918366289165",
+        "anchor_text": "",
+        "aria_label": ""
+      },
+      {
+        "video_url": "https://www.tiktok.com/@tiktok/video/7628619815690833183",
+        "anchor_text": "",
+        "aria_label": ""
+      }
+    ],
+    "video_candidate_count": 3,
+    "binary": "chrome",
+    "cookies": {
+      "g_state": "{\"i_l\":0,\"i_ll\":1776923337358,\"i_b\":\"4ya8qVuCo3CpO6cA5EEq+UBchDUsHQz5DmYh01wN27Q\",\"i_e\":{\"enable_itp_optimization\":0},\"i_et\":1776923337352}",
+      "tiktok_webapp_theme": "light",
+      "tt_chain_token": "+A3dUh63td1Je3iz/U9M3A==",
+      "tt_csrf_token": "JoN6Tn0t-i8tOdAa8GJPB4jVVrchYSz72dXI",
+      "tiktok_webapp_theme_source": "auto",
+      "ttwid": "1%7CD68uevhA7ijrTZPDIEPeJcdC-qojwfllPkyOEC69KL4%7C1776923291%7C0311a20d8ad492f9d20e34d65cc61e82e5995fc002265b2ac794901d21bcbf92",
+      "msToken": "7Iih-DRre8ahiCIMz16r6ruKgQgqqAX52SuR3K7XT67mRNkrVHcry1GPtTEUVx_xEmxqkr9uslChn2RaTTB9buekIzz0q9I3q8D4PYJEzxvuf8eURLv6zEoGJlqDj-c7qyuAaT8U2eK9vw==",
+      "delay_guest_mode_vid": "5"
+    },
+    "cookie_count": 8,
+    "sec_uid": "MS4wLjABAAAAv7iSuuXDJGDvJkmH_vz1qkDZYo1apxgzaxdBSeIuPiM",
+    "detail_collected_count": 2
+  },
+  "browser_same_origin_api_probe": {
+    "ok": true,
+    "api_status_code": 200,
+    "response_text_length": 70274,
+    "response_json_parsed": true,
+    "response_parse_error": "",
+    "empty_response": false,
+    "headers": [
+      [
+        "access-control-expose-headers",
+        "x-tt-traceflag,x-tt-logid"
+      ],
+      [
+        "bd-tt-error-code",
+        "0"
+      ],
+      [
+        "cache-control",
+        "max-age=0, no-cache, no-store"
+      ],
+      [
+        "content-encoding",
+        "br"
+      ],
+      [
+        "content-type",
+        "application/json; charset=utf-8"
+      ],
+      [
+        "date",
+        "Thu, 23 Apr 2026 05:49:11 GMT"
+      ],
+      [
+        "expires",
+        "Thu, 23 Apr 2026 05:49:11 GMT"
+      ],
+      [
+        "pragma",
+        "no-cache"
+      ],
+      [
+        "server",
+        "TLB"
+      ],
+      [
+        "server-timing",
+        "cdn-cache; desc=MISS, edge; dur=62, origin; dur=173, inner; dur=168"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000; includeSubDomains"
+      ],
+      [
+        "tt-ticket-guard-result",
+        "0"
+      ],
+      [
+        "tt_stable",
+        "1"
+      ],
+      [
+        "x-akamai-request-id",
+        "aecc108b.6957fa16"
+      ],
+      [
+        "x-cache",
+        "TCP_MISS from a23-217-11-55.deploy.akamaitechnologies.com (AkamaiGHost/22.5.0-aaef44c942a33f2d231f7120051a5b09) (-)"
+      ],
+      [
+        "x-cache-remote",
+        "TCP_MISS from a23-54-124-20.deploy.akamaitechnologies.com (AkamaiGHost/22.5.0-aaef44c942a33f2d231f7120051a5b09) (-)"
+      ],
+      [
+        "x-ms-token",
+        "L3QXeVgKKNo00Q6Rnyny38CSA4jVKniERAKgq1lxx7tFWAiHj3QU2rREChdYan1Mbhwxpysq_wqC86oRGgosWRqRazQYcsEnRTHhyffNCeO2uUnS1wEw_ugaohivFNDK0ntRbM2wiuwVOQ=="
+      ],
+      [
+        "x-origin-response-time",
+        "174,23.54.124.20"
+      ],
+      [
+        "x-parent-response-time",
+        "235,23.217.11.55"
+      ],
+      [
+        "x-tt-logid",
+        "202604231349110DC74A209EDB705CD537"
+      ],
+      [
+        "x-tt-trace-host",
+        "0124402e4de616ada461110ba4f47ab05beee7ea143c1e6019668acbae674fc08a6dc4e69c455b5d99b00412eaa2d463ce6c23d6ef4579a91b4eed8f7ea5a194d8e3c1aa99cdf4e8f73a7c3f691cecdda3b469e8fdb437daa4d21c44e63e1567ad561088103b73faaf4bbfa3f6d232ef39"
+      ],
+      [
+        "x-tt-trace-id",
+        "00-2604231349110DC74A209EDB705CD537-50D0C5EA690B0D88-00"
+      ],
+      [
+        "x-tt-trace-tag",
+        "id=16;cdn-cache=miss;type=dyn"
+      ]
+    ],
+    "raw_item_count": 3,
+    "video_candidate_count": 3,
+    "video_candidates": [
+      {
+        "video_url": "https://www.tiktok.com/@tiktok/video/7631229398531788062",
+        "anchor_text": "this STEMTok creativity is blowing us away 👏",
+        "aria_label": "",
+        "video_id": "7631229398531788062",
+        "unique_id": "tiktok",
+        "nickname": "TikTok",
+        "desc": "this STEMTok creativity is blowing us away 👏",
+        "create_time": "1776784085",
+        "created_at_utc": "2026-04-21T15:08:05+00:00",
+        "digg_count": 1995,
+        "comment_count": 508,
+        "share_count": 160,
+        "play_count": 93500,
+        "collect_count": 200,
+        "play_addr": "https://v16-webapp-prime.tiktok.com/video/tos/maliva/tos-maliva-ve-0068c799-us/oQTAqfegNCxAyAWj5IRi1fzBmzILAa88RRSMQJ/?a=1988&bti=ODszNWYuMDE6&&bt=1969&ft=gdf_e8Zmo0PUssFRkVQus0z~Tr4jD0.Q5SY&mime_type=video_mp4&rc=M2U6PGVkOmZoNTg5NTg0OUBpamg4NHE5cjxzOjMzaTczNEAwMi5fY2NfXjExLzE0MjZhYSMxaGkzMmRrMWdhLS1kMTJzcw%3D%3D&btag=e00088000&expire=1777096204&l=202604231349110DC74A209EDB705CD537&ply_type=2&policy=2&signature=2c2a124bc6a5a0d3311d2646bbf785ce&tk=tt_chain_token",
+        "download_addr": "https://v16-webapp-prime.tiktok.com/video/tos/maliva/tos-maliva-ve-0068c799-us/oAnJ3iAIqB0v8pCSkALGArvaIvOJMFii4QEneQ/?a=1988&bti=ODszNWYuMDE6&&bt=1794&ft=gdf_e8Zmo0PUssFRkVQus0z~Tr4jD0.Q5SY&mime_type=video_mp4&rc=Zjw0Zzc7OmdnPGlnNWk6Z0Bpamg4NHE5cjxzOjMzaTczNEBgMC5gXi40Xi8xXmMuNl9iYSMxaGkzMmRrMWdhLS1kMTJzcw%3D%3D&btag=e00088000&expire=1777096204&l=202604231349110DC74A209EDB705CD537&ply_type=2&policy=2&signature=e7a6c50343b26f7114e5bce582d88b93&tk=tt_chain_token",
+        "cover_url": "https://p16-common-sign.tiktokcdn.com/tos-useast8-p-0068-tx2/okAAMQyUTIAeSrn6AMEscAezWAWhqA8j0I2reQ~tplv-tiktokx-origin.image?dr=14575&x-expires=1777093200&x-signature=DjQT99PFuFe8Mm6eX%2F7piLGU6nY%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=my2",
+        "comment_samples": [],
+        "source": "web_api",
+        "score": 15939
+      },
+      {
+        "video_url": "https://www.tiktok.com/@tiktok/video/7631201918366289165",
+        "anchor_text": "PSA: always sing your ❤️ out, you'll never know who's going to listen 👀   tune into the full episode of Behind the Breakthrough with @SIENNA SPIRO, on our page coming soon.",
+        "aria_label": "",
+        "video_id": "7631201918366289165",
+        "unique_id": "tiktok",
+        "nickname": "TikTok",
+        "desc": "PSA: always sing your ❤️ out, you'll never know who's going to listen 👀   tune into the full episode of Behind the Breakthrough with @SIENNA SPIRO, on our page coming soon.",
+        "create_time": "1776777705",
+        "created_at_utc": "2026-04-21T13:21:45+00:00",
+        "digg_count": 104600,
+        "comment_count": 671,
+        "share_count": 941,
+        "play_count": 4200000,
+        "collect_count": 3525,
+        "play_addr": "https://v16-webapp-prime.tiktok.com/video/tos/maliva/tos-maliva-ve-0068c799-us/oAs75v1VMRueYdfOAxWAkejbPC8ITRHgQRAGIz/?a=1988&bti=ODszNWYuMDE6&&bt=1223&ft=gdf_e8Zmo0PUssFRkVQus0z~Tr4jD0.Q5SY&mime_type=video_mp4&rc=O2g7Ozg6NWdlNjw1NDdmOEBpM211bnE5cm1xOjMzZzczNEAtLS9gMTIzNmMxNGA0LWBiYSNvbGFuMmRjZ2dhLS1kMS9zcw%3D%3D&btag=e00088000&expire=1777096180&l=202604231349110DC74A209EDB705CD537&ply_type=2&policy=2&signature=d448aa46a1c932dd21487cf4940924f8&tk=tt_chain_token",
+        "download_addr": "https://v16-webapp-prime.tiktok.com/video/tos/maliva/tos-maliva-ve-0068c799-us/osXEd84fQqvESo5BnOUDfDsRnNAFgI3gItCpIj/?a=1988&bti=ODszNWYuMDE6&&bt=1123&ft=gdf_e8Zmo0PUssFRkVQus0z~Tr4jD0.Q5SY&mime_type=video_mp4&rc=ZTRnNmZpZzQ3ZmhoZjk5aUBpM211bnE5cm1xOjMzZzczNEBjNl8uLjZeNTAxX14xMGMvYSNvbGFuMmRjZ2dhLS1kMS9zcw%3D%3D&btag=e00088000&expire=1777096180&l=202604231349110DC74A209EDB705CD537&ply_type=2&policy=2&signature=d1ad3cd323bffd89c62664bd2efc8869&tk=tt_chain_token",
+        "cover_url": "https://p16-common-sign.tiktokcdn.com/tos-useast5-p-0068-tx/okeOuZgQEnDA5S8F3bCgHp8n6AYDREAAIR8yfu~tplv-tiktokx-origin.image?dr=14575&x-expires=1777093200&x-signature=hJBzl4mZjO6JffaUDN1%2BuR6uZ9Y%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=my2",
+        "comment_samples": [],
+        "source": "web_api",
+        "score": 173093
+      },
+      {
+        "video_url": "https://www.tiktok.com/@tiktok/video/7628619815690833183",
+        "anchor_text": "a reminder to romanticize the little moments ❤️",
+        "aria_label": "",
+        "video_id": "7628619815690833183",
+        "unique_id": "tiktok",
+        "nickname": "TikTok",
+        "desc": "a reminder to romanticize the little moments ❤️",
+        "create_time": "1776176493",
+        "created_at_utc": "2026-04-14T14:21:33+00:00",
+        "digg_count": 7428,
+        "comment_count": 2287,
+        "share_count": 769,
+        "play_count": 309200,
+        "collect_count": 772,
+        "play_addr": "https://v16-webapp-prime.tiktok.com/video/tos/maliva/tos-maliva-ve-0068c799-us/ogE0KpkBTixEEeFRiXIg7IAV2mAfuqg8Z23QxD/?a=1988&bti=ODszNWYuMDE6&&bt=874&ft=gdf_e8Zmo0PUssFRkVQus0z~Tr4jD0.Q5SY&mime_type=video_mp4&rc=ODk5Zzs0aTs1ZDNkNjM6M0BpamVneGo5cnQ3OjMzaTczNEAwNjU0YTBiXjUxNC1jLjQyYSNvL2cxMmRrbGNhLS1kMTJzcw%3D%3D&btag=e00088000&expire=1777096199&l=202604231349110DC74A209EDB705CD537&ply_type=2&policy=2&signature=34bd75b941c5c8aa39ae906b130d6f21&tk=tt_chain_token",
+        "download_addr": "https://v16-webapp-prime.tiktok.com/video/tos/maliva/tos-maliva-ve-0068c799-us/oIAgeFiqx3TYDT3JRf0BkHEgAVEPEObIXpo2Qu/?a=1988&bti=ODszNWYuMDE6&&bt=791&ft=gdf_e8Zmo0PUssFRkVQus0z~Tr4jD0.Q5SY&mime_type=video_mp4&rc=NTYzOGY0Zzg1aTVmOjo3OEBpamVneGo5cnQ3OjMzaTczNEBjNGAzNi0tNi4xNS9iYzQyYSNvL2cxMmRrbGNhLS1kMTJzcw%3D%3D&btag=e00088000&expire=1777096199&l=202604231349110DC74A209EDB705CD537&ply_type=2&policy=2&signature=32d73de3528d62215451214b77b94373&tk=tt_chain_token",
+        "cover_url": "https://p16-common-sign.tiktokcdn.com/tos-useast8-p-0068-tx2/oEsGEw03A1wRAIQWpAQGqxFwEVEeVkfTCEAADA~tplv-tiktokx-origin.image?dr=14575&x-expires=1777093200&x-signature=DegpBeEXG1QdHS21yWGFjij0He4%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=my2",
+        "comment_samples": [],
+        "source": "web_api",
+        "score": 69393
+      }
+    ],
+    "error": "",
+    "attempt": 1,
+    "attempts": [
+      {
+        "ok": true,
+        "api_status_code": 200,
+        "response_text_length": 70274,
+        "response_json_parsed": true,
+        "response_parse_error": "",
+        "empty_response": false,
+        "headers": [
+          [
+            "access-control-expose-headers",
+            "x-tt-traceflag,x-tt-logid"
+          ],
+          [
+            "bd-tt-error-code",
+            "0"
+          ],
+          [
+            "cache-control",
+            "max-age=0, no-cache, no-store"
+          ],
+          [
+            "content-encoding",
+            "br"
+          ],
+          [
+            "content-type",
+            "application/json; charset=utf-8"
+          ],
+          [
+            "date",
+            "Thu, 23 Apr 2026 05:49:11 GMT"
+          ],
+          [
+            "expires",
+            "Thu, 23 Apr 2026 05:49:11 GMT"
+          ],
+          [
+            "pragma",
+            "no-cache"
+          ],
+          [
+            "server",
+            "TLB"
+          ],
+          [
+            "server-timing",
+            "cdn-cache; desc=MISS, edge; dur=62, origin; dur=173, inner; dur=168"
+          ],
+          [
+            "strict-transport-security",
+            "max-age=31536000; includeSubDomains"
+          ],
+          [
+            "tt-ticket-guard-result",
+            "0"
+          ],
+          [
+            "tt_stable",
+            "1"
+          ],
+          [
+            "x-akamai-request-id",
+            "aecc108b.6957fa16"
+          ],
+          [
+            "x-cache",
+            "TCP_MISS from a23-217-11-55.deploy.akamaitechnologies.com (AkamaiGHost/22.5.0-aaef44c942a33f2d231f7120051a5b09) (-)"
+          ],
+          [
+            "x-cache-remote",
+            "TCP_MISS from a23-54-124-20.deploy.akamaitechnologies.com (AkamaiGHost/22.5.0-aaef44c942a33f2d231f7120051a5b09) (-)"
+          ],
+          [
+            "x-ms-token",
+            "L3QXeVgKKNo00Q6Rnyny38CSA4jVKniERAKgq1lxx7tFWAiHj3QU2rREChdYan1Mbhwxpysq_wqC86oRGgosWRqRazQYcsEnRTHhyffNCeO2uUnS1wEw_ugaohivFNDK0ntRbM2wiuwVOQ=="
+          ],
+          [
+            "x-origin-response-time",
+            "174,23.54.124.20"
+          ],
+          [
+            "x-parent-response-time",
+            "235,23.217.11.55"
+          ],
+          [
+            "x-tt-logid",
+            "202604231349110DC74A209EDB705CD537"
+          ],
+          [
+            "x-tt-trace-host",
+            "0124402e4de616ada461110ba4f47ab05beee7ea143c1e6019668acbae674fc08a6dc4e69c455b5d99b00412eaa2d463ce6c23d6ef4579a91b4eed8f7ea5a194d8e3c1aa99cdf4e8f73a7c3f691cecdda3b469e8fdb437daa4d21c44e63e1567ad561088103b73faaf4bbfa3f6d232ef39"
+          ],
+          [
+            "x-tt-trace-id",
+            "00-2604231349110DC74A209EDB705CD537-50D0C5EA690B0D88-00"
+          ],
+          [
+            "x-tt-trace-tag",
+            "id=16;cdn-cache=miss;type=dyn"
+          ]
+        ],
+        "raw_item_count": 3,
+        "video_candidate_count": 3,
+        "video_candidates": [
+          {
+            "video_url": "https://www.tiktok.com/@tiktok/video/7631229398531788062",
+            "anchor_text": "this STEMTok creativity is blowing us away 👏",
+            "aria_label": "",
+            "video_id": "7631229398531788062",
+            "unique_id": "tiktok",
+            "nickname": "TikTok",
+            "desc": "this STEMTok creativity is blowing us away 👏",
+            "create_time": "1776784085",
+            "created_at_utc": "2026-04-21T15:08:05+00:00",
+            "digg_count": 1995,
+            "comment_count": 508,
+            "share_count": 160,
+            "play_count": 93500,
+            "collect_count": 200,
+            "play_addr": "https://v16-webapp-prime.tiktok.com/video/tos/maliva/tos-maliva-ve-0068c799-us/oQTAqfegNCxAyAWj5IRi1fzBmzILAa88RRSMQJ/?a=1988&bti=ODszNWYuMDE6&&bt=1969&ft=gdf_e8Zmo0PUssFRkVQus0z~Tr4jD0.Q5SY&mime_type=video_mp4&rc=M2U6PGVkOmZoNTg5NTg0OUBpamg4NHE5cjxzOjMzaTczNEAwMi5fY2NfXjExLzE0MjZhYSMxaGkzMmRrMWdhLS1kMTJzcw%3D%3D&btag=e00088000&expire=1777096204&l=202604231349110DC74A209EDB705CD537&ply_type=2&policy=2&signature=2c2a124bc6a5a0d3311d2646bbf785ce&tk=tt_chain_token",
+            "download_addr": "https://v16-webapp-prime.tiktok.com/video/tos/maliva/tos-maliva-ve-0068c799-us/oAnJ3iAIqB0v8pCSkALGArvaIvOJMFii4QEneQ/?a=1988&bti=ODszNWYuMDE6&&bt=1794&ft=gdf_e8Zmo0PUssFRkVQus0z~Tr4jD0.Q5SY&mime_type=video_mp4&rc=Zjw0Zzc7OmdnPGlnNWk6Z0Bpamg4NHE5cjxzOjMzaTczNEBgMC5gXi40Xi8xXmMuNl9iYSMxaGkzMmRrMWdhLS1kMTJzcw%3D%3D&btag=e00088000&expire=1777096204&l=202604231349110DC74A209EDB705CD537&ply_type=2&policy=2&signature=e7a6c50343b26f7114e5bce582d88b93&tk=tt_chain_token",
+            "cover_url": "https://p16-common-sign.tiktokcdn.com/tos-useast8-p-0068-tx2/okAAMQyUTIAeSrn6AMEscAezWAWhqA8j0I2reQ~tplv-tiktokx-origin.image?dr=14575&x-expires=1777093200&x-signature=DjQT99PFuFe8Mm6eX%2F7piLGU6nY%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=my2",
+            "comment_samples": [],
+            "source": "web_api",
+            "score": 15939
+          },
+          {
+            "video_url": "https://www.tiktok.com/@tiktok/video/7631201918366289165",
+            "anchor_text": "PSA: always sing your ❤️ out, you'll never know who's going to listen 👀   tune into the full episode of Behind the Breakthrough with @SIENNA SPIRO, on our page coming soon.",
+            "aria_label": "",
+            "video_id": "7631201918366289165",
+            "unique_id": "tiktok",
+            "nickname": "TikTok",
+            "desc": "PSA: always sing your ❤️ out, you'll never know who's going to listen 👀   tune into the full episode of Behind the Breakthrough with @SIENNA SPIRO, on our page coming soon.",
+            "create_time": "1776777705",
+            "created_at_utc": "2026-04-21T13:21:45+00:00",
+            "digg_count": 104600,
+            "comment_count": 671,
+            "share_count": 941,
+            "play_count": 4200000,
+            "collect_count": 3525,
+            "play_addr": "https://v16-webapp-prime.tiktok.com/video/tos/maliva/tos-maliva-ve-0068c799-us/oAs75v1VMRueYdfOAxWAkejbPC8ITRHgQRAGIz/?a=1988&bti=ODszNWYuMDE6&&bt=1223&ft=gdf_e8Zmo0PUssFRkVQus0z~Tr4jD0.Q5SY&mime_type=video_mp4&rc=O2g7Ozg6NWdlNjw1NDdmOEBpM211bnE5cm1xOjMzZzczNEAtLS9gMTIzNmMxNGA0LWBiYSNvbGFuMmRjZ2dhLS1kMS9zcw%3D%3D&btag=e00088000&expire=1777096180&l=202604231349110DC74A209EDB705CD537&ply_type=2&policy=2&signature=d448aa46a1c932dd21487cf4940924f8&tk=tt_chain_token",
+            "download_addr": "https://v16-webapp-prime.tiktok.com/video/tos/maliva/tos-maliva-ve-0068c799-us/osXEd84fQqvESo5BnOUDfDsRnNAFgI3gItCpIj/?a=1988&bti=ODszNWYuMDE6&&bt=1123&ft=gdf_e8Zmo0PUssFRkVQus0z~Tr4jD0.Q5SY&mime_type=video_mp4&rc=ZTRnNmZpZzQ3ZmhoZjk5aUBpM211bnE5cm1xOjMzZzczNEBjNl8uLjZeNTAxX14xMGMvYSNvbGFuMmRjZ2dhLS1kMS9zcw%3D%3D&btag=e00088000&expire=1777096180&l=202604231349110DC74A209EDB705CD537&ply_type=2&policy=2&signature=d1ad3cd323bffd89c62664bd2efc8869&tk=tt_chain_token",
+            "cover_url": "https://p16-common-sign.tiktokcdn.com/tos-useast5-p-0068-tx/okeOuZgQEnDA5S8F3bCgHp8n6AYDREAAIR8yfu~tplv-tiktokx-origin.image?dr=14575&x-expires=1777093200&x-signature=hJBzl4mZjO6JffaUDN1%2BuR6uZ9Y%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=my2",
+            "comment_samples": [],
+            "source": "web_api",
+            "score": 173093
+          },
+          {
+            "video_url": "https://www.tiktok.com/@tiktok/video/7628619815690833183",
+            "anchor_text": "a reminder to romanticize the little moments ❤️",
+            "aria_label": "",
+            "video_id": "7628619815690833183",
+            "unique_id": "tiktok",
+            "nickname": "TikTok",
+            "desc": "a reminder to romanticize the little moments ❤️",
+            "create_time": "1776176493",
+            "created_at_utc": "2026-04-14T14:21:33+00:00",
+            "digg_count": 7428,
+            "comment_count": 2287,
+            "share_count": 769,
+            "play_count": 309200,
+            "collect_count": 772,
+            "play_addr": "https://v16-webapp-prime.tiktok.com/video/tos/maliva/tos-maliva-ve-0068c799-us/ogE0KpkBTixEEeFRiXIg7IAV2mAfuqg8Z23QxD/?a=1988&bti=ODszNWYuMDE6&&bt=874&ft=gdf_e8Zmo0PUssFRkVQus0z~Tr4jD0.Q5SY&mime_type=video_mp4&rc=ODk5Zzs0aTs1ZDNkNjM6M0BpamVneGo5cnQ3OjMzaTczNEAwNjU0YTBiXjUxNC1jLjQyYSNvL2cxMmRrbGNhLS1kMTJzcw%3D%3D&btag=e00088000&expire=1777096199&l=202604231349110DC74A209EDB705CD537&ply_type=2&policy=2&signature=34bd75b941c5c8aa39ae906b130d6f21&tk=tt_chain_token",
+            "download_addr": "https://v16-webapp-prime.tiktok.com/video/tos/maliva/tos-maliva-ve-0068c799-us/oIAgeFiqx3TYDT3JRf0BkHEgAVEPEObIXpo2Qu/?a=1988&bti=ODszNWYuMDE6&&bt=791&ft=gdf_e8Zmo0PUssFRkVQus0z~Tr4jD0.Q5SY&mime_type=video_mp4&rc=NTYzOGY0Zzg1aTVmOjo3OEBpamVneGo5cnQ3OjMzaTczNEBjNGAzNi0tNi4xNS9iYzQyYSNvL2cxMmRrbGNhLS1kMTJzcw%3D%3D&btag=e00088000&expire=1777096199&l=202604231349110DC74A209EDB705CD537&ply_type=2&policy=2&signature=32d73de3528d62215451214b77b94373&tk=tt_chain_token",
+            "cover_url": "https://p16-common-sign.tiktokcdn.com/tos-useast8-p-0068-tx2/oEsGEw03A1wRAIQWpAQGqxFwEVEeVkfTCEAADA~tplv-tiktokx-origin.image?dr=14575&x-expires=1777093200&x-signature=DegpBeEXG1QdHS21yWGFjij0He4%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=my2",
+            "comment_samples": [],
+            "source": "web_api",
+            "score": 69393
+          }
+        ],
+        "error": "",
+        "attempt": 1
+      }
+    ],
+    "checked_at": "2026-04-23T05:49:10+00:00",
+    "api_url": "https://www.tiktok.com/api/post/item_list/?WebIdLastTime=1776923349&aid=1988&app_language=en&app_name=tiktok_web&browser_language=en-US&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%29&channel=tiktok_web&cookie_enabled=true&count=3&coverFormat=2&cursor=0&data_collection_enabled=true&device_id=7380187414842836523&device_platform=web_pc&focus_state=true&from_page=user&history_len=3&is_fullscreen=false&is_page_visible=true&language=en&locate_item_id=&needPinnedItemIds=true&odinId=7404669909585003563&os=windows&post_item_list_request_type=0&priority_region=US&referer=&region=US&screen_height=1080&screen_width=1920&secUid=MS4wLjABAAAAv7iSuuXDJGDvJkmH_vz1qkDZYo1apxgzaxdBSeIuPiM&tz_name=America%2FLos_Angeles&user_is_login=false&webcast_language=en&msToken=7Iih-DRre8ahiCIMz16r6ruKgQgqqAX52SuR3K7XT67mRNkrVHcry1GPtTEUVx_xEmxqkr9uslChn2RaTTB9buekIzz0q9I3q8D4PYJEzxvuf8eURLv6zEoGJlqDj-c7qyuAaT8U2eK9vw==&X-Bogus=DFSzswVY01XANj7TCbx9mF9WX7nA",
+    "api_repo": "D:\\我的文档\\Documents\\Playground 4\\_tmp_douyin_tiktok_api",
+    "sec_uid": "MS4wLjABAAAAv7iSuuXDJGDvJkmH_vz1qkDZYo1apxgzaxdBSeIuPiM",
+    "ms_token_present": true
+  },
+  "video_details": [
+    {
+      "video_url": "https://www.tiktok.com/@tiktok/video/7631229398531788062",
+      "video_id": "7631229398531788062",
+      "unique_id": "tiktok",
+      "nickname": "TikTok",
+      "desc": "this STEMTok creativity is blowing us away 👏",
+      "create_time": "1776784085",
+      "created_at_utc": "2026-04-21T15:08:05+00:00",
+      "digg_count": 1995,
+      "comment_count": 508,
+      "share_count": 160,
+      "play_count": 93500,
+      "collect_count": 200,
+      "play_addr": "https://v16-webapp-prime.tiktok.com/video/tos/maliva/tos-maliva-ve-0068c799-us/oQTAqfegNCxAyAWj5IRi1fzBmzILAa88RRSMQJ/?a=1988&bti=ODszNWYuMDE6&&bt=1969&ft=3.u4FZmo0PDcdd_faQ9WHPXOhKkV1PCBqYlc&mime_type=video_mp4&rc=M2U6PGVkOmZoNTg5NTg0OUBpamg4NHE5cjxzOjMzaTczNEAwMi5fY2NfXjExLzE0MjZhYSMxaGkzMmRrMWdhLS1kMTJzcw%3D%3D&btag=e00088000&expire=1777096207&l=2026042313491436D0727DE0960D5888FD&ply_type=2&policy=2&signature=a55f0496c01d5f49cb0a2ffa4bcbb187&tk=tt_chain_token",
+      "download_addr": "https://v16-webapp-prime.tiktok.com/video/tos/maliva/tos-maliva-ve-0068c799-us/oAnJ3iAIqB0v8pCSkALGArvaIvOJMFii4QEneQ/?a=1988&bti=ODszNWYuMDE6&&bt=1794&ft=3.u4FZmo0PDcdd_faQ9WHPXOhKkV1PCBqYlc&mime_type=video_mp4&rc=Zjw0Zzc7OmdnPGlnNWk6Z0Bpamg4NHE5cjxzOjMzaTczNEBgMC5gXi40Xi8xXmMuNl9iYSMxaGkzMmRrMWdhLS1kMTJzcw%3D%3D&btag=e00088000&expire=1777096207&l=2026042313491436D0727DE0960D5888FD&ply_type=2&policy=2&signature=dee7d5a238331fbc5ccf1856d0f2fccb&tk=tt_chain_token",
+      "cover_url": "https://p16-common-sign.tiktokcdn.com/tos-useast8-p-0068-tx2/okAAMQyUTIAeSrn6AMEscAezWAWhqA8j0I2reQ~tplv-tiktokx-origin.image?dr=14575&x-expires=1777093200&x-signature=DjQT99PFuFe8Mm6eX%2F7piLGU6nY%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=my",
+      "comment_samples": [],
+      "source": "detail_page",
+      "score": 15939
+    },
+    {
+      "video_url": "https://www.tiktok.com/@tiktok/video/7631201918366289165",
+      "video_id": "7631201918366289165",
+      "unique_id": "tiktok",
+      "nickname": "TikTok",
+      "desc": "PSA: always sing your ❤️ out, you'll never know who's going to listen 👀   tune into the full episode of Behind the Breakthrough with @SIENNA SPIRO, on our page coming soon.",
+      "create_time": "1776777705",
+      "created_at_utc": "2026-04-21T13:21:45+00:00",
+      "digg_count": 104600,
+      "comment_count": 671,
+      "share_count": 941,
+      "play_count": 4200000,
+      "collect_count": 3525,
+      "play_addr": "https://v16-webapp-prime.tiktok.com/video/tos/maliva/tos-maliva-ve-0068c799-us/oAs75v1VMRueYdfOAxWAkejbPC8ITRHgQRAGIz/?a=1988&bti=ODszNWYuMDE6&&bt=1223&ft=gdf_e8Zmo0PzssFRkVQidDC~Tr4jD0.k5SY&mime_type=video_mp4&rc=O2g7Ozg6NWdlNjw1NDdmOEBpM211bnE5cm1xOjMzZzczNEAtLS9gMTIzNmMxNGA0LWBiYSNvbGFuMmRjZ2dhLS1kMS9zcw%3D%3D&btag=e00088000&expire=1777096211&l=20260423134942C7BBC2725AABF3612563&ply_type=2&policy=2&signature=0d1abe11bdcb5dce84864367c9a2d8e2&tk=tt_chain_token",
+      "download_addr": "https://v16-webapp-prime.tiktok.com/video/tos/maliva/tos-maliva-ve-0068c799-us/osXEd84fQqvESo5BnOUDfDsRnNAFgI3gItCpIj/?a=1988&bti=ODszNWYuMDE6&&bt=1123&ft=gdf_e8Zmo0PzssFRkVQidDC~Tr4jD0.k5SY&mime_type=video_mp4&rc=ZTRnNmZpZzQ3ZmhoZjk5aUBpM211bnE5cm1xOjMzZzczNEBjNl8uLjZeNTAxX14xMGMvYSNvbGFuMmRjZ2dhLS1kMS9zcw%3D%3D&btag=e00088000&expire=1777096211&l=20260423134942C7BBC2725AABF3612563&ply_type=2&policy=2&signature=9a2097f2801bc5b1b91b09bd06876286&tk=tt_chain_token",
+      "cover_url": "https://p16-common-sign.tiktokcdn.com/tos-useast5-p-0068-tx/okeOuZgQEnDA5S8F3bCgHp8n6AYDREAAIR8yfu~tplv-tiktokx-origin.image?dr=14575&x-expires=1777093200&x-signature=hJBzl4mZjO6JffaUDN1%2BuR6uZ9Y%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=my",
+      "comment_samples": [],
+      "source": "detail_page",
+      "score": 173093
+    }
+  ],
+  "comments_summary": {
+    "checked_at": "2026-04-23T05:50:05+00:00",
+    "video_count": 3,
+    "videos_with_comment_samples": 0,
+    "sampling_mode": "detail_page_embedded_comments_only",
+    "note": "TikTok comment API and DOM comment extraction may be unavailable in the current anonymous session."
+  },
+  "download_summary": {
+    "selected_count": 0,
+    "video_success_count": 0,
+    "cover_success_count": 0
+  },
+  "api_probe": {
+    "checked_at": "2026-04-23T05:50:05+00:00",
+    "ok": true,
+    "api_status_code": 200,
+    "api_url": "https://www.tiktok.com/api/post/item_list/?WebIdLastTime=1776923405&aid=1988&app_language=en&app_name=tiktok_web&browser_language=en-US&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%29&channel=tiktok_web&cookie_enabled=true&count=3&coverFormat=2&cursor=0&data_collection_enabled=true&device_id=7380187414842836523&device_platform=web_pc&focus_state=true&from_page=user&history_len=3&is_fullscreen=false&is_page_visible=true&language=en&locate_item_id=&needPinnedItemIds=true&odinId=7404669909585003563&os=windows&post_item_list_request_type=0&priority_region=US&referer=&region=US&screen_height=1080&screen_width=1920&secUid=MS4wLjABAAAAv7iSuuXDJGDvJkmH_vz1qkDZYo1apxgzaxdBSeIuPiM&tz_name=America%2FLos_Angeles&user_is_login=false&webcast_language=en&msToken=9uYn3dpSyVybZaovN_MNj28fKRayeuVYl4a9iodTOQFWqEvgjuK9Fu3W0sqCdN-CqpJ9c-Su39QXQFoglIkBeOZiiQLwkh7Yyd58rfwb9X0uI7ThYl_ku2Kk&X-Bogus=DFSzswVYB1iANj7TCbxHRF9WX7Jw",
+    "api_repo": "D:\\我的文档\\Documents\\Playground 4\\_tmp_douyin_tiktok_api",
+    "sec_uid": "MS4wLjABAAAAv7iSuuXDJGDvJkmH_vz1qkDZYo1apxgzaxdBSeIuPiM",
+    "ms_token_present": true,
+    "response_text_length": 0,
+    "response_json_parsed": false,
+    "response_parse_error": "",
+    "empty_response": true,
+    "video_candidate_count": 0,
+    "video_candidates": [],
+    "raw_item_count": 0
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "checked_at": "2026-05-10T10:40:00+00:00",
+  "platform": "tiktok",
+  "reachable": true,
+  "session_quality": "fixture_multi_account_multi_week",
+  "profile_url": "",
+  "profile_final_url": "",
+  "profile_title": "Competitor Matrix Fixture",
+  "browser_mode": true,
+  "browser_same_origin_api_mode": false,
+  "api_mode": false,
+  "profile_count": 3,
+  "detail_collected_count": 12,
+  "ranked_video_count": 12,
+  "qualified_video_count": 6,
+  "comment_sampled_video_count": 12,
+  "video_download_success_count": 3,
+  "notes": [
+    "Durable multi-account, multi-week fixture for Scene 18 matrix validation.",
+    "All three accounts shift from slower explanation-led packaging in week 16 to faster proof-led packaging in week 17.",
+    "Use this fixture to verify account-by-account weekly summary rows and matrix-level next-action dispatch."
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "source_url": "https://www.tiktok.com/live/following",
+  "requested_count": 10,
+  "item_count": 10,
+  "live_rooms": [
+    {
+      "room_url": "https://www.tiktok.com/@zdd34346758/live",
+      "unique_id": "zdd34346758",
+      "title": "LIVE zdd34346758 妮妮🌈🌈🌈 9",
+      "snippet": "LIVE zdd34346758 妮妮🌈🌈🌈 9"
+    },
+    {
+      "room_url": "https://www.tiktok.com/@laineyscollectibles/live",
+      "unique_id": "laineyscollectibles",
+      "title": "LIVE laineyscollectibles Lainey TCG 15",
+      "snippet": "LIVE laineyscollectibles Lainey TCG 15"
+    },
+    {
+      "room_url": "https://www.tiktok.com/@nizel088/live",
+      "unique_id": "nizel088",
+      "title": "LIVE nizel088 nizel 9",
+      "snippet": "LIVE nizel088 nizel 9"
+    },
+    {
+      "room_url": "https://www.tiktok.com/@shashameijia/live",
+      "unique_id": "shashameijia",
+      "title": "LIVE shashameijia hanbaomeijia 51",
+      "snippet": "LIVE shashameijia hanbaomeijia 51"
+    },
+    {
+      "room_url": "https://www.tiktok.com/@denisealexis/live",
+      "unique_id": "denisealexis",
+      "title": "LIVE denisealexis denise alexis 𐙚 55",
+      "snippet": "LIVE denisealexis denise alexis 𐙚 55"
+    },
+    {
+      "room_url": "https://www.tiktok.com/@tttoni87/live",
+      "unique_id": "tttoni87",
+      "title": "LIVE tttoni87 tony tan 11",
+      "snippet": "LIVE tttoni87 tony tan 11"
+    },
+    {
+      "room_url": "https://www.tiktok.com/@nana.sailyng/live",
+      "unique_id": "nana.sailyng",
+      "title": "LIVE nana.sailyng Dek nana🇮🇩 9",
+      "snippet": "LIVE nana.sailyng Dek nana🇮🇩 9"
+    },
+    {
+      "room_url": "https://www.tiktok.com/@sgfairytalecottage/live",
+      "unique_id": "sgfairytalecottage",
+      "title": "LIVE sgfairytalecottage Fairytale Cottage’s Store 99",
+      "snippet": "LIVE sgfairytalecottage Fairytale Cottage’s Store 99"
+    },
+    {
+      "room_url": "https://www.tiktok.com/@laughing.190/live",
+      "unique_id": "laughing.190",
+      "title": "LIVE laughing.190 大飞 ～ Laughing 14",
+      "snippet": "LIVE laughing.190 大飞 ～ Laughing 14"
+    },
+    {
+      "room_url": "https://www.tiktok.com/@putotnikagawad/live",
+      "unique_id": "putotnikagawad",
+      "title": "LIVE putotnikagawad putot ni kagawad 10",
+      "snippet": "LIVE putotnikagawad putot ni kagawad 10"
+    }
+  ],
+  "auth_mode": "browser",
+  "browser_mode": {
+    "headless": false,
+    "user_data_dir": "E:\\tiktok\\TikMatrix\\tmp\\browser-profile",
+    "executable_path": "C:\\Users\\Administrator\\AppData\\Local\\Google\\Chrome\\Application\\chrome.exe",
+    "remote_debugging_port": 9223,
+    "attached_via_cdp": true,
+    "captured_via": "browser_dom",
+    "following": true,
+    "page_count": 1
+  }
+}

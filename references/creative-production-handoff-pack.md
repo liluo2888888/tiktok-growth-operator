@@ -23,6 +23,7 @@ Produce a production-ready creative handoff pack for one short-video asset, asse
 - execution blueprint
 - variant or market plan
 - production handoff table
+- copy-ready role prompts for script, design, localization/review, and production coordination
 - review gates
 - open risks
 - immediate next production step
@@ -34,10 +35,18 @@ Produce a production-ready creative handoff pack for one short-video asset, asse
 3. Asset And Evidence Readiness
 4. Execution Blueprint
 5. Variant Plan
-6. Production Handoff
-7. Review Gates
-8. Open Risks
-9. Next Production Step
+6. Script And Storyboard Handoff
+7. Design And Layout Handoff
+8. Localization And Review Handoff
+9. Production Handoff
+10. Owner Map
+11. Script Owner Prompt
+12. Design Owner Prompt
+13. Localization And Review Prompt
+14. Production Manager Prompt
+15. Review Gates
+16. Open Risks
+17. Next Production Step
 
 ## Minimum Truthfulness Rule
 

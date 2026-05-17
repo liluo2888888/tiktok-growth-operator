@@ -1,11 +1,11 @@
 from __future__ import annotations
 
 import argparse
-import json
 from datetime import datetime
 from pathlib import Path
 
 from generate_scene_report import build_report_payload, load_catalog, resolve_scene
+from text_normalization import read_json_file, write_json_file
 
 
 def parse_args() -> argparse.Namespace:
@@ -24,7 +24,10 @@ def parse_args() -> argparse.Namespace:
 def load_json(path: str) -> dict:
     if not path.strip():
         return {}
-    return json.loads(Path(path).read_text(encoding="utf-8-sig"))
+    loaded = read_json_file(Path(path))
+    if not isinstance(loaded, dict):
+        raise SystemExit(f"Expected JSON object: {path}")
+    return loaded
 
 
 def clean_text(value: object) -> str:
@@ -34,6 +37,8 @@ def clean_text(value: object) -> str:
         parts = [clean_text(item) for item in value]
         return "\n".join(item for item in parts if item)
     if isinstance(value, dict):
+        import json
+
         return json.dumps(value, ensure_ascii=False)
     return str(value).replace("\r\n", "\n").strip()
 
@@ -389,7 +394,7 @@ def main() -> None:
 
     output = Path(args.output)
     output.parent.mkdir(parents=True, exist_ok=True)
-    output.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8-sig")
+    write_json_file(output, payload)
     print(output)
 
 

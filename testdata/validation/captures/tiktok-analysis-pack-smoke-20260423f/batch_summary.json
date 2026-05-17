@@ -1,0 +1,27 @@
+﻿{
+    "started_at":  "2026-04-23T13:47:54",
+    "ended_at":  "2026-04-23T13:50:06",
+    "profile_count":  1,
+    "success_count":  1,
+    "failed_count":  0,
+    "output_root":  "D:\\我的文档\\Documents\\Playground 4\\captures\\tiktok-analysis-pack-smoke-20260423f",
+    "profiles":  [
+                     {
+                         "profile_url":  "https://www.tiktok.com/@tiktok",
+                         "output_dir":  "D:\\我的文档\\Documents\\Playground 4\\captures\\tiktok-analysis-pack-smoke-20260423f\\01-tiktok",
+                         "exit_code":  0,
+                         "reachable":  true,
+                         "session_quality":  "browser_same_origin_api_ok",
+                         "link_count":  null,
+                         "detail_collected_count":  2,
+                         "ranked_video_count":  3,
+                         "qualified_video_count":  1,
+                         "api_item_count":  null,
+                         "browser_api_item_count":  null,
+                         "comment_sampled_video_count":  null,
+                         "video_download_success_count":  null,
+                         "cover_download_success_count":  null,
+                         "checked_at":  "2026-04-23T05:50:05+00:00"
+                     }
+                 ]
+}

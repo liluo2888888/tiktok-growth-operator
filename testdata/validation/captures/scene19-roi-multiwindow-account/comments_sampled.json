@@ -1,0 +1,169 @@
+[
+  {
+    "video_url": "https://www.tiktok.com/@ownerglowlab/video/7641000000000000001",
+    "video_id": "7641000000000000001",
+    "unique_id": "ownerglowlab",
+    "source_product": "ownerglowlab-window1-founder-proof",
+    "comment_count": 244,
+    "sample_count": 3,
+    "samples": [
+      {
+        "cid": "roi-001",
+        "text": "This is the first one that made me ask where to buy because I understood the result immediately.",
+        "digg_count": 111,
+        "reply_comment_total": 9,
+        "nickname": "buywherepls",
+        "unique_id": "buywherepls",
+        "comment_language": "en",
+        "sample_kind": "top_level",
+        "is_high_purchase_intent": true
+      },
+      {
+        "cid": "roi-002",
+        "text": "Founder talking while showing the proof feels more trustworthy than just pretty shots.",
+        "digg_count": 94,
+        "reply_comment_total": 8,
+        "nickname": "foundertrust",
+        "unique_id": "foundertrust",
+        "comment_language": "en",
+        "sample_kind": "reply",
+        "reply_summary": "Founder-plus-proof language drives trust."
+      },
+      {
+        "cid": "roi-003",
+        "text": "Can you pin the exact product because this one actually answered my main hesitation?",
+        "digg_count": 83,
+        "reply_comment_total": 6,
+        "nickname": "pinproductpls",
+        "unique_id": "pinproductpls",
+        "comment_language": "en",
+        "sample_kind": "top_level"
+      }
+    ]
+  },
+  {
+    "video_url": "https://www.tiktok.com/@ownerglowlab/video/7641000000000000003",
+    "video_id": "7641000000000000003",
+    "unique_id": "ownerglowlab",
+    "source_product": "ownerglowlab-window1-slow-explainer",
+    "comment_count": 99,
+    "sample_count": 3,
+    "samples": [
+      {
+        "cid": "roi-004",
+        "text": "This looked nice but I still do not know why I need it.",
+        "digg_count": 59,
+        "reply_comment_total": 5,
+        "nickname": "needreasonfirst",
+        "unique_id": "needreasonfirst",
+        "comment_language": "en",
+        "sample_kind": "top_level"
+      },
+      {
+        "cid": "roi-005",
+        "text": "Too much talking before the product actually does anything.",
+        "digg_count": 63,
+        "reply_comment_total": 7,
+        "nickname": "toomuchtalk",
+        "unique_id": "toomuchtalk",
+        "comment_language": "en",
+        "sample_kind": "reply",
+        "reply_summary": "Slow explainer loses purchase intent before proof arrives."
+      },
+      {
+        "cid": "roi-006",
+        "text": "Pretty video, weak reason to save it.",
+        "digg_count": 41,
+        "reply_comment_total": 3,
+        "nickname": "weaksave",
+        "unique_id": "weaksave",
+        "comment_language": "en",
+        "sample_kind": "top_level"
+      }
+    ]
+  },
+  {
+    "video_url": "https://www.tiktok.com/@ownerglowlab/video/7642000000000000001",
+    "video_id": "7642000000000000001",
+    "unique_id": "ownerglowlab",
+    "source_product": "ownerglowlab-window2-founder-proof",
+    "comment_count": 502,
+    "sample_count": 3,
+    "samples": [
+      {
+        "cid": "roi-007",
+        "text": "This version made me click because the problem was obvious in the first second.",
+        "digg_count": 142,
+        "reply_comment_total": 10,
+        "nickname": "firstsecondhook",
+        "unique_id": "firstsecondhook",
+        "comment_language": "en",
+        "sample_kind": "top_level",
+        "is_high_purchase_intent": true
+      },
+      {
+        "cid": "roi-008",
+        "text": "I saved this because the founder actually showed the proof instead of just saying trust me.",
+        "digg_count": 126,
+        "reply_comment_total": 11,
+        "nickname": "showtheproof",
+        "unique_id": "showtheproof",
+        "comment_language": "en",
+        "sample_kind": "reply",
+        "reply_summary": "Save intent rises when proof arrives early."
+      },
+      {
+        "cid": "roi-009",
+        "text": "This is the only format that feels close to buying, not just browsing.",
+        "digg_count": 118,
+        "reply_comment_total": 7,
+        "nickname": "closetobuying",
+        "unique_id": "closetobuying",
+        "comment_language": "en",
+        "sample_kind": "top_level",
+        "is_high_purchase_intent": true
+      }
+    ]
+  },
+  {
+    "video_url": "https://www.tiktok.com/@ownerglowlab/video/7642000000000000003",
+    "video_id": "7642000000000000003",
+    "unique_id": "ownerglowlab",
+    "source_product": "ownerglowlab-window2-aesthetic",
+    "comment_count": 144,
+    "sample_count": 3,
+    "samples": [
+      {
+        "cid": "roi-010",
+        "text": "Looks nice again but I still need a reason this is better than what I have.",
+        "digg_count": 51,
+        "reply_comment_total": 4,
+        "nickname": "needwhy",
+        "unique_id": "needwhy",
+        "comment_language": "en",
+        "sample_kind": "top_level"
+      },
+      {
+        "cid": "roi-011",
+        "text": "This version feels scrollable, not saveable.",
+        "digg_count": 48,
+        "reply_comment_total": 3,
+        "nickname": "scrollnotsave",
+        "unique_id": "scrollnotsave",
+        "comment_language": "en",
+        "sample_kind": "reply",
+        "reply_summary": "Aesthetic-first post draws light interest but weak purchase follow-through."
+      },
+      {
+        "cid": "roi-012",
+        "text": "Good vibes, low urgency.",
+        "digg_count": 37,
+        "reply_comment_total": 2,
+        "nickname": "goodvibeslowurgency",
+        "unique_id": "goodvibeslowurgency",
+        "comment_language": "en",
+        "sample_kind": "top_level"
+      }
+    ]
+  }
+]

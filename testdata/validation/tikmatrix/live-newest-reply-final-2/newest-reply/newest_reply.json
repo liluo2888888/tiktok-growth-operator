@@ -1,0 +1,36 @@
+{
+  "source_url": "https://www.tiktok.com/inbox",
+  "err_code": 0,
+  "message": "success",
+  "has_reply": false,
+  "feedback_id": 0,
+  "need_push": false,
+  "push_ticket_id": "",
+  "push_app_id": 1284,
+  "push_user_id": 7631575449005769741,
+  "raw": {
+    "err_code": 0,
+    "message": "success",
+    "data": {
+      "feedback_id": 0,
+      "has_reply": false
+    },
+    "pushResult": {
+      "app_id": 1284,
+      "user_id": 7631575449005769741,
+      "need_push": false,
+      "ticket_id": ""
+    }
+  },
+  "auth_mode": "browser",
+  "browser_mode": {
+    "headless": false,
+    "user_data_dir": "E:\\tiktok\\TikMatrix\\tmp\\browser-profile",
+    "executable_path": "C:\\Users\\Administrator\\AppData\\Local\\Google\\Chrome\\Application\\chrome.exe",
+    "remote_debugging_port": 9223,
+    "attached_via_cdp": true,
+    "captured_via": "same_origin_fetch",
+    "request_url": "/api/feedback/v1/newest_reply/?aid=1284&app_key=tiktok-web&app_name=tiktok_web&appkey=tiktok-web&clear_unread=false&device_platform=web_pc&from_page=fyp&history_len=2&focus_state=true&is_page_visible=true&priority_region=SG&region=SG&screen_height=864&screen_width=1536&tz_name=Asia%2FShanghai",
+    "request_status": 200
+  }
+}

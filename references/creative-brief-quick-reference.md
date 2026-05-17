@@ -1,11 +1,11 @@
-# Creative Brief Quick Reference
+# 创意制作简报速查
 
 Use this file when you want the creative-production half of the skill without scanning all 19 scenes.
 
 It focuses on scenes 09-16:
 
 - reference-video adaptation
-- image-to-video briefing
+- image-to-video 制作简报
 - replication pipeline design
 - multi-style testing matrix
 - multi-market localization
@@ -15,22 +15,22 @@ It focuses on scenes 09-16:
 
 ## Fast Pick
 
-Copy one of these requests directly into Codex when you already know the brief type you need:
+当你已经知道自己需要哪类制作简报时，直接把下面任意一句复制进 Codex：
 
-- Scene 09 - Reference-Video Replication Brief: `按场景 09 执行：把一条对标视频改造成适合新产品的复刻 brief，先锁定不该改的 winning logic，再重写 hook、证明和收口。`
-- Scene 10 - Product-Image-To-Video Brief: `按场景 10 执行：仅基于产品图设计一版短视频 brief，明确视频类型、证明镜头、CTA 和资产缺口，不要假设用户已经有额外素材。`
+- Scene 09 - Reference-Video Replication Brief: `按场景 09 执行：把一条对标视频改造成适合新产品的复刻制作简报，先锁定不该改的 winning logic，再重写 hook、证明和收口。`
+- Scene 10 - Product-Image-To-Video Brief: `按场景 10 执行：仅基于产品图设计一版短视频制作简报，明确视频类型、证明镜头、CTA 和资产缺口，不要假设用户已经有额外素材。`
 - Scene 11 - Hot-Video Replication Pipeline: `按场景 11 执行：搭一个可重复跑的热点视频复制 pipeline，把发现、筛选、深拆、入池和生产交接拆成明确阶段和门槛。`
 - Scene 12 - One-Product Multi-Style Testing Matrix: `按场景 12 执行：为一个产品做多风格测试矩阵，先锁 invariant message，再设计真正有差异的测试风格，并写出每个变体要学什么。`
 - Scene 13 - Multi-Market Localization Pack: `按场景 13 执行：把一个产品概念做成多市场本地化包，拆清共享产品真相和各市场的 hook、语气、禁区，不要只做直译。`
 - Scene 14 - Launch Asset Family Pack: `按场景 14 执行：设计一套上新素材家族，先定义最小可上线资产集，再给每个素材分配一个转化职责，并排出制作优先级。`
-- Scene 15 - Image Translation Brief: `按场景 15 执行：做图片文案翻译与本地化 brief，区分信息性文案和转化型文案，保留层级关系，并说明新文案如何适配原布局。`
-- Scene 16 - Competitor Main-Image Benchmark: `按场景 16 执行：对标竞品主图并定义更强方向，先说清点击场景，再总结类目共性、差异机会和一版可执行的超越 brief。`
+- Scene 15 - Image Translation Brief: `按场景 15 执行：做图片文案翻译与本地化制作简报，区分信息性文案和转化型文案，保留层级关系，并说明新文案如何适配原布局。`
+- Scene 16 - Competitor Main-Image Benchmark: `按场景 16 执行：对标竞品主图并定义更强方向，先说清点击场景，再总结类目共性、差异机会和一版可执行的超车制作简报。`
 
 ## How To Choose Quickly
 
-- Choose `09` when you already have one strong reference video and want an adapted replication brief.
+- Choose `09` when you already have one strong reference video and want an adapted replication production brief.
 - Choose `10` when you mainly have product images or product facts and need a first video concept from scratch.
-- Choose `11` when you need a repeatable hot-video intake and replication system, not one brief.
+- Choose `11` when you need a repeatable hot-video intake and replication system, not one production brief.
 - Choose `12` when one product needs several clearly different creative directions to test.
 - Choose `13` when one product concept must be translated into several markets without doing naive literal localization.
 - Choose `14` when you need a launch asset family with production priority and role assignment.
@@ -52,11 +52,11 @@ Copy one of these requests directly into Codex when you already know the brief t
 
 - Deliverable Type: `creation_brief`
 - Use When: Turn a reference video into an adapted replication brief.
-- 中文直呼请求: `按场景 09 执行：把一条对标视频改造成适合新产品的复刻 brief，先锁定不该改的 winning logic，再重写 hook、证明和收口。`
+- 中文直呼请求: `按场景 09 执行：把一条对标视频改造成适合新产品的复刻制作简报，先锁定不该改的 winning logic，再重写 hook、证明和收口。`
 
 ### 只复制这一句
 
-`按场景 09 执行：把一条对标视频改造成适合新产品的复刻 brief，先锁定不该改的 winning logic，再重写 hook、证明和收口。`
+`按场景 09 执行：把一条对标视频改造成适合新产品的复刻制作简报，先锁定不该改的 winning logic，再重写 hook、证明和收口。`
 
 ### Main Runner
 
@@ -69,9 +69,9 @@ Copy one of these requests directly into Codex when you already know the brief t
 
 ### Ideal Inputs
 
-- Product images
-- Selling points
-- Audience and market note
+- 产品图片
+- 卖点
+- 目标人群与市场备注
 
 ### Workflow Focus
 
@@ -79,7 +79,7 @@ Copy one of these requests directly into Codex when you already know the brief t
 - Swap product-specific pieces one layer at a time: hook, proof, close.
 - End with a filmable or promptable shot order.
 
-### Brief Blocks To Fill
+### 制作简报填写区块
 
 - Target: `Field | Answer | Why It Matters`
 - Sample Rows: `Target audience |  | ` / `Conversion goal |  | `
@@ -95,12 +95,12 @@ Copy one of these requests directly into Codex when you already know the brief t
 ### Output Must Include
 
 - Invariant reference logic is clearly separated from adapted layers.
-- The adapted brief is specific enough to produce from.
+- The adapted production brief is specific enough to produce from.
 - Literal-copy risks are called out explicitly.
 
 ### 中文 Prompt Scaffold
 
-- 按场景 09 执行：把一条对标视频改造成适合新产品的复刻 brief，先锁定不该改的 winning logic，再重写 hook、证明和收口。
+- 按场景 09 执行：把一条对标视频改造成适合新产品的复刻制作简报，先锁定不该改的 winning logic，再重写 hook、证明和收口。
 - 先把我提供的材料整理成这组输入：Reference video or breakdown, User product details, Selling points, Target audience / market。
 - 如果证据不足，先明确缺口再继续。最低开工证据：Reference video logic, User product basics。
 - 最终必须产出：Replication brief, Adapted hook, Adapted proof sequence, Shot order, Optional voiceover draft, Production handoff。
@@ -110,11 +110,11 @@ Copy one of these requests directly into Codex when you already know the brief t
 
 - Deliverable Type: `creation_brief`
 - Use When: Design a short-form video brief from product images.
-- 中文直呼请求: `按场景 10 执行：仅基于产品图设计一版短视频 brief，明确视频类型、证明镜头、CTA 和资产缺口，不要假设用户已经有额外素材。`
+- 中文直呼请求: `按场景 10 执行：仅基于产品图设计一版短视频制作简报，明确视频类型、证明镜头、CTA 和资产缺口，不要假设用户已经有额外素材。`
 
 ### 只复制这一句
 
-`按场景 10 执行：仅基于产品图设计一版短视频 brief，明确视频类型、证明镜头、CTA 和资产缺口，不要假设用户已经有额外素材。`
+`按场景 10 执行：仅基于产品图设计一版短视频制作简报，明确视频类型、证明镜头、CTA 和资产缺口，不要假设用户已经有额外素材。`
 
 ### Main Runner
 
@@ -126,10 +126,10 @@ Copy one of these requests directly into Codex when you already know the brief t
 
 ### Ideal Inputs
 
-- Multiple angles
-- Selling points
-- Target audience
-- Desired style
+- 多角度素材
+- 卖点
+- 目标人群
+- 期望风格
 
 ### Workflow Focus
 
@@ -137,7 +137,7 @@ Copy one of these requests directly into Codex when you already know the brief t
 - Use the available images to design proof beats, not just beauty shots.
 - Leave explicit visual-gap notes when the asset set is weak.
 
-### Brief Blocks To Fill
+### 制作简报填写区块
 
 - Target: `Field | Answer | Why It Matters`
 - Sample Rows: `Audience |  | ` / `Market |  | `
@@ -154,13 +154,13 @@ Copy one of these requests directly into Codex when you already know the brief t
 
 ### Output Must Include
 
-- The brief is compatible with the available asset set.
+- The production brief is compatible with the available asset set.
 - Hook, proof beats, and CTA are all defined.
 - Any visual gaps are explicit instead of hidden inside optimistic wording.
 
 ### 中文 Prompt Scaffold
 
-- 按场景 10 执行：仅基于产品图设计一版短视频 brief，明确视频类型、证明镜头、CTA 和资产缺口，不要假设用户已经有额外素材。
+- 按场景 10 执行：仅基于产品图设计一版短视频制作简报，明确视频类型、证明镜头、CTA 和资产缺口，不要假设用户已经有额外素材。
 - 先把我提供的材料整理成这组输入：Product images or product description, Selling points, Target audience, Market language。
 - 如果证据不足，先明确缺口再继续。最低开工证据：Product description or product images。
 - 最终必须产出：Video concept, Shot structure, Voiceover structure, Style keywords, Test variables, Production handoff。
@@ -196,7 +196,7 @@ Copy one of these requests directly into Codex when you already know the brief t
 - Decide what makes a hot video worth entering the replication queue.
 - Tie the workflow to a repeatable daily or weekly cadence.
 
-### Brief Blocks To Fill
+### 制作简报填写区块
 
 - Core Invariant: `Invariant | Rule | Why It Cannot Drift`
 - Sample Rows: `Entry threshold |  | ` / `Teardown lens |  | `
@@ -254,7 +254,7 @@ Copy one of these requests directly into Codex when you already know the brief t
 - Ensure each style meaningfully changes hook, proof, or audience lens.
 - Define success signals before recommending test order.
 
-### Brief Blocks To Fill
+### 制作简报填写区块
 
 - Core Invariant: `Invariant Type | Locked Element | Why It Must Stay Fixed`
 - Sample Rows: `Core message |  | ` / `Product truth |  | `
@@ -304,9 +304,9 @@ Copy one of these requests directly into Codex when you already know the brief t
 
 ### Ideal Inputs
 
-- Source script or concept
-- Local audience notes
-- Visual asset set
+- 源脚本或创意概念
+- 本地受众备注
+- 视觉素材集
 
 ### Workflow Focus
 
@@ -314,7 +314,7 @@ Copy one of these requests directly into Codex when you already know the brief t
 - Write each market's hook, tone, and avoid-list explicitly.
 - Keep localization tied to conversion context, not literal translation.
 
-### Brief Blocks To Fill
+### 制作简报填写区块
 
 - Target: `Layer | Invariant | Needs Localization? | Why`
 - Sample Rows: `Core product promise |  | No | ` / `Hook wording |  | Yes | `
@@ -374,7 +374,7 @@ Copy one of these requests directly into Codex when you already know the brief t
 - Assign one conversion job to each asset.
 - Order production by launch leverage, not by creative preference.
 
-### Brief Blocks To Fill
+### 制作简报填写区块
 
 - Core Invariant: `Invariant | Definition | Why It Must Stay Consistent`
 - Sample Rows: `Core promise |  | ` / `Visual code |  | `
@@ -405,11 +405,11 @@ Copy one of these requests directly into Codex when you already know the brief t
 
 - Deliverable Type: `creation_brief`
 - Use When: Translate and localize image copy for conversion.
-- 中文直呼请求: `按场景 15 执行：做图片文案翻译与本地化 brief，区分信息性文案和转化型文案，保留层级关系，并说明新文案如何适配原布局。`
+- 中文直呼请求: `按场景 15 执行：做图片文案翻译与本地化制作简报，区分信息性文案和转化型文案，保留层级关系，并说明新文案如何适配原布局。`
 
 ### 只复制这一句
 
-`按场景 15 执行：做图片文案翻译与本地化 brief，区分信息性文案和转化型文案，保留层级关系，并说明新文案如何适配原布局。`
+`按场景 15 执行：做图片文案翻译与本地化制作简报，区分信息性文案和转化型文案，保留层级关系，并说明新文案如何适配原布局。`
 
 ### Main Runner
 
@@ -433,7 +433,7 @@ Copy one of these requests directly into Codex when you already know the brief t
 - Preserve hierarchy while adapting for local conversion language.
 - Add layout notes so the localized copy can actually fit.
 
-### Brief Blocks To Fill
+### 制作简报填写区块
 
 - Target: `Field | Answer | Why It Matters`
 - Sample Rows: `Target market |  | ` / `Target language |  | `
@@ -454,7 +454,7 @@ Copy one of these requests directly into Codex when you already know the brief t
 
 ### 中文 Prompt Scaffold
 
-- 按场景 15 执行：做图片文案翻译与本地化 brief，区分信息性文案和转化型文案，保留层级关系，并说明新文案如何适配原布局。
+- 按场景 15 执行：做图片文案翻译与本地化制作简报，区分信息性文案和转化型文案，保留层级关系，并说明新文案如何适配原布局。
 - 先把我提供的材料整理成这组输入：Source image text or OCR, Target language, Product context, Target market。
 - 如果证据不足，先明确缺口再继续。最低开工证据：Source image text or OCR, Target language。
 - 最终必须产出：Translated copy, Layout notes, Text hierarchy, Localization cautions, Render handoff。
@@ -464,11 +464,11 @@ Copy one of these requests directly into Codex when you already know the brief t
 
 - Deliverable Type: `creation_brief`
 - Use When: Benchmark competitor main images and define a stronger direction.
-- 中文直呼请求: `按场景 16 执行：对标竞品主图并定义更强方向，先说清点击场景，再总结类目共性、差异机会和一版可执行的超越 brief。`
+- 中文直呼请求: `按场景 16 执行：对标竞品主图并定义更强方向，先说清点击场景，再总结类目共性、差异机会和一版可执行的超车制作简报。`
 
 ### 只复制这一句
 
-`按场景 16 执行：对标竞品主图并定义更强方向，先说清点击场景，再总结类目共性、差异机会和一版可执行的超越 brief。`
+`按场景 16 执行：对标竞品主图并定义更强方向，先说清点击场景，再总结类目共性、差异机会和一版可执行的超车制作简报。`
 
 ### Main Runner
 
@@ -491,7 +491,7 @@ Copy one of these requests directly into Codex when you already know the brief t
 - Identify both category norms and sharp opportunities to differ.
 - End with a more useful brief than generic 'make it cleaner' advice.
 
-### Brief Blocks To Fill
+### 制作简报填写区块
 
 - Target: `Field | Answer | Why It Matters`
 - Sample Rows: `Platform |  | ` / `Category |  | `
@@ -508,11 +508,11 @@ Copy one of these requests directly into Codex when you already know the brief t
 
 - The benchmark is grounded in comparable category context.
 - Likely click drivers are identified explicitly.
-- The final brief is sharper than generic advice such as make it cleaner.
+- The final production brief is sharper than generic advice such as make it cleaner.
 
 ### 中文 Prompt Scaffold
 
-- 按场景 16 执行：对标竞品主图并定义更强方向，先说清点击场景，再总结类目共性、差异机会和一版可执行的超越 brief。
+- 按场景 16 执行：对标竞品主图并定义更强方向，先说清点击场景，再总结类目共性、差异机会和一版可执行的超车制作简报。
 - 先把我提供的材料整理成这组输入：Competitor main images, User image or product, Platform and category context。
 - 如果证据不足，先明确缺口再继续。最低开工证据：2+ competitor images, User image or product。
 - 最终必须产出：Competitor comparison, Design weakness map, Outperform strategy, Revised main-image brief, Design handoff。

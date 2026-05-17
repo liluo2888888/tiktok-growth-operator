@@ -1,0 +1,285 @@
+[
+  {
+    "video_url": "https://www.tiktok.com/@homeorganizerlab/video/7633000000000000001",
+    "video_id": "7633000000000000001",
+    "unique_id": "homeorganizerlab",
+    "source_product": "under-sink-organizer",
+    "comment_count": 1184,
+    "sample_count": 8,
+    "samples": [
+      {
+        "cid": "hg-001",
+        "text": "Bought this because my cleaning bottles were a mess and the pull-out shelf actually fits under a narrow sink.",
+        "digg_count": 311,
+        "reply_comment_total": 18,
+        "nickname": "sinkspacefix",
+        "unique_id": "sinkspacefix",
+        "comment_language": "en",
+        "sample_kind": "top_level",
+        "is_high_purchase_intent": true
+      },
+      {
+        "cid": "hg-002",
+        "text": "Please tell me if the measurements are real because half of these organizers never fit around the pipe.",
+        "digg_count": 284,
+        "reply_comment_total": 24,
+        "nickname": "pipeclearance",
+        "unique_id": "pipeclearance",
+        "comment_language": "en",
+        "sample_kind": "top_level"
+      },
+      {
+        "cid": "hg-003",
+        "text": "Mine arrived fast but one tray corner was cracked. Seller refunded me without making me ship it back.",
+        "digg_count": 193,
+        "reply_comment_total": 21,
+        "nickname": "refundnoreturn",
+        "unique_id": "refundnoreturn",
+        "comment_language": "en",
+        "sample_kind": "top_level",
+        "is_high_purchase_intent": true
+      },
+      {
+        "cid": "hg-004",
+        "text": "Can someone show this with Costco-size bottles because that is the only thing stopping me from ordering.",
+        "digg_count": 176,
+        "reply_comment_total": 14,
+        "nickname": "bulkcleanercheck",
+        "unique_id": "bulkcleanercheck",
+        "comment_language": "en",
+        "sample_kind": "reply",
+        "reply_summary": "Fit questions center on bottle height and pipe clearance."
+      },
+      {
+        "cid": "hg-005",
+        "text": "The packaging was surprisingly good and nothing was scratched even though the outer box looked rough.",
+        "digg_count": 132,
+        "reply_comment_total": 7,
+        "nickname": "packagingcheck",
+        "unique_id": "packagingcheck",
+        "comment_language": "en",
+        "sample_kind": "top_level"
+      },
+      {
+        "cid": "hg-006",
+        "text": "Worth it if you rent because it gives the custom-cabinet look without drilling.",
+        "digg_count": 149,
+        "reply_comment_total": 6,
+        "nickname": "renterstorage",
+        "unique_id": "renterstorage",
+        "comment_language": "en",
+        "sample_kind": "top_level",
+        "is_high_purchase_intent": true
+      },
+      {
+        "cid": "hg-007",
+        "text": "I returned the first one because I guessed the width wrong, reordered the smaller size, and now it works great.",
+        "digg_count": 121,
+        "reply_comment_total": 9,
+        "nickname": "sizeguessfail",
+        "unique_id": "sizeguessfail",
+        "comment_language": "en",
+        "sample_kind": "reply",
+        "reply_summary": "Return language is tied to sizing mistakes, not product concept failure."
+      },
+      {
+        "cid": "hg-008",
+        "text": "Need a side-by-side before after with all the products loaded because empty organizers always look bigger than they are.",
+        "digg_count": 115,
+        "reply_comment_total": 11,
+        "nickname": "loadtestplease",
+        "unique_id": "loadtestplease",
+        "comment_language": "en",
+        "sample_kind": "top_level"
+      }
+    ]
+  },
+  {
+    "video_url": "https://www.tiktok.com/@petdailyfinds/video/7633000000000000002",
+    "video_id": "7633000000000000002",
+    "unique_id": "petdailyfinds",
+    "source_product": "pet-hair-remover-roller",
+    "comment_count": 1432,
+    "sample_count": 8,
+    "samples": [
+      {
+        "cid": "hg-009",
+        "text": "I ordered it because the before and after on the couch looked real and not like a fake edit.",
+        "digg_count": 351,
+        "reply_comment_total": 17,
+        "nickname": "realcouchproof",
+        "unique_id": "realcouchproof",
+        "comment_language": "en",
+        "sample_kind": "top_level",
+        "is_high_purchase_intent": true
+      },
+      {
+        "cid": "hg-010",
+        "text": "Does it work on cat hair and human hair or just the fluffy dog kind?",
+        "digg_count": 297,
+        "reply_comment_total": 23,
+        "nickname": "multihairtype",
+        "unique_id": "multihairtype",
+        "comment_language": "en",
+        "sample_kind": "top_level"
+      },
+      {
+        "cid": "hg-011",
+        "text": "Mine came fast but the handle felt cheaper than it looked in the video.",
+        "digg_count": 181,
+        "reply_comment_total": 15,
+        "nickname": "handlequalitycheck",
+        "unique_id": "handlequalitycheck",
+        "comment_language": "en",
+        "sample_kind": "top_level"
+      },
+      {
+        "cid": "hg-012",
+        "text": "I need to know if this is one of those dropship rollers because I saw the same thing on three different ads.",
+        "digg_count": 244,
+        "reply_comment_total": 28,
+        "nickname": "dropshipradar",
+        "unique_id": "dropshipradar",
+        "comment_language": "en",
+        "sample_kind": "reply",
+        "reply_summary": "Authenticity / dropship suspicion shows up in the reply chain."
+      },
+      {
+        "cid": "hg-013",
+        "text": "Returned mine because the bin kept popping open, but customer service was quick.",
+        "digg_count": 132,
+        "reply_comment_total": 12,
+        "nickname": "popopenbin",
+        "unique_id": "popopenbin",
+        "comment_language": "en",
+        "sample_kind": "top_level"
+      },
+      {
+        "cid": "hg-014",
+        "text": "This is only worth it if it still works after a month. Everyone shows day one.",
+        "digg_count": 166,
+        "reply_comment_total": 18,
+        "nickname": "durabilitymonth",
+        "unique_id": "durabilitymonth",
+        "comment_language": "en",
+        "sample_kind": "reply",
+        "reply_summary": "Durability proof is the biggest missing trust layer."
+      },
+      {
+        "cid": "hg-015",
+        "text": "Packaging was neat and giftable, which weirdly made it feel less scammy to me.",
+        "digg_count": 96,
+        "reply_comment_total": 5,
+        "nickname": "giftablesignal",
+        "unique_id": "giftablesignal",
+        "comment_language": "en",
+        "sample_kind": "top_level"
+      },
+      {
+        "cid": "hg-016",
+        "text": "If they show one pass on black leggings I am buying immediately.",
+        "digg_count": 143,
+        "reply_comment_total": 8,
+        "nickname": "blackleggingstest",
+        "unique_id": "blackleggingstest",
+        "comment_language": "en",
+        "sample_kind": "top_level",
+        "is_high_purchase_intent": true
+      }
+    ]
+  },
+  {
+    "video_url": "https://www.tiktok.com/@travelpackessentials/video/7633000000000000003",
+    "video_id": "7633000000000000003",
+    "unique_id": "travelpackessentials",
+    "source_product": "compression-packing-cubes",
+    "comment_count": 987,
+    "sample_count": 8,
+    "samples": [
+      {
+        "cid": "hg-017",
+        "text": "Bought these because I only travel carry-on and the zip compression looked easier than vacuum bags.",
+        "digg_count": 272,
+        "reply_comment_total": 16,
+        "nickname": "carryononlygirl",
+        "unique_id": "carryononlygirl",
+        "comment_language": "en",
+        "sample_kind": "top_level",
+        "is_high_purchase_intent": true
+      },
+      {
+        "cid": "hg-018",
+        "text": "Do the medium cubes fit men?s jeans or is this another tiny set that only works for tops?",
+        "digg_count": 236,
+        "reply_comment_total": 19,
+        "nickname": "mensjeansfit",
+        "unique_id": "mensjeansfit",
+        "comment_language": "en",
+        "sample_kind": "top_level"
+      },
+      {
+        "cid": "hg-019",
+        "text": "I need to know if the zipper breaks after two trips because that always happens with cheap sets.",
+        "digg_count": 219,
+        "reply_comment_total": 22,
+        "nickname": "zipperdurability",
+        "unique_id": "zipperdurability",
+        "comment_language": "en",
+        "sample_kind": "reply",
+        "reply_summary": "Durability concern centers on zipper failure and seam strength."
+      },
+      {
+        "cid": "hg-020",
+        "text": "Mine arrived with a weird smell but it went away after one wash.",
+        "digg_count": 121,
+        "reply_comment_total": 9,
+        "nickname": "washbeforeuse",
+        "unique_id": "washbeforeuse",
+        "comment_language": "en",
+        "sample_kind": "top_level"
+      },
+      {
+        "cid": "hg-021",
+        "text": "The set looked more expensive because the pouch and label were actually nice, not generic plastic.",
+        "digg_count": 88,
+        "reply_comment_total": 4,
+        "nickname": "premiumpackaging",
+        "unique_id": "premiumpackaging",
+        "comment_language": "en",
+        "sample_kind": "top_level"
+      },
+      {
+        "cid": "hg-022",
+        "text": "Returned because the large cube was too tall for my carry-on, not because the idea was bad.",
+        "digg_count": 113,
+        "reply_comment_total": 11,
+        "nickname": "carryonheight",
+        "unique_id": "carryonheight",
+        "comment_language": "en",
+        "sample_kind": "reply",
+        "reply_summary": "Return friction is driven by dimension mismatch against suitcase size."
+      },
+      {
+        "cid": "hg-023",
+        "text": "Please show one trip with winter clothes because summer outfits are not the real test.",
+        "digg_count": 141,
+        "reply_comment_total": 13,
+        "nickname": "winterpacktest",
+        "unique_id": "winterpacktest",
+        "comment_language": "en",
+        "sample_kind": "top_level"
+      },
+      {
+        "cid": "hg-024",
+        "text": "This convinced me more than Amazon photos because the video showed what actually fits.",
+        "digg_count": 154,
+        "reply_comment_total": 7,
+        "nickname": "whatactuallyfits",
+        "unique_id": "whatactuallyfits",
+        "comment_language": "en",
+        "sample_kind": "top_level",
+        "is_high_purchase_intent": true
+      }
+    ]
+  }
+]

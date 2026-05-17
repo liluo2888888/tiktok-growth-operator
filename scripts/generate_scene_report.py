@@ -6,6 +6,14 @@ from datetime import datetime
 from pathlib import Path
 
 from scene_report_presets import get_scene_preset
+from text_normalization import (
+    normalize_nested,
+    normalize_text,
+    read_json_file,
+    read_utf8_text,
+    write_json_file,
+    write_utf8_text,
+)
 
 
 DELIVERABLE_SECTIONS = {
@@ -53,7 +61,10 @@ DELIVERABLE_SECTIONS = {
 
 def load_catalog(skill_root: Path) -> list[dict]:
     path = skill_root / "references" / "scene-catalog.json"
-    return json.loads(path.read_text(encoding="utf-8"))
+    loaded = read_json_file(path)
+    if not isinstance(loaded, list):
+        raise SystemExit(f"Scene catalog must be a JSON array: {path}")
+    return loaded
 
 
 def resolve_scene(catalog: list[dict], scene: str) -> dict:
@@ -81,6 +92,7 @@ def build_report_payload(scene: dict, project: str, context: str) -> dict:
                     "paragraphs": [],
                     "bullets": [],
                     "numbered": [],
+                    "evidence_refs": [],
                     "table": {
                         "title": "",
                         "headers": [],
@@ -94,56 +106,64 @@ def build_report_payload(scene: dict, project: str, context: str) -> dict:
     operator_guide_preset = preset.get("operator_guide", {})
     execution_template = preset.get("execution_template", {})
 
-    return {
-        "metadata": {
-            "scene": scene["id"],
-            "scene_slug": scene["slug"],
-            "scene_title": scene["title"],
-            "project": project,
-            "title": f"Scene {scene['id']} Report - {project}",
-            "deliverable_type": scene["deliverable_type"],
-            "generated_at": generated_at,
-            "scenario_file": scene["scenario_file"],
-            "status": "draft",
-        },
-        "working_context": {
-            "summary": context.strip(),
-            "inputs": working_context_preset.get("inputs", []),
-            "constraints": working_context_preset.get("constraints", []),
-            "requested_outputs": working_context_preset.get("requested_outputs", []),
-            "minimum_evidence": working_context_preset.get("minimum_evidence", []),
-            "ideal_evidence": working_context_preset.get("ideal_evidence", []),
-            "ready_checklist": working_context_preset.get("ready_checklist", []),
-        },
-        "executive_summary": {
-            "conclusion": executive_preset.get("conclusion", ""),
-            "why_it_matters": executive_preset.get("why_it_matters", ""),
-            "next_action": executive_preset.get("next_action", ""),
-            "confidence": executive_preset.get("confidence", ""),
-        },
-        "operator_guide": {
-            "operator_checklist": operator_guide_preset.get("operator_checklist", []),
-            "common_failure_modes": operator_guide_preset.get("common_failure_modes", []),
-        },
-        "execution_template": {
-            "recommended_request": execution_template.get("recommended_request", ""),
-            "recommended_request_zh": execution_template.get("recommended_request_zh", ""),
-            "recommended_runner_args": execution_template.get("recommended_runner_args", []),
-            "variable_inputs": execution_template.get("variable_inputs", []),
-            "codex_prompt_scaffold": execution_template.get("codex_prompt_scaffold", []),
-            "codex_prompt_scaffold_zh": execution_template.get("codex_prompt_scaffold_zh", []),
-            "workflow_steps": execution_template.get("workflow_steps", []),
-            "output_checklist": execution_template.get("output_checklist", []),
-        },
-        "evidence": preset.get("evidence", []),
-        "sections": sections,
-        "assets": preset.get("assets", []),
-        "notes": preset.get("notes", []),
-        "sources": preset.get("sources", []),
-    }
+    return normalize_nested(
+        {
+            "metadata": {
+                "scene": scene["id"],
+                "scene_slug": scene["slug"],
+                "scene_title": scene["title"],
+                "project": normalize_text(project),
+                "title": f"Scene {scene['id']} Report - {normalize_text(project)}",
+                "deliverable_type": scene["deliverable_type"],
+                "generated_at": generated_at,
+                "scenario_file": scene["scenario_file"],
+                "status": "draft",
+            },
+            "working_context": {
+                "summary": normalize_text(context),
+                "inputs": working_context_preset.get("inputs", []),
+                "constraints": working_context_preset.get("constraints", []),
+                "requested_outputs": working_context_preset.get("requested_outputs", []),
+                "minimum_evidence": working_context_preset.get("minimum_evidence", []),
+                "ideal_evidence": working_context_preset.get("ideal_evidence", []),
+                "ready_checklist": working_context_preset.get("ready_checklist", []),
+            },
+            "executive_summary": {
+                "conclusion": executive_preset.get("conclusion", ""),
+                "why_it_matters": executive_preset.get("why_it_matters", ""),
+                "next_action": executive_preset.get("next_action", ""),
+                "confidence": executive_preset.get("confidence", ""),
+            },
+            "operator_guide": {
+                "operator_checklist": operator_guide_preset.get("operator_checklist", []),
+                "common_failure_modes": operator_guide_preset.get("common_failure_modes", []),
+            },
+            "execution_template": {
+                "recommended_request": execution_template.get("recommended_request", ""),
+                "recommended_request_zh": execution_template.get("recommended_request_zh", ""),
+                "recommended_runner_args": execution_template.get("recommended_runner_args", []),
+                "variable_inputs": execution_template.get("variable_inputs", []),
+                "codex_prompt_scaffold": execution_template.get("codex_prompt_scaffold", []),
+                "codex_prompt_scaffold_zh": execution_template.get("codex_prompt_scaffold_zh", []),
+                "workflow_steps": execution_template.get("workflow_steps", []),
+                "output_checklist": execution_template.get("output_checklist", []),
+            },
+            "evidence": preset.get("evidence", []),
+            "sections": sections,
+            "assets": preset.get("assets", []),
+            "notes": preset.get("notes", []),
+            "sources": preset.get("sources", []),
+        }
+    )
+
+
+def escape_markdown_table_cell(value: object) -> str:
+    text = str(value).replace("\n", " ").strip()
+    return text.replace("|", "\\|")
 
 
 def render_markdown_from_payload(report: dict) -> str:
+    report = normalize_nested(report)
     metadata = report["metadata"]
     working_context = report.get("working_context", {})
     executive_summary = report.get("executive_summary", {})
@@ -204,24 +224,29 @@ def render_markdown_from_payload(report: dict) -> str:
             lines.append("")
 
     execution_template = report.get("execution_template", {})
-    if any(execution_template.get(key) for key in [
-        "recommended_request",
-        "recommended_request_zh",
-        "recommended_runner_args",
-        "variable_inputs",
-        "codex_prompt_scaffold",
-        "codex_prompt_scaffold_zh",
-        "workflow_steps",
-        "output_checklist",
-    ]):
+    if any(
+        execution_template.get(key)
+        for key in [
+            "recommended_request",
+            "recommended_request_zh",
+            "recommended_runner_args",
+            "variable_inputs",
+            "codex_prompt_scaffold",
+            "codex_prompt_scaffold_zh",
+            "workflow_steps",
+            "output_checklist",
+        ]
+    ):
         lines.extend(["## Direct-Use Template", ""])
         recommended_request = str(execution_template.get("recommended_request", "")).strip()
         if recommended_request:
             lines.append(f"- Recommended Request: `{recommended_request}`")
         recommended_request_zh = str(execution_template.get("recommended_request_zh", "")).strip()
         if recommended_request_zh:
-            lines.append(f"- 推荐请求: `{recommended_request_zh}`")
-        runner_args = [str(item).strip() for item in execution_template.get("recommended_runner_args", []) if str(item).strip()]
+            lines.append(f"- Recommended Request (ZH): `{recommended_request_zh}`")
+        runner_args = [
+            str(item).strip() for item in execution_template.get("recommended_runner_args", []) if str(item).strip()
+        ]
         if runner_args:
             lines.append("- Runner Args:")
             for item in runner_args:
@@ -238,38 +263,46 @@ def render_markdown_from_payload(report: dict) -> str:
                     "| "
                     + " | ".join(
                         [
-                            str(item.get("name", "")).strip(),
-                            str(item.get("meaning", "")).strip(),
-                            str(item.get("example", "")).strip(),
-                            str(item.get("required", "")).strip(),
+                            escape_markdown_table_cell(item.get("name", "")),
+                            escape_markdown_table_cell(item.get("meaning", "")),
+                            escape_markdown_table_cell(item.get("example", "")),
+                            escape_markdown_table_cell(item.get("required", "")),
                         ]
                     )
                     + " |"
                 )
             lines.append("")
 
-        prompt_scaffold = [str(item).strip() for item in execution_template.get("codex_prompt_scaffold", []) if str(item).strip()]
+        prompt_scaffold = [
+            str(item).strip() for item in execution_template.get("codex_prompt_scaffold", []) if str(item).strip()
+        ]
         if prompt_scaffold:
             lines.extend(["### Codex Prompt Scaffold", ""])
             for item in prompt_scaffold:
                 lines.append(f"- {item}")
             lines.append("")
 
-        prompt_scaffold_zh = [str(item).strip() for item in execution_template.get("codex_prompt_scaffold_zh", []) if str(item).strip()]
+        prompt_scaffold_zh = [
+            str(item).strip() for item in execution_template.get("codex_prompt_scaffold_zh", []) if str(item).strip()
+        ]
         if prompt_scaffold_zh:
-            lines.extend(["### 中文 Prompt Scaffold", ""])
+            lines.extend(["### Chinese Prompt Scaffold", ""])
             for item in prompt_scaffold_zh:
                 lines.append(f"- {item}")
             lines.append("")
 
-        workflow_steps = [str(item).strip() for item in execution_template.get("workflow_steps", []) if str(item).strip()]
+        workflow_steps = [
+            str(item).strip() for item in execution_template.get("workflow_steps", []) if str(item).strip()
+        ]
         if workflow_steps:
             lines.extend(["### Workflow Steps", ""])
             for index, item in enumerate(workflow_steps, start=1):
                 lines.append(f"{index}. {item}")
             lines.append("")
 
-        output_checklist = [str(item).strip() for item in execution_template.get("output_checklist", []) if str(item).strip()]
+        output_checklist = [
+            str(item).strip() for item in execution_template.get("output_checklist", []) if str(item).strip()
+        ]
         if output_checklist:
             lines.extend(["### Output Checklist", ""])
             for item in output_checklist:
@@ -291,9 +324,9 @@ def render_markdown_from_payload(report: dict) -> str:
                 "| "
                 + " | ".join(
                     [
-                        str(item.get("label", "")).replace("\n", " ").strip(),
-                        str(item.get("detail", "")).replace("\n", " ").strip(),
-                        str(item.get("source", "")).replace("\n", " ").strip(),
+                        escape_markdown_table_cell(item.get("label", "")),
+                        escape_markdown_table_cell(item.get("detail", "")),
+                        escape_markdown_table_cell(item.get("source", "")),
                     ]
                 )
                 + " |"
@@ -310,6 +343,7 @@ def render_markdown_from_payload(report: dict) -> str:
         bullets = [str(item).strip() for item in section.get("bullets", []) if str(item).strip()]
         numbered = [str(item).strip() for item in section.get("numbered", []) if str(item).strip()]
         table = section.get("table") or {}
+        evidence_refs = section.get("evidence_refs", []) or []
 
         for paragraph in paragraphs:
             lines.extend([paragraph, ""])
@@ -327,15 +361,35 @@ def render_markdown_from_payload(report: dict) -> str:
             title = str(table.get("title", "")).strip()
             if title:
                 lines.extend([f"### {title}", ""])
-            lines.append("| " + " | ".join(headers) + " |")
+            lines.append("| " + " | ".join(escape_markdown_table_cell(item) for item in headers) + " |")
             lines.append("| " + " | ".join(["---"] * len(headers)) + " |")
             for row in rows:
-                cells = [str(cell).replace("\n", " ").strip() for cell in row]
+                cells = [escape_markdown_table_cell(cell) for cell in row]
                 if len(cells) < len(headers):
                     cells.extend([""] * (len(headers) - len(cells)))
                 lines.append("| " + " | ".join(cells[: len(headers)]) + " |")
             lines.append("")
-        if not any([paragraphs, bullets, numbered, headers]):
+        if evidence_refs:
+            lines.extend(["### Evidence References", ""])
+            lines.append("| Source Type | Source ID | Source URL | Time Range | Excerpt | Supports |")
+            lines.append("| --- | --- | --- | --- | --- | --- |")
+            for item in evidence_refs:
+                lines.append(
+                    "| "
+                    + " | ".join(
+                        [
+                            escape_markdown_table_cell(item.get("source_type", "")),
+                            escape_markdown_table_cell(item.get("source_id", "")),
+                            escape_markdown_table_cell(item.get("source_url", "")),
+                            escape_markdown_table_cell(item.get("time_range", "")),
+                            escape_markdown_table_cell(item.get("excerpt", "")),
+                            escape_markdown_table_cell(item.get("supports", "")),
+                        ]
+                    )
+                    + " |"
+                )
+            lines.append("")
+        if not any([paragraphs, bullets, numbered, headers, evidence_refs]):
             lines.extend(["_Fill this section._", ""])
 
     assets = report.get("assets", [])
@@ -345,7 +399,12 @@ def render_markdown_from_payload(report: dict) -> str:
             label = str(asset.get("label", "")).strip() or "Asset"
             path = str(asset.get("path", "")).strip()
             note = str(asset.get("note", "")).strip()
-            detail = " | ".join(item for item in [path, note] if item)
+            detail_parts = []
+            if path:
+                detail_parts.append(f"file `{path}`")
+            if note:
+                detail_parts.append(note)
+            detail = " | ".join(detail_parts)
             lines.append(f"- {label}: {detail}" if detail else f"- {label}")
         lines.append("")
 
@@ -389,16 +448,19 @@ def main() -> None:
     scene = resolve_scene(catalog, args.scene)
     context = ""
     if args.context_file:
-        context = Path(args.context_file).read_text(encoding="utf-8")
+        context = read_utf8_text(Path(args.context_file))
     payload = build_report_payload(scene, args.project, context)
     report = (
-        json.dumps(payload, ensure_ascii=False, indent=2) + "\n"
+        json.dumps(normalize_nested(payload), ensure_ascii=False, indent=2) + "\n"
         if args.format == "json"
         else render_markdown_from_payload(payload)
     )
     output = Path(args.output)
     output.parent.mkdir(parents=True, exist_ok=True)
-    output.write_text(report, encoding="utf-8")
+    if args.format == "json":
+        write_json_file(output, payload)
+    else:
+        write_utf8_text(output, report)
     print(output)
 
 

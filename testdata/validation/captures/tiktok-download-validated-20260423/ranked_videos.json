@@ -1,0 +1,593 @@
+[
+  {
+    "video_url": "https://www.tiktok.com/@tiktok/video/7631201918366289165",
+    "anchor_text": "PSA: always sing your ❤️ out, you'll never know who's going to listen 👀   tune into the full episode of Behind the Breakthrough with @SIENNA SPIRO, on our page coming soon.",
+    "aria_label": "",
+    "video_id": "7631201918366289165",
+    "unique_id": "tiktok",
+    "nickname": "TikTok",
+    "desc": "PSA: always sing your ❤️ out, you'll never know who's going to listen 👀   tune into the full episode of Behind the Breakthrough with @SIENNA SPIRO, on our page coming soon.",
+    "create_time": "1776777705",
+    "created_at_utc": "2026-04-21T13:21:45+00:00",
+    "digg_count": 104500,
+    "comment_count": 658,
+    "share_count": 939,
+    "play_count": 4200000,
+    "collect_count": 3517,
+    "play_addr": "https://v16-webapp-prime.us.tiktok.com/video/tos/useast5/tos-useast5-pve-0068-tx/oAs75v1VMRueYdfOAxWAkejbPC8ITRHgQRAGIz/?a=1988&bti=ODszNWYuMDE6&&bt=1223&ft=aEeq8qT0mIoPD12iSXks3wUeYOAbMeF~O5&mime_type=video_mp4&rc=O2g7Ozg6NWdlNjw1NDdmOEBpM211bnE5cm1xOjMzZzczNEAtLS9gMTIzNmMxNGA0LWBiYSNvbGFuMmRjZ2dhLS1kMS9zcw%3D%3D&btag=e00088000&expire=1777091645&l=2026042304333633556B46495D0F426CE7&ply_type=2&policy=2&signature=eeaa12ab261426e8d27401d81ecf434e&tk=tt_chain_token",
+    "download_addr": "https://v16-webapp-prime.us.tiktok.com/video/tos/useast5/tos-useast5-ve-0068c002-tx/osXEd84fQqvESo5BnOUDfDsRnNAFgI3gItCpIj/?a=1988&bti=ODszNWYuMDE6&&bt=1123&ft=aEeq8qT0mIoPD12iSXks3wUeYOAbMeF~O5&mime_type=video_mp4&rc=ZTRnNmZpZzQ3ZmhoZjk5aUBpM211bnE5cm1xOjMzZzczNEBjNl8uLjZeNTAxX14xMGMvYSNvbGFuMmRjZ2dhLS1kMS9zcw%3D%3D&btag=e00088000&expire=1777091645&l=2026042304333633556B46495D0F426CE7&ply_type=2&policy=2&signature=66664e73bc52a5357152ce9312af7cf4&tk=tt_chain_token",
+    "cover_url": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/okeOuZgQEnDA5S8F3bCgHp8n6AYDREAAIR8yfu~tplv-tiktokx-origin.image?dr=9636&x-expires=1777089600&x-signature=MJTsv6UZMtKbww4ft5D5H%2Bt4tUc%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=useast5",
+    "comment_samples": [
+      {
+        "cid": "7631267929561039638",
+        "text": "[Sticker] Tiktok in my fyp of tiktok",
+        "digg_count": 6532,
+        "reply_comment_total": 5,
+        "nickname": "🎭🏯",
+        "unique_id": "cmbrt.zza"
+      },
+      {
+        "cid": "7631264614248825622",
+        "text": "Yet she’s still not verified",
+        "digg_count": 2102,
+        "reply_comment_total": 11,
+        "nickname": "lolal9128",
+        "unique_id": "lolal9128"
+      },
+      {
+        "cid": "7631646987334517512",
+        "text": "[Sticker] I'm watching TikTok on TikTok",
+        "digg_count": 42,
+        "reply_comment_total": 1,
+        "nickname": "𝘼𝙧𝙞𝙠𝙤𝙤🌔🪽",
+        "unique_id": "ariko0909"
+      },
+      {
+        "cid": "7631292809473327895",
+        "text": "[Sticker] damn tiktok has titok",
+        "digg_count": 1675,
+        "reply_comment_total": 2,
+        "nickname": "coldbasketballer",
+        "unique_id": "iskwspeed"
+      },
+      {
+        "cid": "7631218349641745174",
+        "text": "[Sticker] Who needs support??",
+        "digg_count": 65,
+        "reply_comment_total": 4,
+        "nickname": "whowins616",
+        "unique_id": "whowins616"
+      }
+    ],
+    "source": "detail_page",
+    "score": 172633,
+    "comment_api_probe": {
+      "attempt": 1,
+      "ok": true,
+      "api_status_code": 200,
+      "response_text_length": 32664,
+      "response_json_parsed": true,
+      "response_parse_error": "",
+      "empty_response": false,
+      "comment_count": 10,
+      "sample_count": 5,
+      "samples": [
+        {
+          "cid": "7631267929561039638",
+          "text": "[Sticker] Tiktok in my fyp of tiktok",
+          "digg_count": 6532,
+          "reply_comment_total": 5,
+          "nickname": "🎭🏯",
+          "unique_id": "cmbrt.zza"
+        },
+        {
+          "cid": "7631264614248825622",
+          "text": "Yet she’s still not verified",
+          "digg_count": 2102,
+          "reply_comment_total": 11,
+          "nickname": "lolal9128",
+          "unique_id": "lolal9128"
+        },
+        {
+          "cid": "7631646987334517512",
+          "text": "[Sticker] I'm watching TikTok on TikTok",
+          "digg_count": 42,
+          "reply_comment_total": 1,
+          "nickname": "𝘼𝙧𝙞𝙠𝙤𝙤🌔🪽",
+          "unique_id": "ariko0909"
+        },
+        {
+          "cid": "7631292809473327895",
+          "text": "[Sticker] damn tiktok has titok",
+          "digg_count": 1675,
+          "reply_comment_total": 2,
+          "nickname": "coldbasketballer",
+          "unique_id": "iskwspeed"
+        },
+        {
+          "cid": "7631218349641745174",
+          "text": "[Sticker] Who needs support??",
+          "digg_count": 65,
+          "reply_comment_total": 4,
+          "nickname": "whowins616",
+          "unique_id": "whowins616"
+        }
+      ],
+      "api_url": "https://www.tiktok.com/api/comment/list/?WebIdLastTime=1776918830&aid=1988&app_language=en&app_name=tiktok_web&aweme_id=7631201918366289165&browser_language=en-US&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%29&channel=tiktok_web&cookie_enabled=true&count=10&cursor=0&current_region=US&device_id=7380187414842836523&device_platform=web_pc&focus_state=true&from_page=video&history_len=4&is_fullscreen=false&is_page_visible=true&language=en&os=windows&priority_region=US&referer=&region=US&screen_height=1080&screen_width=1920&tz_name=America%2FLos_Angeles&webcast_language=en&msToken=pFQDMMTD990SGRe3VC7WDXhH2i2oQtaJUFn5fmb1gj-Bt8zG64P_-9S4wMXKzbwKd5aYDZFD6LtLasI_ksJ3UsCEQh_y9bEXMpzm7ODEj1vHHJpfUO6kYB5oeVUiNzfkImZBa3TbRPki9A==&X-Bogus=DFSzswVYrjGANj7TCbxbfl9WX7rH",
+      "error": "",
+      "attempts": [
+        {
+          "attempt": 1,
+          "ok": true,
+          "api_status_code": 200,
+          "response_text_length": 32664,
+          "response_json_parsed": true,
+          "response_parse_error": "",
+          "empty_response": false,
+          "comment_count": 10,
+          "sample_count": 5,
+          "samples": [
+            {
+              "cid": "7631267929561039638",
+              "text": "[Sticker] Tiktok in my fyp of tiktok",
+              "digg_count": 6532,
+              "reply_comment_total": 5,
+              "nickname": "🎭🏯",
+              "unique_id": "cmbrt.zza"
+            },
+            {
+              "cid": "7631264614248825622",
+              "text": "Yet she’s still not verified",
+              "digg_count": 2102,
+              "reply_comment_total": 11,
+              "nickname": "lolal9128",
+              "unique_id": "lolal9128"
+            },
+            {
+              "cid": "7631646987334517512",
+              "text": "[Sticker] I'm watching TikTok on TikTok",
+              "digg_count": 42,
+              "reply_comment_total": 1,
+              "nickname": "𝘼𝙧𝙞𝙠𝙤𝙤🌔🪽",
+              "unique_id": "ariko0909"
+            },
+            {
+              "cid": "7631292809473327895",
+              "text": "[Sticker] damn tiktok has titok",
+              "digg_count": 1675,
+              "reply_comment_total": 2,
+              "nickname": "coldbasketballer",
+              "unique_id": "iskwspeed"
+            },
+            {
+              "cid": "7631218349641745174",
+              "text": "[Sticker] Who needs support??",
+              "digg_count": 65,
+              "reply_comment_total": 4,
+              "nickname": "whowins616",
+              "unique_id": "whowins616"
+            }
+          ],
+          "api_url": "https://www.tiktok.com/api/comment/list/?WebIdLastTime=1776918830&aid=1988&app_language=en&app_name=tiktok_web&aweme_id=7631201918366289165&browser_language=en-US&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%29&channel=tiktok_web&cookie_enabled=true&count=10&cursor=0&current_region=US&device_id=7380187414842836523&device_platform=web_pc&focus_state=true&from_page=video&history_len=4&is_fullscreen=false&is_page_visible=true&language=en&os=windows&priority_region=US&referer=&region=US&screen_height=1080&screen_width=1920&tz_name=America%2FLos_Angeles&webcast_language=en&msToken=pFQDMMTD990SGRe3VC7WDXhH2i2oQtaJUFn5fmb1gj-Bt8zG64P_-9S4wMXKzbwKd5aYDZFD6LtLasI_ksJ3UsCEQh_y9bEXMpzm7ODEj1vHHJpfUO6kYB5oeVUiNzfkImZBa3TbRPki9A==&X-Bogus=DFSzswVYrjGANj7TCbxbfl9WX7rH",
+          "error": ""
+        }
+      ]
+    }
+  },
+  {
+    "video_url": "https://www.tiktok.com/@tiktok/video/7624178064527740190",
+    "anchor_text": "the sick girl support system we didn’t know we needed 🫶 @nicolepedra #MyLIVEMyStory",
+    "aria_label": "",
+    "video_id": "7624178064527740190",
+    "unique_id": "tiktok",
+    "nickname": "TikTok",
+    "desc": "the sick girl support system we didn’t know we needed 🫶 @nicolepedra #MyLIVEMyStory",
+    "create_time": "1775142296",
+    "created_at_utc": "2026-04-02T15:04:56+00:00",
+    "digg_count": 25500,
+    "comment_count": 2124,
+    "share_count": 1704,
+    "play_count": 16800000,
+    "collect_count": 2360,
+    "play_addr": "https://v16-webapp-prime.us.tiktok.com/video/tos/useast8/tos-useast8-ve-0068c002-tx2/ocmRKgVDpBh6Gd7FEOZozAQWEEgOfzYAmRIbfr/?a=1988&bti=ODszNWYuMDE6&&bt=986&ft=4KJMyMzm8Zmo01Icex4jVB3odpWrKsd.&mime_type=video_mp4&rc=NjQ0PDtmaDY8OTg7N2hmO0BpajY0bnc5cnQ7OjMzaTczNEBgMC8uLTYyXy4xMV5fYTQyYSM2b24yMmRzNTRhLS1kMTJzcw%3D%3D&btag=e00090000&expire=1777091636&l=2026042304325762AB0ADC48770D42E75A&ply_type=2&policy=2&signature=a20e74d271d090164ceb8b366dd04131&tk=tt_chain_token",
+    "download_addr": "https://v16-webapp-prime.us.tiktok.com/video/tos/useast8/tos-useast8-ve-0068c003-tx2/o0XjCGOiIqTfdIvThAQ0QEs5IAL0Q9B5o1biiA/?a=1988&bti=ODszNWYuMDE6&&bt=917&ft=4KJMyMzm8Zmo01Icex4jVB3odpWrKsd.&mime_type=video_mp4&rc=Zzc0OTlmN2k0NWU4NmlmN0BpajY0bnc5cnQ7OjMzaTczNEA1YmMtMzZeNjAxY2A1Yy82YSM2b24yMmRzNTRhLS1kMTJzcw%3D%3D&btag=e00090000&expire=1777091636&l=2026042304325762AB0ADC48770D42E75A&ply_type=2&policy=2&signature=77abf4db970103962cc4d0d9f311cf9e&tk=tt_chain_token",
+    "cover_url": "https://p16-common-sign.tiktokcdn-us.com/tos-useast8-p-0068-tx2/ooKsaAqGTEC2HvDLIAAQfAIsIISdenpAfjQyGr~tplv-tiktokx-origin.image?dr=9636&x-expires=1777089600&x-signature=isTODA%2Fn2ovgvmGpoM8pFFj0GT0%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=useast5",
+    "comment_samples": [],
+    "source": "web_api",
+    "score": 117612
+  },
+  {
+    "video_url": "https://www.tiktok.com/@tiktok/video/7627209981670001950",
+    "anchor_text": "your TikTok grandpa @writers cramp is proud of you 🫵🥹❤️",
+    "aria_label": "",
+    "video_id": "7627209981670001950",
+    "unique_id": "tiktok",
+    "nickname": "TikTok",
+    "desc": "your TikTok grandpa @writers cramp is proud of you 🫵🥹❤️",
+    "create_time": "1775848235",
+    "created_at_utc": "2026-04-10T19:10:35+00:00",
+    "digg_count": 11900,
+    "comment_count": 2173,
+    "share_count": 944,
+    "play_count": 195900,
+    "collect_count": 1127,
+    "play_addr": "https://v16-webapp-prime.us.tiktok.com/video/tos/useast8/tos-useast8-ve-0068c002-tx2/oURBEAIvVd7ia1oBJASjo4RbEvMEZQ3lOSvli/?a=1988&bti=ODszNWYuMDE6&&bt=1340&ft=4KJMyMzm8Zmo01Icex4jVB3odpWrKsd.&mime_type=video_mp4&rc=MzhpZzw8ZWQ4NTs5NzY2N0Bpamg2bnI5cjtuOjMzaTczNEAzLjZhYGBhNWExYDMuNWEuYSM1YmlxMmRrZ2BhLS1kMTJzcw%3D%3D&btag=e00090000&expire=1777091654&l=2026042304325762AB0ADC48770D42E75A&ply_type=2&policy=2&signature=c1941c72fbac54f814179e01f389d725&tk=tt_chain_token",
+    "download_addr": "https://v16-webapp-prime.us.tiktok.com/video/tos/useast8/tos-useast8-ve-0068c001-tx2/oooOl3ZRBdAiv4SLJE5zoZzSBaE7IAAR1QMiV/?a=1988&bti=ODszNWYuMDE6&&bt=1252&ft=4KJMyMzm8Zmo01Icex4jVB3odpWrKsd.&mime_type=video_mp4&rc=OWg3OmY8M2U3OWRkNzs4aUBpamg2bnI5cjtuOjMzaTczNEA0My5gMzAwXy0xMi02LmMzYSM1YmlxMmRrZ2BhLS1kMTJzcw%3D%3D&btag=e00090000&expire=1777091654&l=2026042304325762AB0ADC48770D42E75A&ply_type=2&policy=2&signature=aabc1cb7fc3b7dce635a57f13d790618&tk=tt_chain_token",
+    "cover_url": "https://p16-common-sign.tiktokcdn-us.com/tos-useast8-p-0068-tx2/oIlEE2oVfQAU0AwmnRlsyfAAQAEiICDGpIFRAF~tplv-tiktokx-origin.image?dr=9636&x-expires=1777089600&x-signature=TQEWVKKC4phyfIJUhaZumB7sBC8%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=useast5",
+    "comment_samples": [],
+    "source": "web_api",
+    "score": 78698
+  },
+  {
+    "video_url": "https://www.tiktok.com/@tiktok/video/7628619815690833183",
+    "anchor_text": "a reminder to romanticize the little moments ❤️",
+    "aria_label": "",
+    "video_id": "7628619815690833183",
+    "unique_id": "tiktok",
+    "nickname": "TikTok",
+    "desc": "a reminder to romanticize the little moments ❤️",
+    "create_time": "1776176493",
+    "created_at_utc": "2026-04-14T14:21:33+00:00",
+    "digg_count": 7406,
+    "comment_count": 2288,
+    "share_count": 767,
+    "play_count": 308800,
+    "collect_count": 769,
+    "play_addr": "https://v16-webapp-prime.us.tiktok.com/video/tos/useast8/tos-useast8-ve-0068c004-tx2/ogE0KpkBTixEEeFRiXIg7IAV2mAfuqg8Z23QxD/?a=1988&bti=ODszNWYuMDE6&&bt=874&ft=4KJMyMzm8Zmo0eCcex4jV2bjdpWrKsd.&mime_type=video_mp4&rc=ODk5Zzs0aTs1ZDNkNjM6M0BpamVneGo5cnQ3OjMzaTczNEAwNjU0YTBiXjUxNC1jLjQyYSNvL2cxMmRrbGNhLS1kMTJzcw%3D%3D&btag=e00088000&expire=1777091682&l=20260423043354BA39C57E706E34421CBE&ply_type=2&policy=2&signature=33e161c2c31ffd99753410c3f4cf9db2&tk=tt_chain_token",
+    "download_addr": "https://v16-webapp-prime.us.tiktok.com/video/tos/useast8/tos-useast8-ve-0068c002-tx2/oIAgeFiqx3TYDT3JRf0BkHEgAVEPEObIXpo2Qu/?a=1988&bti=ODszNWYuMDE6&&bt=791&ft=4KJMyMzm8Zmo0eCcex4jV2bjdpWrKsd.&mime_type=video_mp4&rc=NTYzOGY0Zzg1aTVmOjo3OEBpamVneGo5cnQ3OjMzaTczNEBjNGAzNi0tNi4xNS9iYzQyYSNvL2cxMmRrbGNhLS1kMTJzcw%3D%3D&btag=e00088000&expire=1777091682&l=20260423043354BA39C57E706E34421CBE&ply_type=2&policy=2&signature=9bab416cf3efc21be9deae69621afcfe&tk=tt_chain_token",
+    "cover_url": "https://p16-common-sign.tiktokcdn-us.com/tos-useast8-p-0068-tx2/oEsGEw03A1wRAIQWpAQGqxFwEVEeVkfTCEAADA~tplv-tiktokx-origin.image?dr=9636&x-expires=1777089600&x-signature=QnoNfMCPB1Q%2ByAopwiG1telsu%2B4%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=useast5",
+    "comment_samples": [
+      {
+        "cid": "7629717687844832013",
+        "text": "Give us a master switch off for AI remix. You can’t make us go back through everything on our page for a feature that was just added.",
+        "digg_count": 247,
+        "reply_comment_total": 5,
+        "nickname": "MalikaNgozi🇸🇩🇵🇸🇨🇩",
+        "unique_id": "malikangozi"
+      },
+      {
+        "cid": "7629333241903973142",
+        "text": "Why is the \"ALLOW AI TO remix content automatically\" setting on for all videos in privacy settings?",
+        "digg_count": 104,
+        "reply_comment_total": 0,
+        "nickname": "Stylesanctuary",
+        "unique_id": "stylesanctuaryuk"
+      },
+      {
+        "cid": "7629529708057936671",
+        "text": "I WANT AN EASIER OPTION TO OPT OUT OF ALL AI USAGE ON MY POSTS.... WHY IS IT AUTOMATICALLY ON AND WHY DO I HAVE TO GO THROUGH ALL MY POSTS JUST TO TURN IT OFF?!?!?",
+        "digg_count": 101,
+        "reply_comment_total": 1,
+        "nickname": "3mabs.19",
+        "unique_id": "3mabs.19"
+      },
+      {
+        "cid": "7629918005279638289",
+        "text": "Remove the ai remix feature",
+        "digg_count": 114,
+        "reply_comment_total": 0,
+        "nickname": "byeongheesvocals 🍉",
+        "unique_id": "byeongheesvocals"
+      },
+      {
+        "cid": "7628860465363632916",
+        "text": "tiktok posting on tiktok",
+        "digg_count": 228,
+        "reply_comment_total": 4,
+        "nickname": "💤",
+        "unique_id": "kynniiii_"
+      }
+    ],
+    "source": "detail_page",
+    "score": 69323,
+    "comment_api_probe": {
+      "attempt": 1,
+      "ok": true,
+      "api_status_code": 200,
+      "response_text_length": 32171,
+      "response_json_parsed": true,
+      "response_parse_error": "",
+      "empty_response": false,
+      "comment_count": 10,
+      "sample_count": 5,
+      "samples": [
+        {
+          "cid": "7629717687844832013",
+          "text": "Give us a master switch off for AI remix. You can’t make us go back through everything on our page for a feature that was just added.",
+          "digg_count": 247,
+          "reply_comment_total": 5,
+          "nickname": "MalikaNgozi🇸🇩🇵🇸🇨🇩",
+          "unique_id": "malikangozi"
+        },
+        {
+          "cid": "7629333241903973142",
+          "text": "Why is the \"ALLOW AI TO remix content automatically\" setting on for all videos in privacy settings?",
+          "digg_count": 104,
+          "reply_comment_total": 0,
+          "nickname": "Stylesanctuary",
+          "unique_id": "stylesanctuaryuk"
+        },
+        {
+          "cid": "7629529708057936671",
+          "text": "I WANT AN EASIER OPTION TO OPT OUT OF ALL AI USAGE ON MY POSTS.... WHY IS IT AUTOMATICALLY ON AND WHY DO I HAVE TO GO THROUGH ALL MY POSTS JUST TO TURN IT OFF?!?!?",
+          "digg_count": 101,
+          "reply_comment_total": 1,
+          "nickname": "3mabs.19",
+          "unique_id": "3mabs.19"
+        },
+        {
+          "cid": "7629918005279638289",
+          "text": "Remove the ai remix feature",
+          "digg_count": 114,
+          "reply_comment_total": 0,
+          "nickname": "byeongheesvocals 🍉",
+          "unique_id": "byeongheesvocals"
+        },
+        {
+          "cid": "7628860465363632916",
+          "text": "tiktok posting on tiktok",
+          "digg_count": 228,
+          "reply_comment_total": 4,
+          "nickname": "💤",
+          "unique_id": "kynniiii_"
+        }
+      ],
+      "api_url": "https://www.tiktok.com/api/comment/list/?WebIdLastTime=1776918837&aid=1988&app_language=en&app_name=tiktok_web&aweme_id=7628619815690833183&browser_language=en-US&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%29&channel=tiktok_web&cookie_enabled=true&count=10&cursor=0&current_region=US&device_id=7380187414842836523&device_platform=web_pc&focus_state=true&from_page=video&history_len=4&is_fullscreen=false&is_page_visible=true&language=en&os=windows&priority_region=US&referer=&region=US&screen_height=1080&screen_width=1920&tz_name=America%2FLos_Angeles&webcast_language=en&msToken=oFpn_4jp8e0nnLqj8JEy_Ot1npqvjq1VptHCVcaly76u3fN-gMMfvVND5CUFal7hBz05U5BwqyV0en-g4TnFvr0JzR5qUtiXXa8xfIvHbVpK13s7mfWoGCF71rK5kSapgmLpFqdLUD0Egg==&X-Bogus=DFSzswVYP8vANj7TCbxbIF9WX7Jh",
+      "error": "",
+      "attempts": [
+        {
+          "attempt": 1,
+          "ok": true,
+          "api_status_code": 200,
+          "response_text_length": 32171,
+          "response_json_parsed": true,
+          "response_parse_error": "",
+          "empty_response": false,
+          "comment_count": 10,
+          "sample_count": 5,
+          "samples": [
+            {
+              "cid": "7629717687844832013",
+              "text": "Give us a master switch off for AI remix. You can’t make us go back through everything on our page for a feature that was just added.",
+              "digg_count": 247,
+              "reply_comment_total": 5,
+              "nickname": "MalikaNgozi🇸🇩🇵🇸🇨🇩",
+              "unique_id": "malikangozi"
+            },
+            {
+              "cid": "7629333241903973142",
+              "text": "Why is the \"ALLOW AI TO remix content automatically\" setting on for all videos in privacy settings?",
+              "digg_count": 104,
+              "reply_comment_total": 0,
+              "nickname": "Stylesanctuary",
+              "unique_id": "stylesanctuaryuk"
+            },
+            {
+              "cid": "7629529708057936671",
+              "text": "I WANT AN EASIER OPTION TO OPT OUT OF ALL AI USAGE ON MY POSTS.... WHY IS IT AUTOMATICALLY ON AND WHY DO I HAVE TO GO THROUGH ALL MY POSTS JUST TO TURN IT OFF?!?!?",
+              "digg_count": 101,
+              "reply_comment_total": 1,
+              "nickname": "3mabs.19",
+              "unique_id": "3mabs.19"
+            },
+            {
+              "cid": "7629918005279638289",
+              "text": "Remove the ai remix feature",
+              "digg_count": 114,
+              "reply_comment_total": 0,
+              "nickname": "byeongheesvocals 🍉",
+              "unique_id": "byeongheesvocals"
+            },
+            {
+              "cid": "7628860465363632916",
+              "text": "tiktok posting on tiktok",
+              "digg_count": 228,
+              "reply_comment_total": 4,
+              "nickname": "💤",
+              "unique_id": "kynniiii_"
+            }
+          ],
+          "api_url": "https://www.tiktok.com/api/comment/list/?WebIdLastTime=1776918837&aid=1988&app_language=en&app_name=tiktok_web&aweme_id=7628619815690833183&browser_language=en-US&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%29&channel=tiktok_web&cookie_enabled=true&count=10&cursor=0&current_region=US&device_id=7380187414842836523&device_platform=web_pc&focus_state=true&from_page=video&history_len=4&is_fullscreen=false&is_page_visible=true&language=en&os=windows&priority_region=US&referer=&region=US&screen_height=1080&screen_width=1920&tz_name=America%2FLos_Angeles&webcast_language=en&msToken=oFpn_4jp8e0nnLqj8JEy_Ot1npqvjq1VptHCVcaly76u3fN-gMMfvVND5CUFal7hBz05U5BwqyV0en-g4TnFvr0JzR5qUtiXXa8xfIvHbVpK13s7mfWoGCF71rK5kSapgmLpFqdLUD0Egg==&X-Bogus=DFSzswVYP8vANj7TCbxbIF9WX7Jh",
+          "error": ""
+        }
+      ]
+    }
+  },
+  {
+    "video_url": "https://www.tiktok.com/@tiktok/video/7626810027520593183",
+    "anchor_text": "wishing it, singing it, living it 🎶 TikTok LIVE made @⭐️Anyelique Solorio⭐️ dreams real 💫",
+    "aria_label": "",
+    "video_id": "7626810027520593183",
+    "unique_id": "tiktok",
+    "nickname": "TikTok",
+    "desc": "wishing it, singing it, living it 🎶 TikTok LIVE made @⭐️Anyelique Solorio⭐️ dreams real 💫",
+    "create_time": "1775755097",
+    "created_at_utc": "2026-04-09T17:18:17+00:00",
+    "digg_count": 9019,
+    "comment_count": 1453,
+    "share_count": 1069,
+    "play_count": 166500,
+    "collect_count": 898,
+    "play_addr": "https://v16-webapp-prime.us.tiktok.com/video/tos/useast8/tos-useast8-ve-0068c001-tx2/ocgvRAIfjvjrAfGT9LmjeOA6YzKIxIkAqn7wCt/?a=1988&bti=ODszNWYuMDE6&&bt=1074&ft=4KJMyMzm8Zmo01Icex4jVB3odpWrKsd.&mime_type=video_mp4&rc=ZWg3NmU0ZmY1NDtmaTg3aUBpM202cWw5cnh3OjMzaTczNEA0MmEtYTExX14xMGFgLzQzYSNnZ2lrMmQ0cF9hLS1kMTJzcw%3D%3D&btag=e00090000&expire=1777091647&l=2026042304325762AB0ADC48770D42E75A&ply_type=2&policy=2&signature=a8fe690d1770885e0032260ce9347dea&tk=tt_chain_token",
+    "download_addr": "https://v16-webapp-prime.us.tiktok.com/video/tos/useast8/tos-useast8-ve-0068c001-tx2/osmz1QqGTC3KzU5LIIb76AIeIIoXer3AejE3Xx/?a=1988&bti=ODszNWYuMDE6&&bt=979&ft=4KJMyMzm8Zmo01Icex4jVB3odpWrKsd.&mime_type=video_mp4&rc=ODU4NmRnNmk8NTVpPDZpNUBpM202cWw5cnh3OjMzaTczNEBhYy5gLl8uNjMxNmFeYDYwYSNnZ2lrMmQ0cF9hLS1kMTJzcw%3D%3D&btag=e00090000&expire=1777091647&l=2026042304325762AB0ADC48770D42E75A&ply_type=2&policy=2&signature=e64b242de29463dadc3c9aea00df680b&tk=tt_chain_token",
+    "cover_url": "https://p16-common-sign.tiktokcdn-us.com/tos-useast8-p-0068-tx2/o4AJv9eEDQGqgv49AzFAVPRX1CfJpAEIEVAtE1~tplv-tiktokx-origin.image?dr=9636&x-expires=1777089600&x-signature=U6PtdowcCWMTVVqb3YmMjcrHLIs%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=useast5",
+    "comment_samples": [],
+    "source": "web_api",
+    "score": 61984
+  },
+  {
+    "video_url": "https://www.tiktok.com/@tiktok/video/7631229398531788062",
+    "anchor_text": "this STEMTok creativity is blowing us away 👏",
+    "aria_label": "",
+    "video_id": "7631229398531788062",
+    "unique_id": "tiktok",
+    "nickname": "TikTok",
+    "desc": "this STEMTok creativity is blowing us away 👏",
+    "create_time": "1776784085",
+    "created_at_utc": "2026-04-21T15:08:05+00:00",
+    "digg_count": 1942,
+    "comment_count": 497,
+    "share_count": 155,
+    "play_count": 90700,
+    "collect_count": 193,
+    "play_addr": "https://v16-webapp-prime.us.tiktok.com/video/tos/useast8/tos-useast8-ve-0068c002-tx2/oQTAqfegNCxAyAWj5IRi1fzBmzILAa88RRSMQJ/?a=1988&bti=ODszNWYuMDE6&&bt=1969&ft=4KJMyMzm8Zmo0tIcex4jVzMjdpWrKsd.&mime_type=video_mp4&rc=M2U6PGVkOmZoNTg5NTg0OUBpamg4NHE5cjxzOjMzaTczNEAwMi5fY2NfXjExLzE0MjZhYSMxaGkzMmRrMWdhLS1kMTJzcw%3D%3D&btag=e00088000&expire=1777091632&l=20260423043259C95A51BE8DC64C4A48B8&ply_type=2&policy=2&signature=c615c20124369679349d9231e05f1b2f&tk=tt_chain_token",
+    "download_addr": "https://v16-webapp-prime.us.tiktok.com/video/tos/useast8/tos-useast8-ve-0068c004-tx2/oAnJ3iAIqB0v8pCSkALGArvaIvOJMFii4QEneQ/?a=1988&bti=ODszNWYuMDE6&&bt=1794&ft=4KJMyMzm8Zmo0tIcex4jVzMjdpWrKsd.&mime_type=video_mp4&rc=Zjw0Zzc7OmdnPGlnNWk6Z0Bpamg4NHE5cjxzOjMzaTczNEBgMC5gXi40Xi8xXmMuNl9iYSMxaGkzMmRrMWdhLS1kMTJzcw%3D%3D&btag=e00088000&expire=1777091632&l=20260423043259C95A51BE8DC64C4A48B8&ply_type=2&policy=2&signature=ca938f35933ce4944abe223a08b55f26&tk=tt_chain_token",
+    "cover_url": "https://p16-common-sign.tiktokcdn-us.com/tos-useast8-p-0068-tx2/okAAMQyUTIAeSrn6AMEscAezWAWhqA8j0I2reQ~tplv-tiktokx-origin.image?dr=9636&x-expires=1777089600&x-signature=HiCWy3foG7YKCwo45tMDtq8qO4A%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=useast5",
+    "comment_samples": [
+      {
+        "cid": "7631238073745867542",
+        "text": "TikTok needs to remove the “ai remix” option for our posts. It’s an invasion of all our privacies and we didn’t give permission",
+        "digg_count": 55,
+        "reply_comment_total": 1,
+        "nickname": "𝖎𝖋𝖋𝖊𝖓𝖊𝖞🤞🏾",
+        "unique_id": "4ng3lzz.._"
+      },
+      {
+        "cid": "7631477430184723213",
+        "text": "Hey TikTok thanks for the verification badge 🙏🏼🫶🏼",
+        "digg_count": 16,
+        "reply_comment_total": 3,
+        "nickname": "IZMA",
+        "unique_id": "izmamusic"
+      },
+      {
+        "cid": "7631256983233069837",
+        "text": "Hey so let’s remove the ai remix",
+        "digg_count": 22,
+        "reply_comment_total": 0,
+        "nickname": "Zoe :)",
+        "unique_id": "_zoebird"
+      },
+      {
+        "cid": "7631290577523294990",
+        "text": "How do we turn off and keep the AI turned off?",
+        "digg_count": 14,
+        "reply_comment_total": 0,
+        "nickname": "Auntie Drea",
+        "unique_id": "auntie_drea5"
+      },
+      {
+        "cid": "7631466039088612127",
+        "text": "Get rid of the AI no one wants it",
+        "digg_count": 6,
+        "reply_comment_total": 0,
+        "nickname": "Faqudoin",
+        "unique_id": "faqudoin"
+      }
+    ],
+    "source": "detail_page",
+    "score": 15529,
+    "comment_api_probe": {
+      "attempt": 1,
+      "ok": true,
+      "api_status_code": 200,
+      "response_text_length": 31606,
+      "response_json_parsed": true,
+      "response_parse_error": "",
+      "empty_response": false,
+      "comment_count": 10,
+      "sample_count": 5,
+      "samples": [
+        {
+          "cid": "7631238073745867542",
+          "text": "TikTok needs to remove the “ai remix” option for our posts. It’s an invasion of all our privacies and we didn’t give permission",
+          "digg_count": 55,
+          "reply_comment_total": 1,
+          "nickname": "𝖎𝖋𝖋𝖊𝖓𝖊𝖞🤞🏾",
+          "unique_id": "4ng3lzz.._"
+        },
+        {
+          "cid": "7631477430184723213",
+          "text": "Hey TikTok thanks for the verification badge 🙏🏼🫶🏼",
+          "digg_count": 16,
+          "reply_comment_total": 3,
+          "nickname": "IZMA",
+          "unique_id": "izmamusic"
+        },
+        {
+          "cid": "7631256983233069837",
+          "text": "Hey so let’s remove the ai remix",
+          "digg_count": 22,
+          "reply_comment_total": 0,
+          "nickname": "Zoe :)",
+          "unique_id": "_zoebird"
+        },
+        {
+          "cid": "7631290577523294990",
+          "text": "How do we turn off and keep the AI turned off?",
+          "digg_count": 14,
+          "reply_comment_total": 0,
+          "nickname": "Auntie Drea",
+          "unique_id": "auntie_drea5"
+        },
+        {
+          "cid": "7631466039088612127",
+          "text": "Get rid of the AI no one wants it",
+          "digg_count": 6,
+          "reply_comment_total": 0,
+          "nickname": "Faqudoin",
+          "unique_id": "faqudoin"
+        }
+      ],
+      "api_url": "https://www.tiktok.com/api/comment/list/?WebIdLastTime=1776918812&aid=1988&app_language=en&app_name=tiktok_web&aweme_id=7631229398531788062&browser_language=en-US&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%29&channel=tiktok_web&cookie_enabled=true&count=10&cursor=0&current_region=US&device_id=7380187414842836523&device_platform=web_pc&focus_state=true&from_page=video&history_len=4&is_fullscreen=false&is_page_visible=true&language=en&os=windows&priority_region=US&referer=&region=US&screen_height=1080&screen_width=1920&tz_name=America%2FLos_Angeles&webcast_language=en&msToken=JsZlO-rlksFny60mL3lnU7pwAAbcXZpatLs3WKQ3f7jZlxxsn0BgP2o2nIa5sjq3OEbyjKAhykE5l5meGchDFj4c-XEtt043BujOwy-JeHWkB9zrtfWT7Mre9ZwCf--e4Ntb2NXNwtLGLw==&X-Bogus=DFSzswVY1D0ANj7TCbxbWe9WX7J-",
+      "error": "",
+      "attempts": [
+        {
+          "attempt": 1,
+          "ok": true,
+          "api_status_code": 200,
+          "response_text_length": 31606,
+          "response_json_parsed": true,
+          "response_parse_error": "",
+          "empty_response": false,
+          "comment_count": 10,
+          "sample_count": 5,
+          "samples": [
+            {
+              "cid": "7631238073745867542",
+              "text": "TikTok needs to remove the “ai remix” option for our posts. It’s an invasion of all our privacies and we didn’t give permission",
+              "digg_count": 55,
+              "reply_comment_total": 1,
+              "nickname": "𝖎𝖋𝖋𝖊𝖓𝖊𝖞🤞🏾",
+              "unique_id": "4ng3lzz.._"
+            },
+            {
+              "cid": "7631477430184723213",
+              "text": "Hey TikTok thanks for the verification badge 🙏🏼🫶🏼",
+              "digg_count": 16,
+              "reply_comment_total": 3,
+              "nickname": "IZMA",
+              "unique_id": "izmamusic"
+            },
+            {
+              "cid": "7631256983233069837",
+              "text": "Hey so let’s remove the ai remix",
+              "digg_count": 22,
+              "reply_comment_total": 0,
+              "nickname": "Zoe :)",
+              "unique_id": "_zoebird"
+            },
+            {
+              "cid": "7631290577523294990",
+              "text": "How do we turn off and keep the AI turned off?",
+              "digg_count": 14,
+              "reply_comment_total": 0,
+              "nickname": "Auntie Drea",
+              "unique_id": "auntie_drea5"
+            },
+            {
+              "cid": "7631466039088612127",
+              "text": "Get rid of the AI no one wants it",
+              "digg_count": 6,
+              "reply_comment_total": 0,
+              "nickname": "Faqudoin",
+              "unique_id": "faqudoin"
+            }
+          ],
+          "api_url": "https://www.tiktok.com/api/comment/list/?WebIdLastTime=1776918812&aid=1988&app_language=en&app_name=tiktok_web&aweme_id=7631229398531788062&browser_language=en-US&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%29&channel=tiktok_web&cookie_enabled=true&count=10&cursor=0&current_region=US&device_id=7380187414842836523&device_platform=web_pc&focus_state=true&from_page=video&history_len=4&is_fullscreen=false&is_page_visible=true&language=en&os=windows&priority_region=US&referer=&region=US&screen_height=1080&screen_width=1920&tz_name=America%2FLos_Angeles&webcast_language=en&msToken=JsZlO-rlksFny60mL3lnU7pwAAbcXZpatLs3WKQ3f7jZlxxsn0BgP2o2nIa5sjq3OEbyjKAhykE5l5meGchDFj4c-XEtt043BujOwy-JeHWkB9zrtfWT7Mre9ZwCf--e4Ntb2NXNwtLGLw==&X-Bogus=DFSzswVY1D0ANj7TCbxbWe9WX7J-",
+          "error": ""
+        }
+      ]
+    }
+  }
+]

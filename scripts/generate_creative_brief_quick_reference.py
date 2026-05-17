@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 
 from generate_scene_report import build_report_payload, load_catalog
+from text_normalization import write_utf8_text
 
 
 CREATIVE_SCENE_IDS = {"09", "10", "11", "12", "13", "14", "15", "16"}
@@ -32,14 +33,14 @@ def _render_table_contract(section: dict) -> list[str]:
 def render_creative_quick_reference(skill_root: Path) -> str:
     catalog = [scene for scene in load_catalog(skill_root) if scene["id"] in CREATIVE_SCENE_IDS]
     lines = [
-        "# Creative Brief Quick Reference",
+        "# 创意制作简报速查",
         "",
         "Use this file when you want the creative-production half of the skill without scanning all 19 scenes.",
         "",
         "It focuses on scenes 09-16:",
         "",
         "- reference-video adaptation",
-        "- image-to-video briefing",
+        "- image-to-video 制作简报",
         "- replication pipeline design",
         "- multi-style testing matrix",
         "- multi-market localization",
@@ -49,7 +50,7 @@ def render_creative_quick_reference(skill_root: Path) -> str:
         "",
         "## Fast Pick",
         "",
-        "Copy one of these requests directly into Codex when you already know the brief type you need:",
+        "当你已经知道自己需要哪类制作简报时，直接把下面任意一句复制进 Codex：",
         "",
     ]
 
@@ -63,9 +64,9 @@ def render_creative_quick_reference(skill_root: Path) -> str:
             "",
             "## How To Choose Quickly",
             "",
-            "- Choose `09` when you already have one strong reference video and want an adapted replication brief.",
+            "- Choose `09` when you already have one strong reference video and want an adapted replication production brief.",
             "- Choose `10` when you mainly have product images or product facts and need a first video concept from scratch.",
-            "- Choose `11` when you need a repeatable hot-video intake and replication system, not one brief.",
+            "- Choose `11` when you need a repeatable hot-video intake and replication system, not one production brief.",
             "- Choose `12` when one product needs several clearly different creative directions to test.",
             "- Choose `13` when one product concept must be translated into several markets without doing naive literal localization.",
             "- Choose `14` when you need a launch asset family with production priority and role assignment.",
@@ -92,6 +93,7 @@ def render_creative_quick_reference(skill_root: Path) -> str:
         execution_template = payload.get("execution_template", {})
         sections = payload.get("sections", [])
         runner = _safe_list(execution_template.get("recommended_runner_args"))
+        request_zh = str(execution_template.get("recommended_request_zh", "")).strip()
 
         lines.extend(
             [
@@ -100,11 +102,11 @@ def render_creative_quick_reference(skill_root: Path) -> str:
                 "",
                 f"- Deliverable Type: `{metadata.get('deliverable_type', scene['deliverable_type'])}`",
                 f"- Use When: {scene['summary']}",
-                f"- 中文直呼请求: `{str(execution_template.get('recommended_request_zh', '')).strip()}`",
+                f"- 中文直呼请求: `{request_zh}`",
                 "",
                 "### 只复制这一句",
                 "",
-                f"`{str(execution_template.get('recommended_request_zh', '')).strip()}`",
+                f"`{request_zh}`",
                 "",
                 "### Main Runner",
                 "",
@@ -127,7 +129,7 @@ def render_creative_quick_reference(skill_root: Path) -> str:
         for item in _safe_list(execution_template.get("workflow_steps")):
             lines.append(f"- {item}")
 
-        lines.extend(["", "### Brief Blocks To Fill", ""])
+        lines.extend(["", "### 制作简报填写区块", ""])
         rendered_any_table = False
         for section in sections:
             table_lines = _render_table_contract(section)
@@ -135,7 +137,7 @@ def render_creative_quick_reference(skill_root: Path) -> str:
                 rendered_any_table = True
                 lines.extend(table_lines)
         if not rendered_any_table:
-            lines.append("- No table-driven brief blocks were found for this scene.")
+            lines.append("- 当前场景未生成基于表格的制作简报填写区块。")
 
         lines.extend(["", "### Output Must Include", ""])
         for item in _safe_list(execution_template.get("output_checklist")):
@@ -151,7 +153,7 @@ def render_creative_quick_reference(skill_root: Path) -> str:
 def main() -> None:
     skill_root = Path(__file__).resolve().parents[1]
     output = skill_root / "references" / "creative-brief-quick-reference.md"
-    output.write_text(render_creative_quick_reference(skill_root), encoding="utf-8")
+    write_utf8_text(output, render_creative_quick_reference(skill_root))
     print(json.dumps({"output": str(output)}, ensure_ascii=False, indent=2))
 
 

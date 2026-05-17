@@ -2,7 +2,13 @@
 
 This file describes the durable automation layer for the pure Codex scene pack.
 
-Use [direct-use.md](direct-use.md) for copy-ready operator commands and [final-handoff.md](final-handoff.md) for the shortest finished-state summary. This file is the behavior and ownership reference for how the scripts compose.
+使用 [direct-use.md](direct-use.md) 查看可直接复制的操作命令，使用 [command-map.md](command-map.md) 查看最短 Clipcat 对标命令索引，使用 [final-handoff.md](final-handoff.md) 查看最短完成态摘要。本文档负责说明这些脚本如何组合、归属与运行。
+
+Scope rule:
+
+- keep common operator invocation examples in `direct-use.md`
+- keep Clipcat parity command names in `command-map.md`
+- keep this file focused on script ownership, runtime behavior, validator coverage, batch contracts, and repair tooling
 
 ## What The Scripts Do
 
@@ -103,7 +109,7 @@ python scripts/run_scene_workflow.py `
   --scene 03 `
   --project "Morning Makeup Hook Teardown" `
   --name zao-ba-zhuang-rundown `
-  --context-file "D:\path\brief.txt"
+  --context-file "D:\path\制作简报.txt"
 ```
 
 ### `scripts/generate_operator_pack.py`
@@ -115,6 +121,7 @@ Supported pack types:
 - `publish-prep`
 - `live-assist`
 - `creative-production-handoff`
+- `account-ops-assist`
 
 It can work in two modes:
 
@@ -141,6 +148,17 @@ python scripts/generate_operator_pack.py `
   --platform TikTok `
   --market US `
   --output-dir "D:\path\creative-handoff-pack"
+```
+
+Account operations example:
+
+```powershell
+python scripts/generate_operator_pack.py `
+  --type account-ops-assist `
+  --source-report "D:\path\account-ops-source-report.json" `
+  --platform TikTok `
+  --market US `
+  --output-dir "D:\path\account-ops-pack"
 ```
 
 ### `scripts/start_scene_run.py`
@@ -201,6 +219,42 @@ python scripts/start_capture_pack_run.py `
   --market US
 ```
 
+Example for a single-video breakdown from the same real pack:
+
+```powershell
+python scripts/start_capture_pack_run.py `
+  --scene 04 `
+  --capture-root "D:\path\tiktok-analysis-pack-smoke-20260423f" `
+  --name tiktok-single-video-breakdown `
+  --project "TikTok Single Video Breakdown" `
+  --platform TikTok `
+  --market US
+```
+
+Example for reverse-engineering the likely source 制作简报:
+
+```powershell
+python scripts/start_capture_pack_run.py `
+  --scene 05 `
+  --capture-root "D:\path\tiktok-analysis-pack-smoke-20260423f" `
+  --name tiktok-reverse-engineered-creative-zh-brief `
+  --project "TikTok 反推制作简报" `
+  --platform TikTok `
+  --market US
+```
+
+Example for category or theme judgment from the ranked pack:
+
+```powershell
+python scripts/start_capture_pack_run.py `
+  --scene 07 `
+  --capture-root "D:\path\tiktok-analysis-pack-smoke-20260423f" `
+  --name tiktok-category-market-insight `
+  --project "TikTok Category Market Insight" `
+  --platform TikTok `
+  --market US
+```
+
 Example for the hot-video replication pipeline:
 
 ```powershell
@@ -221,6 +275,30 @@ python scripts/start_capture_pack_run.py `
   --capture-root "D:\path\tiktok-analysis-pack-smoke-20260423f" `
   --name tiktok-style-matrix `
   --project "TikTok One Product Multi Style Matrix" `
+  --platform TikTok `
+  --market US
+```
+
+Example for the reference-video replication 制作简报:
+
+```powershell
+python scripts/start_capture_pack_run.py `
+  --scene 09 `
+  --capture-root "D:\path\tiktok-analysis-pack-smoke-20260423f" `
+  --name tiktok-reference-replication-creative-zh-brief `
+  --project "TikTok 对标视频复刻制作简报" `
+  --platform TikTok `
+  --market US
+```
+
+Example for the product-image-to-video 制作简报:
+
+```powershell
+python scripts/start_capture_pack_run.py `
+  --scene 10 `
+  --capture-root "D:\path\tiktok-analysis-pack-smoke-20260423f" `
+  --name tiktok-image-to-video-creative-zh-brief `
+  --project "TikTok 产品图转视频制作简报" `
   --platform TikTok `
   --market US
 ```
@@ -290,15 +368,20 @@ python scripts/start_capture_pack_run.py `
 Default derived operator packs:
 
 - scene `08` -> `live-assist`
-- scenes `11`, `12`, `13`, `14`, `15`, `16`, and `17` -> `publish-prep`
+- scenes `09`, `10`, `11`, `12`, `13`, `14`, `15`, and `16` -> `publish-prep` + `creative-production-handoff`
+- scene `17` -> `publish-prep`
 
 The current capture-pack importer supports:
 
 - scene `01`
+- scene `02`
 - scene `03`
+- scene `04`
+- scene `05`
 - scene `07`
 - scene `08`
 - scene `09`
+- scene `10`
 - scene `11`
 - scene `12`
 - scene `13`
@@ -314,6 +397,136 @@ Scene `15` remains blueprint-only:
 - requires explicit `--target-languages`
 - assumes source image text still needs OCR or manual recovery
 - outputs hierarchy and localization-risk planning, not final translated image copy
+
+### `scripts/run_scene02_patrol.py`
+
+Runs Scene `02` as a durable patrol loop instead of a static template.
+
+It can:
+
+- call TikMatrix keyword-search and topic patrol workflows directly
+- or import existing TikMatrix search/topic export folders without recollecting
+- normalize and dedupe the patrol pool
+- enrich rows from downloaded single-video metadata when available
+- persist one stable state root across runs
+- compare the current snapshot against the previous snapshot
+- write alert and Scene `03` handoff artifacts
+- feed the generated patrol capture-pack back into `start_capture_pack_run.py`
+
+Primary outputs:
+
+- `capture-pack\patrol_snapshot.json`
+- `capture-pack\patrol_delta.json`
+- `capture-pack\patrol_alerts.json`
+- `capture-pack\scene03_candidates.json`
+- `tmp\scene02-state\<project-category-market>\latest_snapshot.json`
+
+Example with live TikMatrix collection:
+
+```powershell
+python scripts/run_scene02_patrol.py `
+  --name tiktok-beauty-patrol `
+  --project "TikTok Beauty Patrol" `
+  --category "Beauty" `
+  --market US `
+  --mode mixed `
+  --queries "lip combo,lip liner" `
+  --topics "makeup,beautytok" `
+  --count 10 `
+  --download-top 3 `
+  --formats md,docx,xlsx
+```
+
+Example from existing TikMatrix exports:
+
+```powershell
+python scripts/run_scene02_patrol.py `
+  --name tiktok-orangecat-patrol `
+  --project "TikTok Orange Cat Patrol" `
+  --category "Orange Cat" `
+  --market US `
+  --mode mixed `
+  --queries "orange cat" `
+  --topics "orangecat" `
+  --query-root "E:\tiktok\TikMatrix\tmp\search-live-orange-cat" `
+  --topic-root "E:\tiktok\TikMatrix\tmp\topic-live-orangecat" `
+  --skip-live `
+  --also-run-scene03 `
+  --formats md
+```
+
+### `scripts/run_tikmatrix_capture_bridge.py`
+
+Bridges real `TikMatrix` exports into a local capture-pack that this skill already understands, then runs one operator scene on top of that bridged pack.
+
+Use it when the real TikTok collection already exists under `E:\tiktok\TikMatrix\tmp\...` and you want to keep `TikMatrix` unchanged while still running the operator chain end to end.
+
+Accepted source inputs:
+
+- one `profile_posts.json`
+- optional one `comments.json`
+- optional one `downloads.json`
+
+It writes a local bridge pack with:
+
+- `summary.json`
+- `profile_summary.json`
+- `aggregate_summary.json`
+- `ranked_videos.json`
+- `aggregate_ranked_videos.json`
+- `aggregate_qualified_videos.json`
+- optional `comments_sampled.json`
+- optional `comments_flat.csv`
+- `source_manifest.json`
+
+Then it calls `start_capture_pack_run.py` against that bridged pack.
+
+Example:
+
+```powershell
+python scripts/run_tikmatrix_capture_bridge.py `
+  --profile-posts-json "E:\tiktok\TikMatrix\tmp\live-profile-posts-browser-batch\mrorangecat555\profile_posts.json" `
+  --comments-json "E:\tiktok\TikMatrix\tmp\comments-live-mrorangecat-paged\7624057229930450192\comments.json" `
+  --downloads-json "E:\tiktok\TikMatrix\tmp\skill-batch-download\downloads.json" `
+  --scene 08 `
+  --name mrorangecat-comment-signal `
+  --project "Mr Orange Cat Comment Signal" `
+  --market US
+```
+
+### `scripts/run_tikmatrix_account_ops_bridge.py`
+
+Bridges real `TikMatrix` logged-in account exports into an operator-facing `account-ops-assist` pack.
+
+Use it when the collection already exists under `E:\tiktok\TikMatrix\tmp\...` for inbox or relationship surfaces such as:
+
+- `newest_reply`
+- `notice_multi`
+- `following_request_list`
+- `following_list`
+- `follower_list`
+- `live_following`
+
+It writes:
+
+- `account_ops_summary.json`
+- `account_ops_source_report.json`
+- `source_manifest.json`
+- derived `account-ops-assist-pack.md`
+
+Example:
+
+```powershell
+python scripts/run_tikmatrix_account_ops_bridge.py `
+  --name orangecat-account-ops `
+  --project "Orange Cat Account Ops" `
+  --platform TikTok `
+  --market US `
+  --newest-reply-json "E:\tiktok\TikMatrix\tmp\live-newest-reply-final-2\newest-reply\newest_reply.json" `
+  --notice-multi-json "E:\tiktok\TikMatrix\tmp\live-notice-multi-final-3\notice-multi\notice_multi.json" `
+  --following-requests-json "E:\tiktok\TikMatrix\tmp\live-following-requests-final\following-requests\following_request_list.json" `
+  --following-list-json "E:\tiktok\TikMatrix\tmp\live-following-list-final\following\following_list.json"
+```
 
 ### `scripts/summarize_run_history.py`
 
@@ -433,6 +646,50 @@ python scripts/run_operator_workflow.py `
   --history-limit 25
 ```
 
+### `scripts/rerender_scene_outputs.py`
+
+Re-renders historical `scene-*.json` outputs incrementally after an encoding or export-layout change.
+
+Use it as an incremental repair tool, not as a blind whole-tree sweep.
+
+Preferred controls:
+
+- `--match` to target one workspace family or dated block
+- `--since` to constrain by dated path prefix in `YYYYMMDD`
+- `--limit` to cap the current repair batch
+- `--summary-path` to keep one auditable JSON record per rerender batch
+
+Example dry run:
+
+```powershell
+python scripts/rerender_scene_outputs.py `
+  --root "D:\path\tiktok-growth-operator.skill\tmp" `
+  --formats md,docx,xlsx `
+  --match "*20260507_*goal-workflow*" `
+  --limit 12 `
+  --dry-run
+```
+
+Example bounded write run:
+
+```powershell
+python scripts/rerender_scene_outputs.py `
+  --root "D:\path\tiktok-growth-operator.skill\tmp" `
+  --formats md,docx,xlsx `
+  --since 20260507 `
+  --match "*mustsharenews*" `
+  --limit 6 `
+  --summary-path "D:\path\tiktok-growth-operator.skill\tmp\rerender-mustsharenews-batch.json"
+```
+
+Incremental rerender SOP:
+
+1. Run `--dry-run` first with `--match` or `--since`.
+2. Keep the batch bounded with `--limit`.
+3. Write one `--summary-path` per rerender pass.
+4. Spot-check 3 to 5 representative `docx` and `xlsx` outputs when export rules changed.
+5. Do not reopen full-tree rerenders unless a validator or user-visible defect justifies it.
+
 ### `scripts/recommend_scene_chain.py`
 
 Maps a goal slug or free-text business goal into a recommended multi-scene sequence.
@@ -510,13 +767,13 @@ The auto-mode result includes a `route` object with explanation fields so the op
 - whether multi-stage markers were detected
 - which goal or template would win on the goal layer
 
-The scorer now ignores low-signal stopwords so scene and goal previews are less noisy.
+当前评分器会忽略低信号停用词，这样场景和目标预览不会被噪音词带偏。
 
 ### `scripts/batch_run_operator_workflows.py`
 
-Runs a JSON array of mixed workflow tasks in one pass.
+一次执行一组混合工作流任务的 JSON 队列。
 
-Each task can be any of:
+每个任务都可以是以下任一模式：
 
 - `auto`
 - `scene`
@@ -525,9 +782,9 @@ Each task can be any of:
 - `pack`
 - `capture-pack`
 
-For the fastest operator-facing command set, keep [direct-use.md](direct-use.md) as the cookbook and [command-map.md](command-map.md) as the short command index. This file is the ownership and behavior reference for how those commands compose.
+如果你想看最短的操作命令，请把 [direct-use.md](direct-use.md) 当作命令手册，把 [command-map.md](command-map.md) 当作短命令索引。本文档只负责解释这些命令背后的归属、行为和组合方式。
 
-Example batch file:
+批处理文件示例：
 
 ```json
 [
@@ -621,7 +878,7 @@ You can control the directory with:
 
 By default the batch runner is resilient:
 
-- one failed task does not stop the whole batch
+- 单个任务失败不会中断整个批处理
 - each item gets `status: success` or `status: failed`
 - failed items include `error.type`, `error.message`, and a short `error.trace`
 - the top-level payload includes `summary.total`, `summary.success`, `summary.failed`, `summary.by_mode`, and `summary.failed_indexes`
@@ -752,7 +1009,7 @@ The preset report is also the execution handoff surface:
 - it includes one copy-ready `--config` regeneration command
 - it points to runnable helper scripts in both PowerShell and CMD wrapper form
 
-Use `--fail-fast` only when you want the batch to stop on the first failure.
+仅当你希望批处理在第一次失败时立即停止，才使用 `--fail-fast`。
 
 You can also rerun only failed items from a previous batch:
 
@@ -797,7 +1054,7 @@ For the operator-facing `auto`, `scene`, `goal`, `board`, `pack`, and `history` 
 
 ## Why This Layer Exists
 
-It removes repeated setup work without pretending to automate the whole business workflow.
+它的作用是减少重复初始化工作，但不会假装把整条业务流程全部自动化。
 
 The scripts automate:
 
@@ -817,4 +1074,6 @@ They do not automate:
 - final video or image rendering
 - filling the report with conclusions when no evidence was supplied
 - cloud-phone publishing
+- account warm-up or `养号`
+- anti-detection, fingerprint spoofing, or risky inbox mutation loops
 - fake engagement or account-growth manipulation

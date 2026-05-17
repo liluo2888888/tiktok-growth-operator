@@ -1,0 +1,18 @@
+{
+  "started_at": "2026-05-08T02:01:56",
+  "ended_at": "2026-05-08T02:01:56",
+  "category": "Orange Cat",
+  "market": "US",
+  "cadence": "daily",
+  "queries": [
+    "orange cat"
+  ],
+  "topics": [
+    "orangecat"
+  ],
+  "profile_count": 2,
+  "aggregated_ranked_count": 8,
+  "aggregated_qualified_count": 3,
+  "min_likes": 1000,
+  "output_root": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\tmp\\20260507_validation_capture_scene02\\capture-pack"
+}

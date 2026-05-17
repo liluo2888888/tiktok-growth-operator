@@ -4,6 +4,7 @@ import argparse
 import json
 from datetime import datetime
 from pathlib import Path
+from text_normalization import read_json_file, read_utf8_text, write_json_file, write_utf8_text
 
 
 PACK_DEFS = {
@@ -49,10 +50,34 @@ PACK_DEFS = {
             ("Asset And Evidence Readiness", "List the real available assets, proof, layout, and missing dependencies."),
             ("Execution Blueprint", "Translate the source brief into a shootable, scriptable, renderable execution plan."),
             ("Variant Plan", "List the variants, markets, or style branches that should be produced first."),
+            ("Script And Storyboard Handoff", "State what the script or storyboard owner should build next."),
+            ("Design And Layout Handoff", "State what the design owner should preserve, change, or validate next."),
+            ("Localization And Review Handoff", "State what native review, market review, or proof review must happen next."),
             ("Production Handoff", "Define what editing, design, scripting, or localization teams need next."),
+            ("Owner Map", "Map each next step to one owner, one dependency, and one readiness condition."),
+            ("Script Owner Prompt", "Copy-ready prompt for the script or storyboard owner."),
+            ("Design Owner Prompt", "Copy-ready prompt for the design owner."),
+            ("Localization And Review Prompt", "Copy-ready prompt for the localization or review owner."),
+            ("Production Manager Prompt", "Copy-ready prompt for the production owner coordinating dependencies."),
             ("Review Gates", "Define what must be checked before production and before final render."),
             ("Open Risks", "List the unresolved risks, missing proof, or capacity blockers."),
             ("Next Production Step", "Name the immediate next owner action."),
+        ],
+    },
+    "account-ops-assist": {
+        "doc": "references/account-ops-assist-pack.md",
+        "title": "Account Ops Assist Pack",
+        "filename": "account-ops-assist-pack.md",
+        "sections": [
+            ("Account Ops Goal", "State the exact account-operations outcome for this review cycle."),
+            ("Inbox Signals", "Summarize newest reply and inbox-response signals."),
+            ("Notice Radar", "Summarize notification or notice surfaces that need review."),
+            ("Following Request Queue", "Review pending following requests and define safe handling."),
+            ("Following And Follower Radar", "Summarize relationship changes or watch targets."),
+            ("Safe Response Drafting", "Draft only safe, human-reviewed response directions."),
+            ("Priority Queue", "Rank what should be reviewed first today."),
+            ("Escalation Rules", "Define when the operator should escalate instead of acting."),
+            ("Daily Ops Checklist", "List the repeatable daily account-ops steps."),
         ],
     },
 }
@@ -87,11 +112,25 @@ CREATIVE_FOCUS_BY_SCENE = {
 
 
 def load_json(path: Path) -> dict:
-    return json.loads(path.read_text(encoding="utf-8-sig"))
+    loaded = read_json_file(path)
+    if not isinstance(loaded, dict):
+        raise SystemExit(f"Expected JSON object: {path}")
+    return loaded
 
 
 def normalize_lines(values: list[str]) -> list[str]:
     return [item.strip() for item in values if item and item.strip()]
+
+
+def safe_list(values: object) -> list[str]:
+    return [str(item).strip() for item in (values or []) if str(item).strip()]
+
+
+def safe_int(value: object) -> int:
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return 0
 
 
 def unique_lines(values: list[str]) -> list[str]:
@@ -153,6 +192,62 @@ def first_table_section(report: dict, headings: list[str]) -> dict:
         if table.get("headers"):
             return section
     return {}
+
+
+def format_table_hint(section: dict, label: str) -> list[str]:
+    table = section.get("table") or {}
+    headers = safe_list(table.get("headers"))
+    if not headers:
+        return []
+    title = str(table.get("title", "")).strip()
+    if title:
+        return [f"- {label}: use table `{title}` with columns `{', '.join(headers)}`."]
+    return [f"- {label}: use columns `{', '.join(headers)}`."]
+
+
+def requested_output_owner_hints(scene_id: str, requested_outputs: list[str]) -> list[str]:
+    lines: list[str] = []
+    if scene_id in {"09", "10", "11", "12", "14"}:
+        lines.append("- Script owner: convert hook, proof, and structure into a shootable or promptable scene order.")
+    if scene_id in {"10", "14", "16"}:
+        lines.append("- Design owner: turn the chosen visual direction into layout, frame, or thumbnail execution.")
+    if scene_id in {"13", "15"}:
+        lines.append("- Localization owner: adapt copy, tone, and review notes by market before final render.")
+    if requested_outputs:
+        lines.append(f"- Deliverable focus: {', '.join(requested_outputs[:4])}.")
+    return lines
+
+
+def build_role_prompt_block(
+    *,
+    role_name: str,
+    project: str,
+    platform: str,
+    market: str,
+    scene_id: str,
+    scene_title: str,
+    scene_focus: str,
+    deliverable: str,
+    source_sections: list[str],
+    guardrails: list[str],
+) -> list[str]:
+    prompt_lines = [
+        f"You are the {role_name} for {project}.",
+        f"Work inside scene {scene_id} - {scene_title} for {platform} in {market}.",
+        f"Primary objective: {scene_focus}",
+        f"Deliverable to produce now: {deliverable}",
+        f"Use these sections as the source of truth: {', '.join(source_sections)}.",
+        "Do not invent missing assets, proof, or approvals.",
+        "If anything blocks execution, list the blocker before giving the final deliverable.",
+    ]
+    if guardrails:
+        prompt_lines.append(f"Role-specific guardrails: {'; '.join(guardrails)}.")
+    return [
+        f"- Copy this prompt for the {role_name}:",
+        "```text",
+        " ".join(prompt_lines),
+        "```",
+    ]
 
 
 def scene_title_options(project: str, market: str, scene_id: str, executive_conclusion: str) -> list[str]:
@@ -517,6 +612,11 @@ def build_creative_sections(report: dict, platform: str, market: str) -> dict[st
     requested_outputs = [str(item).strip() for item in ctx.get("requested_outputs", []) if str(item).strip()]
     minimum_evidence = [str(item).strip() for item in ctx.get("minimum_evidence", []) if str(item).strip()]
     ideal_evidence = [str(item).strip() for item in ctx.get("ideal_evidence", []) if str(item).strip()]
+    target_headers = format_table_hint(target_section, "Target contract")
+    message_headers = format_table_hint(message_section, "Message contract")
+    structure_headers = format_table_hint(structure_section, "Structure contract")
+    handoff_headers = format_table_hint(handoff_section, "Handoff contract")
+    owner_hints = requested_output_owner_hints(scene_id, requested_outputs)
 
     return {
         "Working Context": unique_lines(
@@ -566,12 +666,118 @@ def build_creative_sections(report: dict, platform: str, market: str) -> dict[st
             requested_outputs
             + constraint_lines[:8]
         ),
+        "Script And Storyboard Handoff": unique_lines(
+            owner_hints[:2]
+            + [
+                "- Lock the first production version before expanding the variant count.",
+                "- Use the clearest hook-to-proof order from the source brief, then remove any unsupported scene assumptions.",
+            ]
+            + message_headers
+            + structure_headers[:2]
+            + message_lines[:6]
+            + structure_lines[:6]
+        ),
+        "Design And Layout Handoff": unique_lines(
+            [
+                "- Preserve hierarchy and readability before adding visual flourish.",
+                "- Flag any length-expansion, thumbnail-crop, or proof-visibility risk before final composition.",
+            ]
+            + target_headers[:1]
+            + structure_headers[1:2]
+            + constraint_lines[:6]
+            + structure_lines[6:10]
+        ),
+        "Localization And Review Handoff": unique_lines(
+            [
+                "- Confirm whether native review is required before render or publish.",
+                "- Keep banned claims, awkward phrasing, and unsupported proof separate from normal copy edits.",
+            ]
+            + handoff_headers[:1]
+            + [f"- Minimum evidence for review: {', '.join(minimum_evidence)}" if minimum_evidence else ""]
+            + [f"- Ideal evidence for review: {', '.join(ideal_evidence[:4])}" if ideal_evidence else ""]
+            + audience_lines[:4]
+            + handoff_lines[:6]
+        ),
         "Production Handoff": unique_lines(
             handoff_lines[:10]
             + [
                 "- Confirm owner, dependency, and blocking risk for the first production step.",
                 "- If a proof asset, native review, or layout capture is missing, flag it before production starts.",
             ]
+        ),
+        "Owner Map": unique_lines(
+            [
+                "- Strategy owner: confirms the invariant logic and first test priority.",
+                "- Script owner: converts the message and structure into a real script, shot list, or prompt sequence.",
+                "- Design owner: validates layout, hierarchy, thumbnail logic, and visible proof.",
+                "- Localization / review owner: validates market tone, native fit, and banned-claim risk where relevant.",
+                "- Production owner: blocks execution until dependencies, assets, and review owners are explicit.",
+            ]
+            + handoff_headers
+        ),
+        "Script Owner Prompt": build_role_prompt_block(
+            role_name="script owner",
+            project=project,
+            platform=platform,
+            market=market,
+            scene_id=scene_id,
+            scene_title=str(meta.get("scene_title", "")).strip(),
+            scene_focus=scene_focus,
+            deliverable="the next script, storyboard, shot list, or prompt-ready scene order",
+            source_sections=["Invariant Logic", "Execution Blueprint", "Variant Plan", "Script And Storyboard Handoff", "Review Gates"],
+            guardrails=[
+                "keep the invariant logic fixed",
+                "remove any unsupported scene assumptions",
+                "call out missing proof or missing assets explicitly",
+            ],
+        ),
+        "Design Owner Prompt": build_role_prompt_block(
+            role_name="design owner",
+            project=project,
+            platform=platform,
+            market=market,
+            scene_id=scene_id,
+            scene_title=str(meta.get("scene_title", "")).strip(),
+            scene_focus=scene_focus,
+            deliverable="the next layout, frame, thumbnail, cover, or visual-direction handoff",
+            source_sections=["Invariant Logic", "Asset And Evidence Readiness", "Execution Blueprint", "Design And Layout Handoff", "Review Gates"],
+            guardrails=[
+                "preserve hierarchy and readability before style polish",
+                "flag length-expansion or proof-visibility risk before final composition",
+                "do not assume missing source assets already exist",
+            ],
+        ),
+        "Localization And Review Prompt": build_role_prompt_block(
+            role_name="localization and review owner",
+            project=project,
+            platform=platform,
+            market=market,
+            scene_id=scene_id,
+            scene_title=str(meta.get("scene_title", "")).strip(),
+            scene_focus=scene_focus,
+            deliverable="the next localization pass, market review note, or native-review checklist",
+            source_sections=["Invariant Logic", "Asset And Evidence Readiness", "Variant Plan", "Localization And Review Handoff", "Open Risks", "Review Gates"],
+            guardrails=[
+                "separate literal accuracy from conversion-language adaptation",
+                "surface banned-claim, tone, or native-fit issues before render",
+                "do not approve copy that lacks supporting source evidence",
+            ],
+        ),
+        "Production Manager Prompt": build_role_prompt_block(
+            role_name="production manager",
+            project=project,
+            platform=platform,
+            market=market,
+            scene_id=scene_id,
+            scene_title=str(meta.get("scene_title", "")).strip(),
+            scene_focus=scene_focus,
+            deliverable="the next owner map, dependency checklist, and execution order",
+            source_sections=["Asset And Evidence Readiness", "Production Handoff", "Owner Map", "Open Risks", "Next Production Step"],
+            guardrails=[
+                "block execution when ownership or dependencies are unclear",
+                "do not hide missing reviews behind optimistic status",
+                "force one immediate next step with one owner",
+            ],
         ),
         "Review Gates": unique_lines(
             [
@@ -602,6 +808,109 @@ def build_creative_sections(report: dict, platform: str, market: str) -> dict[st
     }
 
 
+def build_account_ops_sections(report: dict, platform: str, market: str) -> dict[str, list[str]]:
+    meta = report.get("metadata", {})
+    ctx = report.get("working_context", {})
+    executive = report.get("executive_summary", {})
+    evidence = report.get("evidence", []) or []
+    summary = report.get("account_ops_summary", {}) or {}
+
+    inbox_section = take_section(report, "Inbox Signals")
+    notice_section = take_section(report, "Notice Signals")
+    request_section = take_section(report, "Following Request Signals")
+    radar_section = take_section(report, "Relationship Radar")
+    priority_section = take_section(report, "Priority Queue")
+    response_section = take_section(report, "Safe Response Guidance")
+
+    project = str(meta.get("project", "")).strip() or "this account ops review"
+
+    inbox_lines = section_to_lines(inbox_section)
+    notice_lines = section_to_lines(notice_section)
+    request_lines = section_to_lines(request_section)
+    radar_lines = section_to_lines(radar_section)
+    priority_lines = section_to_lines(priority_section)
+    response_lines = section_to_lines(response_section)
+
+    return {
+        "Working Context": unique_lines(
+            [
+                str(ctx.get("summary", "")).strip(),
+                f"Platform: {platform}",
+                f"Market: {market}",
+                f"Project: {project}",
+                f"Evidence count: {len(evidence)}",
+            ]
+        ),
+        "Account Ops Goal": unique_lines(
+            [
+                str(executive.get("next_action", "")).strip(),
+                str(executive.get("why_it_matters", "")).strip(),
+                str(executive.get("conclusion", "")).strip(),
+                f"Treat inbox, notice, and relationship signals as one safe daily operator queue for {project}.",
+            ]
+        ),
+        "Inbox Signals": unique_lines(
+            inbox_lines
+            + [
+                f"- has reply signal: {'yes' if summary.get('has_reply') else 'no'}",
+            ]
+        ),
+        "Notice Radar": unique_lines(
+            notice_lines
+            + [
+                f"- notice count captured: {safe_int(summary.get('notice_count'))}",
+            ]
+        ),
+        "Following Request Queue": unique_lines(
+            request_lines
+            + [
+                f"- following request count captured: {safe_int(summary.get('following_request_count'))}",
+                "- Do not auto-approve or auto-message from this package.",
+            ]
+        ),
+        "Following And Follower Radar": unique_lines(
+            radar_lines
+            + [
+                f"- following count captured: {safe_int(summary.get('following_count'))}",
+                f"- follower count captured: {safe_int(summary.get('follower_count'))}",
+                f"- live-following rooms captured: {safe_int(summary.get('live_following_count'))}",
+            ]
+        ),
+        "Safe Response Drafting": unique_lines(
+            response_lines
+            + [
+                "- Keep replies short, factual, and human-reviewed.",
+                "- Never fabricate platform actions or approvals that are not actually executed.",
+                "- Never use this pack for spam, cold DM bursts, or hijack tactics.",
+            ]
+        ),
+        "Priority Queue": unique_lines(priority_lines),
+        "Escalation Rules": unique_lines(
+            [
+                "- Escalate legal, moderation, abuse, or impersonation issues to a human owner.",
+                "- Escalate when reply context is missing and the safe action is not obvious.",
+                "- Escalate if a relationship action would require approval or mutation not implemented in this package.",
+            ]
+        ),
+        "Daily Ops Checklist": unique_lines(
+            [
+                "- Review newest reply state.",
+                "- Review notice state.",
+                "- Review following requests.",
+                "- Review following and follower watch surfaces.",
+                "- Draft only safe human-reviewed responses or next steps.",
+                "- Record what still needs a real executor outside this package.",
+            ]
+        ),
+        "_reference": unique_lines(
+            [
+                f"Reference doc: {PACK_DEFS['account-ops-assist']['doc']}",
+                f"Derived from source report: {meta.get('title', '')}",
+            ]
+        ),
+    }
+
+
 def build_derived_sections(pack_type: str, report: dict, platform: str, market: str) -> dict[str, list[str]]:
     if pack_type == "publish-prep":
         return build_publish_sections(report, platform, market)
@@ -609,6 +918,8 @@ def build_derived_sections(pack_type: str, report: dict, platform: str, market: 
         return build_live_sections(report, platform, market)
     if pack_type == "creative-production-handoff":
         return build_creative_sections(report, platform, market)
+    if pack_type == "account-ops-assist":
+        return build_account_ops_sections(report, platform, market)
     return {}
 
 
@@ -676,10 +987,7 @@ def generate_pack_output(
     pack = PACK_DEFS[pack_type]
     output_dir.mkdir(parents=True, exist_ok=True)
     output_path = output_dir / pack["filename"]
-    output_path.write_text(
-        render_pack(pack_type, resolved_project, platform, market, context, derived_sections),
-        encoding="utf-8-sig",
-    )
+    write_utf8_text(output_path, render_pack(pack_type, resolved_project, platform, market, context, derived_sections))
     manifest = {
         "generated_at": datetime.now().isoformat(timespec="seconds"),
         "type": pack_type,
@@ -691,7 +999,7 @@ def generate_pack_output(
         "source_report": str(source_report_path.resolve()) if source_report_path else "",
     }
     manifest_path = output_dir / f"{pack_type}-manifest.json"
-    manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8-sig")
+    write_json_file(manifest_path, manifest)
     return {
         "output_path": str(output_path),
         "manifest_path": str(manifest_path),
@@ -702,7 +1010,7 @@ def generate_pack_output(
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Generate a direct-use operator pack for publish preparation, live assist, or creative production handoff."
+        description="Generate a direct-use operator pack for publish preparation, live assist, creative production handoff, or account operations."
     )
     parser.add_argument("--type", required=True, choices=sorted(PACK_DEFS.keys()), help="Operator pack type.")
     parser.add_argument("--project", default="", help="Project or campaign name.")
@@ -716,7 +1024,7 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> None:
     args = parse_args()
-    context = Path(args.context_file).read_text(encoding="utf-8") if args.context_file else ""
+    context = read_utf8_text(Path(args.context_file)) if args.context_file else ""
     result = generate_pack_output(
         pack_type=args.type,
         output_dir=Path(args.output_dir).resolve(),

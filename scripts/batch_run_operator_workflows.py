@@ -15,6 +15,7 @@ from run_operator_workflow import (
     run_pack_mode,
     run_scene_mode,
 )
+from text_normalization import read_json_file, write_json_file, write_utf8_text
 
 
 def slugify(value: str) -> str:
@@ -25,7 +26,7 @@ def slugify(value: str) -> str:
 
 
 def read_json(path: Path) -> dict | list:
-    return json.loads(path.read_text(encoding="utf-8-sig"))
+    return read_json_file(path)
 
 
 def has_text(value: object) -> bool:
@@ -357,7 +358,7 @@ def build_batch_root(batch_name: str, output_root: str) -> Path:
 
 def write_json(path: Path, payload: dict | list) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8-sig")
+    write_json_file(path, payload)
 
 
 def shorten_path(value: str) -> str:
@@ -577,7 +578,7 @@ def write_batch_artifacts(
         },
     )
     write_json(batch_root / "batch_result.json", payload)
-    (batch_root / "batch_report.md").write_text(render_batch_report(payload), encoding="utf-8-sig")
+    write_utf8_text(batch_root / "batch_report.md", render_batch_report(payload))
     for item in payload["results"]:
         item_file = items_dir / f"{item['index']:03d}-{item['status']}.json"
         write_json(item_file, item)

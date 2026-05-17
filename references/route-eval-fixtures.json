@@ -16,9 +16,9 @@
       "expected_board_slug": "weekly-ops-board"
     },
     {
-      "query": "给我一个日常运营板",
+      "query": "给我一个适合 TikTok 美妆运营的日常 board",
       "expected_mode": "board",
-      "expected_board_slug": "daily-ops-board"
+      "expected_board_slug": "beauty-us-ops-starter"
     },
     {
       "query": "I want a beauty TikTok daily ops board",
@@ -26,7 +26,7 @@
       "expected_board_slug": "beauty-us-ops-starter"
     },
     {
-      "query": "帮我做一个多市场本地化发布流程",
+      "query": "帮我做一个多市场本地化发布工作流",
       "expected_mode": "goal",
       "expect_goal_root": true
     },
@@ -36,6 +36,26 @@
       "expect_goal_root": true,
       "expect_non_empty_run_name": true,
       "max_run_name_length": 48
+    },
+    {
+      "query": "Run scene 04 and break down one TikTok video with a reusable mechanism summary",
+      "expected_mode": "scene",
+      "expected_scene": "04"
+    },
+    {
+      "query": "按场景 12 执行：为一个产品做多风格测试矩阵，先锁 invariant message，再设计真正有差异的测试风格",
+      "expected_mode": "scene",
+      "expected_scene": "12"
+    },
+    {
+      "query": "按场景 18 执行：输出竞品账号周报，按账号和周维度比较内容变化",
+      "expected_mode": "scene",
+      "expected_scene": "18"
+    },
+    {
+      "query": "按场景 06 执行：没有 TikTok Shop API 也要给我竞品商品看板降级方案",
+      "expected_mode": "scene",
+      "expected_scene": "06"
     }
   ],
   "recommend_entry_board_cases": [
@@ -45,9 +65,9 @@
       "expected_slug": "weekly-ops-board"
     },
     {
-      "query": "给我一个日常运营板",
-      "expected_family": "cadence-board",
-      "expected_slug": "daily-ops-board"
+      "query": "给我一个适合 TikTok 美妆运营的日常 board",
+      "expected_family": "vertical",
+      "expected_slug": "beauty-us-ops-starter"
     },
     {
       "query": "Give me a daily board for TikTok beauty ops",
@@ -58,6 +78,11 @@
       "query": "I'm the live operator for tonight's session",
       "expected_family": "manager-board",
       "expected_slug": "live-operator-board"
+    },
+    {
+      "query": "给我一个直播班次运营板",
+      "expected_family": "cadence-board",
+      "expected_slug": "live-shift-board"
     }
   ]
 }

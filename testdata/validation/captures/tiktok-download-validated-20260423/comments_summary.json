@@ -1,0 +1,7 @@
+{
+  "checked_at": "2026-04-23T04:34:02+00:00",
+  "video_count": 6,
+  "videos_with_comment_samples": 3,
+  "sampling_mode": "detail_page_embedded_comments_only",
+  "note": "TikTok comment API and DOM comment extraction may be unavailable in the current anonymous session."
+}

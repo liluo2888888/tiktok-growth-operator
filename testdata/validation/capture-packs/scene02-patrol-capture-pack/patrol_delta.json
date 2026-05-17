@@ -1,0 +1,12 @@
+{
+  "previous_snapshot_at": "2026-05-08T01:57:32",
+  "current_snapshot_count": 8,
+  "previous_snapshot_count": 8,
+  "new_videos": [],
+  "changed_videos": [],
+  "breakout_videos": [],
+  "repeated_hooks": [],
+  "summary_change": "0 new videos, 0 positive movers",
+  "summary_breakout": "0 videos crossed breakout thresholds",
+  "watch_tomorrow": "Watch whether today's repeated hooks persist or collapse in the next cycle"
+}

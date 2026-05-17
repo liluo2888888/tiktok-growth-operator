@@ -1,0 +1,23 @@
+{
+  "checked_at": "2026-05-10T09:10:00+00:00",
+  "platform": "tiktok",
+  "reachable": true,
+  "session_quality": "fixture_multi_week_account",
+  "profile_url": "https://www.tiktok.com/@mustsharebeauty",
+  "profile_final_url": "https://www.tiktok.com/@mustsharebeauty",
+  "profile_title": "Must Share Beauty - TikTok",
+  "browser_mode": true,
+  "browser_same_origin_api_mode": false,
+  "api_mode": false,
+  "profile_count": 1,
+  "detail_collected_count": 6,
+  "ranked_video_count": 6,
+  "qualified_video_count": 3,
+  "comment_sampled_video_count": 4,
+  "video_download_success_count": 2,
+  "notes": [
+    "Durable multi-week account fixture for Scene 18 and Scene 19 validation.",
+    "Week 16 represents a softer explanation-heavy baseline.",
+    "Week 17 represents a clearer recognition-first and proof-first packaging shift."
+  ]
+}

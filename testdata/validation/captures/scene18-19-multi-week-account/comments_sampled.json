@@ -1,0 +1,171 @@
+[
+  {
+    "video_url": "https://www.tiktok.com/@mustsharebeauty/video/7616000000000000001",
+    "video_id": "7616000000000000001",
+    "unique_id": "mustsharebeauty",
+    "source_product": "mustsharebeauty-week16-soft-intro",
+    "comment_count": 122,
+    "sample_count": 3,
+    "samples": [
+      {
+        "cid": "mw-c-001",
+        "text": "Pretty result but I had to wait too long to understand the point.",
+        "digg_count": 74,
+        "reply_comment_total": 6,
+        "nickname": "glowtestdaily",
+        "unique_id": "glowtestdaily",
+        "sample_kind": "top_level",
+        "comment_language": "en"
+      },
+      {
+        "cid": "mw-c-002",
+        "text": "Can you show it in daylight first next time? Indoor light hides the real shade.",
+        "digg_count": 58,
+        "reply_comment_total": 9,
+        "nickname": "shadecheck88",
+        "unique_id": "shadecheck88",
+        "sample_kind": "reply",
+        "reply_summary": "Daylight proof request repeats across the thread.",
+        "comment_language": "en",
+        "is_high_purchase_intent": true
+      },
+      {
+        "cid": "mw-c-003",
+        "text": "Too much story before the proof for me.",
+        "digg_count": 41,
+        "reply_comment_total": 3,
+        "nickname": "softmattelover",
+        "unique_id": "softmattelover",
+        "sample_kind": "top_level",
+        "comment_language": "en"
+      }
+    ]
+  },
+  {
+    "video_url": "https://www.tiktok.com/@mustsharebeauty/video/7616000000000000002",
+    "video_id": "7616000000000000002",
+    "unique_id": "mustsharebeauty",
+    "source_product": "mustsharebeauty-week16-story-led",
+    "comment_count": 188,
+    "sample_count": 3,
+    "samples": [
+      {
+        "cid": "mw-c-004",
+        "text": "I like the shade story, but show the before and after earlier.",
+        "digg_count": 66,
+        "reply_comment_total": 7,
+        "nickname": "berrywearcheck",
+        "unique_id": "berrywearcheck",
+        "sample_kind": "top_level",
+        "comment_language": "en"
+      },
+      {
+        "cid": "mw-c-005",
+        "text": "Need a wear test because the finish looks good only in that one angle.",
+        "digg_count": 57,
+        "reply_comment_total": 8,
+        "nickname": "weartestplease",
+        "unique_id": "weartestplease",
+        "sample_kind": "reply",
+        "reply_summary": "Trust pressure centers on wear-test proof.",
+        "comment_language": "en",
+        "is_high_purchase_intent": true
+      },
+      {
+        "cid": "mw-c-006",
+        "text": "The product looks nice, I just wish the hook was faster.",
+        "digg_count": 33,
+        "reply_comment_total": 2,
+        "nickname": "fasterhookpls",
+        "unique_id": "fasterhookpls",
+        "sample_kind": "top_level",
+        "comment_language": "en"
+      }
+    ]
+  },
+  {
+    "video_url": "https://www.tiktok.com/@mustsharebeauty/video/7617000000000000001",
+    "video_id": "7617000000000000001",
+    "unique_id": "mustsharebeauty",
+    "source_product": "mustsharebeauty-week17-before-after",
+    "comment_count": 420,
+    "sample_count": 3,
+    "samples": [
+      {
+        "cid": "mw-c-007",
+        "text": "The first two seconds sold me. I knew exactly why I should keep watching.",
+        "digg_count": 203,
+        "reply_comment_total": 12,
+        "nickname": "hookwatcher",
+        "unique_id": "hookwatcher",
+        "sample_kind": "top_level",
+        "comment_language": "en"
+      },
+      {
+        "cid": "mw-c-008",
+        "text": "Thank you for showing the before after first and then the final shade close-up.",
+        "digg_count": 187,
+        "reply_comment_total": 10,
+        "nickname": "prooffirstplease",
+        "unique_id": "prooffirstplease",
+        "sample_kind": "reply",
+        "reply_summary": "Positive reply-chain centers on fast proof and clarity.",
+        "comment_language": "en",
+        "is_high_purchase_intent": true
+      },
+      {
+        "cid": "mw-c-009",
+        "text": "This format is way easier to save because the result is obvious immediately.",
+        "digg_count": 141,
+        "reply_comment_total": 5,
+        "nickname": "savethismakeup",
+        "unique_id": "savethismakeup",
+        "sample_kind": "top_level",
+        "comment_language": "en"
+      }
+    ]
+  },
+  {
+    "video_url": "https://www.tiktok.com/@mustsharebeauty/video/7617000000000000003",
+    "video_id": "7617000000000000003",
+    "unique_id": "mustsharebeauty",
+    "source_product": "mustsharebeauty-week17-dual-light",
+    "comment_count": 341,
+    "sample_count": 3,
+    "samples": [
+      {
+        "cid": "mw-c-010",
+        "text": "Indoor plus daylight is exactly the proof I needed before buying.",
+        "digg_count": 166,
+        "reply_comment_total": 11,
+        "nickname": "daylightdecider",
+        "unique_id": "daylightdecider",
+        "sample_kind": "top_level",
+        "comment_language": "en",
+        "is_high_purchase_intent": true
+      },
+      {
+        "cid": "mw-c-011",
+        "text": "More trust in this one because you answered the wear question inside the video.",
+        "digg_count": 139,
+        "reply_comment_total": 8,
+        "nickname": "weartrust88",
+        "unique_id": "weartrust88",
+        "sample_kind": "reply",
+        "reply_summary": "Reply-chain shifts from skepticism to trust when wear proof is included.",
+        "comment_language": "en",
+        "is_high_purchase_intent": true
+      },
+      {
+        "cid": "mw-c-012",
+        "text": "This is the first version that feels immediately buyable instead of just pretty.",
+        "digg_count": 121,
+        "reply_comment_total": 4,
+        "nickname": "buyablesignal",
+        "unique_id": "buyablesignal",
+        "sample_kind": "top_level",
+        "comment_language": "en"
+      }
+    ]
+  }
+]

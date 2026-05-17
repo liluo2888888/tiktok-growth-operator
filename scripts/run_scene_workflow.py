@@ -5,8 +5,10 @@ import json
 from datetime import datetime
 from pathlib import Path
 
+from feishu_naming import scene_label_zh
 from generate_scene_report import build_report_payload, render_markdown_from_payload
 from init_scene_workspace import load_catalog, resolve_scene
+from text_normalization import read_utf8_text, write_json_file, write_utf8_text
 
 
 def slugify(value: str) -> str:
@@ -24,22 +26,23 @@ def build_run_root(skill_root: Path, scene: dict, name: str, output_root: str | 
 
 
 def write_workspace_readme(run_root: Path, scene: dict, report_json_path: Path, report_path: Path) -> None:
-    readme = f"""# Direct Scene Run
+    scene_display_title = scene_label_zh(scene["id"]) or scene["title"]
+    readme = f"""# 直接场景运行
 
-## Scene
+## 场景信息
 
-- id: {scene["id"]}
-- slug: {scene["slug"]}
-- title: {scene["title"]}
+- 场景编号：{scene["id"]}
+- 场景标识：{scene["slug"]}
+- 场景标题：{scene_display_title}
 
-## Generated Files
+## 已生成文件
 
-- report json: `{report_json_path.name}`
-- report: `{report_path.name}`
-- manifest: `run_manifest.json`
-- next step note: `notes/next-step.md`
+- 报告 JSON：`{report_json_path.name}`
+- Markdown 报告：`{report_path.name}`
+- 运行清单：`run_manifest.json`
+- 下一步说明：`notes/next-step.md`
 
-## Suggested Next Files To Open
+## 建议接着打开
 
 - `{scene["scenario_file"]}`
 - `references/direct-use.md`
@@ -47,7 +50,7 @@ def write_workspace_readme(run_root: Path, scene: dict, report_json_path: Path, 
 - `references/deliverable-contracts.md`
 - `references/scene-report-contract.md`
 """
-    (run_root / "README.md").write_text(readme, encoding="utf-8-sig")
+    write_utf8_text(run_root / "README.md", readme)
 
 
 def create_scene_workflow(
@@ -70,41 +73,41 @@ def create_scene_workflow(
     context_source = None
     if context_file:
         context_path = Path(context_file).resolve()
-        context = context_path.read_text(encoding="utf-8")
-        (run_root / "inputs" / "context.txt").write_text(context, encoding="utf-8-sig")
+        context = read_utf8_text(context_path)
+        write_utf8_text(run_root / "inputs" / "context.txt", context)
         context_source = str(context_path)
 
     payload = build_report_payload(scene, project, context)
     report_json_path = run_root / "outputs" / f"scene-{scene['id']}-report.json"
     report_path = run_root / "outputs" / f"scene-{scene['id']}-report.md"
-    report_json_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8-sig")
-    report_path.write_text(render_markdown_from_payload(payload), encoding="utf-8-sig")
+    write_json_file(report_json_path, payload)
+    write_utf8_text(report_path, render_markdown_from_payload(payload))
 
-    next_step = f"""# Next Step
+    next_step = f"""# 下一步
 
-Open the scene file:
+先打开场景文件：
 
 - `{scene["scenario_file"]}`
 
-Then decide whether this run is:
+然后判断这次运行属于哪一种：
 
-- live-analysis
-- evidence-pack-analysis
-- planning-only
+- 实时分析
+- 证据包分析
+- 仅规划，不进入真实执行
 
-Finally, continue from:
+最后从以下文件继续：
 
-- report json: `outputs/{report_json_path.name}`
-- report scaffold: `outputs/{report_path.name}`
-- direct-use guide: `references/direct-use.md`
+- 报告 JSON：`outputs/{report_json_path.name}`
+- 报告脚手架：`outputs/{report_path.name}`
+- 直接使用说明：`references/direct-use.md`
 """
-    (run_root / "notes" / "next-step.md").write_text(next_step, encoding="utf-8-sig")
+    write_utf8_text(run_root / "notes" / "next-step.md", next_step)
 
     manifest = {
         "created_at": datetime.now().isoformat(timespec="seconds"),
         "scene_id": scene["id"],
         "scene_slug": scene["slug"],
-        "scene_title": scene["title"],
+        "scene_title": scene_label_zh(scene["id"]) or scene["title"],
         "project": project,
         "run_name": run_name,
         "deliverable_type": scene["deliverable_type"],
@@ -113,10 +116,7 @@ Finally, continue from:
         "report_json_path": str(report_json_path),
         "report_path": str(report_path),
     }
-    (run_root / "run_manifest.json").write_text(
-        json.dumps(manifest, ensure_ascii=False, indent=2),
-        encoding="utf-8-sig",
-    )
+    write_json_file(run_root / "run_manifest.json", manifest)
     write_workspace_readme(run_root, scene, report_json_path, report_path)
 
     return {

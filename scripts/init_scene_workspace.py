@@ -1,14 +1,17 @@
 from __future__ import annotations
 
 import argparse
-import json
 from datetime import datetime
 from pathlib import Path
+from text_normalization import read_json_file, write_json_file, write_utf8_text
 
 
 def load_catalog(skill_root: Path) -> list[dict]:
     path = skill_root / "references" / "scene-catalog.json"
-    return json.loads(path.read_text(encoding="utf-8"))
+    loaded = read_json_file(path)
+    if not isinstance(loaded, list):
+        raise SystemExit(f"Scene catalog must be a JSON array: {path}")
+    return loaded
 
 
 def resolve_scene(catalog: list[dict], scene: str) -> dict:
@@ -58,10 +61,7 @@ def main() -> None:
         "deliverable_type": scene["deliverable_type"],
         "scenario_file": scene["scenario_file"],
     }
-    (run_root / "run_manifest.json").write_text(
-        json.dumps(manifest, ensure_ascii=False, indent=2),
-        encoding="utf-8",
-    )
+    write_json_file(run_root / "run_manifest.json", manifest)
 
     prompt = f"""# Scene Workspace
 
@@ -85,7 +85,7 @@ Open:
 - `references/prompt-library.md`
 - `references/deliverable-contracts.md`
 """
-    (run_root / "README.md").write_text(prompt, encoding="utf-8")
+    write_utf8_text(run_root / "README.md", prompt)
     print(run_root)
 
 

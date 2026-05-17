@@ -30,6 +30,7 @@ This package is organized as:
 - a starter-board launcher that converts a natural-language request into one local runnable board folder and can also generate and preview the queue directly from that folder
 - a capture-pack runner that turns real TikTok capture folders into scene outputs and handoff packs
 - unified operator routing that can treat real TikTok capture folders as first-class workflow inputs
+- an account-operations bridge that turns real TikMatrix inbox and relationship exports into a safe account-ops operator pack
 
 ## What This Skill Does Not Own
 
@@ -93,9 +94,12 @@ Each scenario file contains:
 - entry board selection: [references/entry-selector.md](references/entry-selector.md)
   Use it when the operator knows the desired outcome, role, cadence, or vertical context but does not know which board family or slug to start with.
 - Tencent article parity map: [references/article-2640429-feature-parity.md](references/article-2640429-feature-parity.md)
+- full public parity audit: [references/clipcat-openclaw-parity-audit.md](references/clipcat-openclaw-parity-audit.md)
+- account operations pack: [references/account-ops-assist-pack.md](references/account-ops-assist-pack.md)
 - publish prep pack: [references/publish-prep-pack.md](references/publish-prep-pack.md)
 - live assist pack: [references/live-assist-pack.md](references/live-assist-pack.md)
 - creative production handoff pack: [references/creative-production-handoff-pack.md](references/creative-production-handoff-pack.md)
+- documented-only enterprise boundaries: [references/rpa-and-account-farming-doc-only.md](references/rpa-and-account-farming-doc-only.md)
 
 ## Scenario List
 
@@ -133,9 +137,12 @@ Each scenario file contains:
   Prefer the generated preset `.report.md` before execution because it includes copy-ready batch commands, suggested artifact paths, reusable input config, and generated helper scripts.
 - Read [references/entry-selector.md](references/entry-selector.md) when the user needs a recommendation across `single`, `combo`, `vertical`, `launch-board`, `manager-board`, or `cadence-board`.
 - Read [references/article-2640429-feature-parity.md](references/article-2640429-feature-parity.md) when the user refers to the Tencent Cloud Douyin article.
+- Read [references/clipcat-openclaw-parity-audit.md](references/clipcat-openclaw-parity-audit.md) when the user asks what is already fully replicated, partially replicated, or still missing versus the Clipcat/OpenClaw public workflow.
+- Read [references/account-ops-assist-pack.md](references/account-ops-assist-pack.md) when the user wants TikTok inbox, notice, following-request, or relationship-watch operations turned into a safe operator pack.
 - Read [references/publish-prep-pack.md](references/publish-prep-pack.md) when the user wants a publish-ready handoff pack.
 - Read [references/live-assist-pack.md](references/live-assist-pack.md) when the user wants a live-room operator pack.
 - Read [references/creative-production-handoff-pack.md](references/creative-production-handoff-pack.md) when the user wants scene `09` to `16` turned into a production-ready creative handoff instead of only a brief.
+- Read [references/rpa-and-account-farming-doc-only.md](references/rpa-and-account-farming-doc-only.md) when the user asks about cloud-phone, RPA, `养号`, anti-detection, or other documented-only enterprise surfaces.
 - Read [references/prompt-library.md](references/prompt-library.md) for reusable prompt blocks.
 - Read [references/deliverable-contracts.md](references/deliverable-contracts.md) for output formats.
 - Read [references/scene-report-contract.md](references/scene-report-contract.md) when the output should become a durable JSON, Markdown, DOCX, or XLSX deliverable.

@@ -1,0 +1,42 @@
+query: orange cat
+item_count: 5
+
+[1] 7636447840645958928
+video_url: https://www.tiktok.com/@silly.orangecat5/video/7636447840645958928
+author_unique_id: silly.orangecat5
+author_nickname: Silly Orange Cat
+title: #ai #cat #kitty #fypviralシ #foryou #viralvideos #cutecat #trending #catlover #haha #orangecat #kucing #cartoon #catsvideo
+play_count: 25300
+comment_count: 9
+
+[2] 7636013662016261406
+video_url: https://www.tiktok.com/@shelbytakesnc/video/7636013662016261406
+author_unique_id: shelbytakesnc
+author_nickname: Shelby ☀️🍓🍄
+title: He is so funny lol I think he’s like this cuz he grew up with my German shepherd harassing him nonstop so he’s just fearless #orangecatbehavior #orangecats 
+play_count: 840
+comment_count: 7
+
+[3] 7636400805330849054
+video_url: https://www.tiktok.com/@aicatstories44/video/7636400805330849054
+author_unique_id: aicatstories44
+author_nickname: aicatsstories
+title: sad cat🤣#orangecat #aicatfunnyvideo #aicat #ai 
+play_count: 4020
+comment_count: 3
+
+[4] 7636118512737586454
+video_url: https://www.tiktok.com/@usatiktoker23/video/7636118512737586454
+author_unique_id: usatiktoker23
+author_nickname: 𝐍𝐞𝐱𝐭 𝐖𝐚𝐲
+title: #orangecat #cutecat #storycat #catvideo #Cartoons 
+play_count: 25900
+comment_count: 9
+
+[5] 7636137611576282399
+video_url: https://www.tiktok.com/@aicatstories44/video/7636137611576282399
+author_unique_id: aicatstories44
+author_nickname: aicatsstories
+title: sad cat 🤣#ai #aicat #aicatfunnyvideo #orangecat 
+play_count: 30200
+comment_count: 12

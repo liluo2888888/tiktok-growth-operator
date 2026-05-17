@@ -1,38 +1,44 @@
-# Direct Use
+# 直接使用（中文优先 / Direct Use）
 
-Use this file when the user wants Codex to run the TikTok or Douyin workflow directly instead of relying on Clipcat or OpenClaw.
+当用户希望直接让 Codex 运行 TikTok 或 Douyin 工作流，而不是依赖 Clipcat 或 OpenClaw 时，优先看这份文档。
 
-If you only need the finished-state summary, preferred commands, validation entrypoints, and real fixture paths, read [final-handoff.md](final-handoff.md) first.
+参考导航：
 
-If you want one copy-ready index across all 19 scenes, read [scene-quick-reference.md](scene-quick-reference.md).
+- 读 [final-handoff.md](final-handoff.md)：看最短完成态摘要、验证入口和真实 fixture 路径
+- 读 [command-map.md](command-map.md)：看最短的 Clipcat 对标命令索引
+- 读 [feishu-setup.md](feishu-setup.md)：如果你要把 scene 结果推到飞书，且你对飞书还不熟
+- 读 [scene-quick-reference.md](scene-quick-reference.md)：看 19 个 scene 的一页式可复制索引
+- 读 [creative-brief-quick-reference.md](creative-brief-quick-reference.md)：看场景 `09` 到 `16` 的创意制作简报速查
+- 读 [creative-production-handoff-pack.md](creative-production-handoff-pack.md)：看适合脚本、剪辑、设计或本地化执行的安全交付包
+- 读 [clipcat-openclaw-parity-audit.md](clipcat-openclaw-parity-audit.md)：看哪些能力已完整复刻，哪些仍依赖外部基础设施
+- 读 [account-ops-assist-pack.md](account-ops-assist-pack.md)：看 TikTok 收件箱、通知、关注请求和关系监控操作包
 
-If you mainly need the creative-brief half of the system, especially scenes `09` to `16`, read [creative-brief-quick-reference.md](creative-brief-quick-reference.md).
+## 一句话中文起步
 
-If you want those same scenes turned into a production-ready handoff for scripting, editing, design, or localization, read [creative-production-handoff-pack.md](creative-production-handoff-pack.md).
+如果你只想复制一句话给 Codex，就从这里开始：
 
-## One-Line Chinese Starter
+- Scene 模式：`按场景 12 执行：为一个产品做多风格测试矩阵，先锁定 invariant message，再设计真正有差异的测试风格，并写出每个变体要验证什么。`
+- Board 模式：`给我一个适合 TikTok 美妆运营的日常 board，要能直接排今天要跑的任务。`
+- Capture-pack 模式：`基于这个 TikTok 素材包执行场景 15，输出图片文案翻译与本地化制作简报，保留原版层级并标出需要本地审核的地方。`
+- Goal 模式：`给我一套从选题、拆解、素材测试到发布交付的 Douyin 工作流，要求输出可直接执行的步骤和交付物。`
 
-If you only want one sentence to paste into Codex, start here:
+兼容性校验保留语句：`给我一套从选题、拆解、素材测试到发布交付的 Douyin 工作流`
+Validator 纯文本保留语句：`给我一套从选题、拆解、素材测试到发布交付的 Douyin 工作流`
 
-- Scene mode: `按场景 12 执行：为一个产品做多风格测试矩阵，先锁 invariant message，再设计真正有差异的测试风格，并写出每个变体要学什么。`
-- Board mode: `给我一个适合 TikTok 美妆运营的日更 board，要能直接排今天要跑的任务。`
-- Capture-pack mode: `基于这个 TikTok 素材包执行场景 15，输出图片文案翻译与本地化 brief，保留原版层级并标出需要本地审核的地方。`
-- Goal mode: `给我一套从选题、拆解、素材测试到发布交付的 Douyin 工作流，要求输出可直接执行的步骤和交付物。`
+### 可直接复制的中文命令
 
-### Chinese Copy-Ready Commands
-
-If you prefer the local shell instead of natural-language chat:
+如果你更想走本地 shell，而不是自然语言对话，可以直接复制下面的命令：
 
 ```powershell
 python scripts/run_operator_workflow.py `
-  --request "按场景 12 执行：为一个产品做多风格测试矩阵，先锁 invariant message，再设计真正有差异的测试风格，并写出每个变体要学什么。" `
+  --request "按场景 12 执行：为一个产品做多风格测试矩阵，先锁定 invariant message，再设计真正有差异的测试风格，并写出每个变体要验证什么。" `
   --project "Lip Liner Style Matrix CN"
 ```
 
 ```powershell
 python scripts/run_operator_workflow.py `
   --mode board `
-  --query "给我一个适合 TikTok 美妆运营的日更 board，要能直接排今天要跑的任务。"
+  --query "给我一个适合 TikTok 美妆运营的日常 board，要能直接排今天要跑的任务。"
 ```
 
 ```powershell
@@ -52,6 +58,7 @@ python scripts/run_operator_workflow.py `
   --name douyin-topic-to-launch-cn `
   --project "Douyin Topic To Launch CN"
 ```
+```
 
 ```powershell
 python scripts/run_operator_workflow.py `
@@ -63,29 +70,178 @@ python scripts/run_operator_workflow.py `
   --output-dir "D:\path\creative-handoff-pack"
 ```
 
-## Default Rule
+把已完成的 scene 报告推送到飞书多维表：
 
-Treat this package as:
+```powershell
+$env:FEISHU_APP_ID="cli_xxx"
+$env:FEISHU_APP_SECRET="xxx"
+python scripts/push_report_to_feishu.py `
+  --input "D:\path\scene-18-report.json" `
+  --mode summary `
+  --base-name "竞品账号周报"
+```
 
-- a Codex-native router for the 19 scenes
-- a report and workspace generator
-- a planning and evidence-synthesis system
-- a handoff-pack generator for publish preparation, live assist, and creative production handoff
-- a goal-workflow expander for multi-scene business requests
-- a unified workflow runner for scene, goal, and pack modes
-- an auto router that can infer scene, goal, or pack from one natural-language request
-- a board selector that can recommend the best preset family and board slug before generation
-- a board starter launcher that can scaffold and optionally preview a local runnable board
+通过飞书 OpenAPI 直推到飞书文档：
 
-Do not pretend the workspace already has:
+```powershell
+python scripts/push_report_to_feishu_doc.py `
+  --input "D:\path\scene-18-report.json" `
+  --mode create `
+  --title "竞品账号周报" `
+  --backend api
+```
 
-- Douyin official API credentials
-- cloud-phone clusters
-- RPA templates that can safely publish, comment, or message users
+把多个已有的 scene JSON 直接推到中文成品飞书文档：
 
-## Fastest Invocation Paths
+```powershell
+$env:FEISHU_APP_ID="cli_xxx"
+$env:FEISHU_APP_SECRET="xxx"
+python scripts/push_scene_reports_to_feishu_doc.py `
+  --inputs "D:\path\scene-01-report.json" "D:\path\scene-08-report.json" `
+  --app-id $env:FEISHU_APP_ID `
+  --app-secret $env:FEISHU_APP_SECRET `
+  --title-prefix "中文成品复推"
+```
 
-If you do not know which board family to start with, run the transparent selector first:
+一条命令推送内置的已确认真实场景 bundle：
+
+```powershell
+$env:FEISHU_APP_ID="cli_xxx"
+$env:FEISHU_APP_SECRET="xxx"
+python scripts/push_scene_reports_to_feishu_doc.py `
+  --confirmed `
+  --app-id $env:FEISHU_APP_ID `
+  --app-secret $env:FEISHU_APP_SECRET `
+  --title-prefix "中文成品复推"
+```
+
+一条命令同时推到飞书文档和飞书多维表：
+
+```powershell
+python scripts/push_report_to_feishu_bundle.py `
+  --input "D:\path\scene-18-report.json" `
+  --app-id $env:FEISHU_APP_ID `
+  --app-secret $env:FEISHU_APP_SECRET `
+  --title "竞品账号周报 | 2026-W19" `
+  --base-name "竞品账号周报 | 2026-W19"
+```
+
+从统一工作流入口直接推送：
+
+```powershell
+python scripts/run_operator_workflow.py `
+  --mode scene `
+  --scene 18 `
+  --project "竞品账号周报" `
+  --push-feishu `
+  --feishu-app-id $env:FEISHU_APP_ID `
+  --feishu-app-secret $env:FEISHU_APP_SECRET `
+  --feishu-title "竞品账号周报 | 2026-W19" `
+  --feishu-base-name "竞品账号周报 | 2026-W19"
+```
+
+从原生 scene runner 直接推送：
+
+```powershell
+python scripts/start_scene_run.py `
+  --scene 18 `
+  --name tiktok-competitor-weekly `
+  --project "竞品账号周报" `
+  --formats md,docx,xlsx `
+  --push-feishu `
+  --feishu-app-id $env:FEISHU_APP_ID `
+  --feishu-app-secret $env:FEISHU_APP_SECRET `
+  --feishu-title "竞品账号周报 | 2026-W19" `
+  --feishu-base-name "竞品账号周报 | 2026-W19"
+```
+
+从原生 capture-pack runner 直接推送：
+
+```powershell
+python scripts/start_capture_pack_run.py `
+  --scene 04 `
+  --capture-root "D:\path\capture-pack" `
+  --name tiktok-single-video-teardown `
+  --project "单视频拆解" `
+  --platform TikTok `
+  --market US `
+  --formats md,docx,xlsx `
+  --push-feishu `
+  --feishu-app-id $env:FEISHU_APP_ID `
+  --feishu-app-secret $env:FEISHU_APP_SECRET `
+  --feishu-title "单视频拆解 | 2026-05-08" `
+  --feishu-base-name "单视频拆解 | 2026-05-08"
+```
+
+如果你明确要走本地官方 CLI 兜底，而不是 API 直推：
+
+```powershell
+python scripts/push_report_to_feishu_doc.py `
+  --input "D:\path\scene-18-report.json" `
+  --mode create `
+  --title "竞品账号周报" `
+  --backend lark-cli `
+  --identity bot
+```
+
+如果 `lark-cli` 提示当前 Codex/Hermes 工作区还没绑定，就先做一次性绑定：
+
+```powershell
+python scripts/setup_hermes_feishu_env.py
+& "E:\飞书\lark-cli-bin\v1.0.25\lark-cli.exe" config bind `
+  --identity bot-only
+```
+
+一条命令完成 bootstrap：
+
+```powershell
+$env:FEISHU_APP_ID="cli_xxx"
+$env:FEISHU_APP_SECRET="xxx"
+python scripts/bootstrap_feishu_lark_cli.py `
+  --app-id $env:FEISHU_APP_ID `
+  --app-secret $env:FEISHU_APP_SECRET
+```
+
+把章节总览一并写进同一个飞书多维表：
+
+```powershell
+python scripts/push_report_to_feishu.py `
+  --input "D:\path\scene-18-report.json" `
+  --mode section_overview `
+  --app-token "bascn_xxx"
+```
+
+高价值飞书命名建议：
+
+- Scene `01`: `爆款视频采集 | <topic> | <market> | <date>`
+- Scene `02`: `日常巡检 | <category> | <market> | <date>`
+- Scene `03`: `批量爆款深拆 | <topic> | <market> | <date>`
+- Scene `18`: `竞品账号周报 | <category> | <market> | <week>`
+- Scene `19`: `自家账号复盘优化 | <account> | <market> | <week>`
+
+## 默认定位
+
+把这个包理解为：
+
+- 面向 19 个 scene 的 Codex 原生路由器
+- 报告与工作区生成器
+- 规划与证据综合系统
+- 用于发布准备、直播辅助、创意制作交接的 handoff 包生成器
+- 面向多场景业务请求的目标工作流扩展器
+- 统一的 scene / goal / pack 工作流执行入口
+- 可从一句自然语言请求自动判断 scene、goal 或 pack 的路由器
+- 可在生成前推荐最佳 preset family 和 board slug 的 board 选择器
+- 可脚手架并按需预览本地可运行 board 的 board 启动器
+
+不要假装当前工作区已经具备：
+
+- Douyin 官方 API 凭证
+- 云手机集群
+- 可安全执行发布、评论或私信的 RPA 模板
+
+## 最快调用路径
+
+如果你还不知道该从哪个 board family 起步，先跑透明选择器：
 
 ```powershell
 python scripts/recommend_entry_board.py `
@@ -93,7 +249,7 @@ python scripts/recommend_entry_board.py `
   --format markdown
 ```
 
-If you already generated a template bundle and want the selector to return real local template and suite paths:
+如果你已经生成过 template bundle，希望选择器直接返回本地真实模板和 suite 路径：
 
 ```powershell
 python scripts/recommend_entry_board.py `
@@ -102,18 +258,18 @@ python scripts/recommend_entry_board.py `
   --format markdown
 ```
 
-If you skip `--bundle-root`, the selector will try to auto-discover the latest local `preset-template-bundle*` export.
+如果不传 `--bundle-root`，选择器会自动发现最新的本地 `preset-template-bundle*` 导出。
 
-Use [entry-selector.md](entry-selector.md) for the family-level rule of thumb across `single`, `combo`, `vertical`, `launch-board`, `manager-board`, and `cadence-board`.
+关于 `single`、`combo`、`vertical`、`launch-board`、`manager-board`、`cadence-board` 这些 family 的选型规则，见 [entry-selector.md](entry-selector.md)。
 
-If you want the package to choose a board and scaffold one local starter folder in one step:
+如果你想让这个包一步完成 board 选择和本地 starter 文件夹脚手架：
 
 ```powershell
 python scripts/start_entry_board.py `
   --query "Give me a daily board for TikTok beauty ops"
 ```
 
-Unified-router version:
+统一路由版本：
 
 ```powershell
 python scripts/run_operator_workflow.py `
@@ -121,7 +277,7 @@ python scripts/run_operator_workflow.py `
   --query "Give me a daily board for TikTok beauty ops"
 ```
 
-One-step starter plus queue generation and preview:
+一步完成 starter、队列生成和预览：
 
 ```powershell
 python scripts/start_entry_board.py `
@@ -130,7 +286,7 @@ python scripts/start_entry_board.py `
   --dry-run
 ```
 
-Unified-router preview version:
+统一路由预览版本：
 
 ```powershell
 python scripts/run_operator_workflow.py `
@@ -140,27 +296,27 @@ python scripts/run_operator_workflow.py `
   --dry-run
 ```
 
-Board handoff order after scaffolding:
+board 脚手架生成后的建议阅读顺序：
 
-- read the starter `README.md` first because it now points to the queue, preset report, batch report, and rerun artifact paths
-- read `<board>.report.md` after generation because it contains the canonical dry-run, execute, and rerun commands
-- read `batch-run/batch_report.md` after dry-run because it summarizes the queued tasks and any warnings before real execution
+- 先读 starter `README.md`，它会指向队列、preset 报告、batch 报告和 rerun 产物路径
+- 生成后再读 `<board>.report.md`，里面有标准 dry-run、正式执行和 rerun 命令
+- dry-run 后读 `batch-run/batch_report.md`，它会总结排队任务和正式执行前的告警
 
-If you want to pin one specific bundle instead of using auto-discovery, pass `--bundle-root`.
+如果你不想用自动发现，而是要锁定某个具体 bundle，就传 `--bundle-root`。
 
-### In Codex chat
+### 在 Codex 对话里
 
-Examples:
+示例：
 
 - `Run scene 03 for morning makeup hooks and output a teardown report`
 - `Run scene 08 and summarize audience pain points from four competitor comment sets`
 - `Build a full Douyin workflow from topic selection to publish handoff`
-- `按场景 12 执行：为一个产品做多风格测试矩阵，先锁 invariant message，再设计真正有差异的测试风格，并写出每个变体要学什么。`
-- `按场景 18 执行：输出竞品账号周报，要按账号和周维度比较内容变化，不只看总量，并明确本周该跟进的动作。`
+- `按场景 12 执行：为一个产品做多风格测试矩阵，先锁定 invariant message，再设计真正有差异的测试风格，并写出每个变体要验证什么。`
+- `按场景 18 执行：输出竞品账号周报，要求按账号和周维度比较内容变化，不只看总量，并明确本周该跟进的动作。`
 
-### In the local shell
+### 在本地 shell 里
 
-Create a lightweight scene workspace and report:
+创建轻量 scene 工作区和报告：
 
 ```powershell
 python scripts/run_operator_workflow.py `
@@ -168,7 +324,7 @@ python scripts/run_operator_workflow.py `
   --project "Morning Makeup Hook Teardown"
 ```
 
-Create the full durable scene run with starter outputs:
+创建完整的 durable scene run，并带 starter 输出：
 
 ```powershell
 python scripts/start_scene_run.py `
@@ -179,7 +335,7 @@ python scripts/start_scene_run.py `
   --market China
 ```
 
-Create a full durable run directly from a real TikTok capture pack:
+直接从真实 TikTok capture pack 创建完整 durable run：
 
 ```powershell
 python scripts/start_capture_pack_run.py `
@@ -190,6 +346,47 @@ python scripts/start_capture_pack_run.py `
   --platform TikTok `
   --market US
 ```
+
+基于 TikMatrix 搜索 / topic 导出，把 Scene `02` 跑成真实巡检循环：
+
+```powershell
+python scripts/run_scene02_patrol.py `
+  --name tiktok-beauty-patrol `
+  --project "TikTok Beauty Patrol" `
+  --category "Beauty" `
+  --market US `
+  --mode mixed `
+  --queries "lip combo,lip liner" `
+  --topics "makeup,beautytok" `
+  --count 10 `
+  --download-top 3 `
+  --formats md,docx,xlsx
+```
+
+If you already have TikMatrix search/topic export folders, skip live collection and import them directly:
+
+```powershell
+python scripts/run_scene02_patrol.py `
+  --name tiktok-orangecat-patrol `
+  --project "TikTok Orange Cat Patrol" `
+  --category "Orange Cat" `
+  --market US `
+  --mode mixed `
+  --queries "orange cat" `
+  --topics "orangecat" `
+  --query-root "E:\tiktok\TikMatrix\tmp\search-live-orange-cat" `
+  --topic-root "E:\tiktok\TikMatrix\tmp\topic-live-orangecat" `
+  --skip-live `
+  --also-run-scene03 `
+  --formats md
+```
+
+Behavior:
+
+- writes a Scene `02` capture-pack with `patrol_snapshot.json`, `patrol_delta.json`, `patrol_alerts.json`, and `scene03_candidates.json`
+- persists prior patrol state under `tiktok-growth-operator.skill\tmp\scene02-state\...`
+- generates a normal Scene `02` operator run through the existing report pipeline
+- can optionally auto-run a downstream Scene `03` follow-up from the derived shortlist
 
 Creative-testing examples from the same real TikTok pack:
 
@@ -308,12 +505,116 @@ python scripts/run_operator_workflow.py `
   --output-root "D:\path\comment-capture-run"
 ```
 
+### 真实 TikMatrix Bridge
+
+If your real TikTok collection already lives in `E:\tiktok\TikMatrix`, bridge those exports directly without changing `TikMatrix` itself:
+
+Preferred current collector runtime:
+
+```powershell
+E:\tiktok\TikMatrix\.venv\Scripts\python.exe E:\tiktok\TikMatrix\scripts\run_from_skill.py `
+  profile-posts-browser-download `
+  --url "https://www.tiktok.com/@mustsharenews" `
+  --count 8 `
+  --max-pages 1 `
+  --new-only `
+  --output-dir "E:\tiktok\TikMatrix\tmp\codex-mustsharenews-profile-post-downloads-venv-20260507"
+```
+
+Then bridge that real collector export into the operator runtime:
+
+```powershell
+python scripts/run_tikmatrix_capture_bridge.py `
+  --profile-posts-json "E:\tiktok\TikMatrix\tmp\codex-mustsharenews-profile-post-downloads-venv-20260507\mustsharenews\profile_posts.json" `
+  --downloads-json "E:\tiktok\TikMatrix\tmp\codex-mustsharenews-profile-post-downloads-venv-20260507\mustsharenews\downloads.json" `
+  --scene 01 `
+  --name mustsharenews-scene01-venv-restored `
+  --project "MustShareNews Venv Restored Runtime" `
+  --market SG `
+  --min-likes 1000 `
+  --qualified-count 5 `
+  --formats md
+```
+
+```powershell
+python scripts/run_tikmatrix_capture_bridge.py `
+  --profile-posts-json "E:\tiktok\TikMatrix\tmp\live-profile-posts-browser-batch\mrorangecat555\profile_posts.json" `
+  --comments-json "E:\tiktok\TikMatrix\tmp\comments-live-mrorangecat-paged\7624057229930450192\comments.json" `
+  --downloads-json "E:\tiktok\TikMatrix\tmp\skill-batch-download\downloads.json" `
+  --scene 08 `
+  --name mrorangecat-comment-signal `
+  --project "Mr Orange Cat Comment Signal" `
+  --market US
+```
+
+Account distillation from the same real TikMatrix exports:
+
+```powershell
+python scripts/run_tikmatrix_capture_bridge.py `
+  --profile-posts-json "E:\tiktok\TikMatrix\tmp\live-profile-posts-browser-batch\mrorangecat555\profile_posts.json" `
+  --downloads-json "E:\tiktok\TikMatrix\tmp\skill-batch-download\downloads.json" `
+  --scene 17 `
+  --name mrorangecat-account-distill `
+  --project "Mr Orange Cat Creator Distillation" `
+  --market US
+```
+
+Real TikMatrix account-operations bridge:
+
+```powershell
+python scripts/run_tikmatrix_account_ops_bridge.py `
+  --name orangecat-account-ops `
+  --project "Orange Cat Account Ops" `
+  --platform TikTok `
+  --market US `
+  --newest-reply-json "E:\tiktok\TikMatrix\tmp\live-newest-reply-final-2\newest-reply\newest_reply.json" `
+  --notice-multi-json "E:\tiktok\TikMatrix\tmp\live-notice-multi-final-3\notice-multi\notice_multi.json" `
+  --following-requests-json "E:\tiktok\TikMatrix\tmp\live-following-requests-final\following-requests\following_request_list.json" `
+  --following-list-json "E:\tiktok\TikMatrix\tmp\live-following-list-final\following\following_list.json" `
+  --follower-list-json "E:\tiktok\TikMatrix\tmp\live-follower-list-final\followers\follower_list.json"
+```
+
 Batch version:
 
 ```powershell
 python scripts/batch_run_operator_workflows.py `
   --batch-file "D:\path\capture-batch.json" `
   --output-file "D:\path\capture-batch-result.json"
+```
+
+Push every successful scene report from that batch result into Feishu:
+
+```powershell
+$env:FEISHU_APP_ID="cli_xxx"
+$env:FEISHU_APP_SECRET="xxx"
+python scripts/push_batch_results_to_feishu.py `
+  --batch-result "D:\path\capture-batch-result.json"
+```
+
+If you do not have `batch_result.json` and only want to repush a few already generated scene JSON files, use:
+
+```powershell
+python scripts/push_scene_reports_to_feishu_doc.py `
+  --inputs "D:\path\scene-01-report.json" "D:\path\scene-08-report.json" `
+  --app-id $env:FEISHU_APP_ID `
+  --app-secret $env:FEISHU_APP_SECRET `
+  --title-prefix "中文成品复推"
+```
+
+If you want the currently confirmed real-scene bundle instead of manually listing paths, use:
+
+```powershell
+python scripts/push_scene_reports_to_feishu_doc.py `
+  --confirmed `
+  --app-id $env:FEISHU_APP_ID `
+  --app-secret $env:FEISHU_APP_SECRET `
+  --title-prefix "中文成品复推"
+```
+
+If the preset was generated by `generate_batch_preset.py`, you can also use the generated helper:
+
+```powershell
+& "D:\path\your-preset.push-feishu.ps1"
 ```
 
 Behavior:
@@ -354,10 +655,39 @@ python scripts/validate_export_outputs.py `
   --output-root "D:\path\export-validation-suite"
 ```
 
+Re-render historical scene outputs from existing `scene-*.json` files after an encoding or renderer fix:
+
+```powershell
+python scripts/rerender_scene_outputs.py `
+  --root "D:\我的文档\Documents\Playground 4\tiktok-growth-operator.skill\tmp" `
+  --formats md
+```
+
+Preview the repair scope without writing files:
+
+```powershell
+python scripts/rerender_scene_outputs.py `
+  --root "D:\我的文档\Documents\Playground 4\tiktok-growth-operator.skill\tmp" `
+  --formats md `
+  --dry-run
+```
+
 Run the full durable validation surface after broader workflow changes:
 
 ```powershell
 python scripts/validate_all_workflows.py
+```
+
+Run the real TikMatrix bridge validation after changing the bridge layer:
+
+```powershell
+python scripts/validate_tikmatrix_bridge.py
+```
+
+Run the real TikMatrix account-ops bridge validation after changing the logged-in account bridge layer:
+
+```powershell
+python scripts/validate_tikmatrix_account_ops_bridge.py
 ```
 
 Create only a scene-aware JSON scaffold:
@@ -388,7 +718,7 @@ python scripts/recommend_scene_chain.py `
 
 Free-text matching can now hit built-in workflow templates, not only one goal slug.
 
-Current templates:
+当前内置模板：
 
 - `topic-to-publish` -> `category-entry + creative-testing + publish-handoff`
 - `competitor-weekly-and-breakdown` -> `competitor-monitoring`
@@ -399,17 +729,17 @@ Current templates:
 - `audience-to-live` -> `category-entry + live-support`
 - `weekly-monitor-to-next-test` -> `competitor-monitoring + account-improvement`
 
-Current higher-level board families:
+当前更高层的 board family：
 
-- `combo` -> reusable multi-preset bundles such as `beauty-ops-board`
-- `vertical` -> seeded starters such as `beauty-us-ops-starter`
-- `launch-board` -> outcome-first boards such as `publish-week-board`
-- `manager-board` -> role-first boards such as `growth-operator-board`
-- `cadence-board` -> rhythm-first boards such as `weekly-ops-board`
+- `combo` -> 可复用的多 preset 组合包，例如 `beauty-ops-board`
+- `vertical` -> 带默认参数的 starter，例如 `beauty-us-ops-starter`
+- `launch-board` -> 结果优先入口，例如 `publish-week-board`
+- `manager-board` -> 角色优先入口，例如 `growth-operator-board`
+- `cadence-board` -> 节奏优先入口，例如 `weekly-ops-board`
 
-Board-style requests can now auto-route into `board` when the language is clearly cadence-first, role-first, outcome-first, or seeded-vertical rather than one scene or one multi-stage workflow.
+当请求语言明显更像节奏优先、角色优先、结果优先，或者 seeded-vertical，而不是单个 scene 或多阶段 workflow 时，会自动路由到 `board`。
 
-Create a full multi-scene goal workspace:
+创建完整的多 scene goal 工作区：
 
 ```powershell
 python scripts/run_operator_workflow.py `
@@ -419,30 +749,30 @@ python scripts/run_operator_workflow.py `
   --formats md
 ```
 
-When a query matches a workflow template:
+当查询命中某个 workflow template 时：
 
-- scenes from all component goals are merged into one ordered chain
-- duplicate scenes are removed automatically
-- derived packs such as `publish-prep` or `live-assist` still generate from the merged workflow
-- the generated `README.md` and `goal_manifest.json` record the matched template and component goals
+- 所有组件 goal 的 scenes 会合并成一条有序链路
+- 重复 scene 会自动去重
+- `publish-prep`、`live-assist` 等派生 pack 仍会基于合并后的 workflow 生成
+- 生成出的 `README.md` 与 `goal_manifest.json` 会记录命中的模板以及对应的组件 goals
 
-The current built-in goal templates are documented in `references/goal-templates.md`.
+当前内置的 goal 模板清单见 `references/goal-templates.md`。
 
-## Article-Derived Safe Replacements
+## 文章能力映射与安全替代
 
-When the user refers to the Tencent Cloud article about OpenClaw and Douyin, translate it into these Codex-native paths:
+当用户提到腾讯云那篇 OpenClaw / Douyin 相关文章时，把能力映射到以下 Codex 原生路径：
 
-- intelligent topic selection -> scenes `01`, `02`, `03`, `07`
-- AI video brief generation -> scenes `09`, `10`, `11`, `12`, `13`, `14`, `15`, `16`
-- competitor monitoring and review -> scenes `06`, `17`, `18`
-- comment mining and audience language extraction -> scene `08`
-- account retro and next-step planning -> scene `19`
-- publish preparation -> workspace generation plus title, hook, cover, and checklist outputs
-- live assist -> monitoring templates, moderator reply prompts, and anomaly checklists
+- 智能选题 -> scenes `01`, `02`, `03`, `07`
+- AI 视频制作简报生成 -> scenes `09`, `10`, `11`, `12`, `13`, `14`, `15`, `16`
+- 竞品监控与复盘 -> scenes `06`, `17`, `18`
+- 评论挖掘与人群语言提取 -> scene `08`
+- 账号复盘与下一步规划 -> scene `19`
+- 发布准备 -> 工作区生成 + 标题 / hook / 封面 / checklist 输出
+- 直播辅助 -> 监控模板、场控回复提示和异常检查清单
 
-## Direct Pack Generation
+## 直接生成交付包
 
-Generate a publish prep pack:
+生成 `publish-prep` 交付包：
 
 ```powershell
 python scripts/run_operator_workflow.py `
@@ -453,7 +783,7 @@ python scripts/run_operator_workflow.py `
   --output-dir "D:\path\publish-pack"
 ```
 
-Generate a publish prep pack from an existing scene report JSON:
+基于已有的 scene report JSON 生成 `publish-prep` 交付包：
 
 ```powershell
 python scripts/generate_operator_pack.py `
@@ -464,7 +794,7 @@ python scripts/generate_operator_pack.py `
   --output-dir "D:\path\publish-pack"
 ```
 
-Generate a live assist pack:
+生成 `live-assist` 交付包：
 
 ```powershell
 python scripts/run_operator_workflow.py `
@@ -475,20 +805,20 @@ python scripts/run_operator_workflow.py `
   --output-dir "D:\path\live-pack"
 ```
 
-## Auto Routing Rules
+## 自动路由规则
 
-`scripts/run_operator_workflow.py` now defaults to `--mode auto`.
+`scripts/run_operator_workflow.py` 现在默认使用 `--mode auto`。
 
-Routing priority:
+路由优先级：
 
-- explicit `--scene`, `--goal`, or `--type` always wins
-- explicit `--mode board` always wins for starter-board generation
-- pack-like requests are routed to `pack` when the request is clearly about publish or live packs
-- board-like requests are routed to `board` when the request is better expressed as a reusable starter board
-- single-scene requests are routed to `scene` when the request names a scene number or strongly matches one scene
-- everything else is routed to `goal`, then matched against built-in workflow templates or single-goal chains
+- 显式传入 `--scene`、`--goal` 或 `--type` 时，始终优先采用显式指定
+- 显式传入 `--mode board` 时，始终优先走 starter-board 生成
+- 如果请求明显是在要发布包或直播辅助包，会路由到 `pack`
+- 如果请求更适合表达成可复用 starter board，会路由到 `board`
+- 如果请求直接点名 scene 编号，或与某个单一 scene 高强度匹配，会路由到 `scene`
+- 其他情况统一先路由到 `goal`，再与内置 workflow template 或单目标链做匹配
 
-The auto result now includes route explanation fields:
+自动路由结果现在会附带这些解释字段：
 
 - `route.reason`
 - `route.explanation.reasons`
@@ -498,18 +828,18 @@ The auto result now includes route explanation fields:
 - `route.explanation.board_preview`
 - `route.explanation.multi_stage`
 
-Use these when you want to inspect why the request was routed into `scene`, `goal`, `board`, or `pack`.
+如果你想核对为什么请求被路由到 `scene`、`goal`、`board` 或 `pack`，就看这些字段。
 
-Recommended pattern:
+推荐使用方式：
 
-- use `--request` for natural-language routing
-- add `--type` only when you want to force a specific pack type instead of relying on auto detection
-- add `--project` when you want a cleaner workspace name
-- add `--name` only when you need an exact run folder slug
+- 优先用 `--request` 走自然语言路由
+- 只有在你要强制指定某种 pack 类型时，才补 `--type`
+- 想让工作区名字更干净时，补 `--project`
+- 只有在你需要精确控制 run 文件夹 slug 时，才补 `--name`
 
-## Batch Execution
+## 批量执行
 
-When you want to queue multiple mixed tasks at once, use:
+如果你想一次排入多条混合任务，用：
 
 ```powershell
 python scripts/batch_run_operator_workflows.py `
@@ -517,7 +847,7 @@ python scripts/batch_run_operator_workflows.py `
   --output-file "D:\path\operator-batch-result.json"
 ```
 
-If you do not want to hand-write the batch JSON, generate one from a preset first:
+如果你不想手写 batch JSON，可以先从 preset 生成：
 
 ```powershell
 python scripts/generate_batch_preset.py `
@@ -529,7 +859,7 @@ python scripts/generate_batch_preset.py `
   --output "D:\path\topic-to-publish-batch.json"
 ```
 
-If you want a fill-in template before generating the real queue, create a starter config first:
+如果你想先拿一个可填写模板，再去生成真实队列，就先建 starter config：
 
 ```powershell
 python scripts/generate_batch_preset.py `
@@ -538,46 +868,46 @@ python scripts/generate_batch_preset.py `
   --template-output "D:\path\beauty-ops-board.template.json"
 ```
 
-If you want a whole preset-template board up front, export a template bundle:
+如果你想一开始就拿到完整的 preset-template board，可以直接导出 template bundle：
 
 ```powershell
 python scripts/generate_batch_preset.py `
   --template-bundle-root "D:\path\preset-template-bundle"
 ```
 
-That bundle now includes:
+这个 bundle 现在会包含：
 
-- one template per single preset
-- curated combo templates such as `beauty-ops-board` and `topic-to-publish-board`
-- seeded vertical starters such as `beauty-us-ops-starter`
-- one `template-index.json` file marking each item as `single`, `combo`, or `vertical`
-- one `README.md` with fill-and-run instructions
+- 每个单独 preset 对应一份模板
+- 精选的组合模板，例如 `beauty-ops-board`、`topic-to-publish-board`
+- 带默认参数的 vertical starter，例如 `beauty-us-ops-starter`
+- 一份 `template-index.json`，用于标记每个条目属于 `single`、`combo` 还是 `vertical`
+- 一份 `README.md`，说明如何填写并直接运行
 
-Use vertical starters when you want a near-runnable baseline with seeded platform, market, naming, and capture fixture values already filled.
+如果你想直接拿到一个接近可运行的基线配置，而且平台、市场、命名、capture fixture 默认值已经填好，就优先用 vertical starter。
 
-If the bundle includes `vertical-suites/`, you can skip manual command assembly and use the suite-level scripts directly.
+如果 bundle 里已经带了 `vertical-suites/`，就可以跳过手工拼命令，直接用 suite 级脚本。
 
-The same suite pattern now applies to `launch-board` items when you want an outcome-first entry such as `publish-week-board` or `competitor-review-board`.
+同样的 suite 模式也适用于 `launch-board`，适合像 `publish-week-board`、`competitor-review-board` 这种结果优先入口。
 
-It now also applies to `manager-board` items when you want a role-first entry such as `content-operator-board` or `growth-operator-board`.
+现在它也适用于 `manager-board`，适合像 `content-operator-board`、`growth-operator-board` 这种角色优先入口。
 
-It also applies to `cadence-board` items when you want a rhythm-first entry such as `daily-ops-board` or `weekly-ops-board`.
+它同样适用于 `cadence-board`，适合像 `daily-ops-board`、`weekly-ops-board` 这种节奏优先入口。
 
-To turn one combo template into a real queue, fill the generated JSON and run:
+如果你要把某个 combo template 变成真实队列，就先填好生成出的 JSON，再运行：
 
 ```powershell
 python scripts/generate_batch_preset.py `
   --config "D:\path\preset-template-bundle\beauty-ops-board.template.json"
 ```
 
-To turn one seeded vertical starter into a queue, you can often run it directly and then adjust from the generated board:
+如果你要把某个 seeded vertical starter 变成真实队列，通常可以先直接运行，再基于生成出的 board 微调：
 
 ```powershell
 python scripts/generate_batch_preset.py `
   --config "D:\path\preset-template-bundle\beauty-us-ops-starter.template.json"
 ```
 
-Or use the exported suite scripts:
+或者直接用导出的 suite 脚本：
 
 ```powershell
 D:\path\preset-template-bundle\vertical-suites\beauty-us-ops-starter\generate.ps1
@@ -678,27 +1008,27 @@ python scripts/generate_operator_pack.py `
   --output-dir "D:\path\live-pack"
 ```
 
-## Evidence Modes
+## 证据模式
 
-Choose one mode before execution:
+执行前先选一种模式：
 
-- `live-analysis`: current links, URLs, or public data can be checked now
-- `evidence-pack-analysis`: the user has screenshots, spreadsheets, exports, or notes
-- `planning-only`: the user wants the exact workflow and deliverable shape first
+- `live-analysis`：当前链接、URL 或公开数据可以立即检查
+- `evidence-pack-analysis`：用户已经有截图、表格、导出文件或笔记
+- `planning-only`：用户想先确认完整 workflow 与交付物结构
 
-## Not Supported As Direct Automation
+## 不作为直接自动化支持的事项
 
-This package intentionally does not implement:
+这个包刻意不实现以下能力：
 
-- simulated view, like, comment, or share chains for cold-start boosting
-- competitor comment hijacking
-- mass private-message conversion workflows
-- device fingerprint spoofing, anti-detection tuning, or account farming
-- cloud-phone fleet control
+- 冷启动刷量式的模拟播放、点赞、评论、分享链路
+- 竞品评论截流
+- 大规模私信转化工作流
+- 设备指纹伪装、反检测调参、养号
+- 云手机批量控制
 
-If the user asks for one of those, downgrade the output to:
+如果用户要求这些能力，就把输出降级为：
 
-- risk explanation
-- safe alternative workflow
+- 风险说明
+- 安全替代工作流
 - manual checklist
 - prompt pack for human review

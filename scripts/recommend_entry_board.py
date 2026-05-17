@@ -13,6 +13,7 @@ from generate_batch_preset import (
     TEMPLATE_BUNDLES,
     VERTICAL_STARTERS,
 )
+from text_normalization import read_json_file
 
 
 STOPWORDS = {
@@ -397,6 +398,7 @@ def recommend_family(query: str) -> tuple[dict, list[dict]]:
 def recommend_items(query: str, family: str, limit: int = 3) -> list[dict]:
     query_tokens = tokenize(query)
     traits = detect_query_traits(query)
+    lowered = query.lower()
     candidates = []
     for item in build_catalog():
         if item["family"] != family:
@@ -418,6 +420,18 @@ def recommend_items(query: str, family: str, limit: int = 3) -> list[dict]:
         if family == "cadence-board" and traits["vertical"] and traits["cadence"] and traits["board_intent"]:
             scored["score"] += 2
             scored["matched_terms"] = sorted(set([*scored["matched_terms"], "cadence-board-intent"]))
+        if family == "cadence-board" and item["slug"] == "live-shift-board":
+            live_shift_markers = ["live", "直播", "班次", "shift"]
+            matched_live_shift = [marker for marker in live_shift_markers if marker in lowered or marker in query]
+            if matched_live_shift:
+                scored["score"] += 10
+                scored["matched_terms"] = sorted(set([*scored["matched_terms"], *matched_live_shift, "live-shift-priority"]))
+        if family == "cadence-board" and item["slug"] == "daily-ops-board":
+            daily_markers = ["daily", "日常", "daily ops", "daily board"]
+            matched_daily = [marker for marker in daily_markers if marker in lowered or marker in query]
+            if matched_daily:
+                scored["score"] += 4
+                scored["matched_terms"] = sorted(set([*scored["matched_terms"], *matched_daily, "daily-priority"]))
 
         candidates.append({"family": family, **scored})
     candidates.sort(key=lambda item: item["score"], reverse=True)
@@ -443,7 +457,7 @@ def load_bundle_index(bundle_root: str) -> dict[str, dict]:
     index_path = Path(bundle_root).expanduser().resolve() / "template-index.json"
     if not index_path.exists():
         return {}
-    payload = json.loads(index_path.read_text(encoding="utf-8-sig"))
+    payload = read_json_file(index_path)
     items = payload.get("items", [])
     if not isinstance(items, list):
         return {}

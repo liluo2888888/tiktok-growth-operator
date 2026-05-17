@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 
 from generate_scene_report import build_report_payload, load_catalog, render_markdown_from_payload, resolve_scene
+from text_normalization import read_json_file, write_json_file, write_utf8_text
 
 
 def main() -> None:
@@ -31,7 +32,9 @@ def main() -> None:
 
     skill_root = Path(__file__).resolve().parents[1]
     catalog = load_catalog(skill_root)
-    batch = json.loads(Path(args.batch_file).read_text(encoding="utf-8-sig"))
+    batch = read_json_file(Path(args.batch_file))
+    if not isinstance(batch, list):
+        raise SystemExit("Batch file must contain a JSON array.")
     output_dir = Path(args.output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
 
@@ -47,7 +50,10 @@ def main() -> None:
         payload = build_report_payload(scene, project, context)
         report = json.dumps(payload, ensure_ascii=False, indent=2) if args.format == "json" else render_markdown_from_payload(payload)
         path = output_dir / filename
-        path.write_text(report + ("" if report.endswith("\n") else "\n"), encoding="utf-8")
+        if args.format == "json":
+            write_json_file(path, payload, bom=True)
+        else:
+            write_utf8_text(path, report + ("" if report.endswith("\n") else "\n"))
         written.append(str(path))
 
     print(json.dumps(written, ensure_ascii=False, indent=2))

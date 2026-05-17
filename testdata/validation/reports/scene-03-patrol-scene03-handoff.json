@@ -1,0 +1,522 @@
+{
+  "metadata": {
+    "scene": "03",
+    "scene_slug": "batch-viral-search-plus-deep-teardown",
+    "scene_title": "Batch Viral Search Plus Deep Teardown",
+    "project": "Validation Scene 02 Patrol - Scene 03 Patrol Handoff",
+    "title": "Scene 03 Report - Validation Scene 02 Patrol - Scene 03 Patrol Handoff",
+    "deliverable_type": "breakdown_report",
+    "generated_at": "2026-05-17T19:27:44",
+    "scenario_file": "scenarios/03-batch-viral-search-plus-deep-teardown.md",
+    "status": "imported"
+  },
+  "working_context": {
+    "summary": "真实 TikTok capture-pack 导入自 tgo-fixture-gen/scene02/capture-pack，当前用于Orange Cat，市场 US。当前看板规模：8 条已排序 / 3 条达标，最低点赞阈值 1000.\n来源账号：https://www.tiktok.com/@orangecat0088/video/7636206423080226070; 会话质量：scene02_patrol_runtime; 查询词：orange cat; 主题：orangecat.\n头部候选：https://www.tiktok.com/@orangecat0088/video/7636206423080226070 | #foryou #foryoupage #catlover #cartoon #kitten | 2610 点赞，55700 播放，62 分享.\n达标对照：https://www.tiktok.com/@orangecat0088/video/7636206423080226070 | #foryou, #foryoupage, #catlover, #cartoon | 2610 点赞，55700 播放，62 分享.\n采集根目录：tgo-fixture-gen/scene02/capture-pack",
+    "inputs": [
+      "Profile: https://www.tiktok.com/@orangecat0088/video/7636206423080226070",
+      "Ranked video count: 8",
+      "Qualified video count: 3",
+      "Capture root: tgo-fixture-gen/scene02/capture-pack",
+      "类别：Orange Cat",
+      "地区：US",
+      "频率：daily",
+      "关键词：orange cat",
+      "主题：orangecat"
+    ],
+    "constraints": [
+      "Shortlist before tearing down.",
+      "Conclusions must be grounded in evidence from the chosen top videos.",
+      "Real TikTok anonymous-session capture. Comment sampling is missing in this pack.",
+      "Conclusions should stay tied to ranked metrics, captions, and capture-pack summaries only."
+    ],
+    "requested_outputs": [
+      "Shortlist",
+      "Per-video teardown",
+      "Shared pattern summary",
+      "Creation rules",
+      "TikTok-native ranked-pattern conclusions",
+      "Reusable adaptation rules grounded in the capture pack"
+    ],
+    "minimum_evidence": [
+      "One keyword or topic",
+      "A candidate pool to rank",
+      "summary.json or aggregate_summary.json",
+      "profile_summary.json or summary.json",
+      "ranked_videos.json or aggregate_ranked_videos.json"
+    ],
+    "ideal_evidence": [
+      "10+ candidate videos",
+      "Links plus screenshots or transcript notes",
+      "Target product or niche",
+      "Explicit top-sample rule",
+      "aggregate_qualified_videos.json or qualified_video_links.txt",
+      "aggregate_report.md",
+      "video_details.json"
+    ],
+    "ready_checklist": [
+      "Shortlist criteria are clear",
+      "Top 3-5 videos have enough evidence for teardown",
+      "Market is not mixed",
+      "Per-video and common-pattern deliverables are both expected",
+      "Top-ranked videos are clearly identified",
+      "Transferable pattern is separated from profile-specific brand power"
+    ]
+  },
+  "executive_summary": {
+    "conclusion": "The strongest TikTok posts in this pack win by pairing a clear first-line hook with recognizable authority, cultural framing, or a featured-person premise that viewers understand immediately.",
+    "why_it_matters": "This pack is useful for studying which short caption, topic cue, and authority signal are actually portable into a new teardown and adaptation workflow.",
+    "next_action": "Take the top-ranked shortlist into deeper teardown now, assign each winner to one teardown lane, and replace the original account authority with owned proof or owned talent.",
+    "confidence": "medium"
+  },
+  "operator_guide": {
+    "operator_checklist": [
+      "Shortlist first, then deep-teardown only the top set.",
+      "Use an explicit top-sample rule before teardown begins.",
+      "Use the same lens across all chosen videos so patterns are comparable.",
+      "End with creation rules, not only observations."
+    ],
+    "common_failure_modes": [
+      "Deep-analyzing weak candidates that should have been filtered out earlier.",
+      "Skipping script or time-axis extraction and therefore flattening the teardown.",
+      "Using different teardown criteria across videos.",
+      "Summarizing patterns without enough per-video evidence."
+    ]
+  },
+  "execution_template": {
+    "recommended_request": "Run scene 03 to shortlist the strongest viral candidates for one topic, then deeply tear down only the top set using an explicit top-sample rule. End with three stable deliverables: per-video teardown, common-pattern summary, and creation guidance that can be used immediately for new scripts.",
+    "recommended_request_zh": "按场景 03 执行：先对同一主题的候选热视频做 shortlist，再只深拆前几条强样本，最后沉淀共用爆点规律和可直接改写成新脚本的创作规则。",
+    "recommended_runner_args": [
+      "python scripts/run_operator_workflow.py --mode scene --scene 03 --project \"<project-name>\" --output-root \".\\tmp\\batch-search-teardown\"",
+      "python scripts/generate_scene_report.py --scene 03 --project \"<project-name>\" --output \".\\tmp\\batch-search-teardown.json\" --format json"
+    ],
+    "variable_inputs": [
+      {
+        "name": "project_name",
+        "meaning": "便于识别的运行名或项目名",
+        "example": "晨间美妆钩子批量深拆",
+        "required": "是"
+      },
+      {
+        "name": "market",
+        "meaning": "当场景依赖单一市场时的目标市场或地区",
+        "example": "美国",
+        "required": "建议"
+      },
+      {
+        "name": "evidence_pack",
+        "meaning": "作为源证据使用的链接、截图、转写、导出文件、OCR 文本或摘录备注",
+        "example": "10 条候选 TikTok 链接，附截图与转写笔记",
+        "required": "是"
+      },
+      {
+        "name": "success_goal",
+        "meaning": "操作者希望该场景产出的结果",
+        "example": "短名单、逐条深拆与创作规则",
+        "required": "建议"
+      }
+    ],
+    "codex_prompt_scaffold": [
+      "以场景 03 作为本次工作的主流程。",
+      "分析前先把现有证据归整为以下输入：Keyword or topic, Target market, Candidate links or search results, Desired sample size, Shortlist rule。",
+      "如果证据不足，先明确缺口再继续。最低开工证据：One keyword or topic, A candidate pool to rank。",
+      "最终必须产出以下可直接给运营使用的结果：Shortlist, Per-video teardown, Shared pattern summary, Creation rules。",
+      "Use the same teardown lens across all shortlisted videos so the pattern summary is comparable.",
+      "Do not deep-analyze weak candidates that should have been filtered out earlier.",
+      "Preserve full script, hook, proof rhythm, and time-axis conversion notes whenever evidence allows.",
+      "优先填入可复用结论、表格、排序逻辑和下一步动作，不要停留在泛泛点评。"
+    ],
+    "codex_prompt_scaffold_zh": [
+      "按场景 03 执行：先对同一主题的候选热视频做 shortlist，再只深拆前几条强样本，最后沉淀共用爆点规律和可直接改写成新脚本的创作规则。",
+      "先把我提供的材料整理成这组输入：Keyword or topic, Target market, Candidate links or search results, Desired sample size, Shortlist rule。",
+      "如果证据不足，先明确缺口再继续。最低开工证据：One keyword or topic, A candidate pool to rank。",
+      "最终必须产出：Shortlist, Per-video teardown, Shared pattern summary, Creation rules。",
+      "输出必须可直接给运营、拆解、脚本、测试或交付使用，优先给表格、排序逻辑、复用规则和下一步动作。"
+    ],
+    "workflow_steps": [
+      "Shortlist first, then deep-teardown only the top set.",
+      "Use an explicit top-sample rule before teardown begins.",
+      "Use the same lens across all chosen videos so patterns are comparable.",
+      "End with creation rules, not only observations."
+    ],
+    "output_checklist": [
+      "The top set is explicitly shortlisted before deep teardown.",
+      "Each chosen video is analyzed with the same fields.",
+      "The output includes both per-video detail and common-pattern synthesis.",
+      "The report ends with reusable creation rules, not only observations."
+    ]
+  },
+  "evidence": [
+    {
+      "label": "汇总",
+      "detail": "已排序=8; 达标=3; 最低点赞=1000",
+      "source": "aggregate_summary.json"
+    },
+    {
+      "label": "账号汇总",
+      "detail": "账号=https://www.tiktok.com/@orangecat0088/video/7636206423080226070; 会话=scene02_patrol_runtime; 已排序=8",
+      "source": "profile_summary.json"
+    },
+    {
+      "label": "排序视频 7636206423080226070",
+      "detail": "#foryou #foryoupage #catlover #cartoon #kitten",
+      "source": "https://www.tiktok.com/@orangecat0088/video/7636206423080226070"
+    },
+    {
+      "label": "排序视频 7636373657828347158",
+      "detail": "SuperCat Papa #kitten #catvideo #storycat #cutecat #orangecat",
+      "source": "https://www.tiktok.com/@usatiktoker23/video/7636373657828347158"
+    },
+    {
+      "label": "排序视频 7636137611576282399",
+      "detail": "sad cat #ai #aicat #aicatfunnyvideo #orangecat",
+      "source": "https://www.tiktok.com/@aicatstories44/video/7636137611576282399"
+    },
+    {
+      "label": "可下载视频源",
+      "detail": "该 capture pack 保留了可播放或可下载的视频细节，可继续用于逐帧复核。",
+      "source": "https://www.tiktok.com/aweme/v1/play/?faid=1988&file_id=209bbc66d6974df3904ccc3b928171ac&is_play_url=1&item_id=7636206423080226070&line=0&ply_type=2&signaturev3=dmlkZW9faWQ7ZmlsZV9pZDtpdGVtX2lkLjMxNTAxNjgzOGM2OWU0YTc1YTNkM2RjNTE3NzRlZmM2&tk=tt_chain_token&video_id=v24044gl0000d7sk0tnog65n0c0vab90"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "Executive Conclusion",
+      "instruction": "State the core winning pattern shared by the top videos.",
+      "paragraphs": [
+        "这批 TikTok 爆款深拆现在已经更接近 Clipcat 文档里的平台闭环：先搜候选，再按带货与点赞规则缩成短名单，最后直接进入逐条深拆。",
+        "候选池规模：3 | 达标视频数：3",
+        "短名单规则：先搜 10 条，当前无强带货候选，按综合分与点赞共同排序取 Top 3 深拆",
+        "头部样本主题：#foryou, #foryoupage, #catlover, #cartoon",
+        "头部样本钩子：#foryou #foryoupage #catlover #cartoon #kitten"
+      ],
+      "bullets": [
+        "头部样本权威信号：orangecat0088（未认证） - orange cat videos upload",
+        "头部样本应该拆它的钩子、证明链和权威替代逻辑，而不是照搬字面外壳。",
+        "已检测到 Scene 02 巡检交接：当前有 3 条候选正按巡检优先级进入深拆。"
+      ],
+      "numbered": [],
+      "table": {
+        "title": "",
+        "headers": [],
+        "rows": []
+      },
+      "evidence_refs": []
+    },
+    {
+      "heading": "Structure Logic",
+      "instruction": "Show how the top candidates were ranked and selected.",
+      "paragraphs": [],
+      "bullets": [],
+      "numbered": [],
+      "table": {
+        "title": "Shortlist",
+        "headers": [
+          "Rank",
+          "Video",
+          "Hook",
+          "Proof",
+          "Conversion Signal",
+          "Commerce Signal",
+          "Why It Made Top Set"
+        ],
+        "rows": [
+          [
+            "P1",
+            "https://www.tiktok.com/@orangecat0088/video/7636206423080226070",
+            "#foryou #foryoupage #catlover #cartoon #kitten",
+            "创作者 / 品牌语境背书",
+            "点赞=2610 / 评论=0 / 分享=62 | 商业置信度=0 | 购物车信号=未检测到",
+            "High-likes candidate for deeper teardown",
+            "立即深拆"
+          ],
+          [
+            "P2",
+            "https://www.tiktok.com/@usatiktoker23/video/7636373657828347158",
+            "SuperCat Papa #kitten #catvideo #storycat #cutecat #orangecat",
+            "创作者 / 品牌语境背书",
+            "点赞=1194 / 评论=18 / 分享=40 | 商业置信度=0 | 购物车信号=未检测到",
+            "High-likes candidate for deeper teardown",
+            "立即深拆"
+          ],
+          [
+            "P3",
+            "https://www.tiktok.com/@aicatstories44/video/7636137611576282399",
+            "sad cat #ai #aicat #aicatfunnyvideo #orangecat",
+            "以包装驱动为主，未恢复出强权威线索",
+            "点赞=606 / 评论=12 / 分享=29 | 商业置信度=0 | 购物车信号=未检测到",
+            "Top-ranked fallback candidate",
+            "立即深拆"
+          ]
+        ]
+      },
+      "evidence_refs": []
+    },
+    {
+      "heading": "Core Mechanism",
+      "instruction": "Break down each selected video using the same lens.",
+      "paragraphs": [
+        "逐条深拆必须同时保留 4 块：脚本全文 / 关键句、时间轴节奏、证明装置、最终可执行创作建议。",
+        "如果 caption 或脚本证据仍偏薄，这一行就该被标记为弱样本，而不是直接升格成共性规律。"
+      ],
+      "bullets": [
+        "时间轴默认按 4 段展开：开头钩子 / 主题铺垫 / 证明段 / 软收口。",
+        "脚本文本不够时，也要尽量保留当前能恢复出的完整 caption 或主题线索，别只剩一句抽象总结。",
+        "后续创作建议必须对应到时间轴，而不是只给泛化结论。"
+      ],
+      "numbered": [],
+      "table": {
+        "title": "Per-Video Breakdown Grid",
+        "headers": [
+          "Video",
+          "Opening Hook",
+          "Full Script / Key Lines",
+          "Time-Axis Rhythm",
+          "Proof Device",
+          "CTA / Close",
+          "Main Reuse Value"
+        ],
+        "rows": [
+          [
+            "https://www.tiktok.com/@orangecat0088/video/7636206423080226070",
+            "#foryou #foryoupage #catlover #cartoon #kitten",
+            "#foryou #foryoupage #catlover #cartoon #kitten ...",
+            "00:00-00:03 #foryou #foryoupage #catlover #cartoon #kitten | 00:03-00:08 #foryou, #foryoupage, #catlover, #cartoon | 00:08-00:14 创作者 / 品牌语境背书 | 00:14-00:20 软收口延续",
+            "orangecat0088（未认证） - orange cat videos upload",
+            "#foryou, #foryoupage, #catlover, #cartoon",
+            "保留识别优先的包装逻辑，再用自有素材重写证明层。"
+          ],
+          [
+            "https://www.tiktok.com/@usatiktoker23/video/7636373657828347158",
+            "SuperCat Papa #kitten #catvideo #storycat #cutecat #orangecat",
+            "SuperCat Papa #kitten #catvideo #storycat #cutecat #orangecat",
+            "00:00-00:03 SuperCat Papa #kitten #catvideo #storycat #cutecat... | 00:03-00:08 SuperCat Papa | 00:08-00:14 创作者 / 品牌语境背书 | 00:14-00:20 软收口延续",
+            "usatiktoker23（未认证）",
+            "#kitten, #catvideo, #storycat, #cutecat",
+            "保留识别优先的包装逻辑，再用自有素材重写证明层。"
+          ],
+          [
+            "https://www.tiktok.com/@aicatstories44/video/7636137611576282399",
+            "sad cat #ai #aicat #aicatfunnyvideo #orangecat",
+            "sad cat #ai #aicat #aicatfunnyvideo #orangecat",
+            "00:00-00:03 sad cat #ai #aicat #aicatfunnyvideo #orangecat | 00:03-00:08 sad cat | 00:08-00:14 以包装驱动为主，未恢复出强权威线索 | 00:14-00:20 软收口延续",
+            "aicatstories44（未认证）",
+            "#ai, #aicat, #aicatfunnyvideo, #orangecat",
+            "保留识别优先的包装逻辑，再用自有素材重写证明层。"
+          ]
+        ]
+      },
+      "evidence_refs": [
+        {
+          "source_type": "video",
+          "source_id": "candidate-1",
+          "source_url": "paste-video-link",
+          "time_range": "00:00-00:03",
+          "excerpt": "Hook and first proof beat from the top-ranked video.",
+          "supports": "Per-video hook breakdown"
+        },
+        {
+          "source_type": "transcript",
+          "source_id": "candidate-1-script",
+          "source_url": "paste-transcript-source",
+          "time_range": "00:00-00:12",
+          "excerpt": "Recovered caption or subtitle lines supporting the time-axis rhythm.",
+          "supports": "Full script / key lines"
+        }
+      ]
+    },
+    {
+      "heading": "Reusable Formula",
+      "instruction": "Turn the shared pattern into direct creation guidance.",
+      "paragraphs": [
+        "共性规律不是单条视频摘要，而是把多个 shortlisted 视频里反复出现的开头、证明和收口组织方式抽出来。",
+        "最终写法要能直接指导新脚本，不是只适合做研究备忘录。"
+      ],
+      "bullets": [],
+      "numbered": [],
+      "table": {
+        "title": "Creation Rules",
+        "headers": [
+          "Element",
+          "Observed Pattern",
+          "How To Reuse It",
+          "What Not To Copy Blindly",
+          "Evidence Ref"
+        ],
+        "rows": [
+          [
+            "开头钩子",
+            "沿用让人一眼看懂的首句识别信号",
+            "保留首句承诺，但把原视频的人 / 物 / 主题替换成自有版本",
+            "不要用泛化铺垫开场",
+            "https://www.tiktok.com/@orangecat0088/video/7636206423080226070"
+          ],
+          [
+            "证明段",
+            "用权威、出镜人或可识别社会线索承接证明",
+            "把借来的账号势能换成自有证明物、创作者或使用场景",
+            "证明太弱，整套结构就会塌",
+            "https://www.tiktok.com/@orangecat0088/video/7636206423080226070"
+          ],
+          [
+            "包装方式",
+            "文案保持短、原生、主题一眼可懂",
+            "保留压缩后的主题 cue，减少解释性废话",
+            "解释过多会把结构拉平",
+            "https://www.tiktok.com/@orangecat0088/video/7636206423080226070"
+          ],
+          [
+            "软收口 / CTA",
+            "优先用延续式收口或下一次点击引导",
+            "更适合引导继续看、收藏、去主页，而不是硬卖",
+            "强转化 CTA 可能破坏原生适配",
+            "https://www.tiktok.com/@orangecat0088/video/7636206423080226070"
+          ]
+        ]
+      },
+      "evidence_refs": [
+        {
+          "source_type": "video",
+          "source_id": "candidate-1",
+          "source_url": "paste-video-link",
+          "time_range": "00:00-00:02",
+          "excerpt": "Opening reveal pattern reused across the strongest shortlisted videos.",
+          "supports": "Hook formula"
+        },
+        {
+          "source_type": "video",
+          "source_id": "candidate-2",
+          "source_url": "paste-video-link",
+          "time_range": "00:03-00:08",
+          "excerpt": "Proof-beat structure that repeats without relying on the same product.",
+          "supports": "Proof formula"
+        }
+      ]
+    },
+    {
+      "heading": "Risks And Adaptation Notes",
+      "instruction": "Explain where false copying would fail.",
+      "paragraphs": [],
+      "bullets": [
+        "认证账号或大号势能可能抬高表现，必须和可迁移的包装逻辑拆开看。",
+        "这份采集包缺评论样本，所以人群语言相关结论只能弱持有。",
+        "如果某条候选缺 caption 文本，这一行就应视为深拆证据更弱的样本。"
+      ],
+      "numbered": [],
+      "table": {
+        "title": "",
+        "headers": [
+          "Risk Area",
+          "Why It Can Mislead",
+          "What To Check Before Reuse"
+        ],
+        "rows": [
+          [
+            "Authority inflation",
+            "https://www.tiktok.com/@orangecat0088/video/7636206423080226070",
+            "Check whether the format still works after removing verified-account or featured-person lift."
+          ],
+          [
+            "Thin caption recovery",
+            "https://www.tiktok.com/@usatiktoker23/video/7636373657828347158",
+            "If the hook text is thin, require screenshot, subtitle, or downloaded metadata before overlearning structure."
+          ],
+          [
+            "Topic overfit",
+            "Shortlist-level pattern",
+            "Preserve the packaging move, but rewrite the topic and proof lane before calling the format reusable."
+          ]
+        ]
+      },
+      "evidence_refs": []
+    },
+    {
+      "heading": "Next Action",
+      "instruction": "Leave a concrete next production move.",
+      "paragraphs": [
+        "下一步不是重新搜更多视频，而是把当前 shortlist 的脚本全文、时间轴与证明段先拆完整，再进入改写与生产。"
+      ],
+      "bullets": [],
+      "numbered": [
+        "先把 https://www.tiktok.com/@orangecat0088/video/7636206423080226070 做成主控深拆样本，完整补齐脚本、时间轴和证明链。",
+        "第二条作为备选 hook / 主题对照线，避免团队只围着单一赢家过拟合。",
+        "第三条保留为反例或低权威对照样本，验证这套包装离开账号势能后是否仍成立。"
+      ],
+      "table": {
+        "title": "",
+        "headers": [
+          "Output Block",
+          "What Must Be Delivered",
+          "Who Uses It Next"
+        ],
+        "rows": [
+          [
+            "优先深拆 1",
+            "https://www.tiktok.com/@orangecat0088/video/7636206423080226070",
+            "钩子 / 包装拆解",
+            "运营 / 策略"
+          ],
+          [
+            "优先深拆 2",
+            "https://www.tiktok.com/@usatiktoker23/video/7636373657828347158",
+            "钩子 / 包装拆解",
+            "运营 / 策略"
+          ],
+          [
+            "优先深拆 3",
+            "https://www.tiktok.com/@aicatstories44/video/7636137611576282399",
+            "钩子 / 包装拆解",
+            "运营 / 策略"
+          ]
+        ]
+      },
+      "evidence_refs": []
+    }
+  ],
+  "assets": [
+    {
+      "label": "aggregate_report.md",
+      "path": "aggregate_report.md",
+      "note": "真实 TikTok capture pack 的汇总 Markdown 报告。"
+    },
+    {
+      "label": "patrol_snapshot.json",
+      "path": "patrol_snapshot.json",
+      "note": "Scene 02 标准化巡检快照。"
+    },
+    {
+      "label": "patrol_delta.json",
+      "path": "patrol_delta.json",
+      "note": "Scene 02 相对上一轮的快照差异。"
+    },
+    {
+      "label": "patrol_alerts.json",
+      "path": "patrol_alerts.json",
+      "note": "Scene 02 基于巡检差异得出的告警决策。"
+    },
+    {
+      "label": "scene03_candidates.json",
+      "path": "scene03_candidates.json",
+      "note": "Scene 02 巡检后交给 Scene 03 的短名单。"
+    },
+    {
+      "label": "patrol_config.json",
+      "path": "patrol_config.json",
+      "note": "本轮使用的 Scene 02 巡检配置。"
+    },
+    {
+      "label": "Cover / key frame source",
+      "path": "https://p16-common-sign.tiktokcdn.com/tos-no1a-p-0037-no/oAAAyFD4HevfDgzArf8FUgE7AIE7LHAQ1T6bIY~tplv-tiktokx-origin.image?dr=14575&x-expires=1778184000&x-signature=1EW6gjL%2BYAmcd11up2OJX6rVfW8%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=sg1",
+      "note": "Recovered cover image URL that can support frame review or first-frame comparison."
+    }
+  ],
+  "notes": [
+    "Primary teardown control: https://www.tiktok.com/@orangecat0088/video/7636206423080226070 | #foryou #foryoupage #catlover #cartoon #kitten | 2610 点赞，55700 播放，62 分享.",
+    "Contrast reference: https://www.tiktok.com/@usatiktoker23/video/7636373657828347158 | 钩子 / 包装拆解 | 1194 点赞，49600 播放，40 分享，18 评论.",
+    "Patrol handoff: 3 prioritized candidate(s) entered Scene 03 from the standing patrol queue.",
+    "Adaptation rule: preserve the recognition-first hook, then swap borrowed authority for owned proof, owned talent, or owned product context."
+  ],
+  "sources": [
+    "aggregate_summary.json",
+    "aggregate_ranked_videos.json",
+    "https://www.tiktok.com/@orangecat0088/video/7636206423080226070"
+  ]
+}

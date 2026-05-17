@@ -8,13 +8,15 @@ import subprocess
 import sys
 from datetime import datetime
 from pathlib import Path
+from feishu_push_runtime import maybe_push_feishu_bundle
+from text_normalization import write_json_file, write_utf8_text
 
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Run a real TikTok capture-pack end-to-end into scene-report JSON, rendered outputs, and optional derived operator packs."
     )
-    parser.add_argument("--scene", required=True, help="Scene id or slug. Supported by current importer: 01, 03, 07, 08, 09, 11, 12, 13, 14, 15, 16, 17, 18, 19, and auto.")
+    parser.add_argument("--scene", required=True, help="Scene id or slug. Supported by current importer: 01, 02, 03, 04, 05, 07, 08, 09, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, and auto.")
     parser.add_argument("--capture-root", required=True, help="Real TikTok capture-pack directory.")
     parser.add_argument("--name", required=True, help="Short run name.")
     parser.add_argument("--project", required=True, help="Project title.")
@@ -31,8 +33,13 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--operator-packs",
         default="",
-        help="Optional comma-separated operator packs: publish-prep, live-assist, creative-production-handoff.",
+        help="Optional comma-separated operator packs: publish-prep, live-assist, creative-production-handoff, account-ops-assist.",
     )
+    parser.add_argument("--push-feishu", action="store_true", help="After generating the run, also push the report to Feishu.")
+    parser.add_argument("--feishu-app-id", default="", help="Optional explicit Feishu app ID.")
+    parser.add_argument("--feishu-app-secret", default="", help="Optional explicit Feishu app secret.")
+    parser.add_argument("--feishu-title", default="", help="Optional explicit Feishu Doc title.")
+    parser.add_argument("--feishu-base-name", default="", help="Optional explicit Feishu Bitable app name.")
     return parser.parse_args()
 
 
@@ -53,7 +60,7 @@ def create_run_root(skill_root: Path, scene: str, name: str, output_root: str) -
 
 
 def parse_operator_packs(raw: str) -> list[str]:
-    allowed = {"publish-prep", "live-assist", "creative-production-handoff"}
+    allowed = {"publish-prep", "live-assist", "creative-production-handoff", "account-ops-assist"}
     values = [item.strip().lower() for item in raw.split(",") if item.strip()]
     invalid = [item for item in values if item not in allowed]
     if invalid:
@@ -68,36 +75,84 @@ def parse_operator_packs(raw: str) -> list[str]:
 def default_operator_packs(scene_id: str) -> list[str]:
     if scene_id == "08":
         return ["live-assist"]
-    if scene_id in {"09", "10", "11", "12", "13", "14", "15", "16", "17"}:
-        if scene_id in {"09", "10", "11", "12", "13", "14", "15", "16"}:
-            return ["publish-prep", "creative-production-handoff"]
+    if scene_id in {"09", "10", "11", "12", "13", "14", "15", "16"}:
+        return ["publish-prep", "creative-production-handoff"]
+    if scene_id == "17":
         return ["publish-prep"]
     return []
 
 
 def write_readme(run_root: Path, scene: str, capture_root: Path, report_json: Path, outputs_dir: Path, operator_pack_results: list[dict]) -> None:
-    content = f"""# Capture Pack Run
+    content = f"""# Capture Pack 真实运行
 
-## Inputs
+## 输入信息
 
-- scene: {scene}
-- capture pack: `{capture_root}`
-- report json: `{report_json.name}`
-- outputs dir: `{outputs_dir.name}`
+- 场景：{scene}
+- 采集包：`{capture_root}`
+- 报告 JSON：`{report_json.name}`
+- 输出目录：`{outputs_dir.name}`
 """
     if operator_pack_results:
-        content += "\n## Derived Operator Packs\n\n"
+        content += "\n## 派生的 Operator 交付包\n\n"
         for item in operator_pack_results:
             content += f"- {item['type']}: `{Path(item['output_path']).name}`\n"
     content += """
 
-## Flow
+## 运行流程
 
-1. Import the capture pack into a structured scene-report JSON.
-2. Render the report into md/docx/xlsx outputs.
-3. Generate any requested operator packs from the imported scene report.
+1. 先把采集包导入成结构化的 scene-report JSON。
+2. 再把报告渲染成 `md/docx/xlsx` 成品。
+3. 如有需要，再从已导入的场景报告继续生成 operator 交付包。
 """
-    (run_root / "README.md").write_text(content, encoding="utf-8-sig")
+    write_utf8_text(run_root / "README.md", content)
+
+
+def scene02_follow_on_scene03(
+    scripts_root: Path,
+    run_root: Path,
+    capture_root: Path,
+    project: str,
+    platform: str,
+    market: str,
+    formats: str,
+) -> dict | None:
+    scene03_candidates = capture_root / "scene03_candidates.json"
+    if not scene03_candidates.exists():
+        return None
+    try:
+        candidates = json.loads(scene03_candidates.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return None
+    if not isinstance(candidates, list) or not candidates:
+        return None
+
+    scene03_run_root = run_root / "scene-03-from-patrol"
+    scene03_name = "patrol-scene03-handoff"
+    scene03_project = f"{project} - Scene 03 Patrol Handoff"
+    scene03_result = run_python(
+        scripts_root / "start_capture_pack_run.py",
+        [
+            "--scene",
+            "03",
+            "--capture-root",
+            str(capture_root),
+            "--name",
+            scene03_name,
+            "--project",
+            scene03_project,
+            "--platform",
+            platform,
+            "--market",
+            market,
+            "--output-root",
+            str(scene03_run_root),
+            "--formats",
+            formats,
+        ],
+    )
+    parsed = json.loads(scene03_result.stdout)
+    parsed["trigger"] = "scene02_patrol_handoff"
+    return parsed
 
 
 def create_capture_pack_run(
@@ -195,6 +250,20 @@ def create_capture_pack_run(
         parsed["type"] = pack_type
         operator_pack_results.append(parsed)
 
+    chained_runs: list[dict] = []
+    if scene == "02":
+        chained = scene02_follow_on_scene03(
+            scripts_root=scripts_root,
+            run_root=run_root,
+            capture_root=capture_root,
+            project=project,
+            platform=platform,
+            market=market,
+            formats=formats,
+        )
+        if chained:
+            chained_runs.append(chained)
+
     manifest = {
         "created_at": datetime.now().isoformat(timespec="seconds"),
         "scene": scene,
@@ -204,9 +273,10 @@ def create_capture_pack_run(
         "report_json": str(report_json),
         "render_outputs": json.loads(render_result.stdout),
         "operator_packs": operator_pack_results,
+        "chained_runs": chained_runs,
         "import_stdout": import_result.stdout.strip(),
     }
-    (run_root / "run_manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8-sig")
+    write_json_file(run_root / "run_manifest.json", manifest)
     write_readme(run_root, scene, capture_root, report_json, outputs_dir, operator_pack_results)
 
     return {
@@ -214,6 +284,7 @@ def create_capture_pack_run(
         "report_json": str(report_json),
         "outputs_dir": str(outputs_dir),
         "operator_packs": operator_pack_results,
+        "chained_runs": chained_runs,
     }
 
 
@@ -232,6 +303,14 @@ def main() -> None:
         formats=args.formats,
         operator_packs_raw=args.operator_packs,
     )
+    if args.push_feishu:
+        result["feishu_push"] = maybe_push_feishu_bundle(
+            result["report_json"],
+            args.feishu_app_id,
+            args.feishu_app_secret,
+            title=args.feishu_title.strip() or args.project,
+            base_name=args.feishu_base_name.strip() or args.project,
+        )
     print(json.dumps(result, ensure_ascii=False, indent=2))
 
 

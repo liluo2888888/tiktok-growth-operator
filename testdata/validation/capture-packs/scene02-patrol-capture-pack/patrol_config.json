@@ -1,0 +1,13 @@
+{
+  "category": "Orange Cat",
+  "market": "US",
+  "cadence": "daily",
+  "queries": [
+    "orange cat"
+  ],
+  "topics": [
+    "orangecat"
+  ],
+  "min_likes": 1000,
+  "shortlist_count": 5
+}

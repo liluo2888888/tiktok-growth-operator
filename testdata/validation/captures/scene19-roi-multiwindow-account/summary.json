@@ -1,0 +1,23 @@
+{
+  "checked_at": "2026-05-10T12:20:00+00:00",
+  "platform": "tiktok",
+  "reachable": true,
+  "session_quality": "fixture_self_account_roi_multiwindow",
+  "profile_url": "https://www.tiktok.com/@ownerglowlab",
+  "profile_final_url": "https://www.tiktok.com/@ownerglowlab",
+  "profile_title": "Owner Glow Lab - TikTok",
+  "browser_mode": true,
+  "browser_same_origin_api_mode": false,
+  "api_mode": false,
+  "profile_count": 1,
+  "detail_collected_count": 6,
+  "ranked_video_count": 6,
+  "qualified_video_count": 3,
+  "comment_sampled_video_count": 4,
+  "video_download_success_count": 2,
+  "notes": [
+    "Durable Scene 19 fixture with two publish windows and explicit conversion-proxy / ROI-proxy hints.",
+    "High-performing rows skew toward founder-proof and proof-object demos.",
+    "Lower-performing rows skew toward aesthetic montage and slow explainer modes."
+  ]
+}
