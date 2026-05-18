@@ -22,7 +22,7 @@
         "优先级",
         "证据等级"
       ],
-      "last_append_at": "2026-05-18T10:32:28",
+      "last_append_at": "2026-05-18T16:14:31",
       "last_append_scope": "oneclick-smoke-20260518",
       "last_record_count": 3
     }
@@ -36,6 +36,12 @@
     },
     {
       "at": "2026-05-18T10:32:28",
+      "table_key": "scene18_competitor_weekly",
+      "record_count": 3,
+      "append_scope": "oneclick-smoke-20260518"
+    },
+    {
+      "at": "2026-05-18T16:14:31",
       "table_key": "scene18_competitor_weekly",
       "record_count": 3,
       "append_scope": "oneclick-smoke-20260518"

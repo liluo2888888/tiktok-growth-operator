@@ -1,13 +1,13 @@
 {
-  "source": "http",
-  "product_count": 1,
-  "updated_at": "2026-05-18T15:57:52",
+  "source": "verified_http",
+  "product_count": 2,
+  "updated_at": "2026-05-18T16:16:42",
   "keyword": "beauty",
   "region": "US",
-  "limit": 5,
-  "source_attestation": "unverified",
-  "require_verified_source": false,
-  "require_source_metadata": false,
+  "limit": 10,
+  "source_attestation": "official",
+  "require_verified_source": true,
+  "require_source_metadata": true,
   "status": "ok",
   "provider": "http",
   "response_source": {
@@ -15,7 +15,15 @@
     "provider": "tiktok_shop_open_platform",
     "auth_mode": "merchant_oauth",
     "issuer": "tiktok",
-    "gateway_id": "mock-gateway"
+    "gateway_id": "shop-gateway-v1",
+    "api_family": "partner_center_mock",
+    "scopes": [],
+    "fetched_at": "2026-05-18T08:16:42Z"
   },
-  "gateway_url": "http://127.0.0.1:56048"
+  "gateway_url": "http://127.0.0.1:8791",
+  "source_metadata_validation": {
+    "ok": true,
+    "errors": [],
+    "required_for_attestation": "official"
+  }
 }

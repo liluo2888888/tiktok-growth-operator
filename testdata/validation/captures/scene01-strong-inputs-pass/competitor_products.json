@@ -1,13 +1,24 @@
 [
   {
-    "product_id": "mock-sku-1",
-    "title": "Mock Shop Product",
+    "product_id": "partner-mock-1001",
+    "title": "Partner Mock Velvet Lip Glaze",
     "platform": "TikTok Shop",
-    "price": "19.99",
-    "rating": "4.7",
-    "review_count": "321",
-    "sales_signal": "mock-rising",
-    "url": "https://shop.example.com/mock-1",
+    "price": "17.99",
+    "rating": "待补",
+    "review_count": "待补",
+    "sales_signal": "ACTIVATE",
+    "url": "https://www.tiktok.com/shop/pdp/partner-mock-1001",
+    "evidence_source": "http_shop_api"
+  },
+  {
+    "product_id": "partner-mock-1002",
+    "title": "Partner Mock Hydrating Serum",
+    "platform": "TikTok Shop",
+    "price": "23.50",
+    "rating": "待补",
+    "review_count": "待补",
+    "sales_signal": "ACTIVATE",
+    "url": "https://www.tiktok.com/shop/pdp/partner-mock-1002",
     "evidence_source": "http_shop_api"
   }
 ]

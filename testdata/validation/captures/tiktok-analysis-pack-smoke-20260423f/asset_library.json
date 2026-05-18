@@ -184,6 +184,30 @@
       "note": "Feishu 式创作者公式主表真源",
       "scene_origin": "17",
       "registered_at": "2026-05-18T08:37:47"
+    },
+    {
+      "kind": "report_artifact",
+      "label": "Scene 01 采集看板 JSON",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\tiktok-analysis-pack-smoke-20260423f\\collection_board.json",
+      "note": "Feishu 式主表真源",
+      "scene_origin": "01",
+      "registered_at": "2026-05-18T16:27:45"
+    },
+    {
+      "kind": "report_artifact",
+      "label": "Scene 01 采集看板 XLSX",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\tiktok-analysis-pack-smoke-20260423f\\collection_board.xlsx",
+      "note": "可直接导入多维表 / 飞书",
+      "scene_origin": "01",
+      "registered_at": "2026-05-18T16:27:45"
+    },
+    {
+      "kind": "report_artifact",
+      "label": "Scene 01 operator schedule",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\tiktok-analysis-pack-smoke-20260423f\\operator_schedule_scene_1.json",
+      "note": "推送/定时调度真源，可对接 deliver_operator_run --adapter feishu",
+      "scene_origin": "01",
+      "registered_at": "2026-05-18T16:27:45"
     }
   ],
   "carry_forward": [
@@ -193,5 +217,5 @@
     "production_spec_handoff",
     "collection_board"
   ],
-  "updated_at": "2026-05-18T15:57:43"
+  "updated_at": "2026-05-18T16:27:52"
 }
