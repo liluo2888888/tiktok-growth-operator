@@ -1,7 +1,7 @@
 {
   "source": "verified_http",
   "product_count": 1,
-  "updated_at": "2026-05-18T00:02:22",
+  "updated_at": "2026-05-18T15:57:52",
   "keyword": "beauty",
   "region": "US",
   "limit": 10,
@@ -17,7 +17,7 @@
     "issuer": "tiktok",
     "gateway_id": "mock-gateway"
   },
-  "gateway_url": "http://127.0.0.1:61881",
+  "gateway_url": "http://127.0.0.1:56025",
   "source_metadata_validation": {
     "ok": true,
     "errors": [],

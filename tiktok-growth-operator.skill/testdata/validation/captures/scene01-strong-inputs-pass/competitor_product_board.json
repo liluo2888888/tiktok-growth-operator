@@ -1,6 +1,6 @@
 {
   "schema_version": "competitor-product-board-v1",
-  "data_source_mode": "tiktok_shop_structured",
+  "data_source_mode": "tiktok_shop_unverified_http",
   "headers": [
     "商品 ID",
     "商品名",
@@ -14,28 +14,17 @@
   ],
   "rows": [
     [
-      "fixture-velvet-lip-glaze-01",
-      "Velvet Lip Glaze - Rose Nude",
+      "mock-sku-1",
+      "Mock Shop Product",
       "TikTok Shop",
-      "18.99",
-      "4.6",
-      "842",
-      "rising-in-category",
-      "https://www.tiktok.com/shop/pdp/velvet-lip-glaze-rose-nude",
-      "structured_fixture"
-    ],
-    [
-      "fixture-hydrating-serum-02",
-      "Hydrating Barrier Serum 30ml",
-      "TikTok Shop",
-      "24.50",
-      "4.8",
-      "1204",
-      "stable-top-seller",
-      "https://www.tiktok.com/shop/pdp/hydrating-barrier-serum-30ml",
-      "structured_fixture"
+      "19.99",
+      "4.7",
+      "321",
+      "mock-rising",
+      "https://shop.example.com/mock-1",
+      "http_shop_api"
     ]
   ],
-  "product_source": "structured_fixture",
-  "row_count": 2
+  "product_source": "http",
+  "row_count": 1
 }

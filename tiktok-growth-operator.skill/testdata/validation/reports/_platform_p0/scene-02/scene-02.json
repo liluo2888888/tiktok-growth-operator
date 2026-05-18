@@ -6,7 +6,7 @@
     "project": "Platform P0 Validation",
     "title": "Scene 02 Report - Platform P0 Validation",
     "deliverable_type": "collection_board",
-    "generated_at": "2026-05-18T10:28:28",
+    "generated_at": "2026-05-18T15:56:43",
     "scenario_file": "scenarios/02-daily-category-patrol.md",
     "status": "imported"
   },
@@ -727,7 +727,7 @@
   "operator_schedule": {
     "schema_version": "operator-schedule-v1",
     "scene": "2",
-    "generated_at": "2026-05-18T10:28:28",
+    "generated_at": "2026-05-18T15:56:43",
     "append_scope": "Orange Cat::US::daily",
     "delivery": {
       "local_bundle": true,
@@ -1074,6 +1074,6 @@
       "production_spec_handoff",
       "collection_board"
     ],
-    "updated_at": "2026-05-18T10:28:28"
+    "updated_at": "2026-05-18T15:56:43"
   }
 }

@@ -473,6 +473,49 @@
           "https://example.com/mock-render.mp4"
         ]
       }
+    },
+    "gen-09-20260518155755-61b7fb": {
+      "job_id": "gen-09-20260518155755-61b7fb",
+      "scene_id": "09",
+      "project": "integration-test",
+      "status": "succeeded",
+      "created_at": "2026-05-18T15:57:55",
+      "updated_at": "2026-05-18T15:57:55",
+      "backend_hint": "sora",
+      "backend_options": [
+        "manual_edit",
+        "sora",
+        "veo"
+      ],
+      "brief_summary": "mock brief",
+      "artifact_links": [
+        "https://example.com/mock-render.mp4"
+      ],
+      "poll": {
+        "interval_s": 30,
+        "max_attempts": 120,
+        "strategy": "read_local_artifact_manifest"
+      },
+      "submission": {
+        "required_fields": [
+          "brief_summary",
+          "shot_list",
+          "asset_requirements"
+        ],
+        "note": "Final renderer API is pluggable; job stays pending until artifacts.json is supplied or status is updated."
+      },
+      "external_job_id": "ext-gen-09-20260518155755-61b7fb",
+      "renderer_provider": "http",
+      "renderer_response": {
+        "external_job_id": "ext-gen-09-20260518155755-61b7fb",
+        "status": "submitted"
+      },
+      "poll_response": {
+        "status": "succeeded",
+        "artifact_links": [
+          "https://example.com/mock-render.mp4"
+        ]
+      }
     }
   }
 }

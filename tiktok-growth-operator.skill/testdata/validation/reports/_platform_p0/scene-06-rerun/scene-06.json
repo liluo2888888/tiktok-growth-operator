@@ -6,7 +6,7 @@
     "project": "Platform P0 Validation",
     "title": "Scene 06 Report - Platform P0 Validation",
     "deliverable_type": "collection_board",
-    "generated_at": "2026-05-18T10:28:30",
+    "generated_at": "2026-05-18T15:56:44",
     "scenario_file": "scenarios/06-competitor-product-dashboard.md",
     "status": "imported"
   },
@@ -546,7 +546,7 @@
   "operator_schedule": {
     "schema_version": "operator-schedule-v1",
     "scene": "6",
-    "generated_at": "2026-05-18T10:28:30",
+    "generated_at": "2026-05-18T15:56:44",
     "append_scope": "2026-05-18",
     "delivery": {
       "local_bundle": true,
@@ -703,6 +703,6 @@
       "production_spec_handoff",
       "collection_board"
     ],
-    "updated_at": "2026-05-18T10:28:30"
+    "updated_at": "2026-05-18T15:56:44"
   }
 }
