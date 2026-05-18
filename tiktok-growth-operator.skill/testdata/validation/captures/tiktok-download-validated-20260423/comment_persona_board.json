@@ -1,0 +1,48 @@
+{
+  "schema_version": "scene08-comment-persona-board-v1",
+  "headers": [
+    "聚类类型",
+    "主题",
+    "运营落点",
+    "代表原话",
+    "回复压力",
+    "样本说明",
+    "优先级",
+    "负责人"
+  ],
+  "rows": [
+    [
+      "定位话术",
+      "购买因素待补",
+      "卖点 / 首屏承诺",
+      "",
+      "",
+      "视频数=3",
+      "高",
+      "content / operator"
+    ],
+    [
+      "异议处理",
+      "AI 控制 / 隐私顾虑",
+      "FAQ / 客服 / 评论区",
+      "Give us a master switch off for AI remix. You can’t make us go back through ever",
+      "",
+      "视频数=3",
+      "高",
+      "content / operator"
+    ],
+    [
+      "信任背书",
+      "认证 / 可信度",
+      "证明段 / 对比镜头",
+      "Yet she’s still not verified",
+      "",
+      "视频数=3",
+      "高",
+      "content / operator"
+    ]
+  ],
+  "row_count": 3,
+  "append_scope_key": "scene08-3-videos",
+  "sampled_video_count": 3
+}

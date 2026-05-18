@@ -40,7 +40,7 @@ Track known issues that are real but not yet worth fixing immediately.
 - Evidence: `direct-use.md`, `automation-workflows.md`, and `final-handoff.md` intentionally overlap on entrypoints and validation commands to stay usable from multiple paths
 - Risk: low
 - Suggested fix: if the reference set grows further, extract one compact command index and let the others point to it instead of repeating command blocks
-- Status: planned
+- Status: fixed
 
 ## 2026-05-05 - Batch validation does not yet exercise board execution
 - Area: `tiktok-growth-operator.skill/scripts/validate_all_workflows.py`
@@ -81,3 +81,35 @@ Track known issues that are real but not yet worth fixing immediately.
 - Risk: medium
 - Suggested fix: keep growing the fixture set with real operator requests whenever routing rules change, instead of adding ad hoc one-off assertions only in validator code
 - Status: fixed
+
+## 2026-05-07 - Platform-parity gaps are now external boundaries, not package ambiguities
+- Area: `tiktok-growth-operator.skill/references/clipcat-openclaw-parity-audit.md`
+- Type: boundary
+- Evidence: scenes `02` and `06`, final media rendering, delivery pushes, and privileged account mutation still depend on source-platform credentials, render backends, or external integrations rather than missing package templates
+- Risk: low
+- Suggested fix: keep these gaps labeled as external boundaries in parity docs instead of letting them drift back into ambiguous “unfinished feature” status
+- Status: fixed
+
+## 2026-05-08 - Validation fixtures still depend on mutable temp outputs
+- Area: `tiktok-growth-operator.skill/scripts/validate_export_outputs.py`, `tiktok-growth-operator.skill/scripts/validate_capture_pack_workflows.py`
+- Type: test-gap
+- Evidence: this started as a real gap when validators still depended on `tiktok-growth-operator.skill/tmp/*` historical runs and external `E:\tiktok\TikMatrix\tmp\...` roots; as of May 8, 2026, the remaining Scene `02` patrol validation path was moved to package-owned `testdata/validation/tikmatrix/*`, and the current green validator surface is now driven by package-owned fixtures first
+- Risk: low
+- Suggested fix: optional next cleanup is to document the fixture inventory under `testdata/validation/` and further reduce validator writes into `tmp/` during execution, but no functional dependency on external mutable roots remains
+- Status: fixed
+
+## 2026-05-08 - Historical tmp retention policy was implicit
+- Area: `tiktok-growth-operator.skill/references/tmp-retention-policy.md`, `tiktok-growth-operator.skill/testdata/validation/README.md`
+- Type: stale-doc
+- Evidence: validator runtimes had already moved to `.codex-tmp/tgo-validate-*`, but the package still lacked one explicit rule set distinguishing disposable validator roots from historical parity-evidence roots under `tiktok-growth-operator.skill/tmp/`
+- Risk: low
+- Suggested fix: publish one package-level tmp retention policy and point validation docs at it so cleanup behavior is documented instead of tribal knowledge
+- Status: fixed
+
+## 2026-05-10 - Root temp-directory retention is still ambiguous
+- Area: workspace root `.codex-tmp/` and root-level `tmp*` directories
+- Type: boundary
+- Evidence: low-risk cleanup safely removed root caches, lock files, and root-level `tmp*` or `_tmp*` files, but `.codex-tmp/` still contained 643 entries spanning validator runs, smoke outputs, exported artifacts, and named scenario checks that may still carry evidence value
+- Risk: medium
+- Suggested fix: document one root-level retention rule that distinguishes disposable validator scratch paths from historical evidence directories, then add an automated cleanup script that only removes the disposable class
+- Status: open

@@ -118,18 +118,28 @@ Key assertions now covered by `validate_all_workflows.py`:
 
 ### Unblock Checklist
 
+双 remote（本机已配置）：
+
+| Remote | URL | 用途 |
+|--------|-----|------|
+| `origin` | `https://github.com/liluo2888888/tiktok-growth-operator.git` | 子树推技能包到 `main` |
+| `playground` | `https://github.com/liluo2888888/playground-4.git` | 推完整 Playground 分支（需先在 GitHub 建空仓库） |
+
 ```powershell
 cd "D:\我的文档\Documents\Playground 4"
 
-# 专用仓库（空仓库已创建）：https://github.com/liluo2888888/tiktok-growth-operator
-git remote set-url origin https://github.com/liluo2888888/tiktok-growth-operator.git
-
-# 仅推送技能包目录到 main（不要把整个 Playground 4 monorepo 推上去）
+# A) 技能包 → tiktok-growth-operator main（仅 skill 目录）
 git subtree split --prefix=tiktok-growth-operator.skill -b tiktok-growth-operator-main
 git push -u origin tiktok-growth-operator-main:main
+
+# B) Playground 整仓分支 → playground-4（先创建仓库：GitHub New repo「playground-4」，不要初始化 README）
+git push -u playground codex/tiktok-growth-operator-finish
+
+# 若 playground-4 尚未创建，也可先把 monorepo 分支推到 tiktok 仓库作备份分支：
+git push -u origin codex/tiktok-growth-operator-finish
 ```
 
-Playground 4 本地已提交 `3412910`（P3）并生成 `tiktok-growth-operator-main` 子树分支；若 push 因网络失败，在你本机终端重跑上面两条 push 命令即可。
+Playground 本地最新：`a68f63c`（`codex/tiktok-growth-operator-finish`）。子树 `main` 已推至 `592b642`；整仓分支 push 若遇 `Connection reset`，在本机网络稳定后重跑 B) 或 `origin` 备份分支命令。推送前可选 `git repack -a -d -f`（对象库约 4GB 松散对象时较慢）。
 
 GitHub 账号：[liluo2888888](https://github.com/liluo2888888) · 仓库：[tiktok-growth-operator](https://github.com/liluo2888888/tiktok-growth-operator)
 

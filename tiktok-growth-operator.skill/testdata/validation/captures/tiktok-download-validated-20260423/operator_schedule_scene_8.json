@@ -1,7 +1,7 @@
 {
   "schema_version": "operator-schedule-v1",
   "scene": "8",
-  "generated_at": "2026-05-18T07:46:43",
+  "generated_at": "2026-05-18T10:29:19",
   "append_scope": "2026-05-18",
   "delivery": {
     "local_bundle": true,
@@ -41,6 +41,8 @@
     }
   ],
   "context": {
-    "shortlist_count": 3
-  }
+    "shortlist_count": 3,
+    "board_row_count": 3
+  },
+  "board_row_count": 3
 }

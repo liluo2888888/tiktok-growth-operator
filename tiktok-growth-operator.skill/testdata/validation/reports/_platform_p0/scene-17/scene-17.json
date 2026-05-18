@@ -6,7 +6,7 @@
     "project": "Platform P0 Validation",
     "title": "Scene 17 Report - Platform P0 Validation",
     "deliverable_type": "breakdown_report",
-    "generated_at": "2026-05-18T08:56:09",
+    "generated_at": "2026-05-18T10:28:31",
     "scenario_file": "scenarios/17-creator-distillation.md",
     "status": "imported"
   },
@@ -828,7 +828,7 @@
   "operator_schedule": {
     "schema_version": "operator-schedule-v1",
     "scene": "17",
-    "generated_at": "2026-05-18T08:56:09",
+    "generated_at": "2026-05-18T10:28:32",
     "append_scope": "2026-05-18",
     "delivery": {
       "local_bundle": true,
@@ -1068,6 +1068,6 @@
       "production_spec_handoff",
       "collection_board"
     ],
-    "updated_at": "2026-05-18T08:56:09"
+    "updated_at": "2026-05-18T10:28:32"
   }
 }

@@ -1362,6 +1362,233 @@
         ],
         "note": "Final renderer API is pluggable; job stays pending until artifacts.json is supplied or status is updated."
       }
+    },
+    "gen-09-20260518102930-8eb0a6": {
+      "job_id": "gen-09-20260518102930-8eb0a6",
+      "scene_id": "09",
+      "project": "TikTok Validation Scene 09 Capture",
+      "status": "pending",
+      "created_at": "2026-05-18T10:29:30",
+      "updated_at": "2026-05-18T10:29:30",
+      "backend_hint": "manual_edit",
+      "backend_options": [
+        "manual_edit",
+        "sora",
+        "veo"
+      ],
+      "brief_summary": "The cleanest replication target in this pack is a recognition-first editorial post that opens from a human or emotional cue, then lets trust and continuation do the rest.",
+      "artifact_links": [],
+      "poll": {
+        "interval_s": 30,
+        "max_attempts": 120,
+        "strategy": "read_local_artifact_manifest"
+      },
+      "submission": {
+        "required_fields": [
+          "brief_summary",
+          "shot_list",
+          "asset_requirements"
+        ],
+        "note": "Final renderer API is pluggable; job stays pending until artifacts.json is supplied or status is updated."
+      }
+    },
+    "gen-10-20260518102931-a3f7c9": {
+      "job_id": "gen-10-20260518102931-a3f7c9",
+      "scene_id": "10",
+      "project": "TikTok Validation Scene 10 Capture",
+      "status": "pending",
+      "created_at": "2026-05-18T10:29:31",
+      "updated_at": "2026-05-18T10:29:31",
+      "backend_hint": "i2v",
+      "backend_options": [
+        "i2v",
+        "sora",
+        "manual_edit"
+      ],
+      "brief_summary": "This real TikTok reference can seed a product-image-to-video brief when the operator preserves the same recognition-first promise but rebuilds the proof beats from still assets that actually exist.",
+      "artifact_links": [],
+      "poll": {
+        "interval_s": 30,
+        "max_attempts": 120,
+        "strategy": "read_local_artifact_manifest"
+      },
+      "submission": {
+        "required_fields": [
+          "brief_summary",
+          "shot_list",
+          "asset_requirements"
+        ],
+        "note": "Final renderer API is pluggable; job stays pending until artifacts.json is supplied or status is updated."
+      }
+    },
+    "gen-15-20260518102933-03b3b1": {
+      "job_id": "gen-15-20260518102933-03b3b1",
+      "scene_id": "15",
+      "project": "TikTok Validation Scene 15 Capture",
+      "status": "pending",
+      "created_at": "2026-05-18T10:29:33",
+      "updated_at": "2026-05-18T10:29:33",
+      "backend_hint": "manual_edit",
+      "backend_options": [
+        "manual_edit",
+        "image_translate"
+      ],
+      "brief_summary": "This TikTok capture pack can support an image-translation blueprint by mapping text hierarchy and localization risk, but it cannot produce final translated image copy because the pack does not include OCR-ready source blocks.",
+      "artifact_links": [],
+      "poll": {
+        "interval_s": 30,
+        "max_attempts": 120,
+        "strategy": "read_local_artifact_manifest"
+      },
+      "submission": {
+        "required_fields": [
+          "brief_summary",
+          "shot_list",
+          "asset_requirements"
+        ],
+        "note": "Final renderer API is pluggable; job stays pending until artifacts.json is supplied or status is updated."
+      }
+    },
+    "gen-13-20260518102935-c2f635": {
+      "job_id": "gen-13-20260518102935-c2f635",
+      "scene_id": "13",
+      "project": "TikTok Validation Scene 13 Capture",
+      "status": "pending",
+      "created_at": "2026-05-18T10:29:35",
+      "updated_at": "2026-05-18T10:29:35",
+      "backend_hint": "manual_edit",
+      "backend_options": [
+        "manual_edit",
+        "localization_pack"
+      ],
+      "brief_summary": "This TikTok capture pack can support a multi-market localization blueprint by preserving one recognition-first invariant while mapping where hook wording, talent cue, and tone would need market-specific adaptation.",
+      "artifact_links": [],
+      "poll": {
+        "interval_s": 30,
+        "max_attempts": 120,
+        "strategy": "read_local_artifact_manifest"
+      },
+      "submission": {
+        "required_fields": [
+          "brief_summary",
+          "shot_list",
+          "asset_requirements"
+        ],
+        "note": "Final renderer API is pluggable; job stays pending until artifacts.json is supplied or status is updated."
+      }
+    },
+    "gen-16-20260518102937-8a7a98": {
+      "job_id": "gen-16-20260518102937-8a7a98",
+      "scene_id": "16",
+      "project": "TikTok Validation Scene 16 Capture",
+      "status": "pending",
+      "created_at": "2026-05-18T10:29:37",
+      "updated_at": "2026-05-18T10:29:37",
+      "backend_hint": "manual_edit",
+      "backend_options": [
+        "manual_edit",
+        "benchmark_still"
+      ],
+      "brief_summary": "This TikTok capture pack can support a competitor main-image benchmark blueprint by comparing recognition-first cover patterns, but it cannot finalize an outperform brief until an owned image or product sample is added.",
+      "artifact_links": [],
+      "poll": {
+        "interval_s": 30,
+        "max_attempts": 120,
+        "strategy": "read_local_artifact_manifest"
+      },
+      "submission": {
+        "required_fields": [
+          "brief_summary",
+          "shot_list",
+          "asset_requirements"
+        ],
+        "note": "Final renderer API is pluggable; job stays pending until artifacts.json is supplied or status is updated."
+      }
+    },
+    "gen-11-20260518102939-e4bef1": {
+      "job_id": "gen-11-20260518102939-e4bef1",
+      "scene_id": "11",
+      "project": "TikTok Validation Scene 11 Capture",
+      "status": "pending",
+      "created_at": "2026-05-18T10:29:39",
+      "updated_at": "2026-05-18T10:29:39",
+      "backend_hint": "sora",
+      "backend_options": [
+        "sora",
+        "veo",
+        "manual_edit"
+      ],
+      "brief_summary": "This real TikTok capture pack is strong enough to seed a hot-video replication pipeline built around recognition-first editorial posts, not around blind copying.",
+      "artifact_links": [],
+      "poll": {
+        "interval_s": 30,
+        "max_attempts": 120,
+        "strategy": "read_local_artifact_manifest"
+      },
+      "submission": {
+        "required_fields": [
+          "brief_summary",
+          "shot_list",
+          "asset_requirements"
+        ],
+        "note": "Final renderer API is pluggable; job stays pending until artifacts.json is supplied or status is updated."
+      }
+    },
+    "gen-12-20260518102942-7d90dd": {
+      "job_id": "gen-12-20260518102942-7d90dd",
+      "scene_id": "12",
+      "project": "TikTok Validation Scene 12 Capture",
+      "status": "pending",
+      "created_at": "2026-05-18T10:29:42",
+      "updated_at": "2026-05-18T10:29:42",
+      "backend_hint": "manual_edit",
+      "backend_options": [
+        "manual_edit",
+        "variant_matrix"
+      ],
+      "brief_summary": "This TikTok capture pack can seed a one-product multi-style testing matrix by turning real ranked references into four distinct recognition-first creative directions.",
+      "artifact_links": [],
+      "poll": {
+        "interval_s": 30,
+        "max_attempts": 120,
+        "strategy": "read_local_artifact_manifest"
+      },
+      "submission": {
+        "required_fields": [
+          "brief_summary",
+          "shot_list",
+          "asset_requirements"
+        ],
+        "note": "Final renderer API is pluggable; job stays pending until artifacts.json is supplied or status is updated."
+      }
+    },
+    "gen-14-20260518102945-97bde1": {
+      "job_id": "gen-14-20260518102945-97bde1",
+      "scene_id": "14",
+      "project": "TikTok Validation Scene 14 Capture",
+      "status": "pending",
+      "created_at": "2026-05-18T10:29:45",
+      "updated_at": "2026-05-18T10:29:45",
+      "backend_hint": "manual_edit",
+      "backend_options": [
+        "manual_edit",
+        "asset_family"
+      ],
+      "brief_summary": "This TikTok capture pack can support a launch asset family blueprint by reusing one ranked recognition-first promise across hero, support, and short-video launch assets.",
+      "artifact_links": [],
+      "poll": {
+        "interval_s": 30,
+        "max_attempts": 120,
+        "strategy": "read_local_artifact_manifest"
+      },
+      "submission": {
+        "required_fields": [
+          "brief_summary",
+          "shot_list",
+          "asset_requirements"
+        ],
+        "note": "Final renderer API is pluggable; job stays pending until artifacts.json is supplied or status is updated."
+      }
     }
   }
 }

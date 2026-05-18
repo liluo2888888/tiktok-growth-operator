@@ -232,6 +232,14 @@
       "note": "推送/定时调度真源，可对接 deliver_operator_run --adapter feishu",
       "scene_origin": "08",
       "registered_at": "2026-05-18T07:45:52"
+    },
+    {
+      "kind": "report_artifact",
+      "label": "Scene 08 评论人设主表 JSON",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\tiktok-download-validated-20260423\\comment_persona_board.json",
+      "note": "Feishu 式评论洞察主表真源",
+      "scene_origin": "08",
+      "registered_at": "2026-05-18T10:29:19"
     }
   ],
   "carry_forward": [
@@ -241,5 +249,5 @@
     "production_spec_handoff",
     "collection_board"
   ],
-  "updated_at": "2026-05-18T07:46:43"
+  "updated_at": "2026-05-18T10:29:19"
 }
