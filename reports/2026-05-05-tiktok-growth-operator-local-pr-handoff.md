@@ -3,7 +3,9 @@
 ## Branch
 
 - branch: `codex/tiktok-growth-operator-finish`
-- base-ready commit range: `34c8344..1a6b713` (latest: P1 Feishu boards + operator schedule)
+- local HEAD: `7a9642e` (pushed to `origin/codex/tiktok-growth-operator-finish`)
+- skill subtree branch: `tiktok-growth-operator-main` → `origin/main` at `ace6b61`
+- historical commit range on this line: `34c8344..7a9642e`
 
 ## Local Commits
 
@@ -110,10 +112,70 @@ Key assertions now covered by `validate_all_workflows.py`:
 - debt: creative-scene production handoff is now a first-class validated pack, not a manual post-step
 - residual risk: natural-language routing is still heuristic and should eventually grow into a corpus-driven eval set
 
+## 2026-05-18 Business Run (Real TikTok + Capture-Pack)
+
+### Live TikMatrix collection (blocked)
+
+- Runtime: `E:\tiktok\TikMatrix\.venv-api\Scripts\python.exe` (not `.venv`)
+- Attempt: `profile-posts-browser-download` → `https://www.tiktok.com/@tiktok`, `count=3`
+- Result: **failed** — Playwright `Page.goto: net::ERR_CONNECTION_TIMED_OUT` (no fresh `profile_posts.json` under `E:\tiktok\TikMatrix\tmp\`)
+- Unblock: stable access to `tiktok.com` (proxy/VPN if required), then re-run the command in `references/direct-use.md` §真实 TikMatrix Bridge; use `.venv-api` path in docs until `.venv` is restored
+
+### TikMatrix → operator bridge (passed, validation exports)
+
+Hermetic exports under `tiktok-growth-operator.skill/testdata/validation/tikmatrix/`:
+
+```powershell
+cd "D:\我的文档\Documents\Playground 4\tiktok-growth-operator.skill"
+python scripts/run_tikmatrix_capture_bridge.py `
+  --profile-posts-json "testdata\validation\tikmatrix\live-profile-posts-browser-batch\mrorangecat555\profile_posts.json" `
+  --downloads-json "testdata\validation\tikmatrix\skill-batch-download\downloads.json" `
+  --scene 01 --name bridge-validation-20260518 `
+  --project "TikMatrix Bridge Validation" --market US --min-likes 100 --qualified-count 3 `
+  --formats md,json --output-root "tmp\20260518_tikmatrix_bridge_live"
+```
+
+- `qualified_count: 2`, report: `tmp/20260518_tikmatrix_bridge_live/operator-run/scene-01/scene-01-bridge-validation-20260518.json`
+
+### Capture-pack business scenes (passed, real pack layout)
+
+Fixture pack: `testdata/validation/captures/tiktok-analysis-pack-smoke-20260423f`
+
+```powershell
+$cap = "testdata\validation\captures\tiktok-analysis-pack-smoke-20260423f"
+$out = "tmp\20260518_real_business_capture_pack"
+foreach ($s in "01","04","05","07") {
+  python scripts/start_capture_pack_run.py --scene $s --capture-root $cap `
+    --name "business-smoke-20260518-s$s" --project "Business Smoke 20260518" `
+    --output-root $out --formats md,json
+}
+```
+
+- Reports under `tmp/20260518_real_business_capture_pack/scene-0{1,4,5,7}/`
+- Optional next: add `--push-feishu` (credentials from `D:\hermes\.env`) or run Scene `02`/`18` patrol flows from `direct-use.md`
+
+## GitHub / PR Strategy (do not merge monorepo into skill `main`)
+
+| Target | What to push | PR? |
+|--------|----------------|-----|
+| [tiktok-growth-operator `main`](https://github.com/liluo2888888/tiktok-growth-operator) | **Subtree only** — `tiktok-growth-operator.skill/` at repo root | No PR from `codex/tiktok-growth-operator-finish` (different history/layout) |
+| `origin/codex/tiktok-growth-operator-finish` | Full Playground monorepo backup | Optional compare link for humans; **not** for merging into skill `main` |
+| `playground-4` remote | Whole workspace branch | Create repo first, then `git push -u playground codex/tiktok-growth-operator-finish` |
+
+Recommended close-out (no `gh` required):
+
+1. `git subtree split --prefix=tiktok-growth-operator.skill -b tiktok-growth-operator-main`
+2. `git push origin tiktok-growth-operator-main:main`
+3. On GitHub: **Releases → tag** e.g. `v2026.05.18` on `main` with validation + Feishu smoke notes (optional)
+4. If you need a review thread: open a **GitHub Issue** on `tiktok-growth-operator` with checklist (validators, Feishu smoke, Scene 06 live Partner later) — not a cross-repo PR
+
+`gh auth login` only needed for `gh pr create` / `gh issue create` from CLI.
+
 ## Remaining Blocker
 
 - `origin` is configured: `https://github.com/liluo2888888/tiktok-growth-operator.git`
 - `gh` is not authenticated on this machine (`gh auth login` required) — PR creation still blocked until login
+- Live TikTok browser collection blocked by network timeout to `tiktok.com` on this machine
 - subtree push to `main` may still fail on network; retry locally if needed
 
 ### Unblock Checklist

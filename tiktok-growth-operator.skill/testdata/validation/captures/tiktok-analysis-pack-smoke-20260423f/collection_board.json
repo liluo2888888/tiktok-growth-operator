@@ -1,0 +1,73 @@
+{
+  "schema_version": "scene01-collection-board-v1",
+  "headers": [
+    "优先级",
+    "交接状态",
+    "入选溯源",
+    "视频 / 链接",
+    "为什么值得研究",
+    "适合复用在哪",
+    "推荐深拆方向",
+    "下一步场景",
+    "核心主题",
+    "钩子强度",
+    "表现信号",
+    "TikTok Shop 信号",
+    "发布时间窗口",
+    "商业置信度"
+  ],
+  "rows": [
+    [
+      "P1",
+      "待补强约束输入",
+      "creator cluster (@tiktok, 3 posts) → reuse-value rank #2",
+      "https://www.tiktok.com/@tiktok/video/7628619815690833183",
+      "Selected for comment density, market traction; supporting traction: likes=7428, comments=2287, shares=769.",
+      "Study the hook, proof placement, and pacing before adapting the structure to your own asset set.",
+      "Hook / packaging study | Scene 03 深拆首屏包装与脚本节奏",
+      "Scene 03 深拆首屏包装与脚本节奏",
+      "a reminder to romanticize the little moments 鉂わ笍",
+      "a reminder to romanticize the little moments 鉂わ笍",
+      "点赞=7428 / 评论=2287 / 分享=769",
+      "not_detected",
+      "2026-04-14T14:21:33+00:00",
+      "0"
+    ],
+    [
+      "P2",
+      "待补强约束输入",
+      "creator cluster (@tiktok, 3 posts) → reuse-value rank #3",
+      "https://www.tiktok.com/@tiktok/video/7631229398531788062",
+      "Selected for comment density, market traction; supporting traction: likes=1995, comments=508, shares=160.",
+      "Study the hook, proof placement, and pacing before adapting the structure to your own asset set.",
+      "Hook / packaging study | Scene 03 深拆首屏包装与脚本节奏",
+      "Scene 03 深拆首屏包装与脚本节奏",
+      "this STEMTok creativity is blowing us away 馃憦",
+      "this STEMTok creativity is blowing us away 馃憦",
+      "点赞=1995 / 评论=508 / 分享=160",
+      "not_detected",
+      "2026-04-21T15:08:05+00:00",
+      "0"
+    ],
+    [
+      "P3",
+      "待补强约束输入",
+      "creator cluster (@tiktok, 3 posts) → reuse-value rank #1",
+      "https://www.tiktok.com/@tiktok/video/7631201918366289165",
+      "Selected for market traction, series potential; supporting traction: likes=104600, comments=671, shares=941.",
+      "Study the hook, proof placement, and pacing before adapting the structure to your own asset set.",
+      "Hook / packaging study | Scene 03 深拆首屏包装与脚本节奏",
+      "Scene 03 深拆首屏包装与脚本节奏",
+      "PSA: always sing your 鉂わ笍 out, you'll never know who's going to listen...",
+      "PSA: always sing your 鉂わ笍 out, you'll never know who's going to listen 馃憖...",
+      "点赞=104600 / 评论=671 / 分享=941",
+      "not_detected",
+      "2026-04-21T13:21:45+00:00",
+      "0"
+    ]
+  ],
+  "row_count": 3,
+  "handoff_gate": "暂不建议直接全量交接 Scene 03；需先补齐：发布时间窗口, 地区 / 市场, sort_by, 只看购物车视频。",
+  "category": "",
+  "market": ""
+}
