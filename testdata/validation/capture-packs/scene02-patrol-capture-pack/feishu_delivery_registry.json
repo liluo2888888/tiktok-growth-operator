@@ -22,8 +22,8 @@
         "深拆负责人",
         "包装线"
       ],
-      "last_append_at": "2026-05-18T08:24:00",
-      "last_append_scope": "validation-patrol-board-v1",
+      "last_append_at": "2026-05-18T10:30:33",
+      "last_append_scope": "oneclick-smoke-20260518",
       "last_record_count": 5
     }
   },
@@ -33,6 +33,12 @@
       "table_key": "scene02_patrol_board",
       "record_count": 5,
       "append_scope": "validation-patrol-board-v1"
+    },
+    {
+      "at": "2026-05-18T10:30:33",
+      "table_key": "scene02_patrol_board",
+      "record_count": 5,
+      "append_scope": "oneclick-smoke-20260518"
     }
   ]
 }
