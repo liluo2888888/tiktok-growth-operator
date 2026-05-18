@@ -89,6 +89,17 @@ export const ui = {
     share: "分享印章海报",
     shareGenerating: "正在生成海报…",
     shareFailed: "分享失败，请重试"
+  },
+  feedback: {
+    helpfulTitle: "这次反馈有帮助吗？",
+    helpfulLead: "你的评价会帮助我们改进练习体验。",
+    helpfulYes: "有帮助",
+    helpfulNo: "帮助不大",
+    helpfulThanks: "感谢反馈，我们会持续改进。"
+  },
+  streak: {
+    milestone: (days: number) => `已连续练习 ${days} 天`,
+    best: "保持节奏，面试表达会越来越稳。"
   }
 } as const;
 

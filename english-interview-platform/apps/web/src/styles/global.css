@@ -569,6 +569,79 @@ textarea {
   font-size: 0.95rem;
 }
 
+.streak-panel-compact {
+  padding: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+
+.streak-panel-compact .streak-panel-count {
+  font-size: 1.75rem;
+}
+
+.streak-panel-at-risk {
+  border-color: color-mix(in oklch, var(--danger-ink) 35%, var(--border));
+  background: color-mix(in oklch, var(--danger-bg) 55%, var(--surface));
+}
+
+.streak-panel-task-title {
+  margin: 0 0 0.35rem;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--ink);
+}
+
+.streak-panel-risk {
+  margin: 0 0 var(--space-sm);
+  padding: 0.55rem 0.75rem;
+  border-radius: var(--radius-sm);
+  background: var(--danger-bg);
+  color: var(--danger-ink);
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+
+.streak-week {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  margin: var(--space-sm) 0;
+}
+
+.streak-week-day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.streak-week-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--border);
+}
+
+.streak-week-day.done .streak-week-dot {
+  background: var(--accent);
+}
+
+.streak-week-day.today .streak-week-dot {
+  box-shadow: 0 0 0 2px color-mix(in oklch, var(--accent) 40%, transparent);
+}
+
+.streak-week-label {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+
+.feedback-helpful-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 0.75rem;
+}
+
 /* —— Readiness hero (editorial, not metric template) —— */
 .readiness-hero {
   padding: var(--space-md);

@@ -10,13 +10,13 @@ import { StreakPanel } from "@/components/ui/StreakPanel";
 import { checkHealth } from "@/lib/api";
 import { ui } from "@/lib/copy";
 import { MISSIONS, QUEST_PACK } from "@/lib/quests";
-import { getProfile, getStreakSummary, getSuggestedMissionId } from "@/lib/storage";
+import { buildStreakPanelModel } from "@/lib/streak";
+import { getProfile } from "@/lib/storage";
 
 export function HomePage() {
   const profile = getProfile();
   const [apiOk, setApiOk] = useState<boolean | null>(null);
-  const streak = getStreakSummary();
-  const suggestionId = getSuggestedMissionId();
+  const streakModel = buildStreakPanelModel();
 
   useEffect(() => {
     void checkHealth().then(setApiOk);
@@ -48,12 +48,15 @@ export function HomePage() {
 
       <p className="page-lead" style={{ marginTop: "-1rem" }}>
         {profile.roleLabel} · {ui.common.jobInterviewTrack}
+        {streakModel.summary.streakCount >= 3 && (
+          <> · {ui.streak.milestone(streakModel.summary.streakCount)}</>
+        )}
       </p>
 
       <section className="home-manifesto" aria-label="Quest English 如何帮助你">
         <p>
           <strong>像真实面试一样练。</strong>
-          短任务、打字作答、结构化反馈——每一轮结束都能带走可复用的英文表达，而不是空泛建议。
+          短任务、语音或手打、结构化反馈——每一轮结束都能带走可复用的英文表达。
         </p>
         <div className="home-pillars">
           <div className="home-pillar">
@@ -82,20 +85,19 @@ export function HomePage() {
 
       <Reveal stagger className="page-grid page-grid-aside">
         <StreakPanel
-          streakCount={streak.streakCount}
-          todayCompleted={streak.todayCompleted}
-          hint={
-            streak.todayCompleted
-              ? "明天再来，延续你的连续练习记录。"
-              : "今天完成一轮，保持练习节奏。"
-          }
-          ctaLabel="继续今日任务"
-          ctaTo={`/quest-start?missionId=${suggestionId}&roleId=${profile.roleId}`}
+          streakCount={streakModel.summary.streakCount}
+          todayCompleted={streakModel.summary.todayCompleted}
+          atRisk={streakModel.atRisk}
+          taskTitle={streakModel.taskTitle}
+          taskBody={streakModel.taskBody}
+          weekMarks={streakModel.weekMarks}
+          ctaLabel={streakModel.ctaLabel}
+          ctaTo={streakModel.ctaTo}
         />
 
         <Panel title="你的任务包" variant="inset">
           <p className="card-body" style={{ marginBottom: "1rem" }}>
-            {MISSIONS.length} 个任务 · Web 端打字作答 · 每轮结束后获得结构化反馈
+            {MISSIONS.length} 个任务 · 语音或手打 · 每轮结束后获得结构化反馈
           </p>
           <ButtonLink to="/quest-map" variant="primary">
             打开任务地图

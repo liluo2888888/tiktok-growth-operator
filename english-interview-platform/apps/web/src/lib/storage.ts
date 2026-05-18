@@ -1,8 +1,15 @@
+import {
+  applyQuestCompletion,
+  readStreakSummary,
+  utcDateKey
+} from "@/lib/streakLogic";
 import type { MissionId, MissionStatus, QuestGoal, RoleId } from "./quests";
 
 const PROFILE_KEY = "quest.profile";
 const MISSION_PREFIX = "quest.mission.";
 const STREAK_KEY = "quest.streak";
+const STREAK_HISTORY_KEY = "quest.streak.history";
+const STREAK_HISTORY_MAX = 14;
 const DEVICE_KEY = "quest.deviceId";
 const STAMPS_KEY = "quest.passport.stamps";
 
@@ -83,43 +90,38 @@ export function setMissionStatus(missionId: MissionId, status: MissionStatus) {
   writeJson(`${MISSION_PREFIX}${missionId}`, status);
 }
 
-function utcDateKey(date = new Date()) {
-  return date.toISOString().slice(0, 10);
+export function getStreakHistory(): string[] {
+  const history = readJson<string[]>(STREAK_HISTORY_KEY, []);
+  return [...history].sort();
+}
+
+function appendStreakHistory(today: string) {
+  const history = getStreakHistory();
+  if (history.includes(today)) {
+    return;
+  }
+  const next = [...history, today].slice(-STREAK_HISTORY_MAX);
+  writeJson(STREAK_HISTORY_KEY, next);
 }
 
 export function getStreakSummary() {
   const state = readJson<StreakState>(STREAK_KEY, { streakCount: 0, lastCompletedDate: null });
-  const today = utcDateKey();
-  const todayCompleted = state.lastCompletedDate === today;
-  let streakCount = state.streakCount;
-
-  if (!todayCompleted && state.lastCompletedDate) {
-    const yesterday = new Date();
-    yesterday.setUTCDate(yesterday.getUTCDate() - 1);
-    if (state.lastCompletedDate !== utcDateKey(yesterday)) {
-      streakCount = 0;
-    }
-  }
-
-  return { streakCount, todayCompleted, lastCompletedDate: state.lastCompletedDate };
+  return readStreakSummary(state, utcDateKey());
 }
 
 export function recordQuestCompletion() {
   const today = utcDateKey();
   const state = readJson<StreakState>(STREAK_KEY, { streakCount: 0, lastCompletedDate: null });
-  if (state.lastCompletedDate === today) {
-    return getStreakSummary();
-  }
-
-  const yesterday = new Date();
-  yesterday.setUTCDate(yesterday.getUTCDate() - 1);
-  let streakCount = 1;
-  if (state.lastCompletedDate === utcDateKey(yesterday)) {
-    streakCount = Math.max(1, state.streakCount + 1);
-  }
-
-  writeJson(STREAK_KEY, { streakCount, lastCompletedDate: today });
-  return getStreakSummary();
+  const next = applyQuestCompletion(state, today);
+  writeJson(STREAK_KEY, {
+    streakCount: next.streakCount,
+    lastCompletedDate: next.lastCompletedDate
+  });
+  appendStreakHistory(today);
+  return readStreakSummary(
+    { streakCount: next.streakCount, lastCompletedDate: next.lastCompletedDate },
+    today
+  );
 }
 
 export function listStamps(): PassportStamp[] {

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Navigate, useSearchParams } from "react-router-dom";
 
+import { FeedbackHelpfulPanel } from "@/components/feedback/FeedbackHelpfulPanel";
 import { Button, ButtonLink } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
 import { PageHero } from "@/components/ui/PageHero";
@@ -110,6 +111,7 @@ export function FeedbackPage() {
             <Panel title={ui.common.stage(stageLabel(detail.stage))} variant="inset">
               <p className="card-body">{detail.currentQuestion}</p>
             </Panel>
+            <FeedbackHelpfulPanel sessionId={sessionId} />
           </div>
 
           <div className="stack">

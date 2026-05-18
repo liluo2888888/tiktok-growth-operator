@@ -3,6 +3,8 @@ import { Navigate } from "react-router-dom";
 import { MissionTile } from "@/components/ui/MissionTile";
 import { PageHero } from "@/components/ui/PageHero";
 import { Reveal } from "@/components/ui/Reveal";
+import { StreakPanel } from "@/components/ui/StreakPanel";
+import { buildStreakPanelModel } from "@/lib/streak";
 import { ui } from "@/lib/copy";
 import { MISSIONS, QUEST_PACK } from "@/lib/quests";
 import { getMissionStatus, getProfile } from "@/lib/storage";
@@ -16,6 +18,8 @@ function statusLabel(status: MissionStatus) {
 
 export function QuestMapPage() {
   const profile = getProfile();
+  const streakModel = buildStreakPanelModel();
+
   if (!profile?.completedOnboarding) {
     return <Navigate to="/onboarding" replace />;
   }
@@ -26,6 +30,18 @@ export function QuestMapPage() {
         kicker="任务地图"
         title={QUEST_PACK.title}
         lead={`${QUEST_PACK.description} ${ui.common.track(profile.roleLabel)}`}
+      />
+
+      <StreakPanel
+        compact
+        streakCount={streakModel.summary.streakCount}
+        todayCompleted={streakModel.summary.todayCompleted}
+        atRisk={streakModel.atRisk}
+        taskTitle={streakModel.taskTitle}
+        taskBody={streakModel.taskBody}
+        weekMarks={streakModel.weekMarks}
+        ctaLabel={streakModel.ctaLabel}
+        ctaTo={streakModel.ctaTo}
       />
 
       <Reveal stagger className="stack">

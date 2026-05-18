@@ -5,12 +5,15 @@ import { Icon } from "@/components/ui/Icon";
 import { PageHero } from "@/components/ui/PageHero";
 import { Panel } from "@/components/ui/Panel";
 import { Reveal } from "@/components/ui/Reveal";
+import { StreakPanel } from "@/components/ui/StreakPanel";
+import { buildStreakPanelModel } from "@/lib/streak";
 import { ui } from "@/lib/copy";
 import { getProfile, listStamps } from "@/lib/storage";
 
 export function PassportPage() {
   const profile = getProfile();
   const stamps = listStamps();
+  const streakModel = buildStreakPanelModel();
 
   if (!profile?.completedOnboarding) {
     return <Navigate to="/onboarding" replace />;
@@ -22,6 +25,18 @@ export function PassportPage() {
         kicker="进度"
         title="护照"
         lead="每完成一轮练习即可获得一枚印章，附带就绪度分数——这是你坚持练习的证明。"
+      />
+
+      <StreakPanel
+        compact
+        streakCount={streakModel.summary.streakCount}
+        todayCompleted={streakModel.summary.todayCompleted}
+        atRisk={streakModel.atRisk}
+        taskTitle={streakModel.taskTitle}
+        taskBody={streakModel.taskBody}
+        weekMarks={streakModel.weekMarks}
+        ctaLabel={streakModel.ctaLabel}
+        ctaTo={streakModel.ctaTo}
       />
 
       {stamps.length === 0 ? (
