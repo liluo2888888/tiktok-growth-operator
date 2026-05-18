@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/Button";
 import { PageHero } from "@/components/ui/PageHero";
 import { Selectable } from "@/components/ui/Selectable";
 import { StepIndicator } from "@/components/ui/StepIndicator";
+import { track } from "@/lib/analytics";
 import { GOALS, ROLES } from "@/lib/quests";
 import { getProfile, saveProfile } from "@/lib/storage";
 
@@ -21,6 +22,7 @@ export function OnboardingPage() {
   function finish() {
     const role = ROLES.find((r) => r.id === roleId)!;
     saveProfile({ goal: "job_interview", roleId, roleLabel: role.label });
+    void track("onboarding_complete", { goal: "job_interview", roleId });
     navigate("/quest-map");
   }
 

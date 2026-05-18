@@ -64,7 +64,12 @@ async function main() {
   );
   await shot(page, "06-interview");
 
+  const manualBtn = page.getByRole("button", { name: "改用手打" });
+  if (await manualBtn.isVisible().catch(() => false)) {
+    await manualBtn.click();
+  }
   const textarea = page.locator("#interview-answer");
+  await textarea.waitFor({ state: "visible", timeout: 15000 });
   await textarea.click();
   await textarea.fill("");
   const answer =

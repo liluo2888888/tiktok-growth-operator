@@ -7,6 +7,7 @@ import { PageHero } from "@/components/ui/PageHero";
 import { Panel } from "@/components/ui/Panel";
 import { ReadinessHero } from "@/components/ui/ReadinessHero";
 import { ScoreList } from "@/components/ui/ScoreList";
+import { track } from "@/lib/analytics";
 import { fetchSession, type SessionDetail } from "@/lib/api";
 import { stageLabel, ui } from "@/lib/copy";
 import { getMission } from "@/lib/quests";
@@ -46,7 +47,11 @@ export function FeedbackPage() {
           roleLabel: roleLabel || profile?.roleLabel || result.roleId,
           scores: result.scores
         });
-        if (isNew) setStampId(stamp.id);
+        if (isNew) {
+          setStampId(stamp.id);
+          void track("passport_stamp_earned", { stampId: stamp.id, missionId: result.missionId });
+        }
+        void track("feedback_view", { sessionId: sid, readiness: result.scores.readiness });
       } catch (err) {
         if (!cancelled) setError(err instanceof Error ? err.message : ui.errors.load);
       } finally {

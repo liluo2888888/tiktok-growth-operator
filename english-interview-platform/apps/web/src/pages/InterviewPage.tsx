@@ -1,14 +1,18 @@
 import { useEffect, useState } from "react";
 import { Navigate, useNavigate, useSearchParams } from "react-router-dom";
 
+import { VoiceAnswerPanel } from "@/components/interview/VoiceAnswerPanel";
 import { Button } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
 import { PageHero } from "@/components/ui/PageHero";
 import { Panel } from "@/components/ui/Panel";
+import { useVoiceAnswer } from "@/hooks/useVoiceAnswer";
+import { track } from "@/lib/analytics";
 import { createSession, fetchSession, submitTurn } from "@/lib/api";
 import { ui } from "@/lib/copy";
 import { getMission, getRole } from "@/lib/quests";
 import { getProfile, recordQuestCompletion, setMissionStatus } from "@/lib/storage";
+import { countWords } from "@/lib/voiceValidation";
 
 const MIN_WORDS = 3;
 
@@ -16,6 +20,7 @@ export function InterviewPage() {
   const navigate = useNavigate();
   const [params] = useSearchParams();
   const profile = getProfile();
+  const voice = useVoiceAnswer();
 
   const roleId = params.get("roleId") ?? profile?.roleId ?? "product";
   const roleFromQuest = getRole(roleId);
@@ -26,10 +31,15 @@ export function InterviewPage() {
 
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [question, setQuestion] = useState("正在加载题目…");
+  const [answerMode, setAnswerMode] = useState<"voice" | "manual">("voice");
   const [answer, setAnswer] = useState("");
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    void voice.prepare();
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
@@ -40,6 +50,7 @@ export function InterviewPage() {
         const boot = await createSession({ roleId, missionId });
         if (cancelled) return;
         setSessionId(boot.sessionId);
+        void track("session_bootstrap", { sessionId: boot.sessionId, roleId, missionId });
         const detail = await fetchSession(boot.sessionId);
         if (cancelled) return;
         setQuestion(detail.currentQuestion);
@@ -61,15 +72,16 @@ export function InterviewPage() {
     return <Navigate to="/onboarding" replace />;
   }
 
-  const wordCount = answer.trim().split(/\s+/).filter(Boolean).length;
-  const canSubmit = wordCount >= MIN_WORDS && !submitting && !!sessionId;
+  const manualWordCount = countWords(answer);
+  const canSubmitManual = manualWordCount >= MIN_WORDS && !submitting && !!sessionId;
 
-  async function handleSubmit() {
-    if (!sessionId || !canSubmit) return;
+  async function submitAnswer(text: string) {
+    if (!sessionId) return;
     setSubmitting(true);
     setError(null);
     try {
-      await submitTurn({ sessionId, answer: answer.trim() });
+      await submitTurn({ sessionId, answer: text.trim() });
+      void track("turn_submit", { sessionId, missionId, roleId, mode: answerMode });
       setMissionStatus(missionId as "self_intro" | "behavioral", "completed");
       recordQuestCompletion();
       navigate(
@@ -82,11 +94,18 @@ export function InterviewPage() {
     }
   }
 
+  function switchToManual() {
+    if (voice.transcript.trim()) {
+      setAnswer(voice.transcript);
+    }
+    setAnswerMode("manual");
+  }
+
   return (
     <>
       <PageHero
         kicker="面试间"
-        title="大声说出来，在这里打字"
+        title={answerMode === "voice" ? "大声说出来" : "在这里手打英文"}
         lead={`${roleLabel} · ${missionLabel}`}
         aside={
           <span className="interview-focus-badge">
@@ -121,32 +140,52 @@ export function InterviewPage() {
             {sessionId && <p className="word-count">{ui.common.session(sessionId)}</p>}
           </div>
 
-          <Panel title="你的回答（英文）" className="answer-panel-accent">
-            <label htmlFor="interview-answer" className="textarea-label">
-              按你说话的方式写英文
-            </label>
-            <textarea
-              id="interview-answer"
-              className="textarea"
-              value={answer}
-              onChange={(e) => setAnswer(e.target.value)}
-              placeholder="I am a product manager with five years of experience…"
-              aria-describedby="word-count-hint"
-            />
-            <p
-              id="word-count-hint"
-              className={`word-count ${wordCount >= MIN_WORDS ? "ok" : ""}`.trim()}
-            >
-              {ui.common.words(wordCount)} · {ui.common.minWords(MIN_WORDS)}
-            </p>
-            <Button
-              style={{ marginTop: "1rem" }}
-              disabled={!canSubmit}
-              onClick={() => void handleSubmit()}
-            >
-              {submitting ? "提交中…" : "提交并查看反馈"}
-            </Button>
-          </Panel>
+          {answerMode === "voice" ? (
+            <Panel title={ui.interview.voiceTitle} className="answer-panel-accent">
+              <VoiceAnswerPanel
+                voice={voice}
+                submitting={submitting}
+                onSubmit={() => void submitAnswer(voice.transcript)}
+                onUseManual={switchToManual}
+              />
+            </Panel>
+          ) : (
+            <Panel title={ui.interview.manualTitle} className="answer-panel-accent">
+              <p className="card-body">{ui.interview.manualHint}</p>
+              <Button
+                type="button"
+                variant="secondary"
+                style={{ marginBottom: "1rem" }}
+                onClick={() => setAnswerMode("voice")}
+              >
+                {ui.interview.useVoice}
+              </Button>
+              <label htmlFor="interview-answer" className="textarea-label">
+                英文回答
+              </label>
+              <textarea
+                id="interview-answer"
+                className="textarea"
+                value={answer}
+                onChange={(e) => setAnswer(e.target.value)}
+                placeholder="I am a product manager with five years of experience…"
+                aria-describedby="word-count-hint"
+              />
+              <p
+                id="word-count-hint"
+                className={`word-count ${manualWordCount >= MIN_WORDS ? "ok" : ""}`.trim()}
+              >
+                {ui.common.words(manualWordCount)} · {ui.common.minWords(MIN_WORDS)}
+              </p>
+              <Button
+                style={{ marginTop: "1rem" }}
+                disabled={!canSubmitManual}
+                onClick={() => void submitAnswer(answer)}
+              >
+                {submitting ? ui.interview.submitting : ui.interview.submit}
+              </Button>
+            </Panel>
+          )}
         </div>
       )}
 

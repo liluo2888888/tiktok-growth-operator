@@ -135,7 +135,8 @@ Write-Host ""
 
 Push-Location $webDir
 try {
-  & $PnpmCmd dev -- --port $WebPort --host 127.0.0.1
+  $env:WEB_PORT = "$WebPort"
+  & $PnpmCmd dev
 } finally {
   Pop-Location
 }

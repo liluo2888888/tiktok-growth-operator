@@ -59,7 +59,32 @@ export const ui = {
     closing: "收尾",
     behavioral: "行为面",
     followup: "追问"
-  } as Record<string, string>
+  } as Record<string, string>,
+  interview: {
+    voiceTitle: "语音作答",
+    voiceHint: (min: number, max: number) =>
+      `至少录 ${min} 秒（最长 ${max} 秒），转写后可编辑再提交。`,
+    micDenied: "无法使用麦克风，请改用手打。",
+    recording: "录音中",
+    ready: "就绪",
+    remaining: (s: number) => `剩余 ${s} 秒`,
+    useManual: "改用手打",
+    useVoice: "改用语音",
+    startRecording: "开始录音",
+    stopRecording: "停止",
+    replay: "回放",
+    playing: "播放中…",
+    transcribe: "转写",
+    reRecord: "重录",
+    transcribing: "正在转写…",
+    lowConfidence: "转写可能不准，提交前请检查英文。",
+    transcriptLabel: "转写稿（英文，可编辑）",
+    transcriptPlaceholder: "你的口语回答会出现在这里…",
+    manualTitle: "手动作答",
+    manualHint: "按你说话的方式写英文。",
+    submit: "提交并查看反馈",
+    submitting: "提交中…"
+  }
 } as const;
 
 export function stageLabel(stage: string) {

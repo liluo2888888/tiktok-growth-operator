@@ -89,12 +89,20 @@ pnpm test
 
 ---
 
-## 三、手动验收（Web 全链路）
+## 三、Web 全链路（已纳入自动化）
 
-1. 启动后端：`scripts\run-session-service.cmd` + `scripts\run-api-gateway.cmd`
-2. 启动 Web：`scripts\run-web.cmd`
-3. 走通：`onboarding` → `quest-map` → `quest-start` → **Type answer (web)** → Submit → `feedback` → `passport`
-4. 确认：分数展示、章发放、Share stamp、首页 Streak 更新
+`scripts\smoke-p0-web.ps1`（由 `smoke-p0-gate.ps1` 调用）会：
+
+1. 启动 file 后端 + gateway `:8090` + Vite `:5174`
+2. 运行 `apps/web/scripts/walkthrough.mjs`（引导 → 任务 → **改用手打** → 反馈 → 护照）
+
+本地手动演示：
+
+```powershell
+.\scripts\run-web-stack.cmd
+```
+
+浏览器：`http://127.0.0.1:5174` — 默认**语音作答**，可点「改用手打」；配置 `apps/web/.env.local` 中 `VITE_OPENAI_API_KEY` 可启用 Whisper 转写。
 
 ---
 
@@ -102,7 +110,7 @@ pnpm test
 
 | 项 | 说明 |
 |----|------|
-| I-03 埋点 | 客户端 `track()` + `POST /v1/mobile/analytics/events` |
+| I-03 埋点 | Web + Mobile 均已 `track()` → `POST /v1/mobile/analytics/events` |
 | I-02 ErrorBanner | interview / feedback / passport 错误重试 |
 | LoadingOverlay | 统一加载态（card + fullscreen） |
 | 真机 | `setup-device-env.ps1` + `device-debug.ps1`（用户可选） |

@@ -3,6 +3,7 @@ import { Navigate, useNavigate, useSearchParams } from "react-router-dom";
 import { Button, ButtonLink } from "@/components/ui/Button";
 import { PageHero } from "@/components/ui/PageHero";
 import { Panel } from "@/components/ui/Panel";
+import { track } from "@/lib/analytics";
 import { ui } from "@/lib/copy";
 import { getMission, getRole } from "@/lib/quests";
 import { getProfile, setMissionStatus } from "@/lib/storage";
@@ -25,6 +26,7 @@ export function QuestStartPage() {
 
   function begin() {
     if (!mission || !role) return;
+    void track("quest_start", { missionId: mission.id, roleId: role.id });
     setMissionStatus(mission.id, "in_progress");
     navigate(
       `/interview?missionId=${mission.id}&missionLabel=${encodeURIComponent(mission.label)}&roleId=${role.id}&roleLabel=${encodeURIComponent(role.label)}`
@@ -43,7 +45,7 @@ export function QuestStartPage() {
         <Panel title="本轮练习">
           <p className="card-body">{mission.subtitle}</p>
           <p className="word-count">
-            {ui.common.minutes(mission.durationMinutes)} · Web 端打字作答
+            {ui.common.minutes(mission.durationMinutes)} · 支持语音或手打
           </p>
         </Panel>
         <Panel title="面试官" variant="highlight">

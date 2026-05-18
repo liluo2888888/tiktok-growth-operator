@@ -1212,6 +1212,57 @@ textarea {
   transform: translateX(2px);
 }
 
+/* —— Voice answer —— */
+.voice-panel .card-body {
+  margin-bottom: var(--space-sm);
+}
+
+.voice-timer-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: var(--space-sm) 0 var(--space-md);
+}
+
+.voice-record-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--ink-soft);
+  opacity: 0.5;
+}
+
+.voice-record-dot.active {
+  background: var(--danger);
+  opacity: 1;
+  animation: voice-pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes voice-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 0.75;
+  }
+}
+
+.voice-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-bottom: var(--space-sm);
+}
+
+.voice-warning {
+  margin: var(--space-sm) 0 0;
+  font-size: 0.9rem;
+  color: var(--danger);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
