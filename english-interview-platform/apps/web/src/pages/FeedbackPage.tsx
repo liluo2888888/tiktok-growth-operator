@@ -11,7 +11,7 @@ import { track } from "@/lib/analytics";
 import { fetchSession, type SessionDetail } from "@/lib/api";
 import { stageLabel, ui } from "@/lib/copy";
 import { getMission } from "@/lib/quests";
-import { sharePassportStamp } from "@/lib/shareStamp";
+import { sharePassportStamp, shareResultHint } from "@/lib/shareStamp";
 import { getProfile, getStamp, issueStamp } from "@/lib/storage";
 
 export function FeedbackPage() {
@@ -148,10 +148,8 @@ export function FeedbackPage() {
                           setSharing(true);
                           setShareHint(null);
                           void sharePassportStamp(stamp)
-                            .then((channel) => {
-                              if (channel === "text_fallback") {
-                                setShareHint(ui.passport.shareCopied);
-                              }
+                            .then((result) => {
+                              setShareHint(shareResultHint(result));
                             })
                             .catch((err) => {
                               if (err instanceof Error && err.name === "AbortError") return;
@@ -162,7 +160,7 @@ export function FeedbackPage() {
                             .finally(() => setSharing(false));
                         }}
                       >
-                        {sharing ? "分享中…" : ui.passport.share}
+                        {sharing ? ui.passport.shareGenerating : ui.passport.share}
                       </Button>
                     </div>
                     {shareHint && <p className="word-count ok">{shareHint}</p>}

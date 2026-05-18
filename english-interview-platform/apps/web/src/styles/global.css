@@ -1263,6 +1263,93 @@ textarea {
   color: var(--danger);
 }
 
+/* —— Share stamp poster (off-screen capture) —— */
+.share-stamp-poster {
+  margin: 0;
+  padding: 28px;
+  border-radius: 24px;
+  background: #fff8ef;
+  border: 2px solid #c9a574;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: var(--font-body);
+  color: var(--ink);
+}
+
+.share-stamp-poster-brand {
+  margin: 0 0 2px;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #8a5a2b;
+}
+
+.share-stamp-poster-sub {
+  margin: 0 0 10px;
+  font-size: 11px;
+  color: #6a7785;
+}
+
+.share-stamp-poster-emoji {
+  margin: 0 0 6px;
+  font-size: 40px;
+  line-height: 1;
+}
+
+.share-stamp-poster-mission {
+  margin: 0 0 4px;
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #1d2a35;
+}
+
+.share-stamp-poster-role {
+  margin: 0 0 12px;
+  font-size: 13px;
+  color: #425466;
+}
+
+.share-stamp-poster-score {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.share-stamp-poster-score-value {
+  font-family: var(--font-display);
+  font-size: 48px;
+  font-weight: 800;
+  line-height: 1;
+  color: #8a5a2b;
+}
+
+.share-stamp-poster-score-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #6a7785;
+}
+
+.share-stamp-poster-tier {
+  margin: 0 0 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1d2a35;
+}
+
+.share-stamp-poster-earned {
+  margin: 0;
+  font-size: 11px;
+  color: #6a7785;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

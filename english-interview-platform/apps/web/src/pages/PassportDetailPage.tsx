@@ -7,7 +7,7 @@ import { Panel } from "@/components/ui/Panel";
 import { ReadinessHero } from "@/components/ui/ReadinessHero";
 import { ScoreList } from "@/components/ui/ScoreList";
 import { ui } from "@/lib/copy";
-import { sharePassportStamp } from "@/lib/shareStamp";
+import { sharePassportStamp, shareResultHint } from "@/lib/shareStamp";
 import { getProfile, getStamp } from "@/lib/storage";
 
 export function PassportDetailPage() {
@@ -56,8 +56,8 @@ export function PassportDetailPage() {
             setSharing(true);
             setShareHint(null);
             void sharePassportStamp(stamp)
-              .then((channel) => {
-                if (channel === "text_fallback") setShareHint(ui.passport.shareCopied);
+              .then((result) => {
+                setShareHint(shareResultHint(result));
               })
               .catch((err) => {
                 if (err instanceof Error && err.name === "AbortError") return;
@@ -66,7 +66,7 @@ export function PassportDetailPage() {
               .finally(() => setSharing(false));
           }}
         >
-          {sharing ? "分享中…" : ui.passport.share}
+          {sharing ? ui.passport.shareGenerating : ui.passport.share}
         </Button>
         <ButtonLink to="/quest-map" variant="primary">
           再练一轮

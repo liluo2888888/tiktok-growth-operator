@@ -86,8 +86,8 @@ export const ui = {
     submitting: "提交中…"
   },
   passport: {
-    share: "分享印章",
-    shareCopied: "已复制分享文案到剪贴板",
+    share: "分享印章海报",
+    shareGenerating: "正在生成海报…",
     shareFailed: "分享失败，请重试"
   }
 } as const;
