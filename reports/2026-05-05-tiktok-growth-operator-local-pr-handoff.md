@@ -3,10 +3,12 @@
 ## Branch
 
 - branch: `codex/tiktok-growth-operator-finish`
-- base-ready commit range: `34c8344..3985225`
+- base-ready commit range: `34c8344..1a6b713` (latest: P1 Feishu boards + operator schedule)
 
 ## Local Commits
 
+- `1a6b713` feat(tiktok-growth-operator): add P1 schedules and Feishu structured board delivery
+- `388b561` P1: comment pipeline, evidence refs, content graph, and Scene 02 patrol
 - `a0cd67d` Add entry board selector and starter launcher
 - `1841fc1` fix: close tiktok board routing and export validation
 - `03a1776` fix: complete board batch validation and handoff docs
@@ -15,6 +17,10 @@
 - `8e6716f` fix: harden board routing and goal run naming
 - `3414056` docs: tighten handoff and debt notes
 - `3985225` feat: add scene execution templates
+- `a815237` feat: finalize tiktok direct-use templates and validation fixtures
+- `39d60b2` feat: add creative brief quick refs and route eval fixtures
+- `f501e16` feat: harden creative scene handoff contracts
+- `98a94e4` feat: add creative production handoff packs
 
 ## Scope
 
@@ -31,7 +37,12 @@ This branch closes the TikTok Growth Operator board-entry line across:
 - long goal-run naming safety for Windows path length pressure
 - scene-level direct-use execution templates across all 19 scenes
 - scene quick-reference generation
+- creative-brief quick references and route-eval fixtures
+- creative production handoff packs for scenes `09` to `16`
 - handoff and validation docs
+- P1 operator schedules for scenes `01`–`08`, `17`–`19` with `operator_schedule_scene_*.json`
+- structured Feishu board append (`scene01_collection_board` … `scene19_account_retro`) via registry
+- one-click `--push-feishu` on `start_capture_pack_run.py`, `run_scene0203.py`, and `run_scene1819.py` (doc + board append by default)
 
 ## User-Facing Outcome
 
@@ -39,16 +50,33 @@ This branch closes the TikTok Growth Operator board-entry line across:
 - batch orchestration understands `mode: board` directly
 - board preview artifacts now surface bundle root, ranking count, and starter-run flags clearly
 - starter folders now expose a clearer handoff order from scaffold to queue generation to dry-run to rerun
+- scenes `09` to `16` can now hand off directly into production-facing creative packs instead of stopping at strategy briefs
+- daily patrol / weekly competitor flows can push both Feishu doc bundles and fixed-header Bitable rows in one command
 
 ## Validation Run
+
+Passed locally (2026-05-18):
+
+- `python tiktok-growth-operator.skill/scripts/validate_platform_p0.py`
+- `python tiktok-growth-operator.skill/scripts/validate_scene_ops.py`
+- `python tiktok-growth-operator.skill/scripts/validate_capture_pack_workflows.py`
+
+Feishu one-click smoke (credentials from `D:\hermes\.env`, scope `oneclick-smoke-20260518`):
+
+- `run_scene0203.py --source fixture --push-feishu` → doc/bundle `status: ok`, `scene02_patrol_board` append `records_created: 5`
+- `run_scene1819.py --preset matrix --scene18-only --push-feishu` → doc/bundle `status: ok`, `scene18_competitor_weekly` append `status: ok`
+
+Earlier passes still apply:
 
 Passed locally:
 
 - `python -m py_compile "tiktok-growth-operator.skill\scripts\recommend_entry_board.py" "tiktok-growth-operator.skill\scripts\start_entry_board.py" "tiktok-growth-operator.skill\scripts\batch_run_operator_workflows.py" "tiktok-growth-operator.skill\scripts\validate_all_workflows.py"`
 - `python -m py_compile "tiktok-growth-operator.skill\scripts\generate_scene_report.py" "tiktok-growth-operator.skill\scripts\scene_report_presets.py" "tiktok-growth-operator.skill\scripts\generate_scene_quick_reference.py" "tiktok-growth-operator.skill\scripts\validate_scene_presets.py" "tiktok-growth-operator.skill\scripts\validate_skill_docs.py" "tiktok-growth-operator.skill\scripts\validate_all_workflows.py"`
 - `python "tiktok-growth-operator.skill\scripts\generate_scene_quick_reference.py"`
+- `python "tiktok-growth-operator.skill\scripts\generate_creative_brief_quick_reference.py"`
 - `python "tiktok-growth-operator.skill\scripts\validate_scene_presets.py"`
 - `python "tiktok-growth-operator.skill\scripts\validate_skill_docs.py"`
+- `python "tiktok-growth-operator.skill\scripts\validate_capture_pack_workflows.py"`
 - `python "tiktok-growth-operator.skill\scripts\validate_export_outputs.py" --output-root ".\tiktok-growth-operator.skill\tmp\20260505_export_validation_suite_rerun"`
 - `python "tiktok-growth-operator.skill\scripts\validate_all_workflows.py"`
 
@@ -62,6 +90,8 @@ Key assertions now covered by `validate_all_workflows.py`:
 - long workflow requests return a bounded `run_name`
 - every scene now has a required Chinese and English `execution_template`
 - the quick-reference index regenerates clean UTF-8 Chinese direct-call text
+- route-eval fixtures now assert board and goal routing expectations explicitly
+- scenes `09` to `16` now validate stronger creative production handoff sections
 - batch preview preserves board fields
 - hermetic batch board execute smoke creates:
   - starter root
@@ -77,16 +107,37 @@ Key assertions now covered by `validate_all_workflows.py`:
 - security: no new unsafe external automation path was introduced
 - debt: the batch-board execute validation gap is now closed locally
 - debt: board validation no longer depends on a preexisting `.codex-tmp` bundle tree
+- debt: creative-scene production handoff is now a first-class validated pack, not a manual post-step
 - residual risk: natural-language routing is still heuristic and should eventually grow into a corpus-driven eval set
 
 ## Remaining Blocker
 
-- `git remote -v` is empty
-- push and PR creation are still blocked until a remote is configured
+- `origin` is configured: `https://github.com/liluo2888888/tiktok-growth-operator.git`
+- `gh` is not authenticated on this machine (`gh auth login` required) — PR creation still blocked until login
+- subtree push to `main` may still fail on network; retry locally if needed
+
+### Unblock Checklist
+
+```powershell
+cd "D:\我的文档\Documents\Playground 4"
+
+# 专用仓库（空仓库已创建）：https://github.com/liluo2888888/tiktok-growth-operator
+git remote set-url origin https://github.com/liluo2888888/tiktok-growth-operator.git
+
+# 仅推送技能包目录到 main（不要把整个 Playground 4 monorepo 推上去）
+git subtree split --prefix=tiktok-growth-operator.skill -b tiktok-growth-operator-main
+git push -u origin tiktok-growth-operator-main:main
+```
+
+Playground 4 本地已提交 `3412910`（P3）并生成 `tiktok-growth-operator-main` 子树分支；若 push 因网络失败，在你本机终端重跑上面两条 push 命令即可。
+
+GitHub 账号：[liluo2888888](https://github.com/liluo2888888) · 仓库：[tiktok-growth-operator](https://github.com/liluo2888888/tiktok-growth-operator)
+
+Scope the PR to `tiktok-growth-operator.skill/` plus this handoff report; do not sweep unrelated untracked workspace folders.
 
 ## Suggested PR Title
 
-- `Complete TikTok board routing, batch execution validation, and handoff docs`
+- `Complete TikTok operator handoff packs, validation fixtures, and final docs`
 
 ## Suggested PR Body
 
@@ -97,6 +148,8 @@ Key assertions now covered by `validate_all_workflows.py`:
 - improve starter and batch handoff artifacts
 - add hermetic execute-smoke coverage for board batch flows
 - harden board routing quality and long goal-run naming safety
+- add direct-use Chinese starter commands, creative quick references, and route-eval fixtures
+- add validated creative production handoff packs for scenes `09` to `16`
 
 ### Testing
 
@@ -107,5 +160,5 @@ Key assertions now covered by `validate_all_workflows.py`:
 
 ### Notes
 
-- local branch is ready for push after remote configuration
+- local branch is ready for push after remote configuration, but no remote work was performed
 - workspace still contains many unrelated untracked files outside this feature line
