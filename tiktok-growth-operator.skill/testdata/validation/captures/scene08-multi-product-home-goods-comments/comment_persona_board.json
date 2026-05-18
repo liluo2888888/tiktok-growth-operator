@@ -1,0 +1,48 @@
+{
+  "schema_version": "scene08-comment-persona-board-v1",
+  "headers": [
+    "聚类类型",
+    "主题",
+    "运营落点",
+    "代表原话",
+    "回复压力",
+    "样本说明",
+    "优先级",
+    "负责人"
+  ],
+  "rows": [
+    [
+      "定位话术",
+      "价格 / 性价比顾虑",
+      "卖点 / 首屏承诺",
+      "I need to know if the zipper breaks after two trips because that always happens",
+      "",
+      "视频数=3",
+      "高",
+      "content / operator"
+    ],
+    [
+      "异议处理",
+      "物流 / 包装顾虑",
+      "FAQ / 客服 / 评论区",
+      "Mine arrived fast but one tray corner was cracked. Seller refunded me without ma",
+      "",
+      "视频数=3",
+      "高",
+      "content / operator"
+    ],
+    [
+      "信任背书",
+      "好评关键词待补",
+      "证明段 / 对比镜头",
+      "",
+      "",
+      "视频数=3",
+      "高",
+      "content / operator"
+    ]
+  ],
+  "row_count": 3,
+  "append_scope_key": "scene08-3-videos",
+  "sampled_video_count": 3
+}

@@ -1,0 +1,251 @@
+{
+  "scene_id": "05",
+  "reference_video_url": "https://www.tiktok.com/@tiktok/video/7631201918366289165",
+  "shot_list": [
+    {
+      "id": "shot_01",
+      "window": "0-3s",
+      "role": "hero_hook",
+      "visual": "PSA: always sing your 鉂わ笍 out, you'll never know who's going to listen 馃憖 tune into the full episode of Behind the...",
+      "dialogue": "PSA: always sing your 鉂わ笍 out, you'll never know who's going to listen 馃憖 tune into the full episode of Behind the..."
+    },
+    {
+      "id": "shot_02",
+      "window": "3-8s",
+      "role": "premise_setup",
+      "visual": "PSA: always sing your 鉂わ笍 out, you'll never know who's going to listen 馃憖 tune into the...",
+      "dialogue": "PSA: always sing your 鉂わ笍 out, you'll never know who's going to listen 馃憖 tune..."
+    },
+    {
+      "id": "shot_03",
+      "window": "8-14s",
+      "role": "proof_block",
+      "visual": "Hook / packaging study",
+      "dialogue": "Hook / packaging study"
+    },
+    {
+      "id": "shot_04",
+      "window": "14-20s",
+      "role": "cta_close",
+      "visual": "软收口",
+      "dialogue": "继续看 / 保存"
+    }
+  ],
+  "pacing_map": [
+    {
+      "window": "0-3s",
+      "beat": "hook_lock",
+      "goal": "首屏识别锁定",
+      "cue": "PSA: always sing your 鉂わ笍 out, you'll never know who's going to listen 馃憖 tune into the full episode of Behind the..."
+    },
+    {
+      "window": "3-8s",
+      "beat": "premise",
+      "goal": "压缩前提",
+      "cue": "PSA: always sing your 鉂わ笍 out, you'll never know who's going to listen 馃憖 tune into the..."
+    },
+    {
+      "window": "8-14s",
+      "beat": "proof_push",
+      "goal": "证明前置",
+      "cue": "Hook / packaging study"
+    },
+    {
+      "window": "14-20s",
+      "beat": "soft_close",
+      "goal": "轻收口",
+      "cue": "继续看 / 保存 / 轻量关注"
+    }
+  ],
+  "subtitle_beats": [
+    {
+      "id": "beat_01",
+      "window": "0-3s",
+      "type": "首屏字幕",
+      "line": "PSA: always sing your 鉂わ笍 out, you'll never know who's going to listen 馃憖 tune into the full episode of Behind the..."
+    },
+    {
+      "id": "beat_02",
+      "window": "3-8s",
+      "type": "前提字幕",
+      "line": "PSA: always sing your 鉂わ笍 out, you'll never know who's going to listen..."
+    },
+    {
+      "id": "beat_03",
+      "window": "8-14s",
+      "type": "证明字幕",
+      "line": "Hook / packaging study"
+    },
+    {
+      "id": "beat_04",
+      "window": "14-20s",
+      "type": "收口字幕",
+      "line": "继续看 / 了解更多"
+    }
+  ],
+  "proof_blocks": [
+    {
+      "id": "proof_primary",
+      "label": "主证明块",
+      "content": "Hook / packaging study"
+    },
+    {
+      "id": "proof_support",
+      "label": "辅助证明",
+      "content": "结果 / 人物 / 凭证 / 动作"
+    },
+    {
+      "id": "proof_fallback",
+      "label": "无口播兜底",
+      "content": "字幕 + 切镜 + 动作节奏"
+    }
+  ],
+  "asset_requirements": [
+    {
+      "asset": "hero_frame",
+      "need": "首屏主画面 / 封面",
+      "priority": "必须"
+    },
+    {
+      "asset": "proof_asset",
+      "need": "证明物 / 人物 / 结果画面",
+      "priority": "必须"
+    },
+    {
+      "asset": "subtitle_pack",
+      "need": "字幕叠字或 caption 证据",
+      "priority": "建议"
+    },
+    {
+      "asset": "download_source",
+      "need": "可复核下载源",
+      "priority": "建议"
+    }
+  ],
+  "generator_branches": {
+    "sora": {
+      "style": "PSA: always sing your 鉂わ笍 out, you'll never know who's going to listen 馃憖 tune into the...",
+      "environment": "社交原生、单前提、先识别后证明",
+      "tone_pacing": "快 setup、早 proof、轻收口",
+      "character": "tiktok（未认证）",
+      "shots": [
+        {
+          "id": "shot_01",
+          "window": "0-3s",
+          "role": "hero_hook",
+          "visual": "PSA: always sing your 鉂わ笍 out, you'll never know who's going to listen 馃憖 tune into the full episode of Behind the...",
+          "dialogue": "PSA: always sing your 鉂わ笍 out, you'll never know who's going to listen 馃憖 tune into the full episode of Behind the..."
+        },
+        {
+          "id": "shot_02",
+          "window": "3-8s",
+          "role": "premise_setup",
+          "visual": "PSA: always sing your 鉂わ笍 out, you'll never know who's going to listen 馃憖 tune into the...",
+          "dialogue": "PSA: always sing your 鉂わ笍 out, you'll never know who's going to listen 馃憖 tune..."
+        },
+        {
+          "id": "shot_03",
+          "window": "8-14s",
+          "role": "proof_block",
+          "visual": "Hook / packaging study",
+          "dialogue": "Hook / packaging study"
+        },
+        {
+          "id": "shot_04",
+          "window": "14-20s",
+          "role": "cta_close",
+          "visual": "软收口",
+          "dialogue": "继续看 / 保存"
+        }
+      ],
+      "confidence": "medium",
+      "model_hint": "text-to-video",
+      "duration_s": 20,
+      "aspect": "9:16"
+    },
+    "veo": {
+      "style": "PSA: always sing your 鉂わ笍 out, you'll never know who's going to listen 馃憖 tune into the...",
+      "environment": "社交原生、单前提、先识别后证明",
+      "tone_pacing": "快 setup、早 proof、轻收口",
+      "character": "tiktok（未认证）",
+      "shots": [
+        {
+          "id": "shot_01",
+          "window": "0-3s",
+          "role": "hero_hook",
+          "visual": "PSA: always sing your 鉂わ笍 out, you'll never know who's going to listen 馃憖 tune into the full episode of Behind the...",
+          "dialogue": "PSA: always sing your 鉂わ笍 out, you'll never know who's going to listen 馃憖 tune into the full episode of Behind the..."
+        },
+        {
+          "id": "shot_02",
+          "window": "3-8s",
+          "role": "premise_setup",
+          "visual": "PSA: always sing your 鉂わ笍 out, you'll never know who's going to listen 馃憖 tune into the...",
+          "dialogue": "PSA: always sing your 鉂わ笍 out, you'll never know who's going to listen 馃憖 tune..."
+        },
+        {
+          "id": "shot_03",
+          "window": "8-14s",
+          "role": "proof_block",
+          "visual": "Hook / packaging study",
+          "dialogue": "Hook / packaging study"
+        },
+        {
+          "id": "shot_04",
+          "window": "14-20s",
+          "role": "cta_close",
+          "visual": "软收口",
+          "dialogue": "继续看 / 保存"
+        }
+      ],
+      "confidence": "medium",
+      "model_hint": "text-to-video",
+      "duration_s": 20,
+      "aspect": "9:16"
+    },
+    "i2v": {
+      "style": "PSA: always sing your 鉂わ笍 out, you'll never know who's going to listen 馃憖 tune into the...",
+      "environment": "社交原生、单前提、先识别后证明",
+      "tone_pacing": "快 setup、早 proof、轻收口",
+      "character": "tiktok（未认证）",
+      "shots": [
+        {
+          "id": "shot_01",
+          "window": "0-3s",
+          "role": "hero_hook",
+          "visual": "PSA: always sing your 鉂わ笍 out, you'll never know who's going to listen 馃憖 tune into the full episode of Behind the...",
+          "dialogue": "PSA: always sing your 鉂わ笍 out, you'll never know who's going to listen 馃憖 tune into the full episode of Behind the..."
+        },
+        {
+          "id": "shot_02",
+          "window": "3-8s",
+          "role": "premise_setup",
+          "visual": "PSA: always sing your 鉂わ笍 out, you'll never know who's going to listen 馃憖 tune into the...",
+          "dialogue": "PSA: always sing your 鉂わ笍 out, you'll never know who's going to listen 馃憖 tune..."
+        },
+        {
+          "id": "shot_03",
+          "window": "8-14s",
+          "role": "proof_block",
+          "visual": "Hook / packaging study",
+          "dialogue": "Hook / packaging study"
+        },
+        {
+          "id": "shot_04",
+          "window": "14-20s",
+          "role": "cta_close",
+          "visual": "软收口",
+          "dialogue": "继续看 / 保存"
+        }
+      ],
+      "confidence": "medium",
+      "model_hint": "image-to-video",
+      "required_stills": [
+        "hero_frame",
+        "proof_asset"
+      ],
+      "motion": "轻 zoom / pan，保持识别线索不被遮挡"
+    }
+  },
+  "schema_version": "production-spec-handoff-v1"
+}

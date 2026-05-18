@@ -1,0 +1,109 @@
+{
+  "schema_version": "asset-library-v1",
+  "assets": [
+    {
+      "kind": "profile",
+      "label": "Source profile",
+      "path": "https://www.tiktok.com/@validation.orangecat",
+      "note": "Account baseline",
+      "scene_origin": "06",
+      "registered_at": "2026-05-17T22:18:13"
+    },
+    {
+      "kind": "reference_video",
+      "label": "Ranked video 1 reference_video",
+      "path": "https://www.tiktok.com/@orangecat0088/video/7636206423080226070",
+      "note": "always sing your heart out",
+      "scene_origin": "06",
+      "registered_at": "2026-05-17T22:18:13"
+    },
+    {
+      "kind": "reference_video",
+      "label": "Ranked video 2 reference_video",
+      "path": "https://www.tiktok.com/@usatiktoker23/video/7636373657828347158",
+      "note": "SuperCat Papa",
+      "scene_origin": "06",
+      "registered_at": "2026-05-17T22:18:13"
+    },
+    {
+      "kind": "reference_video",
+      "label": "Ranked video 3 reference_video",
+      "path": "https://www.tiktok.com/@aicatstories44/video/7636137611576282399",
+      "note": "sad cat",
+      "scene_origin": "06",
+      "registered_at": "2026-05-17T22:18:13"
+    },
+    {
+      "kind": "report_artifact",
+      "label": "Scene 06 competitor_product_board.json",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene01-strong-inputs-pass\\competitor_product_board.json",
+      "note": "Competitor dashboard source mode: tiktok_shop_structured",
+      "scene_origin": "06",
+      "registered_at": "2026-05-17T22:18:13"
+    },
+    {
+      "kind": "capture_artifact",
+      "label": "collection_board.json",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene01-strong-inputs-pass\\collection_board.json",
+      "note": "Reusable capture-pack artifact",
+      "scene_origin": "06",
+      "registered_at": "2026-05-17T22:18:13"
+    },
+    {
+      "kind": "capture_artifact",
+      "label": "production_spec_handoff.json",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene01-strong-inputs-pass\\production_spec_handoff.json",
+      "note": "Reusable capture-pack artifact",
+      "scene_origin": "06",
+      "registered_at": "2026-05-17T22:18:13"
+    },
+    {
+      "kind": "capture_artifact",
+      "label": "scene03_creation_matrix.json",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene01-strong-inputs-pass\\scene03_creation_matrix.json",
+      "note": "Reusable capture-pack artifact",
+      "scene_origin": "06",
+      "registered_at": "2026-05-17T22:18:13"
+    },
+    {
+      "kind": "capture_artifact",
+      "label": "content_graph.json",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene01-strong-inputs-pass\\content_graph.json",
+      "note": "Reusable capture-pack artifact",
+      "scene_origin": "06",
+      "registered_at": "2026-05-17T22:18:13"
+    },
+    {
+      "kind": "report_artifact",
+      "label": "Scene 01 采集看板 XLSX",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene01-strong-inputs-pass\\collection_board.xlsx",
+      "note": "可直接导入多维表 / 飞书",
+      "scene_origin": "01",
+      "registered_at": "2026-05-17T22:18:14"
+    },
+    {
+      "kind": "report_artifact",
+      "label": "Scene 01 operator schedule",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene01-strong-inputs-pass\\operator_schedule_scene_1.json",
+      "note": "推送/定时调度真源，可对接 deliver_operator_run --adapter feishu",
+      "scene_origin": "01",
+      "registered_at": "2026-05-18T06:51:28"
+    },
+    {
+      "kind": "report_artifact",
+      "label": "Scene 06 operator schedule",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene01-strong-inputs-pass\\operator_schedule_scene_6.json",
+      "note": "推送/定时调度真源，可对接 deliver_operator_run --adapter feishu",
+      "scene_origin": "06",
+      "registered_at": "2026-05-18T06:51:44"
+    }
+  ],
+  "carry_forward": [
+    "reference_video",
+    "cover_image",
+    "download_source",
+    "production_spec_handoff",
+    "collection_board"
+  ],
+  "updated_at": "2026-05-18T08:56:08"
+}

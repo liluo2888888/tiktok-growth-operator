@@ -1,0 +1,1284 @@
+{
+  "metadata": {
+    "scene": "05",
+    "scene_slug": "reverse-engineer-video-prompt",
+    "scene_title": "Reverse-Engineer Video Prompt",
+    "project": "Evidence Ref Validation",
+    "title": "Scene 05 Report - Evidence Ref Validation",
+    "deliverable_type": "breakdown_report",
+    "generated_at": "2026-05-17T22:40:55",
+    "scenario_file": "scenarios/05-reverse-engineer-video-prompt.md",
+    "status": "imported"
+  },
+  "working_context": {
+    "summary": "真实 TikTok capture-pack 导入自 validation/captures/scene01-strong-inputs-pass，当前用于未分类赛道，市场 US。当前看板规模：3 条已排序 / 3 条达标，最低点赞阈值 1000.\n来源账号：https://www.tiktok.com/@validation.orangecat; 会话质量：TikMatrix 主页帖子导出; 查询词：未提供; 主题：未提供.\n头部候选：https://www.tiktok.com/@orangecat0088/video/7636206423080226070 | always sing your heart out | 2610 点赞，28400 播放，62 分享.\n达标对照：https://www.tiktok.com/@orangecat0088/video/7636206423080226070 | cartoon orange cat sing-along packaging | 2610 点赞，28400 播放，62 分享.\n采集根目录：validation/captures/scene01-strong-inputs-pass",
+    "inputs": [
+      "Profile: https://www.tiktok.com/@validation.orangecat",
+      "Ranked video count: 3",
+      "Qualified video count: 3",
+      "Capture root: validation/captures/scene01-strong-inputs-pass",
+      "地区：US"
+    ],
+    "constraints": [
+      "如果证据偏薄，必须显式标记为低置信度。",
+      "不要臆造隐藏制作细节；不确定字段必须明说。",
+      "Real TikTok anonymous-session capture. Comment sampling is missing in this pack.",
+      "Conclusions should stay tied to ranked metrics, captions, and capture-pack summaries only."
+    ],
+    "requested_outputs": [
+      "反推原始制作简报",
+      "可生成结构",
+      "分镜逐条表",
+      "产品适配制作简报",
+      "字段级置信度标记",
+      "TikTok-native ranked-pattern conclusions",
+      "Reusable adaptation rules grounded in the capture pack"
+    ],
+    "minimum_evidence": [
+      "1 条视频或 1 份视觉摘要",
+      "summary.json or aggregate_summary.json",
+      "profile_summary.json or summary.json",
+      "ranked_videos.json or aggregate_ranked_videos.json"
+    ],
+    "ideal_evidence": [
+      "转写稿",
+      "逐帧笔记",
+      "待适配的用户产品",
+      "场景或人物备注",
+      "镜头时长与节奏备注",
+      "aggregate_qualified_videos.json or qualified_video_links.txt",
+      "aggregate_report.md",
+      "video_details.json"
+    ],
+    "ready_checklist": [
+      "视觉证据足以推断镜头语言",
+      "若证据偏薄，低置信度缺口已显式标出",
+      "反推 brief 可以明确拆成原版与适配版",
+      "generator-ready handoff 字段可输出",
+      "Top-ranked videos are clearly identified",
+      "Transferable pattern is separated from profile-specific brand power"
+    ]
+  },
+  "executive_summary": {
+    "conclusion": "这条真实 TikTok 参考视频反推出的是一份以快速识别、少解释、单个信任支点为核心的提示词 / 制作简报，而不是重叙事、重世界观的复杂脚本。",
+    "why_it_matters": "这让反推出来的制作简报具备复用价值：保留视觉节奏和前提顺序后，只要替换证明物或主线线索，就能迁移到别的产品或账号。",
+    "next_action": "把这份反推制作简报当成结构化创作蓝图使用，并明确区分哪些部分依赖源账号权威，哪些部分属于可迁移的镜头与文案逻辑。",
+    "confidence": "medium"
+  },
+  "operator_guide": {
+    "operator_checklist": [
+      "在写反推 prompt 前，先说明可能的创作意图。",
+      "把观测结果翻译成生成器可用模块，而不是空泛风格词。",
+      "反推原版 brief 与产品适配版 brief 必须分开。",
+      "证据偏薄的字段要用字段级置信度标识。",
+      "低置信度猜测必须显式写出来。",
+      "至少给出 generator-ready handoff 字段，不要停留在分析语句。"
+    ],
+    "common_failure_modes": [
+      "臆造视频无法支撑的 prompt 细节。",
+      "只描述视觉风格，不写节奏、镜头和口播逻辑。",
+      "跳过 shot 级结构，只剩 1 段泛 prompt。",
+      "忘记把反推 brief 改写成用户产品版本。"
+    ]
+  },
+  "execution_template": {
+    "recommended_request": "按场景 05 执行：反推 1 条视频背后的提示词或制作简报。先推断原始创意意图，再拆成可直接交给生成器的模块，如风格、环境、镜头、灯光、角色与分镜级结构；然后分开输出反推原版、产品适配版和 generator-ready handoff，并给字段级低置信度标记。",
+    "recommended_request_zh": "按场景 05 执行：反向推断这条视频背后的提示词或制作简报，把创作意图拆成视觉、镜头、旁白、节奏模块，并把低置信度猜测标出来。",
+    "recommended_runner_args": [
+      "python scripts/run_operator_workflow.py --mode scene --scene 05 --project \"<project-name>\" --output-root \".\\tmp\\reverse-engineer-prompt\"",
+      "python scripts/generate_scene_report.py --scene 05 --project \"<project-name>\" --output \".\\tmp\\reverse-engineer-prompt.json\" --format json"
+    ],
+    "variable_inputs": [
+      {
+        "name": "project_name",
+        "meaning": "便于识别的运行名或项目名",
+        "example": "创作者制作简报反推",
+        "required": "是"
+      },
+      {
+        "name": "market",
+        "meaning": "当场景依赖单一市场时的目标市场或地区",
+        "example": "美国",
+        "required": "建议"
+      },
+      {
+        "name": "evidence_pack",
+        "meaning": "作为源证据使用的链接、截图、转写、导出文件、OCR 文本或摘录备注",
+        "example": "参考视频画面、转写片段与节奏笔记",
+        "required": "是"
+      },
+      {
+        "name": "success_goal",
+        "meaning": "操作者希望该场景产出的结果",
+        "example": "反推原始 brief、产品适配 brief 与 generator-ready handoff",
+        "required": "建议"
+      }
+    ],
+    "codex_prompt_scaffold": [
+      "以场景 05 作为本次工作的主流程。",
+      "分析前先把现有证据归整为以下输入：参考视频, 截图或分镜摘要, 转写笔记, 可选的用户产品信息。",
+      "如果证据不足，先明确缺口再继续。最低开工证据：1 条视频或 1 份视觉摘要。",
+      "最终必须产出以下可直接给运营使用的结果：反推原始制作简报, 可生成结构, 分镜逐条表, 产品适配制作简报, 字段级置信度标记。",
+      "把观测结果翻译成生成器可直接消费的提示词模块，如风格、环境、节奏、镜头、灯光、角色、镜头段落、背景声音与转场剪辑。",
+      "交付结果必须拆成“反推原版”和“产品适配版”两层。",
+      "shot 级结构至少要落到时长、主体、动作、口播 / 字幕、作用与素材需求。",
+      "若证据偏薄，最终制作简报中要保留低置信度标记。",
+      "优先填入可复用结论、表格、排序逻辑和下一步动作，不要停留在泛泛点评。"
+    ],
+    "codex_prompt_scaffold_zh": [
+      "按场景 05 执行：反向推断这条视频背后的提示词或制作简报，把创作意图拆成视觉、镜头、旁白、节奏模块，并把低置信度猜测标出来。",
+      "先把我提供的材料整理成这组输入：参考视频, 截图或分镜摘要, 转写笔记, 可选的用户产品信息。",
+      "如果证据不足，先明确缺口再继续。最低开工证据：1 条视频或 1 份视觉摘要。",
+      "最终必须产出：反推原始制作简报, 可生成结构, 分镜逐条表, 产品适配制作简报, 字段级置信度标记。",
+      "输出必须可直接给运营、拆解、脚本、测试或交付使用，优先给表格、排序逻辑、复用规则和下一步动作。"
+    ],
+    "workflow_steps": [
+      "在写反推 prompt 前，先说明可能的创作意图。",
+      "把观测结果翻译成生成器可用模块，而不是空泛风格词。",
+      "反推原版 brief 与产品适配版 brief 必须分开。",
+      "证据偏薄的字段要用字段级置信度标识。",
+      "低置信度猜测必须显式写出来。",
+      "至少给出 generator-ready handoff 字段，不要停留在分析语句。"
+    ],
+    "output_checklist": [
+      "反推制作简报已拆成生成器可用的结构化模块。",
+      "存在分镜级行，而不只是 1 段泛 prompt。",
+      "当存在产品上下文时，已附带用户产品适配版。",
+      "已额外给出生成器交接字段，而不是停在分析笔记。",
+      "证据薄弱的推断已清楚标记。",
+      "无需从零重做分析，就能继续改写为用户产品版本。"
+    ]
+  },
+  "evidence": [
+    {
+      "label": "汇总",
+      "detail": "已排序=3; 达标=3; 最低点赞=1000",
+      "source": "aggregate_summary.json"
+    },
+    {
+      "label": "账号汇总",
+      "detail": "账号=https://www.tiktok.com/@validation.orangecat; 会话=TikMatrix 主页帖子导出; 已排序=3",
+      "source": "profile_summary.json"
+    },
+    {
+      "label": "排序视频 7636206423080226070",
+      "detail": "always sing your heart out",
+      "source": "https://www.tiktok.com/@orangecat0088/video/7636206423080226070"
+    },
+    {
+      "label": "排序视频 7636373657828347158",
+      "detail": "SuperCat Papa",
+      "source": "https://www.tiktok.com/@usatiktoker23/video/7636373657828347158"
+    },
+    {
+      "label": "排序视频 7636137611576282399",
+      "detail": "sad cat",
+      "source": "https://www.tiktok.com/@aicatstories44/video/7636137611576282399"
+    },
+    {
+      "label": "Content graph clusters",
+      "detail": "creator=0; sound=0; hashtag=0; videos=3",
+      "source": "content_graph.json"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "Executive Conclusion",
+      "instruction": "概括这条内容背后的高概率创作意图。",
+      "paragraphs": [
+        "这条真实 TikTok 参考视频反推出的是一份以快速识别、少解释、单个信任支点为核心的提示词 / 制作简报，而不是重叙事、重世界观的复杂脚本。",
+        "参考视频：https://www.tiktok.com/@orangecat0088/video/7636206423080226070",
+        "来源账号基线：https://www.tiktok.com/@validation.orangecat"
+      ],
+      "bullets": [
+        "已恢复钩子：always sing your heart out",
+        "已恢复证明路径：Hook / caption / packaging study",
+        "主要改写赛道：Hook / caption / packaging study",
+        "输出必须显式拆成两层：infer 原视频制作简报 + adapt 到用户产品卖点的制作简报。"
+      ],
+      "numbered": [],
+      "table": {
+        "title": "",
+        "headers": [],
+        "rows": []
+      },
+      "evidence_refs": [
+        {
+          "source_type": "video",
+          "source_id": "7636206423080226070",
+          "source_url": "https://www.tiktok.com/@orangecat0088/video/7636206423080226070",
+          "time_range": "00:00-00:03",
+          "excerpt": "always sing your heart out",
+          "supports": "Executive conclusion: infer-layer prompt brief from the reference video"
+        },
+        {
+          "source_type": "creator",
+          "source_id": "orangecat0088",
+          "source_url": "https://www.tiktok.com/@validation.orangecat",
+          "time_range": "account-sample-window",
+          "excerpt": "OrangeCat",
+          "supports": "Source account context for infer vs adapt split"
+        }
+      ]
+    },
+    {
+      "heading": "Structure Logic",
+      "instruction": "从观察到的成片反推出可直接交给生成器的制作简报结构。",
+      "paragraphs": [
+        "这一块要直接对齐 generator-ready schema：Style / Environment / Tone & Pacing / Camera / Lighting / Character / Shots / Background Sound / Transition。",
+        "上表是 infer 层，作用是从原视频反推出制作意图；下游 adapt 层则要把这些字段重新翻译成用户产品可执行版本。"
+      ],
+      "bullets": [],
+      "numbered": [],
+      "table": {
+        "title": "反推原始制作简报结构",
+        "headers": [
+          "Dimension",
+          "Observed Evidence",
+          "Likely Intent",
+          "Generator Handoff",
+          "Confidence"
+        ],
+        "rows": [
+          [
+            "风格",
+            "cartoon orange cat sing-along packaging",
+            "让内容在细节出现前先具备社交可读性",
+            "style",
+            "medium"
+          ],
+          [
+            "环境",
+            "社交原生的编辑语境，带一个主导性的识别线索",
+            "避免背景杂乱而遮住核心前提",
+            "environment",
+            "low"
+          ],
+          [
+            "语气与节奏",
+            "压缩铺垫、尽早给证明、轻量收口",
+            "避免长解释拖慢核心承诺出现",
+            "tone_pacing",
+            "medium"
+          ],
+          [
+            "镜头",
+            "短节拍、前提先行、快速建立识别",
+            "先给出让观众立刻在意的首屏线索",
+            "camera",
+            "low"
+          ],
+          [
+            "灯光",
+            "优先清楚可信，而不是过度电影感",
+            "保证证明层清晰可信",
+            "lighting",
+            "low"
+          ],
+          [
+            "角色",
+            "orangecat0088（未认证）",
+            "尽快承接信任",
+            "character",
+            "medium"
+          ],
+          [
+            "背景声音",
+            "当前采集包未恢复出清晰音频线索",
+            "支撑整体 editorial 气质，但不要压过主线线索",
+            "background_sound",
+            "low"
+          ],
+          [
+            "转场 / 剪辑",
+            "快切或紧凑节拍变化",
+            "保护清晰度和推进感",
+            "transition",
+            "medium"
+          ]
+        ]
+      },
+      "evidence_refs": [
+        {
+          "source_type": "video",
+          "source_id": "7636206423080226070",
+          "source_url": "https://www.tiktok.com/@orangecat0088/video/7636206423080226070",
+          "time_range": "full-video",
+          "excerpt": "always sing your heart out",
+          "supports": "Generator schema: style / environment / pacing fields"
+        }
+      ]
+    },
+    {
+      "heading": "Core Mechanism",
+      "instruction": "说明这份反推简报为什么可能有效，以及哪些部分仍是推断。",
+      "paragraphs": [
+        "infer 版本回答的是：原视频为什么成立；adapt 版本回答的是：换成你的产品后，这套成立条件要由什么素材来接住。"
+      ],
+      "bullets": [],
+      "numbered": [],
+      "table": {
+        "title": "",
+        "headers": [
+          "Creative Layer",
+          "Why It Likely Works",
+          "What Evidence Supports It",
+          "Asset Dependency",
+          "Confidence"
+        ],
+        "rows": [
+          [
+            "钩子设计",
+            "第一个线索一眼可懂，且具备情绪或社交识别度。",
+            "always sing your heart out",
+            "首屏可见主镜头 / 钩子叠字",
+            "medium"
+          ],
+          [
+            "证明设计",
+            "证明层更依赖 hook / caption / packaging study，而不是靠长篇论证。",
+            "https://www.tiktok.com/@orangecat0088/video/7636206423080226070",
+            "证明物、口碑、结果或人物信任线索",
+            "medium"
+          ],
+          [
+            "节奏设计",
+            "压缩比电影感复杂度更重要。",
+            "PSA: always sing your heart out, you'll never know who's going to listen.",
+            "快 setup、早 proof、少解释",
+            "medium"
+          ],
+          [
+            "转化设计",
+            "收口是在推动继续观看，而不是硬塞强 CTA。",
+            "https://www.tiktok.com/@orangecat0088/video/7636206423080226070",
+            "延续式 CTA / 继续看 / 保存 / 了解更多",
+            "medium"
+          ]
+        ]
+      },
+      "evidence_refs": [
+        {
+          "source_type": "video",
+          "source_id": "7636206423080226070",
+          "source_url": "https://www.tiktok.com/@orangecat0088/video/7636206423080226070",
+          "time_range": "00:00-00:03",
+          "excerpt": "always sing your heart out",
+          "supports": "Hook design"
+        },
+        {
+          "source_type": "video",
+          "source_id": "7636206423080226070",
+          "source_url": "https://www.tiktok.com/@orangecat0088/video/7636206423080226070",
+          "time_range": "00:06-00:14",
+          "excerpt": "always sing your heart out",
+          "supports": "Proof design"
+        },
+        {
+          "source_type": "video",
+          "source_id": "7636206423080226070",
+          "source_url": "https://www.tiktok.com/@orangecat0088/video/7636206423080226070",
+          "time_range": "00:14-00:20",
+          "excerpt": "always sing your heart out",
+          "supports": "Pacing and close design"
+        }
+      ]
+    },
+    {
+      "heading": "Reusable Formula",
+      "instruction": "把反推原版 prompt 或制作简报写成生成器可直接消费的结构。",
+      "paragraphs": [
+        "这一层输出的是可直接交给视频生成模型或剪辑执行的模块化制作简报，而不是普通分析笔记。"
+      ],
+      "bullets": [],
+      "numbered": [],
+      "table": {
+        "title": "Generator-Ready Schema",
+        "headers": [
+          "字段",
+          "infer 原视频",
+          "adapt 到你的产品",
+          "generator key",
+          "证据 / 素材",
+          "置信度"
+        ],
+        "rows": [
+          [
+            "Style",
+            "cartoon orange cat sing-along packaging",
+            "保留识别优先，但换成你的产品主张",
+            "style",
+            "https://www.tiktok.com/@orangecat0088/video/7636206423080226070",
+            "medium"
+          ],
+          [
+            "Environment",
+            "社交原生、前提单一、先识别后证明",
+            "只保留真实能拍到 / 能生成的场景",
+            "environment",
+            "真实场景或产品图",
+            "low"
+          ],
+          [
+            "Tone & Pacing",
+            "快 setup、早 proof、轻收口",
+            "避免长解释，优先让人秒懂",
+            "tone_pacing",
+            "节奏脚本",
+            "medium"
+          ],
+          [
+            "Camera",
+            "首屏先给最强识别线索，再围绕证明收紧",
+            "如果没有真人镜头，就用产品 / 证明物替代",
+            "camera",
+            "镜头计划",
+            "low"
+          ],
+          [
+            "Lighting",
+            "清楚可信优先，不追求过度电影感",
+            "保证证明层可见、可读、可信",
+            "lighting",
+            "画面风格约束",
+            "low"
+          ],
+          [
+            "Character",
+            "orangecat0088（未认证）",
+            "换成自有创作者、用户、产品或凭证",
+            "character",
+            "人物或证明物清单",
+            "medium"
+          ],
+          [
+            "Shots",
+            "always sing your heart out -> cartoon orange cat sing-along packaging -> Hook / caption / packaging study -> 软收口",
+            "按 shot_01 到 shot_04 逐镜头改写",
+            "shots",
+            "分镜表",
+            "medium"
+          ],
+          [
+            "Background Sound",
+            "当前采集包未恢复出清晰音频线索",
+            "保留 editorial 原生感，但不要盖过主线索",
+            "background_sound",
+            "音频选择",
+            "low"
+          ],
+          [
+            "Transition",
+            "短节拍、少空镜、在看点清楚前不做长铺垫",
+            "所有转场都服务于清晰推进",
+            "transition",
+            "剪辑约束",
+            "medium"
+          ]
+        ]
+      },
+      "evidence_refs": [
+        {
+          "source_type": "video",
+          "source_id": "7636206423080226070",
+          "source_url": "https://www.tiktok.com/@orangecat0088/video/7636206423080226070",
+          "time_range": "full-video",
+          "excerpt": "always sing your heart out",
+          "supports": "Generator-ready schema evidence fields"
+        }
+      ]
+    },
+    {
+      "heading": "Risks And Adaptation Notes",
+      "instruction": "按分镜描述结构，并指出哪些推断仍然偏弱。",
+      "paragraphs": [
+        "这里输出的是分镜逐条表，既服务于 reverse-engineer 原视频，也服务于把原视频改写成用户产品版本。"
+      ],
+      "bullets": [],
+      "numbered": [],
+      "table": {
+        "title": "分镜逐条表",
+        "headers": [
+          "Shot",
+          "Duration",
+          "Scene / Subject",
+          "Action",
+          "Voiceover / Overlay",
+          "Purpose",
+          "Asset Need",
+          "Generator Handoff",
+          "Confidence"
+        ],
+        "rows": [
+          [
+            "1",
+            "0-3s",
+            "开头识别线索",
+            "让前提在一瞬间可读",
+            "always sing your heart out",
+            "识别",
+            "首屏主镜头 / 钩子画面",
+            "shot_01",
+            "medium"
+          ],
+          [
+            "2",
+            "3-8s",
+            "铺垫 / 语境节拍",
+            "压缩交代场景或话题",
+            "cartoon orange cat sing-along packaging",
+            "语境",
+            "辅助画面或字幕",
+            "shot_02",
+            "medium"
+          ],
+          [
+            "3",
+            "8-14s",
+            "证明节拍",
+            "用一条信任线索承接 hook / caption / packaging study",
+            "用证明支撑承诺，而不是靠解释",
+            "信任",
+            "自有证明物",
+            "shot_03",
+            "medium"
+          ],
+          [
+            "4",
+            "14-20s",
+            "延续式收口",
+            "回到主线索并引导下一次点击或继续观看",
+            "延续 CTA",
+            "轻转化",
+            "收口画面 / 片尾卡",
+            "shot_04",
+            "medium"
+          ]
+        ]
+      },
+      "evidence_refs": [
+        {
+          "source_type": "video",
+          "source_id": "7636206423080226070",
+          "source_url": "https://www.tiktok.com/@orangecat0088/video/7636206423080226070",
+          "time_range": "0-3s",
+          "excerpt": "always sing your heart out",
+          "supports": "Shot table: opening recognition beat"
+        },
+        {
+          "source_type": "video",
+          "source_id": "7636206423080226070",
+          "source_url": "https://www.tiktok.com/@orangecat0088/video/7636206423080226070",
+          "time_range": "8-14s",
+          "excerpt": "always sing your heart out",
+          "supports": "Shot table: proof beat"
+        }
+      ]
+    },
+    {
+      "heading": "Next Action",
+      "instruction": "如果已有用户产品，就明确这份简报该如何改写到该产品上。",
+      "paragraphs": [
+        "这一层是 adapt 版本：在已有用户产品时，直接把参考视频翻译成可执行制作简报，而不是停留在原视频 prompt 反推。"
+      ],
+      "bullets": [],
+      "numbered": [],
+      "table": {
+        "title": "产品适配 / 改写字段",
+        "headers": [
+          "字段",
+          "原视频成立方式",
+          "改成你的产品",
+          "需要补什么",
+          "主要风险"
+        ],
+        "rows": [
+          [
+            "hook",
+            "always sing your heart out",
+            "换成你的产品承诺或用户痛点",
+            "需要一眼能懂的首屏物件 / 人物 / 结果",
+            "若首屏不可识别，就必须加重证明"
+          ],
+          [
+            "premise",
+            "cartoon orange cat sing-along packaging",
+            "只保留让观众继续看的最小前提",
+            "需要一句极短澄清性字幕",
+            "不要把 premise 写成长说明"
+          ],
+          [
+            "proof",
+            "Hook / caption / packaging study",
+            "把账号权威换成自有证明物 / 凭证 / 口碑",
+            "需要真实 proof asset",
+            "证明不足时不要假装有权威"
+          ],
+          [
+            "cta_close",
+            "轻量延续式收口",
+            "改成继续看 / 收藏 / 了解更多 / 去主页",
+            "需要真实 CTA 去向",
+            "强卖式 CTA 会破坏原生节奏"
+          ]
+        ]
+      },
+      "evidence_refs": [
+        {
+          "source_type": "video",
+          "source_id": "7636206423080226070",
+          "source_url": "https://www.tiktok.com/@orangecat0088/video/7636206423080226070",
+          "time_range": "full-video",
+          "excerpt": "always sing your heart out",
+          "supports": "Product adaptation field mapping"
+        }
+      ]
+    },
+    {
+      "heading": "Production-Spec Handoff",
+      "instruction": "让这份简报无需再做二次分析，就能直接给生成器或剪辑执行。",
+      "paragraphs": [
+        "production_spec_handoff.json 含 Sora / Veo / i2v 三分支与完整 shot_list / pacing / subtitle / proof / asset 字段。"
+      ],
+      "bullets": [
+        "分支：sora, veo, i2v",
+        "Pacing 0-3s: always sing your heart out",
+        "Pacing 3-8s: cartoon orange cat sing-along packaging",
+        "Pacing 8-14s: Hook / caption / packaging study",
+        "Pacing 14-20s: 继续看 / 保存 / 轻量关注"
+      ],
+      "numbered": [],
+      "table": {
+        "title": "生成器 / 剪辑交接表",
+        "headers": [
+          "Delivery Block",
+          "What Must Be Finalized",
+          "Who Uses It",
+          "Blocking Gap",
+          "Next Owner"
+        ],
+        "rows": [
+          [
+            "原始制作简报结构",
+            "infer 层 schema 与证据字段",
+            "策略 / 生成器",
+            "如果字段仍空，需要补截图、字幕或下载明细",
+            "内容策略"
+          ],
+          [
+            "分镜逐条表",
+            "shot_01 到 shot_04 的分镜与字幕 / 动作节拍",
+            "剪辑 / 生成器",
+            "镜头级证据不足会导致误生成",
+            "导演 / 剪辑"
+          ],
+          [
+            "产品适配简报",
+            "hook / proof / scene_character / cta_close 改写版",
+            "创意 / 生成器",
+            "没有产品卖点与素材就无法真正 adapt",
+            "运营 / 创意"
+          ],
+          [
+            "素材 / 人员清单",
+            "人物、产品、证明物、字幕与音频需求",
+            "制片 / 执行",
+            "缺实物素材时必须标红，不要假设资产存在",
+            "制片"
+          ]
+        ]
+      },
+      "evidence_refs": [
+        {
+          "source_type": "transcript",
+          "source_id": "7636206423080226070-script",
+          "source_url": "https://www.tiktok.com/@orangecat0088/video/7636206423080226070",
+          "time_range": "00:00-00:12",
+          "excerpt": "PSA: always sing your heart out, you'll never know who's going to listen.",
+          "supports": "Production handoff: caption/subtitle evidence for generator fill"
+        }
+      ]
+    }
+  ],
+  "assets": [
+    {
+      "label": "Scene 05 production_spec_handoff.json",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene01-strong-inputs-pass\\production_spec_handoff.json",
+      "note": "Reverse-engineered generator handoff with model branches"
+    },
+    {
+      "label": "[library] Source profile",
+      "path": "https://www.tiktok.com/@validation.orangecat",
+      "note": "Account baseline"
+    },
+    {
+      "label": "[library] Ranked video 1 reference_video",
+      "path": "https://www.tiktok.com/@orangecat0088/video/7636206423080226070",
+      "note": "always sing your heart out"
+    },
+    {
+      "label": "[library] Ranked video 2 reference_video",
+      "path": "https://www.tiktok.com/@usatiktoker23/video/7636373657828347158",
+      "note": "SuperCat Papa"
+    },
+    {
+      "label": "[library] Ranked video 3 reference_video",
+      "path": "https://www.tiktok.com/@aicatstories44/video/7636137611576282399",
+      "note": "sad cat"
+    },
+    {
+      "label": "[library] Scene 06 competitor_product_board.json",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene01-strong-inputs-pass\\competitor_product_board.json",
+      "note": "Competitor dashboard source mode: tiktok_shop_structured"
+    },
+    {
+      "label": "[library] collection_board.json",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene01-strong-inputs-pass\\collection_board.json",
+      "note": "Reusable capture-pack artifact"
+    },
+    {
+      "label": "[library] scene03_creation_matrix.json",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene01-strong-inputs-pass\\scene03_creation_matrix.json",
+      "note": "Reusable capture-pack artifact"
+    },
+    {
+      "label": "[library] content_graph.json",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene01-strong-inputs-pass\\content_graph.json",
+      "note": "Reusable capture-pack artifact"
+    },
+    {
+      "label": "[library] Scene 01 采集看板 XLSX",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene01-strong-inputs-pass\\collection_board.xlsx",
+      "note": "可直接导入多维表 / 飞书"
+    }
+  ],
+  "notes": [],
+  "sources": [
+    "aggregate_summary.json",
+    "aggregate_ranked_videos.json",
+    "https://www.tiktok.com/@validation.orangecat"
+  ],
+  "content_graph": {
+    "version": "1.0",
+    "cluster_summary": {
+      "creator_clusters": 0,
+      "sound_clusters": 0,
+      "hashtag_neighborhoods": 0,
+      "video_count": 3
+    },
+    "edge_count": 3,
+    "node_count": 6
+  },
+  "production_handoff": {
+    "tables": {
+      "pacing_map": [
+        [
+          "0-3s",
+          "hook_lock",
+          "首屏识别锁定",
+          "always sing your heart out",
+          "快切 / 硬切",
+          "high",
+          "https://www.tiktok.com/@orangecat0088/video/7636206423080226070"
+        ],
+        [
+          "3-8s",
+          "premise",
+          "压缩前提",
+          "cartoon orange cat sing-along packaging",
+          "承接镜头",
+          "medium",
+          "https://www.tiktok.com/@orangecat0088/video/7636206423080226070"
+        ],
+        [
+          "8-14s",
+          "proof_push",
+          "证明前置",
+          "Hook / caption / packaging study",
+          "证明物特写",
+          "medium",
+          "https://www.tiktok.com/@orangecat0088/video/7636206423080226070"
+        ],
+        [
+          "14-20s",
+          "soft_close",
+          "轻收口",
+          "继续看 / 保存 / 轻量关注",
+          "回到主线索",
+          "low",
+          "https://www.tiktok.com/@orangecat0088/video/7636206423080226070"
+        ]
+      ],
+      "subtitle_beats": [
+        [
+          "beat_01",
+          "0-3s",
+          "首屏字幕",
+          "always sing your heart out",
+          "必须一眼可读",
+          "medium"
+        ],
+        [
+          "beat_02",
+          "3-8s",
+          "前提字幕",
+          "cartoon orange cat sing-along packaging",
+          "只补最少上下文",
+          "medium"
+        ],
+        [
+          "beat_03",
+          "8-14s",
+          "证明字幕",
+          "Hook / caption / packaging study",
+          "证明优先于解释",
+          "medium"
+        ],
+        [
+          "beat_04",
+          "14-20s",
+          "收口字幕",
+          "继续看 / 了解更多",
+          "低摩擦 CTA",
+          "low"
+        ]
+      ],
+      "proof_blocks": [
+        [
+          "proof_primary",
+          "主证明块",
+          "Hook / caption / packaging study",
+          "orangecat0088（未认证）",
+          "前半段必须出现",
+          "medium",
+          "https://www.tiktok.com/@orangecat0088/video/7636206423080226070"
+        ],
+        [
+          "proof_support",
+          "辅助证明",
+          "结果 / 人物 / 凭证 / 动作",
+          "可叠加但不抢主线索",
+          "避免双主线",
+          "low",
+          "https://www.tiktok.com/@orangecat0088/video/7636206423080226070"
+        ],
+        [
+          "proof_fallback",
+          "无口播兜底",
+          "字幕 + 切镜 + 动作节奏",
+          "口播缺失时仍要能看懂",
+          "需要截图或下载复核",
+          "medium",
+          "https://www.tiktok.com/@orangecat0088/video/7636206423080226070"
+        ]
+      ],
+      "asset_requirements": [
+        [
+          "hero_frame",
+          "首屏主画面 / 封面",
+          "必须",
+          "high",
+          "https://www.tiktok.com/@orangecat0088/video/7636206423080226070"
+        ],
+        [
+          "proof_asset",
+          "证明物 / 人物 / 结果画面",
+          "必须",
+          "medium",
+          "https://www.tiktok.com/@orangecat0088/video/7636206423080226070"
+        ],
+        [
+          "subtitle_pack",
+          "字幕叠字或 caption 证据",
+          "建议",
+          "medium",
+          "https://www.tiktok.com/@orangecat0088/video/7636206423080226070"
+        ],
+        [
+          "download_source",
+          "可复核下载源",
+          "缺口",
+          "high",
+          "https://www.tiktok.com/@orangecat0088/video/7636206423080226070"
+        ]
+      ]
+    },
+    "generator_pack": {
+      "scene_id": "05",
+      "reference_video_url": "https://www.tiktok.com/@orangecat0088/video/7636206423080226070",
+      "shot_list": [
+        {
+          "id": "shot_01",
+          "window": "0-3s",
+          "role": "hero_hook",
+          "visual": "always sing your heart out",
+          "dialogue": "always sing your heart out"
+        },
+        {
+          "id": "shot_02",
+          "window": "3-8s",
+          "role": "premise_setup",
+          "visual": "cartoon orange cat sing-along packaging",
+          "dialogue": "cartoon orange cat sing-along packaging"
+        },
+        {
+          "id": "shot_03",
+          "window": "8-14s",
+          "role": "proof_block",
+          "visual": "Hook / caption / packaging study",
+          "dialogue": "Hook / caption / packaging study"
+        },
+        {
+          "id": "shot_04",
+          "window": "14-20s",
+          "role": "cta_close",
+          "visual": "软收口",
+          "dialogue": "继续看 / 保存"
+        }
+      ],
+      "pacing_map": [
+        {
+          "window": "0-3s",
+          "beat": "hook_lock",
+          "goal": "首屏识别锁定",
+          "cue": "always sing your heart out"
+        },
+        {
+          "window": "3-8s",
+          "beat": "premise",
+          "goal": "压缩前提",
+          "cue": "cartoon orange cat sing-along packaging"
+        },
+        {
+          "window": "8-14s",
+          "beat": "proof_push",
+          "goal": "证明前置",
+          "cue": "Hook / caption / packaging study"
+        },
+        {
+          "window": "14-20s",
+          "beat": "soft_close",
+          "goal": "轻收口",
+          "cue": "继续看 / 保存 / 轻量关注"
+        }
+      ],
+      "subtitle_beats": [
+        {
+          "id": "beat_01",
+          "window": "0-3s",
+          "type": "首屏字幕",
+          "line": "always sing your heart out"
+        },
+        {
+          "id": "beat_02",
+          "window": "3-8s",
+          "type": "前提字幕",
+          "line": "cartoon orange cat sing-along packaging"
+        },
+        {
+          "id": "beat_03",
+          "window": "8-14s",
+          "type": "证明字幕",
+          "line": "Hook / caption / packaging study"
+        },
+        {
+          "id": "beat_04",
+          "window": "14-20s",
+          "type": "收口字幕",
+          "line": "继续看 / 了解更多"
+        }
+      ],
+      "proof_blocks": [
+        {
+          "id": "proof_primary",
+          "label": "主证明块",
+          "content": "Hook / caption / packaging study"
+        },
+        {
+          "id": "proof_support",
+          "label": "辅助证明",
+          "content": "结果 / 人物 / 凭证 / 动作"
+        },
+        {
+          "id": "proof_fallback",
+          "label": "无口播兜底",
+          "content": "字幕 + 切镜 + 动作节奏"
+        }
+      ],
+      "asset_requirements": [
+        {
+          "asset": "hero_frame",
+          "need": "首屏主画面 / 封面",
+          "priority": "必须"
+        },
+        {
+          "asset": "proof_asset",
+          "need": "证明物 / 人物 / 结果画面",
+          "priority": "必须"
+        },
+        {
+          "asset": "subtitle_pack",
+          "need": "字幕叠字或 caption 证据",
+          "priority": "建议"
+        },
+        {
+          "asset": "download_source",
+          "need": "可复核下载源",
+          "priority": "缺口"
+        }
+      ],
+      "generator_branches": {
+        "sora": {
+          "style": "cartoon orange cat sing-along packaging",
+          "environment": "社交原生、单前提、先识别后证明",
+          "tone_pacing": "快 setup、早 proof、轻收口",
+          "character": "orangecat0088（未认证）",
+          "shots": [
+            {
+              "id": "shot_01",
+              "window": "0-3s",
+              "role": "hero_hook",
+              "visual": "always sing your heart out",
+              "dialogue": "always sing your heart out"
+            },
+            {
+              "id": "shot_02",
+              "window": "3-8s",
+              "role": "premise_setup",
+              "visual": "cartoon orange cat sing-along packaging",
+              "dialogue": "cartoon orange cat sing-along packaging"
+            },
+            {
+              "id": "shot_03",
+              "window": "8-14s",
+              "role": "proof_block",
+              "visual": "Hook / caption / packaging study",
+              "dialogue": "Hook / caption / packaging study"
+            },
+            {
+              "id": "shot_04",
+              "window": "14-20s",
+              "role": "cta_close",
+              "visual": "软收口",
+              "dialogue": "继续看 / 保存"
+            }
+          ],
+          "confidence": "medium",
+          "model_hint": "text-to-video",
+          "duration_s": 20,
+          "aspect": "9:16"
+        },
+        "veo": {
+          "style": "cartoon orange cat sing-along packaging",
+          "environment": "社交原生、单前提、先识别后证明",
+          "tone_pacing": "快 setup、早 proof、轻收口",
+          "character": "orangecat0088（未认证）",
+          "shots": [
+            {
+              "id": "shot_01",
+              "window": "0-3s",
+              "role": "hero_hook",
+              "visual": "always sing your heart out",
+              "dialogue": "always sing your heart out"
+            },
+            {
+              "id": "shot_02",
+              "window": "3-8s",
+              "role": "premise_setup",
+              "visual": "cartoon orange cat sing-along packaging",
+              "dialogue": "cartoon orange cat sing-along packaging"
+            },
+            {
+              "id": "shot_03",
+              "window": "8-14s",
+              "role": "proof_block",
+              "visual": "Hook / caption / packaging study",
+              "dialogue": "Hook / caption / packaging study"
+            },
+            {
+              "id": "shot_04",
+              "window": "14-20s",
+              "role": "cta_close",
+              "visual": "软收口",
+              "dialogue": "继续看 / 保存"
+            }
+          ],
+          "confidence": "medium",
+          "model_hint": "text-to-video",
+          "duration_s": 20,
+          "aspect": "9:16"
+        },
+        "i2v": {
+          "style": "cartoon orange cat sing-along packaging",
+          "environment": "社交原生、单前提、先识别后证明",
+          "tone_pacing": "快 setup、早 proof、轻收口",
+          "character": "orangecat0088（未认证）",
+          "shots": [
+            {
+              "id": "shot_01",
+              "window": "0-3s",
+              "role": "hero_hook",
+              "visual": "always sing your heart out",
+              "dialogue": "always sing your heart out"
+            },
+            {
+              "id": "shot_02",
+              "window": "3-8s",
+              "role": "premise_setup",
+              "visual": "cartoon orange cat sing-along packaging",
+              "dialogue": "cartoon orange cat sing-along packaging"
+            },
+            {
+              "id": "shot_03",
+              "window": "8-14s",
+              "role": "proof_block",
+              "visual": "Hook / caption / packaging study",
+              "dialogue": "Hook / caption / packaging study"
+            },
+            {
+              "id": "shot_04",
+              "window": "14-20s",
+              "role": "cta_close",
+              "visual": "软收口",
+              "dialogue": "继续看 / 保存"
+            }
+          ],
+          "confidence": "medium",
+          "model_hint": "image-to-video",
+          "required_stills": [
+            "hero_frame",
+            "proof_asset"
+          ],
+          "motion": "轻 zoom / pan，保持识别线索不被遮挡"
+        }
+      },
+      "schema_version": "production-spec-handoff-v1"
+    },
+    "pacing_headers": [
+      "时间窗",
+      "节拍",
+      "目标",
+      "主 cue",
+      "转场",
+      "置信度",
+      "证据"
+    ],
+    "subtitle_headers": [
+      "节拍 ID",
+      "时间",
+      "类型",
+      "字幕行",
+      "要求",
+      "置信度"
+    ],
+    "proof_headers": [
+      "块 ID",
+      "标签",
+      "内容",
+      "备注",
+      "优先级",
+      "置信度",
+      "证据"
+    ],
+    "asset_headers": [
+      "资产",
+      "用途",
+      "优先级",
+      "置信度",
+      "证据"
+    ]
+  },
+  "asset_library": {
+    "schema_version": "asset-library-v1",
+    "assets": [
+      {
+        "kind": "profile",
+        "label": "Source profile",
+        "path": "https://www.tiktok.com/@validation.orangecat",
+        "note": "Account baseline",
+        "scene_origin": "06",
+        "registered_at": "2026-05-17T22:18:13"
+      },
+      {
+        "kind": "reference_video",
+        "label": "Ranked video 1 reference_video",
+        "path": "https://www.tiktok.com/@orangecat0088/video/7636206423080226070",
+        "note": "always sing your heart out",
+        "scene_origin": "06",
+        "registered_at": "2026-05-17T22:18:13"
+      },
+      {
+        "kind": "reference_video",
+        "label": "Ranked video 2 reference_video",
+        "path": "https://www.tiktok.com/@usatiktoker23/video/7636373657828347158",
+        "note": "SuperCat Papa",
+        "scene_origin": "06",
+        "registered_at": "2026-05-17T22:18:13"
+      },
+      {
+        "kind": "reference_video",
+        "label": "Ranked video 3 reference_video",
+        "path": "https://www.tiktok.com/@aicatstories44/video/7636137611576282399",
+        "note": "sad cat",
+        "scene_origin": "06",
+        "registered_at": "2026-05-17T22:18:13"
+      },
+      {
+        "kind": "report_artifact",
+        "label": "Scene 06 competitor_product_board.json",
+        "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene01-strong-inputs-pass\\competitor_product_board.json",
+        "note": "Competitor dashboard source mode: tiktok_shop_structured",
+        "scene_origin": "06",
+        "registered_at": "2026-05-17T22:18:13"
+      },
+      {
+        "kind": "capture_artifact",
+        "label": "collection_board.json",
+        "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene01-strong-inputs-pass\\collection_board.json",
+        "note": "Reusable capture-pack artifact",
+        "scene_origin": "06",
+        "registered_at": "2026-05-17T22:18:13"
+      },
+      {
+        "kind": "capture_artifact",
+        "label": "production_spec_handoff.json",
+        "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene01-strong-inputs-pass\\production_spec_handoff.json",
+        "note": "Reusable capture-pack artifact",
+        "scene_origin": "06",
+        "registered_at": "2026-05-17T22:18:13"
+      },
+      {
+        "kind": "capture_artifact",
+        "label": "scene03_creation_matrix.json",
+        "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene01-strong-inputs-pass\\scene03_creation_matrix.json",
+        "note": "Reusable capture-pack artifact",
+        "scene_origin": "06",
+        "registered_at": "2026-05-17T22:18:13"
+      },
+      {
+        "kind": "capture_artifact",
+        "label": "content_graph.json",
+        "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene01-strong-inputs-pass\\content_graph.json",
+        "note": "Reusable capture-pack artifact",
+        "scene_origin": "06",
+        "registered_at": "2026-05-17T22:18:13"
+      },
+      {
+        "kind": "report_artifact",
+        "label": "Scene 01 采集看板 XLSX",
+        "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene01-strong-inputs-pass\\collection_board.xlsx",
+        "note": "可直接导入多维表 / 飞书",
+        "scene_origin": "01",
+        "registered_at": "2026-05-17T22:18:14"
+      }
+    ],
+    "carry_forward": [
+      "reference_video",
+      "cover_image",
+      "download_source",
+      "production_spec_handoff",
+      "collection_board"
+    ],
+    "updated_at": "2026-05-17T22:40:56"
+  }
+}

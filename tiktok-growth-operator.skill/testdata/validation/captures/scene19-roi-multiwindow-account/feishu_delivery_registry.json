@@ -1,0 +1,35 @@
+{
+  "tables": {
+    "scene19_account_retro": {
+      "app_token": "LtLebWiNoaHyZXsUP7gcpCz5nbb",
+      "app_url": "https://pizvgz6mvgi.feishu.cn/base/LtLebWiNoaHyZXsUP7gcpCz5nbb",
+      "table_id": "tblrXopL7XPpJy5p",
+      "table_name": "Scene19账号复盘主表",
+      "headers_fingerprint": "cc47cf46c53cf816",
+      "fixed_headers": [
+        "采集日期",
+        "追加批次",
+        "调度动作",
+        "内容模式",
+        "时间窗口",
+        "关键信号",
+        "执行说明",
+        "转化信号",
+        "ROI信号",
+        "比较周",
+        "优先级"
+      ],
+      "last_append_at": "2026-05-18T08:48:19",
+      "last_append_scope": "validation-board-v1-scene19",
+      "last_record_count": 6
+    }
+  },
+  "append_log": [
+    {
+      "at": "2026-05-18T08:48:19",
+      "table_key": "scene19_account_retro",
+      "record_count": 6,
+      "append_scope": "validation-board-v1-scene19"
+    }
+  ]
+}

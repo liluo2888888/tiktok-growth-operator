@@ -1,0 +1,65 @@
+{
+  "tables": {
+    "scene07_category_entry": {
+      "app_token": "FGpabgGnxaguZWs052JcW5p0nSc",
+      "app_url": "https://pizvgz6mvgi.feishu.cn/base/FGpabgGnxaguZWs052JcW5p0nSc",
+      "table_id": "tbltnJ7ezsGFLyQ0",
+      "table_name": "Scene07类目进入主表",
+      "headers_fingerprint": "7d05e724edbd964d",
+      "fixed_headers": [
+        "采集日期",
+        "追加批次",
+        "行类型",
+        "进入判断",
+        "需求热度",
+        "供给拥挤度",
+        "信号摘要",
+        "代表内容",
+        "建议动作",
+        "优先级",
+        "视频链接",
+        "备注"
+      ],
+      "last_append_at": "2026-05-18T08:44:14",
+      "last_append_scope": "validation-board-v1-scene07",
+      "last_record_count": 4
+    },
+    "scene17_creator_formula": {
+      "app_token": "MnavbCLd7aBBNAsWW1pcayM9nFf",
+      "app_url": "https://pizvgz6mvgi.feishu.cn/base/MnavbCLd7aBBNAsWW1pcayM9nFf",
+      "table_id": "tbl4rCu6d2VtRDLn",
+      "table_name": "Scene17创作者公式主表",
+      "headers_fingerprint": "d25a615d4ec73532",
+      "fixed_headers": [
+        "采集日期",
+        "追加批次",
+        "行类型",
+        "公式/聚类",
+        "包装线",
+        "原始钩子",
+        "可套用模板",
+        "强势发布时间",
+        "来源",
+        "运营动作",
+        "优先级"
+      ],
+      "last_append_at": "2026-05-18T08:46:56",
+      "last_append_scope": "validation-board-v1-scene17",
+      "last_record_count": 4
+    }
+  },
+  "append_log": [
+    {
+      "at": "2026-05-18T08:44:14",
+      "table_key": "scene07_category_entry",
+      "record_count": 4,
+      "append_scope": "validation-board-v1-scene07"
+    },
+    {
+      "at": "2026-05-18T08:46:56",
+      "table_key": "scene17_creator_formula",
+      "record_count": 4,
+      "append_scope": "validation-board-v1-scene17"
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "schema_version": "operator-schedule-v1",
+  "scene": "1",
+  "generated_at": "2026-05-18T08:56:06",
+  "append_scope": "2026-05-18",
+  "delivery": {
+    "local_bundle": true,
+    "feishu": {
+      "status": "planned",
+      "table_key": "scene01_collection_board",
+      "append_mode": "append_by_run_date",
+      "run_date_field": "采集日期",
+      "append_scope_field": "追加批次",
+      "append_scope": "2026-05-18"
+    },
+    "channels": [
+      "local",
+      "feishu"
+    ],
+    "notify_when_done": true
+  },
+  "dispatch": [
+    {
+      "when": "today",
+      "action": "把 collection_board.xlsx 追加进飞书主表，并标记 Top3 交接 Scene 03",
+      "owner": "operator",
+      "channel": "feishu"
+    },
+    {
+      "when": "today",
+      "action": "对 P1–P3 候选各跑一条 Scene 03 深拆（共 3 条）",
+      "owner": "analyst",
+      "channel": "local"
+    },
+    {
+      "when": "tomorrow",
+      "action": "用同一搜索配置复采，比较 shortlist 是否漂移",
+      "owner": "collector",
+      "channel": "local"
+    }
+  ],
+  "next_runs": [
+    {
+      "cadence": "daily",
+      "suggested_cron": "0 9 * * *",
+      "run_command": "python scripts/run_operator_workflow.py --mode capture-pack --scene 01 --push-feishu"
+    }
+  ],
+  "context": {
+    "shortlist_count": 3,
+    "board_row_count": 3
+  },
+  "board_row_count": 3
+}

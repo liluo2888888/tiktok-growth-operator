@@ -1,0 +1,21 @@
+{
+  "source": "http",
+  "product_count": 1,
+  "updated_at": "2026-05-18T00:02:22",
+  "keyword": "beauty",
+  "region": "US",
+  "limit": 10,
+  "source_attestation": "unverified",
+  "require_verified_source": false,
+  "require_source_metadata": false,
+  "status": "ok",
+  "provider": "http",
+  "response_source": {
+    "source_type": "official",
+    "provider": "tiktok_shop_open_platform",
+    "auth_mode": "merchant_oauth",
+    "issuer": "tiktok",
+    "gateway_id": "mock-gateway"
+  },
+  "gateway_url": "http://127.0.0.1:61877"
+}

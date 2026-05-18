@@ -1,0 +1,53 @@
+{
+  "schema_version": "operator-schedule-v1",
+  "scene": "6",
+  "generated_at": "2026-05-18T08:56:08",
+  "append_scope": "2026-05-18",
+  "delivery": {
+    "local_bundle": true,
+    "feishu": {
+      "status": "planned",
+      "table_key": "scene06_competitor_product_board",
+      "append_mode": "append_by_run_date",
+      "run_date_field": "采集日期",
+      "append_scope_field": "追加批次",
+      "append_scope": "2026-05-18"
+    },
+    "channels": [
+      "local",
+      "feishu"
+    ],
+    "notify_when_done": true
+  },
+  "dispatch": [
+    {
+      "when": "today",
+      "action": "把 competitor_product_board 异动行追加进主表并标红待补字段",
+      "owner": "operator",
+      "channel": "feishu"
+    },
+    {
+      "when": "today",
+      "action": "对降价/评分下滑 SKU 各拉 1 份评论样本解释原因",
+      "owner": "analyst",
+      "channel": "local"
+    },
+    {
+      "when": "this_week",
+      "action": "锁定 3–10 个核心竞品 SKU 做下一轮同字段复采",
+      "owner": "collector",
+      "channel": "local"
+    }
+  ],
+  "next_runs": [
+    {
+      "cadence": "weekly",
+      "suggested_cron": "0 10 * * 2",
+      "run_command": "python scripts/start_capture_pack_run.py --scene 06"
+    }
+  ],
+  "context": {
+    "board_row_count": 2
+  },
+  "board_row_count": 2
+}

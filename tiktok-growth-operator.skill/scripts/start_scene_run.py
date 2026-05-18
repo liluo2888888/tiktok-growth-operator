@@ -7,7 +7,7 @@ from pathlib import Path
 
 from feishu_naming import scene_label_zh
 from deliver_operator_run import deliver_feishu, deliver_local_bundle, load_run_context, parse_targets
-from feishu_push_runtime import maybe_push_feishu_bundle
+from feishu_delivery_helpers import deliver_feishu_report
 from generate_operator_pack import generate_pack_output
 from generate_scene_report import build_report_payload, load_catalog, resolve_scene
 from render_scene_report import infer_base_name, render_markdown_from_payload, write_docx, write_xlsx
@@ -39,7 +39,12 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--platform", default="Douyin", help="Platform label for derived operator packs.")
     parser.add_argument("--market", default="China", help="Target market label for derived operator packs.")
-    parser.add_argument("--push-feishu", action="store_true", help="After generating the run, also push the report to Feishu.")
+    parser.add_argument(
+        "--push-feishu",
+        action="store_true",
+        help="After generating the run, push Feishu doc/bundle and structured boards when present.",
+    )
+    parser.add_argument("--no-feishu-append-board", action="store_true", help="With --push-feishu, skip structured board append.")
     parser.add_argument(
         "--deliver",
         default="",
@@ -200,12 +205,13 @@ def main() -> None:
         "operator_packs": operator_pack_results,
     }
     if args.push_feishu:
-        result["feishu_push"] = maybe_push_feishu_bundle(
+        result["feishu_push"] = deliver_feishu_report(
             str(report_json_path),
             args.feishu_app_id,
             args.feishu_app_secret,
             title=args.feishu_title.strip() or project,
             base_name=args.feishu_base_name.strip() or project,
+            append_board=not args.no_feishu_append_board,
         )
 
     if args.deliver.strip():

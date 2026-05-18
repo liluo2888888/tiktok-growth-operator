@@ -7,6 +7,7 @@
 - 读 [final-handoff.md](final-handoff.md)：看最短完成态摘要、验证入口和真实 fixture 路径
 - 读 [command-map.md](command-map.md)：看最短的 Clipcat 对标命令索引
 - 读 [feishu-setup.md](feishu-setup.md)：如果你要把 scene 结果推到飞书，且你对飞书还不熟
+- 本节下方 [运营调度 / 飞书追加（P1）](#运营调度--飞书追加p1)：场景 01–08、17–19 的调度 JSON、`operator_schedule_scene_*.json` 与看板追加命令
 - 读 [scene-quick-reference.md](scene-quick-reference.md)：看 19 个 scene 的一页式可复制索引
 - 读 [creative-brief-quick-reference.md](creative-brief-quick-reference.md)：看场景 `09` 到 `16` 的创意制作简报速查
 - 读 [creative-production-handoff-pack.md](creative-production-handoff-pack.md)：看适合脚本、剪辑、设计或本地化执行的安全交付包
@@ -220,6 +221,154 @@ python scripts/push_report_to_feishu.py `
 - Scene `18`: `竞品账号周报 | <category> | <market> | <week>`
 - Scene `19`: `自家账号复盘优化 | <account> | <market> | <week>`
 
+## 运营调度 / 飞书追加（P1）
+
+场景 `01`–`08`、`17`–`19` 在 `import_tiktok_capture_pack.py` 导入后会自动写入 **`operator_schedule`**（推送/定时真源），并尽量落到采集包目录：
+
+- `operator_schedule_scene_<N>.json`：完整调度 JSON（`dispatch`、`next_runs`、`delivery.feishu`）
+- 报告内 **Next Action** 或 **Recommended Action** 表会追加「运营调度 / 推送计划」行（时间、动作、负责人、渠道）
+- 同节 `bullets` 会写建议 cron、`run_command`、飞书表键与 `append_scope`（追加批次）
+
+### 先看调度单，再推飞书
+
+```powershell
+python scripts/import_tiktok_capture_pack.py `
+  --capture-root "D:\path\capture-pack" `
+  --scene 02 `
+  --project "日常巡检" `
+  --output "D:\path\scene-02.json"
+
+Get-Content "D:\path\capture-pack\operator_schedule_scene_2.json" -Encoding utf8 | ConvertFrom-Json | Select-Object scene, dispatch, next_runs
+```
+
+### 与飞书对接的三条路径
+
+| 目标 | 适用场景 | 命令要点 |
+|------|----------|----------|
+| **文档 + 摘要多维表** | 任意已完成 scene JSON | `push_report_to_feishu_bundle.py` 或 `--push-feishu` |
+| **结构化看板按批次追加** | 报告含 `collection_board` 和/或 `patrol_board` | `deliver_operator_run.py --targets feishu --feishu-append-board` |
+| **本地交付包归档** | 不推飞书、只打包 | `deliver_operator_run.py --targets local-bundle` |
+
+Scene `01` 采集看板追加（固定表头 + `采集日期` / `追加批次` 列，写入 `feishu_delivery_registry.json` 复用同一多维表）：
+
+```powershell
+$env:FEISHU_APP_ID="cli_xxx"
+$env:FEISHU_APP_SECRET="xxx"
+
+python scripts/deliver_operator_run.py `
+  --report-json "D:\path\scene-01.json" `
+  --targets feishu `
+  --feishu-append-board `
+  --feishu-app-id $env:FEISHU_APP_ID `
+  --feishu-app-secret $env:FEISHU_APP_SECRET `
+  --feishu-base-name "爆款视频采集 | Lip Combo | US | 2026-05-17" `
+  --feishu-run-date "2026-05-17" `
+  --feishu-append-scope "2026-05-17-morning"
+```
+
+Scene `18` 竞品周报主表追加（矩阵模式按账号一行；单账号模式含调度动作行）：
+
+```powershell
+python scripts/deliver_operator_run.py `
+  --report-json "D:\path\scene-18.json" `
+  --targets feishu `
+  --feishu-append-board `
+  --feishu-app-id $env:FEISHU_APP_ID `
+  --feishu-app-secret $env:FEISHU_APP_SECRET `
+  --feishu-base-name "竞品周报 | Beauty | US | 2026-W19" `
+  --feishu-run-date "2026-05-17" `
+  --feishu-append-scope "2026-W19-matrix"
+```
+
+Scene `02` 巡检看板追加（与 Scene 01 相同机制；`--feishu-append-board` 会扫描报告内所有已注册看板并分别写入 registry）：
+
+```powershell
+python scripts/deliver_operator_run.py `
+  --report-json "D:\path\scene-02.json" `
+  --targets feishu `
+  --feishu-append-board `
+  --feishu-app-id $env:FEISHU_APP_ID `
+  --feishu-app-secret $env:FEISHU_APP_SECRET `
+  --feishu-base-name "品类巡检 | Beauty | US | 2026-05-17" `
+  --feishu-run-date "2026-05-17" `
+  --feishu-append-scope "beauty-us-daily"
+```
+
+无凭证时先 dry-run（只出计划，不调 OpenAPI）：
+
+```powershell
+python scripts/deliver_operator_run.py `
+  --report-json "D:\path\scene-01.json" `
+  --targets feishu `
+  --feishu-append-board `
+  --dry-run
+```
+
+从 capture-pack 跑完再推（`--push-feishu` 默认同时推送文档/摘要 **并** 追加结构化主表；仅要文档时用 `--no-feishu-append-board`）：
+
+```powershell
+python scripts/start_capture_pack_run.py `
+  --scene 18 `
+  --capture-root "D:\path\scene18-19-multi-week-account" `
+  --name weekly-competitor `
+  --project "竞品账号周报" `
+  --formats md,docx,xlsx `
+  --push-feishu `
+  --feishu-app-id $env:FEISHU_APP_ID `
+  --feishu-app-secret $env:FEISHU_APP_SECRET `
+  --feishu-title "竞品账号周报 | Beauty | US | 2026-W19" `
+  --feishu-base-name "竞品账号周报 | Beauty | US | 2026-W19"
+```
+
+日更巡检 + 周报一键（同样带主表追加）：
+
+```powershell
+python scripts/run_scene0203.py --source fixture --formats md,docx --push-feishu `
+  --feishu-app-id $env:FEISHU_APP_ID --feishu-app-secret $env:FEISHU_APP_SECRET
+
+python scripts/run_scene1819.py --preset multiweek --formats md,docx --push-feishu `
+  --feishu-app-id $env:FEISHU_APP_ID --feishu-app-secret $env:FEISHU_APP_SECRET
+```
+
+### 各场景 `delivery.feishu.table_key`（追加/命名对照）
+
+| Scene | `table_key` | 典型飞书动作（见 `dispatch`） |
+|-------|-------------|-------------------------------|
+| 01 | `scene01_collection_board` | 看板追加 + Top3 交接 Scene 03 |
+| 02 | `scene02_patrol_board` | 巡检主表按批次追加（`patrol_board.json`）+ 日报摘要 |
+| 06 | `scene06_competitor_product_board` | 竞品商品主表按批次追加（`competitor_product_board.json`） |
+| 07 | `scene07_category_entry` | 类目进入判断主表按批次追加（`category_entry_board.json`） |
+| 08 | `scene08_comment_persona` | 评论洞察主表按批次追加（`comment_persona_board.json`） |
+| 17 | `scene17_creator_formula` | 创作者公式主表按批次追加（`creator_formula_board.json`） |
+| 18 | `scene18_competitor_weekly` | 竞品周报主表按批次追加（`competitor_weekly_board.json`）+ 调度单 |
+| 19 | `scene19_account_retro` | 账号复盘调度主表按批次追加（`account_retro_board.json`） |
+
+一键日更 / 周报入口仍会生成上述调度字段：
+
+```powershell
+python scripts/run_scene0203.py --source fixture --formats md,docx
+python scripts/run_scene1819.py --preset multiweek --formats md,docx
+```
+
+### 本地飞书 CLI（`E:\飞书`）
+
+OpenAPI 为主路径；文档 CLI 兜底见 [feishu-setup.md](feishu-setup.md)。本机 CLI：
+
+- `E:\飞书\lark-cli-bin\v1.0.25\lark-cli.exe`
+- 一次性绑定：`python scripts/bootstrap_feishu_lark_cli.py` 或 `python scripts/setup_hermes_feishu_env.py`（默认写 `D:\hermes\.env`）
+
+### 自动化验收 vs 真网推送
+
+| 检查 | 覆盖什么 | 是否打真飞书 |
+|------|----------|--------------|
+| `validate_scene_ops.py` | 01/02/03/08/18/19 的 `operator_schedule` + 落盘 JSON | 否 |
+| `validate_capture_pack_workflows.py` | 全量 capture-pack + 04/05/06/07/17 P1 调度 | 否 |
+| `validate_delivery_adapters.py` | `deliver_operator_run`；无凭证时 `feishu` → `skipped` | 否 |
+| `validate_platform_p0.py` | Scene 01 `plan_board_append` 表头与行数 | 否 |
+| 你本机设 `$env:FEISHU_APP_ID` / `SECRET` 后跑 `--push-feishu` 或 `deliver_operator_run --targets feishu` | 文档 + 多维表真写入 | **是** |
+
+历史真网打通记录（含示例 Doc/Bitable 链接）见 [feishu-setup.md](feishu-setup.md)（`2026-05-08`）。**当前 Codex 会话若未注入 `FEISHU_APP_*`，不会自动做 live 推送**；需要你在 PowerShell 里设好凭证后再跑上表命令。
+
 ## 默认定位
 
 把这个包理解为：
@@ -388,6 +537,194 @@ Behavior:
 - persists prior patrol state under `tiktok-growth-operator.skill\tmp\scene02-state\...`
 - generates a normal Scene `02` operator run through the existing report pipeline
 - can optionally auto-run a downstream Scene `03` follow-up from the derived shortlist
+
+**日更巡检 02→03 一键包**（已有 patrol capture-pack 或 validation 夹具，无需 TikMatrix）：
+
+```powershell
+python scripts/run_scene0203.py `
+  --source fixture `
+  --name daily-patrol-teardown `
+  --project "TikTok Daily Patrol + Deep Teardown" `
+  --formats md,docx,xlsx
+```
+
+若 capture pack 里只有 `ranked_videos.json`、还没有 `patrol_snapshot.json`，先补巡检运行时字段：
+
+```powershell
+python scripts/seed_scene02_patrol_pack.py `
+  --capture-root "D:\path\your-capture-pack" `
+  --category "Beauty" `
+  --queries "lip combo,lip liner" `
+  --force
+
+python scripts/run_scene0203.py --capture-root "D:\path\your-capture-pack"
+```
+
+**周报复盘 18+19 一键包**（多周 / 矩阵 / ROI 夹具）：
+
+```powershell
+python scripts/run_scene1819.py --preset multiweek --formats md,docx,xlsx
+python scripts/run_scene1819.py --preset matrix
+python scripts/run_scene1819.py --preset roi --scene19-only
+```
+
+专项验收（02/03/18/19，约 10 秒）：
+
+```powershell
+python scripts/validate_scene_ops.py
+```
+
+Scene `06` competitor product dashboard with explicit TikTok Shop sync:
+
+```powershell
+python scripts/start_capture_pack_run.py `
+  --scene 06 `
+  --capture-root "D:\path\tiktok-analysis-pack-smoke-20260423f" `
+  --name tiktok-competitor-product-dashboard `
+  --project "TikTok Competitor Product Dashboard" `
+  --platform TikTok `
+  --market US `
+  --shop-sync `
+  --shop-source-mode http `
+  --shop-keyword "beauty" `
+  --shop-region US `
+  --shop-limit 10 `
+  --shop-http-url "http://127.0.0.1:8787"
+```
+
+Preferred unified entrypoint version:
+
+```powershell
+python scripts/run_operator_workflow.py `
+  --mode capture-pack `
+  --scene 06 `
+  --capture-root "D:\path\tiktok-analysis-pack-smoke-20260423f" `
+  --name tiktok-competitor-product-dashboard `
+  --project "TikTok Competitor Product Dashboard" `
+  --platform TikTok `
+  --market US `
+  --shop-sync `
+  --shop-source-mode http `
+  --shop-keyword "beauty" `
+  --shop-region US `
+  --shop-limit 10 `
+  --shop-http-url "http://127.0.0.1:8787"
+```
+
+Behavior:
+
+- runs an explicit competitor-product sync before Scene `06` import
+- writes `competitor_products.json` and `tiktok_shop_source_meta.json` into the capture root
+- upgrades Scene `06` from schema-only or fallback-only mode into a live structured product-board mode when the source returns data
+- keeps the existing fallback path when no live source is available
+
+If you only want sources that are explicitly declared as official or authorized, add:
+
+```powershell
+  --shop-source-attestation official `
+  --shop-require-verified-source `
+  --shop-http-allowed-hosts "open.tiktokapis.com,your-gateway.internal.example"
+```
+
+Accepted verified attestations are:
+
+- `official`
+- `authorized-partner`
+- `internal-gateway`
+
+If no verified attestation is provided, Scene `06` now treats the source as `unverified` by default.
+
+### Scene 06 quick start (no Clipcat / no Partner credentials yet)
+
+Use structured competitor products from the capture pack or the built-in seed script:
+
+```powershell
+python scripts/run_scene06.py `
+  --capture-root "D:\path\tiktok-analysis-pack-smoke-20260423f" `
+  --data-path structured `
+  --seed-mode fixture `
+  --formats md,docx,xlsx
+```
+
+This writes `competitor_products.json`, imports Scene `06`, and renders the dashboard with `data_source_mode=tiktok_shop_structured` (explicitly **unverified**, not official).
+
+### Scene 06 official path (TikTok Research API or Shop Partner OAuth)
+
+Correct **official** sources (as of 2026-05):
+
+| API family | Who can use it | What Scene 06 can get today |
+|------------|----------------|-----------------------------|
+| [TikTok Research API](https://developers.tiktok.com/products/research-api) | Approved researchers (`research.data.basic`) | EU shop aggregates via `POST https://open.tiktokapis.com/v2/research/tts/shop/` (shop_name, not global keyword catalog) |
+| [TikTok Shop Partner Center](https://partner.tiktokshop.com/doc) | Authorized apps + merchant OAuth | Seller/partner product APIs after merchant approval (implement in your gateway) |
+
+There is **no** anonymous public “search all TikTok Shop products” endpoint. Clipcat and scrapers are third-party and must stay `unverified` unless you wrap them in your own gateway with honest metadata.
+
+1. Start the local shop gateway (terminal A, FastAPI):
+
+```powershell
+$env:TIKTOK_RESEARCH_CLIENT_KEY = "your-client-key"
+$env:TIKTOK_RESEARCH_CLIENT_SECRET = "your-client-secret"
+# or: $env:TIKTOK_RESEARCH_ACCESS_TOKEN = "clt...."
+$env:TIKTOK_SHOP_NAME = "Your Shop Name"
+python scripts/run_shop_gateway.py --install-deps --port 8791
+```
+
+See `services/shop_gateway/README.md` for partner / structured dev backends.
+
+2. Run Scene 06 through the gateway (terminal B):
+
+```powershell
+python scripts/run_scene06.py `
+  --capture-root "D:\path\tiktok-analysis-pack-smoke-20260423f" `
+  --data-path official `
+  --shop-http-url "http://127.0.0.1:8791" `
+  --shop-source-attestation official `
+  --shop-require-verified-source `
+  --shop-http-allowed-hosts "127.0.0.1"
+```
+
+Full one-page implementation spec: [scene06-shop-gateway-spec.md](scene06-shop-gateway-spec.md).
+
+Environment templates (no secrets in repo):
+
+- General: `services/shop_gateway/.env.example` → `.env`
+- Internal forward / shop-bridge: `services/shop_gateway/.env.internal-forward.example` → `.env`
+
+See [services/shop_gateway/README.md](../services/shop_gateway/README.md).
+
+### Verified HTTP gateway contract
+
+When attestation is `official`, `authorized-partner`, or `internal-gateway`, the sync layer no longer trusts the CLI flag alone. The HTTP gateway must return a `source` object (or `source_metadata`) on `POST /v1/shop/products/search`.
+
+For `official`, the gateway response must include:
+
+```json
+{
+  "products": [ ... ],
+  "source": {
+    "source_type": "official",
+    "provider": "tiktok_shop_open_platform",
+    "auth_mode": "merchant_oauth",
+    "issuer": "tiktok"
+  }
+}
+```
+
+If metadata is missing or mismatched, sync is blocked with `invalid-source-metadata` and nothing is written to `competitor_products.json`.
+
+Recommended gateway behavior behind `official`:
+
+1. Complete TikTok Shop Partner Center / merchant OAuth on your side.
+2. Call the official Shop or Research API with the approved token.
+3. Normalize products into the operator schema.
+4. Echo the `source` block above on every search response so the skill can verify provenance in code.
+
+Environment equivalents:
+
+- `TIKTOK_SHOP_SOURCE_ATTESTATION=official`
+- `TIKTOK_SHOP_REQUIRE_VERIFIED=1`
+- `TIKTOK_SHOP_HTTP_ALLOWED_HOSTS=open.tiktokapis.com,your-gateway.internal.example`
+- `TIKTOK_SHOP_HTTP_URL=https://your-gateway.internal.example`
 
 Creative-testing examples from the same real TikTok pack:
 

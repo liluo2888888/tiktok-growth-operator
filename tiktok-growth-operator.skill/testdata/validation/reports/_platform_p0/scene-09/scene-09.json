@@ -1,0 +1,655 @@
+{
+  "metadata": {
+    "scene": "09",
+    "scene_slug": "reference-video-replication-brief",
+    "scene_title": "Reference-Video Replication Brief",
+    "project": "Platform P0 Validation",
+    "title": "Scene 09 Report - Platform P0 Validation",
+    "deliverable_type": "creation_brief",
+    "generated_at": "2026-05-18T08:56:05",
+    "scenario_file": "scenarios/09-reference-video-replication-brief.md",
+    "status": "imported"
+  },
+  "working_context": {
+    "summary": "真实 TikTok capture-pack 导入自 validation/captures/scene01-strong-inputs-pass，当前用于未分类赛道，市场 US。当前看板规模：3 条已排序 / 3 条达标，最低点赞阈值 1000.\n来源账号：https://www.tiktok.com/@validation.orangecat; 会话质量：TikMatrix 主页帖子导出; 查询词：未提供; 主题：未提供.\n头部候选：https://www.tiktok.com/@orangecat0088/video/7636206423080226070 | always sing your heart out | 2610 点赞，28400 播放，62 分享.\n达标对照：https://www.tiktok.com/@orangecat0088/video/7636206423080226070 | cartoon orange cat sing-along packaging | 2610 点赞，28400 播放，62 分享.\n采集根目录：validation/captures/scene01-strong-inputs-pass",
+    "inputs": [
+      "Profile: https://www.tiktok.com/@validation.orangecat",
+      "Ranked video count: 3",
+      "Qualified video count: 3",
+      "Capture root: validation/captures/scene01-strong-inputs-pass",
+      "地区：US"
+    ],
+    "constraints": [
+      "Keep the underlying logic, not literal copying.",
+      "Do not reuse branded phrasing, proof claims, or signature creator cues without rewriting them for the new product.",
+      "Real TikTok anonymous-session capture. Comment sampling is missing in this pack.",
+      "Conclusions should stay tied to ranked metrics, captions, and capture-pack summaries only."
+    ],
+    "requested_outputs": [
+      "Replication brief",
+      "Adapted hook",
+      "Adapted proof sequence",
+      "Shot order",
+      "Optional voiceover draft",
+      "Production handoff",
+      "TikTok-native ranked-pattern conclusions",
+      "Reusable adaptation rules grounded in the capture pack"
+    ],
+    "minimum_evidence": [
+      "Reference video logic",
+      "User product basics",
+      "summary.json or aggregate_summary.json",
+      "profile_summary.json or summary.json",
+      "ranked_videos.json or aggregate_ranked_videos.json"
+    ],
+    "ideal_evidence": [
+      "产品图片",
+      "卖点",
+      "目标人群与市场备注",
+      "aggregate_qualified_videos.json or qualified_video_links.txt",
+      "aggregate_report.md",
+      "video_details.json"
+    ],
+    "ready_checklist": [
+      "核心不变量已识别",
+      "照抄风险已列出",
+      "适配后的 hook 与镜头路径已经可写",
+      "Top-ranked videos are clearly identified",
+      "Transferable pattern is separated from profile-specific brand power"
+    ]
+  },
+  "executive_summary": {
+    "conclusion": "The cleanest replication target in this pack is a recognition-first editorial post that opens from a human or emotional cue, then lets trust and continuation do the rest.",
+    "why_it_matters": "This is a strong reference format for accounts that need simpler packaging and faster first-frame clarity.",
+    "next_action": "Adapt the reference by swapping in the user's own proof object or featured person while keeping the same first-frame promise and soft continuation CTA.",
+    "confidence": "medium"
+  },
+  "operator_guide": {
+    "operator_checklist": [
+      "Lock the invariant logic from the reference before adapting anything.",
+      "Swap product-specific pieces one layer at a time: hook, proof, close.",
+      "End with a filmable or promptable shot order."
+    ],
+    "common_failure_modes": [
+      "Copying the reference too literally.",
+      "Changing so much that the winning logic is lost.",
+      "Leaving the brief too abstract for production."
+    ]
+  },
+  "execution_template": {
+    "recommended_request": "Run scene 09 to turn one reference video into an adapted replication plan for a new product. Lock the invariant winning logic first, then rewrite the hook, proof, and close for the user's product.",
+    "recommended_request_zh": "按场景 09 执行：把一条对标视频改造成适合新产品的复刻制作简报，先锁定不该改的 winning logic，再重写 hook、证明和收口。",
+    "recommended_runner_args": [
+      "python scripts/run_operator_workflow.py --mode scene --scene 09 --project \"<project-name>\" --output-root \".\\tmp\\reference-replication-brief\"",
+      "python scripts/generate_scene_report.py --scene 09 --project \"<project-name>\" --output \".\\tmp\\reference-replication-brief.json\" --format json"
+    ],
+    "variable_inputs": [
+      {
+        "name": "project_name",
+        "meaning": "便于识别的运行名或项目名",
+        "example": "对标视频复刻制作简报",
+        "required": "是"
+      },
+      {
+        "name": "market",
+        "meaning": "当场景依赖单一市场时的目标市场或地区",
+        "example": "美国",
+        "required": "建议"
+      },
+      {
+        "name": "evidence_pack",
+        "meaning": "作为源证据使用的链接、截图、转写、导出文件、OCR 文本或摘录备注",
+        "example": "参考视频逻辑、用户产品基础信息与现有素材",
+        "required": "是"
+      },
+      {
+        "name": "success_goal",
+        "meaning": "操作者希望该场景产出的结果",
+        "example": "适配新产品的复刻制作简报与镜头顺序",
+        "required": "建议"
+      }
+    ],
+    "codex_prompt_scaffold": [
+      "以场景 09 作为本次工作的主流程。",
+      "分析前先把现有证据归整为以下输入：Reference video or breakdown, User product details, Selling points, Target audience / market。",
+      "如果证据不足，先明确缺口再继续。最低开工证据：Reference video logic, User product basics。",
+      "最终必须产出以下可直接给运营使用的结果：Replication brief, Adapted hook, Adapted proof sequence, Shot order, Optional voiceover draft, Production handoff。",
+      "Keep the winning mechanism, but replace product-specific proof and offer layers one at a time.",
+      "End with a filmable shot order or prompt-ready scene structure.",
+      "优先填入可复用结论、表格、排序逻辑和下一步动作，不要停留在泛泛点评。"
+    ],
+    "codex_prompt_scaffold_zh": [
+      "按场景 09 执行：把一条对标视频改造成适合新产品的复刻制作简报，先锁定不该改的 winning logic，再重写 hook、证明和收口。",
+      "先把我提供的材料整理成这组输入：Reference video or breakdown, User product details, Selling points, Target audience / market。",
+      "如果证据不足，先明确缺口再继续。最低开工证据：Reference video logic, User product basics。",
+      "最终必须产出：Replication brief, Adapted hook, Adapted proof sequence, Shot order, Optional voiceover draft, Production handoff。",
+      "输出必须可直接给运营、拆解、脚本、测试或交付使用，优先给表格、排序逻辑、复用规则和下一步动作。"
+    ],
+    "workflow_steps": [
+      "Lock the invariant logic from the reference before adapting anything.",
+      "Swap product-specific pieces one layer at a time: hook, proof, close.",
+      "End with a filmable or promptable shot order."
+    ],
+    "output_checklist": [
+      "Invariant reference logic is clearly separated from adapted layers.",
+      "The adapted production brief is specific enough to produce from.",
+      "Literal-copy risks are called out explicitly."
+    ]
+  },
+  "evidence": [
+    {
+      "label": "汇总",
+      "detail": "已排序=3; 达标=3; 最低点赞=1000",
+      "source": "aggregate_summary.json"
+    },
+    {
+      "label": "账号汇总",
+      "detail": "账号=https://www.tiktok.com/@validation.orangecat; 会话=TikMatrix 主页帖子导出; 已排序=3",
+      "source": "profile_summary.json"
+    },
+    {
+      "label": "排序视频 7636206423080226070",
+      "detail": "always sing your heart out",
+      "source": "https://www.tiktok.com/@orangecat0088/video/7636206423080226070"
+    },
+    {
+      "label": "排序视频 7636373657828347158",
+      "detail": "SuperCat Papa",
+      "source": "https://www.tiktok.com/@usatiktoker23/video/7636373657828347158"
+    },
+    {
+      "label": "排序视频 7636137611576282399",
+      "detail": "sad cat",
+      "source": "https://www.tiktok.com/@aicatstories44/video/7636137611576282399"
+    },
+    {
+      "label": "Content graph clusters",
+      "detail": "creator=0; sound=0; hashtag=0; videos=3",
+      "source": "content_graph.json"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "Executive Conclusion",
+      "instruction": "Summarize the strongest transferable logic from the reference.",
+      "paragraphs": [
+        "The cleanest replication target in this pack is a recognition-first editorial post that opens from a human or emotional cue, then lets trust and continuation do the rest.",
+        "Reference asset: https://www.tiktok.com/@orangecat0088/video/7636206423080226070"
+      ],
+      "bullets": [],
+      "numbered": [],
+      "table": {
+        "title": "",
+        "headers": [],
+        "rows": []
+      },
+      "evidence_refs": []
+    },
+    {
+      "heading": "Target",
+      "instruction": "Define the goal of the adapted version.",
+      "paragraphs": [],
+      "bullets": [],
+      "numbered": [],
+      "table": {
+        "title": "",
+        "headers": [
+          "Field",
+          "Answer",
+          "Why It Matters"
+        ],
+        "rows": [
+          [
+            "Target audience",
+            "Viewers who respond to immediate recognition or emotionally clear social packaging"
+          ],
+          [
+            "Conversion goal",
+            "Drive the next watch, save, follow, or soft interest action"
+          ],
+          [
+            "Reference asset",
+            "https://www.tiktok.com/@orangecat0088/video/7636206423080226070"
+          ],
+          [
+            "User product",
+            "Replace with the user's own creator, proof object, or community moment"
+          ]
+        ]
+      },
+      "evidence_refs": []
+    },
+    {
+      "heading": "Audience",
+      "instruction": "Describe the audience and what they need to believe.",
+      "paragraphs": [
+        "The audience does not need a long explanation first. They need an instant reason to care and a clear social or emotional cue that feels native to TikTok."
+      ],
+      "bullets": [
+        "What belief from the reference still needs to be created for the new product?",
+        "What objection or doubt must the adapted version remove faster than the original?"
+      ],
+      "numbered": [],
+      "table": {
+        "title": "",
+        "headers": [],
+        "rows": []
+      },
+      "evidence_refs": []
+    },
+    {
+      "heading": "Message",
+      "instruction": "Rewrite the hook and proof logic for the user's product.",
+      "paragraphs": [],
+      "bullets": [],
+      "numbered": [],
+      "table": {
+        "title": "",
+        "headers": [
+          "Layer",
+          "Reference Logic",
+          "Adapted Version",
+          "Required Product Evidence"
+        ],
+        "rows": [
+          [
+            "Hook",
+            "always sing your heart out",
+            "Swap in your own recognizable cue or outcome in the first frame",
+            "Owned hero cue, creator, product outcome, or community moment"
+          ],
+          [
+            "Problem framing",
+            "Low-friction, premise-first",
+            "Keep the explanation compressed so the cue lands before context",
+            "Clear one-line promise or emotional angle"
+          ],
+          [
+            "Proof device",
+            "Account authority / featured person / context",
+            "Replace platform authority with owned proof or collaborator trust",
+            "Receipt, testimonial, feature proof, or known face"
+          ],
+          [
+            "CTA",
+            "Soft continuation toward more content",
+            "Ask for the next watch or save, not a hard sales jump",
+            "Profile follow, save, or low-friction curiosity move"
+          ]
+        ]
+      },
+      "evidence_refs": []
+    },
+    {
+      "heading": "Structure",
+      "instruction": "给出可以直接执行的镜头顺序。",
+      "paragraphs": [],
+      "bullets": [],
+      "numbered": [],
+      "table": {
+        "title": "Replication Shot Order",
+        "headers": [
+          "Shot / Beat",
+          "What Happens",
+          "Purpose",
+          "Asset / Talent Needed",
+          "Line / Overlay",
+          "Dependency / Risk"
+        ],
+        "rows": [
+          [
+            "Hook frame",
+            "Open on the clearest recognizable person, object, or emotional cue.",
+            "Make the post legible before explanation starts.",
+            "Owned hero shot, creator frame, or emotionally clear visual cue",
+            "always sing your heart out",
+            "Fails if the first frame is decorative instead of legible"
+          ],
+          [
+            "Context beat",
+            "Compress the explanation so the post stays premise-led.",
+            "Prevent drop-off before the viewer understands why the post matters.",
+            "Support visual, caption card, or one short setup shot",
+            "cartoon orange cat sing-along packaging",
+            "Do not add a dense explainer or too many product details"
+          ],
+          [
+            "Proof beat",
+            "Add one trust anchor or proof object before the close.",
+            "Replace source-account authority with owned trust.",
+            "Receipt, collaborator, result, demo, or testimonial asset",
+            "One proof line that reduces skepticism fast",
+            "Weak proof will make the adaptation feel copied but not credible"
+          ],
+          [
+            "Close / CTA",
+            "End with a continuation move rather than a heavy conversion push.",
+            "Keep the post TikTok-native and socially legible.",
+            "Return to hero shot, product, or creator frame",
+            "Follow for part 2, save this, or watch the next clip",
+            "Hard-sell CTA will break the reference logic"
+          ]
+        ]
+      },
+      "evidence_refs": []
+    },
+    {
+      "heading": "Creative Constraints",
+      "instruction": "列出哪些不能照抄，哪些必须按用户产品重写。",
+      "paragraphs": [],
+      "bullets": [],
+      "numbered": [],
+      "table": {
+        "title": "Adaptation Guardrails",
+        "headers": [
+          "Constraint",
+          "Keep / Change",
+          "Reason",
+          "Owner / Check"
+        ],
+        "rows": [
+          [
+            "Visual identity",
+            "Keep recognition-first clarity; change official-account or platform-specific polish",
+            "The winning logic is clarity, not borrowed brand authority",
+            "Creative lead checks first frame before production"
+          ],
+          [
+            "Claim language",
+            "Keep the premise simple; change any unsupported promise",
+            "The adaptation should not inherit claims it cannot prove",
+            "Strategist or operator validates owned proof line"
+          ],
+          [
+            "Proof style",
+            "Keep one fast trust anchor; change who or what carries trust",
+            "Smaller accounts need owned proof instead of platform lift",
+            "Product or creator owner confirms available proof asset"
+          ],
+          [
+            "CTA wording",
+            "Keep a soft continuation CTA; change any hard conversion jump",
+            "The reference wins through social-native continuation, not catalog selling",
+            "Growth owner approves final follow/save/watch CTA"
+          ]
+        ]
+      },
+      "evidence_refs": []
+    },
+    {
+      "heading": "Production Handoff",
+      "instruction": "给拍摄或提示词执行方留下一张清晰交接表。",
+      "paragraphs": [],
+      "bullets": [],
+      "numbered": [],
+      "table": {
+        "title": "",
+        "headers": [
+          "Handoff Item",
+          "Locked Decision",
+          "Owner",
+          "Blocking Risk"
+        ],
+        "rows": [
+          [
+            "Hook direction",
+            "always sing your heart out",
+            "Strategist / creative",
+            "Owned hero cue or first-frame visual may still be missing"
+          ],
+          [
+            "Proof asset",
+            "One owned proof object must replace source-account authority",
+            "Operator / product",
+            "No adaptation should ship before the proof source is named"
+          ],
+          [
+            "On-screen line / overlay",
+            "cartoon orange cat sing-along packaging",
+            "Copy / strategist",
+            "Overlay can bloat if it tries to explain too much"
+          ],
+          [
+            "CTA execution",
+            "Close with a follow, save, or next-watch move",
+            "Growth / operator",
+            "Final CTA destination and wording still need market fit"
+          ]
+        ]
+      },
+      "evidence_refs": []
+    },
+    {
+      "heading": "Next Action",
+      "instruction": "State whether this brief is ready for scripting, filming, or prompting.",
+      "paragraphs": [
+        "现在就写两版改编稿：一版走人物驱动钩子，一版走证明物驱动钩子，但都保留相同的证明顺序与轻量延续式收口。"
+      ],
+      "bullets": [],
+      "numbered": [
+        "Confirm the product proof that will replace the reference proof.",
+        "Lock the adapted shot order and overlay copy.",
+        "Move this brief into scripting, filming, or prompt generation."
+      ],
+      "table": {
+        "title": "",
+        "headers": [],
+        "rows": []
+      },
+      "evidence_refs": []
+    }
+  ],
+  "assets": [
+    {
+      "label": "[library] Source profile",
+      "path": "https://www.tiktok.com/@validation.orangecat",
+      "note": "Account baseline"
+    },
+    {
+      "label": "[library] Ranked video 1 reference_video",
+      "path": "https://www.tiktok.com/@orangecat0088/video/7636206423080226070",
+      "note": "always sing your heart out"
+    },
+    {
+      "label": "[library] Ranked video 2 reference_video",
+      "path": "https://www.tiktok.com/@usatiktoker23/video/7636373657828347158",
+      "note": "SuperCat Papa"
+    },
+    {
+      "label": "[library] Ranked video 3 reference_video",
+      "path": "https://www.tiktok.com/@aicatstories44/video/7636137611576282399",
+      "note": "sad cat"
+    },
+    {
+      "label": "[library] Scene 06 competitor_product_board.json",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene01-strong-inputs-pass\\competitor_product_board.json",
+      "note": "Competitor dashboard source mode: tiktok_shop_structured"
+    },
+    {
+      "label": "[library] collection_board.json",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene01-strong-inputs-pass\\collection_board.json",
+      "note": "Reusable capture-pack artifact"
+    },
+    {
+      "label": "[library] production_spec_handoff.json",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene01-strong-inputs-pass\\production_spec_handoff.json",
+      "note": "Reusable capture-pack artifact"
+    },
+    {
+      "label": "[library] scene03_creation_matrix.json",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene01-strong-inputs-pass\\scene03_creation_matrix.json",
+      "note": "Reusable capture-pack artifact"
+    },
+    {
+      "label": "[library] content_graph.json",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene01-strong-inputs-pass\\content_graph.json",
+      "note": "Reusable capture-pack artifact"
+    },
+    {
+      "label": "[library] Scene 01 采集看板 XLSX",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene01-strong-inputs-pass\\collection_board.xlsx",
+      "note": "可直接导入多维表 / 飞书"
+    },
+    {
+      "label": "[library] Scene 01 operator schedule",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene01-strong-inputs-pass\\operator_schedule_scene_1.json",
+      "note": "推送/定时调度真源，可对接 deliver_operator_run --adapter feishu"
+    },
+    {
+      "label": "[library] Scene 06 operator schedule",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene01-strong-inputs-pass\\operator_schedule_scene_6.json",
+      "note": "推送/定时调度真源，可对接 deliver_operator_run --adapter feishu"
+    },
+    {
+      "label": "Scene 09 generation job registry",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene01-strong-inputs-pass\\generation_jobs.json",
+      "note": "Async generation job semantics; drop artifacts.json under generation_jobs/<job_id>/ to mark succeeded."
+    }
+  ],
+  "notes": [],
+  "sources": [
+    "aggregate_summary.json",
+    "aggregate_ranked_videos.json",
+    "https://www.tiktok.com/@validation.orangecat"
+  ],
+  "content_graph": {
+    "version": "1.0",
+    "cluster_summary": {
+      "creator_clusters": 0,
+      "sound_clusters": 0,
+      "hashtag_neighborhoods": 0,
+      "video_count": 3
+    },
+    "edge_count": 3,
+    "node_count": 6
+  },
+  "asset_library": {
+    "schema_version": "asset-library-v1",
+    "assets": [
+      {
+        "kind": "profile",
+        "label": "Source profile",
+        "path": "https://www.tiktok.com/@validation.orangecat",
+        "note": "Account baseline",
+        "scene_origin": "06",
+        "registered_at": "2026-05-17T22:18:13"
+      },
+      {
+        "kind": "reference_video",
+        "label": "Ranked video 1 reference_video",
+        "path": "https://www.tiktok.com/@orangecat0088/video/7636206423080226070",
+        "note": "always sing your heart out",
+        "scene_origin": "06",
+        "registered_at": "2026-05-17T22:18:13"
+      },
+      {
+        "kind": "reference_video",
+        "label": "Ranked video 2 reference_video",
+        "path": "https://www.tiktok.com/@usatiktoker23/video/7636373657828347158",
+        "note": "SuperCat Papa",
+        "scene_origin": "06",
+        "registered_at": "2026-05-17T22:18:13"
+      },
+      {
+        "kind": "reference_video",
+        "label": "Ranked video 3 reference_video",
+        "path": "https://www.tiktok.com/@aicatstories44/video/7636137611576282399",
+        "note": "sad cat",
+        "scene_origin": "06",
+        "registered_at": "2026-05-17T22:18:13"
+      },
+      {
+        "kind": "report_artifact",
+        "label": "Scene 06 competitor_product_board.json",
+        "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene01-strong-inputs-pass\\competitor_product_board.json",
+        "note": "Competitor dashboard source mode: tiktok_shop_structured",
+        "scene_origin": "06",
+        "registered_at": "2026-05-17T22:18:13"
+      },
+      {
+        "kind": "capture_artifact",
+        "label": "collection_board.json",
+        "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene01-strong-inputs-pass\\collection_board.json",
+        "note": "Reusable capture-pack artifact",
+        "scene_origin": "06",
+        "registered_at": "2026-05-17T22:18:13"
+      },
+      {
+        "kind": "capture_artifact",
+        "label": "production_spec_handoff.json",
+        "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene01-strong-inputs-pass\\production_spec_handoff.json",
+        "note": "Reusable capture-pack artifact",
+        "scene_origin": "06",
+        "registered_at": "2026-05-17T22:18:13"
+      },
+      {
+        "kind": "capture_artifact",
+        "label": "scene03_creation_matrix.json",
+        "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene01-strong-inputs-pass\\scene03_creation_matrix.json",
+        "note": "Reusable capture-pack artifact",
+        "scene_origin": "06",
+        "registered_at": "2026-05-17T22:18:13"
+      },
+      {
+        "kind": "capture_artifact",
+        "label": "content_graph.json",
+        "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene01-strong-inputs-pass\\content_graph.json",
+        "note": "Reusable capture-pack artifact",
+        "scene_origin": "06",
+        "registered_at": "2026-05-17T22:18:13"
+      },
+      {
+        "kind": "report_artifact",
+        "label": "Scene 01 采集看板 XLSX",
+        "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene01-strong-inputs-pass\\collection_board.xlsx",
+        "note": "可直接导入多维表 / 飞书",
+        "scene_origin": "01",
+        "registered_at": "2026-05-17T22:18:14"
+      },
+      {
+        "kind": "report_artifact",
+        "label": "Scene 01 operator schedule",
+        "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene01-strong-inputs-pass\\operator_schedule_scene_1.json",
+        "note": "推送/定时调度真源，可对接 deliver_operator_run --adapter feishu",
+        "scene_origin": "01",
+        "registered_at": "2026-05-18T06:51:28"
+      },
+      {
+        "kind": "report_artifact",
+        "label": "Scene 06 operator schedule",
+        "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene01-strong-inputs-pass\\operator_schedule_scene_6.json",
+        "note": "推送/定时调度真源，可对接 deliver_operator_run --adapter feishu",
+        "scene_origin": "06",
+        "registered_at": "2026-05-18T06:51:44"
+      }
+    ],
+    "carry_forward": [
+      "reference_video",
+      "cover_image",
+      "download_source",
+      "production_spec_handoff",
+      "collection_board"
+    ],
+    "updated_at": "2026-05-18T08:56:05"
+  },
+  "generation_handoff": {
+    "job_id": "gen-09-20260518085605-f8aba1",
+    "status": "pending",
+    "backend_hint": "manual_edit",
+    "backend_options": [
+      "manual_edit",
+      "sora",
+      "veo"
+    ],
+    "poll": {
+      "interval_s": 30,
+      "max_attempts": 120,
+      "strategy": "read_local_artifact_manifest"
+    },
+    "artifact_manifest": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene01-strong-inputs-pass\\generation_jobs\\gen-09-20260518085605-f8aba1\\artifacts.json",
+    "jobs_registry": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene01-strong-inputs-pass\\generation_jobs.json",
+    "external_job_id": "",
+    "renderer_provider": "",
+    "submit_result": null
+  }
+}

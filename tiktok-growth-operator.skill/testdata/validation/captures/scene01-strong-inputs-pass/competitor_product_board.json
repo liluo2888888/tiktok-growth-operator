@@ -1,0 +1,41 @@
+{
+  "schema_version": "competitor-product-board-v1",
+  "data_source_mode": "tiktok_shop_structured",
+  "headers": [
+    "商品 ID",
+    "商品名",
+    "平台",
+    "价格",
+    "评分信号",
+    "评论量",
+    "销量 / 热度信号",
+    "链接",
+    "证据来源"
+  ],
+  "rows": [
+    [
+      "fixture-velvet-lip-glaze-01",
+      "Velvet Lip Glaze - Rose Nude",
+      "TikTok Shop",
+      "18.99",
+      "4.6",
+      "842",
+      "rising-in-category",
+      "https://www.tiktok.com/shop/pdp/velvet-lip-glaze-rose-nude",
+      "structured_fixture"
+    ],
+    [
+      "fixture-hydrating-serum-02",
+      "Hydrating Barrier Serum 30ml",
+      "TikTok Shop",
+      "24.50",
+      "4.8",
+      "1204",
+      "stable-top-seller",
+      "https://www.tiktok.com/shop/pdp/hydrating-barrier-serum-30ml",
+      "structured_fixture"
+    ]
+  ],
+  "product_source": "structured_fixture",
+  "row_count": 2
+}

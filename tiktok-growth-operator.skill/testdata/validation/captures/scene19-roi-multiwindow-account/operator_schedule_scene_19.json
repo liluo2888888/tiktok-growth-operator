@@ -1,0 +1,55 @@
+{
+  "schema_version": "operator-schedule-v1",
+  "scene": "19",
+  "generated_at": "2026-05-18T08:56:10",
+  "append_scope": "2026-05-18",
+  "delivery": {
+    "local_bundle": true,
+    "feishu": {
+      "status": "planned",
+      "table_key": "scene19_account_retro",
+      "append_mode": "append_by_run_date",
+      "run_date_field": "采集日期",
+      "append_scope_field": "追加批次",
+      "append_scope": "2026-05-18"
+    },
+    "channels": [
+      "local",
+      "feishu"
+    ],
+    "notify_when_done": true
+  },
+  "dispatch": [
+    {
+      "when": "today",
+      "action": "按「多做/少做/停止」表调整下周排期",
+      "owner": "operator",
+      "channel": "feishu"
+    },
+    {
+      "when": "this_week",
+      "action": "执行 Open Questions 里的 2 条 A/B 测试",
+      "owner": "content",
+      "channel": "local"
+    },
+    {
+      "when": "2026-05-25",
+      "action": "同字段复采自有账号并跑 Scene 19 周对比",
+      "owner": "collector",
+      "channel": "local"
+    }
+  ],
+  "next_runs": [
+    {
+      "cadence": "weekly",
+      "suggested_cron": "0 10 * * 1",
+      "run_command": "python scripts/run_scene1819.py --preset multiweek"
+    }
+  ],
+  "context": {
+    "compare_mode": "compare",
+    "latest_week": "2026-W17",
+    "board_row_count": 6
+  },
+  "board_row_count": 6
+}

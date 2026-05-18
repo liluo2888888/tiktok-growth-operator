@@ -1,0 +1,636 @@
+{
+  "metadata": {
+    "scene": "18",
+    "scene_slug": "competitor-account-weekly-report",
+    "scene_title": "Competitor Account Weekly Report",
+    "project": "Evidence Ref Validation",
+    "title": "Scene 18 Report - Evidence Ref Validation",
+    "deliverable_type": "collection_board",
+    "generated_at": "2026-05-17T22:40:59",
+    "scenario_file": "scenarios/18-competitor-account-weekly-report.md",
+    "status": "imported"
+  },
+  "working_context": {
+    "summary": "真实 TikTok capture-pack 导入自 validation/captures/scene18-19-multi-week-account，当前用于未分类赛道。当前看板规模：6 条已排序 / 3 条达标.\n来源账号：https://www.tiktok.com/@mustsharebeauty; 会话质量：fixture_multi_week_account; 查询词：未提供; 主题：未提供.\n头部候选：https://www.tiktok.com/@mustsharebeauty/video/7616000000000000002 | Shade match story with decent trust but slow first frame. Comments ask for daylight proof and wear test. | 6100 点赞，236000 播放，81 分享，188 评论.\n采集根目录：validation/captures/scene18-19-multi-week-account",
+    "inputs": [
+      "Profile: https://www.tiktok.com/@mustsharebeauty",
+      "Ranked video count: 6",
+      "Qualified video count: 3",
+      "Capture root: validation/captures/scene18-19-multi-week-account"
+    ],
+    "constraints": [
+      "如果目前只有 1 周数据，应标记为基线周，而不是趋势判断。",
+      "Conclusions should stay tied to ranked metrics, captions, and capture-pack summaries only."
+    ],
+    "requested_outputs": [
+      "分账号周度总结",
+      "跨账号横向对比",
+      "关键变化",
+      "策略变化视角",
+      "对用户的影响",
+      "TikTok-native ranked-pattern conclusions",
+      "Reusable adaptation rules grounded in the capture pack"
+    ],
+    "minimum_evidence": [
+      "2 个以上竞品账号",
+      "1 周帖子批次",
+      "summary.json or aggregate_summary.json",
+      "profile_summary.json or summary.json",
+      "ranked_videos.json or aggregate_ranked_videos.json"
+    ],
+    "ideal_evidence": [
+      "上周备注",
+      "逐帖表现上下文",
+      "目标市场",
+      "1 个矩阵里包含 3-5 个账号",
+      "2 周以上周度快照",
+      "aggregate_qualified_videos.json or qualified_video_links.txt",
+      "aggregate_report.md",
+      "video_details.json"
+    ],
+    "ready_checklist": [
+      "帖子已按账号与周维度分组",
+      "可以明确写出相对上周的变化",
+      "可以给每周响应动作排优先级",
+      "可以进行跨账号横向对比",
+      "baseline week 与多周趋势可以区分",
+      "Top-ranked videos are clearly identified",
+      "Transferable pattern is separated from profile-specific brand power"
+    ]
+  },
+  "executive_summary": {
+    "conclusion": "这份竞品账号周报现在已经能对比最近两周，所以不再只是看单周榜单，而是能判断策略是否真的发生了变化。",
+    "why_it_matters": "有了两周切片后，可以把稳定连胜的包装方式和短期噪音分开，也更容易识别竞对本周到底改了什么。",
+    "next_action": "直接按下方周环比变化去做本周动作分发：哪些线继续追，哪些线可以借鉴，哪些异常峰值先忽略。",
+    "confidence": "medium"
+  },
+  "operator_guide": {
+    "operator_checklist": [
+      "开始比较前，先按账号和周维度整理帖子。",
+      "重点标出周度变化，而不是只列周度总量。",
+      "横向比较账号，而不是拆成互不相干的小报告。",
+      "最后必须落到本周用户该采取的动作。",
+      "如果只有单周数据，就标成 baseline week，不要假装长期趋势。"
+    ],
+    "common_failure_modes": [
+      "只列活动量，没有解释模式变化。",
+      "只有 1 个基线周却直接下趋势判断。",
+      "报告太像库存清单，导致漏掉策略变化检测。",
+      "没有真正做跨账号横向比较。"
+    ]
+  },
+  "execution_template": {
+    "recommended_request": "按场景 18 执行：输出竞品账号周报。把 3-5 个账号视为同一个矩阵，按账号与周维度比较发帖、爆点内容、爆款归因与策略变化；如果只有 1 周数据，要明确标成 baseline week，最后写清本周该跟进什么动作。",
+    "recommended_request_zh": "按场景 18 执行：输出竞品账号周报，要按账号和周维度比较内容变化，不只看总量，并明确本周该跟进的动作。",
+    "recommended_runner_args": [
+      "python scripts/run_operator_workflow.py --mode scene --scene 18 --project \"<project-name>\" --output-root \".\\tmp\\competitor-account-weekly-report\"",
+      "python scripts/generate_scene_report.py --scene 18 --project \"<project-name>\" --output \".\\tmp\\competitor-account-weekly-report.json\" --format json"
+    ],
+    "variable_inputs": [
+      {
+        "name": "project_name",
+        "meaning": "便于识别的运行名或项目名",
+        "example": "竞品账号周报",
+        "required": "是"
+      },
+      {
+        "name": "market",
+        "meaning": "当场景依赖单一市场时的目标市场或地区",
+        "example": "美国",
+        "required": "建议"
+      },
+      {
+        "name": "evidence_pack",
+        "meaning": "作为源证据使用的链接、截图、转写、导出文件、OCR 文本或摘录备注",
+        "example": "2-5 个竞品账号的周度帖子批次、上周备注与多周快照",
+        "required": "是"
+      },
+      {
+        "name": "success_goal",
+        "meaning": "操作者希望该场景产出的结果",
+        "example": "竞品周报、爆款归因、策略变化判断与动作看板",
+        "required": "建议"
+      }
+    ],
+    "codex_prompt_scaffold": [
+      "以场景 18 作为本次工作的主流程。",
+      "分析前先把现有证据归整为以下输入：2 个以上竞品账号, 最近帖子或周度帖子清单, 如有则附上上周备注, 目标市场, 周度监控窗口。",
+      "如果证据不足，先明确缺口再继续。最低开工证据：2 个以上竞品账号, 1 周帖子批次。",
+      "最终必须产出以下可直接给运营使用的结果：分账号周度总结, 跨账号横向对比, 关键变化, 策略变化视角, 对用户的影响。",
+      "重点突出跨账号的周度模式变化，而不是只列活动量。",
+      "把观察到的变化翻译成本周可执行动作。",
+      "解释为什么会爆，而不是只点名哪条爆了。",
+      "只有单周数据时，不要假装有长期趋势判断。",
+      "优先填入可复用结论、表格、排序逻辑和下一步动作，不要停留在泛泛点评。"
+    ],
+    "codex_prompt_scaffold_zh": [
+      "按场景 18 执行：输出竞品账号周报，要按账号和周维度比较内容变化，不只看总量，并明确本周该跟进的动作。",
+      "先把我提供的材料整理成这组输入：2 个以上竞品账号, 最近帖子或周度帖子清单, 如有则附上上周备注, 目标市场, 周度监控窗口。",
+      "如果证据不足，先明确缺口再继续。最低开工证据：2 个以上竞品账号, 1 周帖子批次。",
+      "最终必须产出：分账号周度总结, 跨账号横向对比, 关键变化, 策略变化视角, 对用户的影响。",
+      "输出必须可直接给运营、拆解、脚本、测试或交付使用，优先给表格、排序逻辑、复用规则和下一步动作。"
+    ],
+    "workflow_steps": [
+      "开始比较前，先按账号和周维度整理帖子。",
+      "重点标出周度变化，而不是只列周度总量。",
+      "横向比较账号，而不是拆成互不相干的小报告。",
+      "最后必须落到本周用户该采取的动作。",
+      "如果只有单周数据，就标成 baseline week，不要假装长期趋势。"
+    ],
+    "output_checklist": [
+      "帖子已经按账号与周维度整理。",
+      "报告解释了变化，而不是只罗列原始活动量。",
+      "跨账号策略差异已经说清楚。",
+      "已经区分 baseline week 与多周趋势判断。",
+      "本周响应动作已经排优先级。"
+    ]
+  },
+  "evidence": [
+    {
+      "label": "汇总",
+      "detail": "已排序=6; 达标=3; 最低点赞=",
+      "source": "summary.json"
+    },
+    {
+      "label": "账号汇总",
+      "detail": "账号=https://www.tiktok.com/@mustsharebeauty; 会话=fixture_multi_week_account; 已排序=6",
+      "source": "profile_summary.json"
+    },
+    {
+      "label": "排序视频 7616000000000000002",
+      "detail": "Shade match story with decent trust but slow first frame. Comments ask for daylight proof and wear test.",
+      "source": "https://www.tiktok.com/@mustsharebeauty/video/7616000000000000002"
+    },
+    {
+      "label": "排序视频 7617000000000000001",
+      "detail": "Before-after reveal in the first two seconds. Fast recognition, direct proof, and immediate save-worthy shade context.",
+      "source": "https://www.tiktok.com/@mustsharebeauty/video/7617000000000000001"
+    },
+    {
+      "label": "排序视频 7617000000000000002",
+      "detail": "Hook opens on the problem face, then switches straight into proof. Less talking, clearer payoff, stronger comments.",
+      "source": "https://www.tiktok.com/@mustsharebeauty/video/7617000000000000002"
+    },
+    {
+      "label": "Content graph clusters",
+      "detail": "creator=1; sound=0; hashtag=0; videos=6",
+      "source": "content_graph.json"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "Executive Conclusion",
+      "instruction": "总结本周被监控竞品账号到底发生了哪些变化。",
+      "paragraphs": [
+        "这份竞品账号周报现在已经能对比最近两周，所以不再只是看单周榜单，而是能判断策略是否真的发生了变化。",
+        "账号基线：https://www.tiktok.com/@mustsharebeauty",
+        "证据等级：可直接周对比（1 个账号 / 2 个自然周 / 6 条帖子 / 12 条评论样本 / 2 条下载成功）",
+        "比较窗口：2026-W17 vs 2026-W16"
+      ],
+      "bullets": [
+        "本周最强包装线：Proof / authority teardown",
+        "爆点帖子关键信号：Shade match story with decent trust but slow first frame.",
+        "评论侧信任 / 质疑线索：一般反应 | 回复压力=17 | The first two seconds sold me. I knew exactly why I should keep watching.",
+        "如果还没有上周对照，就把本次视为基线周报；若账号数不足，也不要包装成完整矩阵级结论。",
+        "头部样本入选溯源：creator cluster (@mustsharebeauty, 6 posts) → reuse-value rank #2",
+        "评论回复链信号：一般反应 | 回复压力=17 | The first two seconds sold me. I knew exactly why I should keep watching.",
+        "周度基线异动：2026-W17 vs 2026-W16: 互动均值抬升"
+      ],
+      "numbered": [],
+      "table": {
+        "title": "",
+        "headers": [],
+        "rows": []
+      },
+      "evidence_refs": [
+        {
+          "source_type": "account_week",
+          "source_id": "week-2026-W17",
+          "source_url": "https://www.tiktok.com/@mustsharebeauty",
+          "time_range": "weekly-window",
+          "excerpt": "Compared against prior week 2026-W16",
+          "supports": "Executive conclusion: latest-week strategy shift"
+        },
+        {
+          "source_type": "video",
+          "source_id": "7616000000000000002",
+          "source_url": "https://www.tiktok.com/@mustsharebeauty/video/7616000000000000002",
+          "time_range": "00:00-00:05",
+          "excerpt": "Shade match story with decent trust but slow first frame. Comments ask for daylight proof and wear test.",
+          "supports": "Executive conclusion: strongest packaging line this week"
+        }
+      ]
+    },
+    {
+      "heading": "Objects To Track",
+      "instruction": "按账号记录每周产出表现。",
+      "paragraphs": [],
+      "bullets": [
+        "自然周覆盖：2 周；帖子数：6；账号数：1。",
+        "先看哪一周在重复赢、哪一周只是新冒头，再决定是否判定为策略变化；矩阵模式下还要看这种变化有没有跨账号扩散。"
+      ],
+      "numbered": [],
+      "table": {
+        "title": "分账号周度总结",
+        "headers": [
+          "账号",
+          "发帖量",
+          "本周胜出帖子",
+          "主主题",
+          "爆点信号",
+          "相对上周变化",
+          "策略变化"
+        ],
+        "rows": [
+          [
+            "https://www.tiktok.com/@mustsharebeauty",
+            "2026-W17",
+            "3",
+            "https://www.tiktok.com/@mustsharebeauty/video/7617000000000000001",
+            "Before-after reveal in the first two seconds.",
+            "Hook / packaging study",
+            "18200 点赞，912000 播放，315 分享，420 评论"
+          ],
+          [
+            "https://www.tiktok.com/@mustsharebeauty",
+            "2026-W16",
+            "3",
+            "https://www.tiktok.com/@mustsharebeauty/video/7616000000000000002",
+            "Shade match story with decent trust but slow first frame.",
+            "Proof / authority teardown",
+            "6100 点赞，236000 播放，81 分享，188 评论"
+          ]
+        ]
+      },
+      "evidence_refs": [
+        {
+          "source_type": "account_week",
+          "source_id": "7616000000000000002",
+          "source_url": "https://www.tiktok.com/@mustsharebeauty/video/7616000000000000002",
+          "time_range": "weekly-window",
+          "excerpt": "Shade match story with decent trust but slow first frame. Comments ask for daylight proof and wear test.",
+          "supports": "Tracked account/week object row"
+        },
+        {
+          "source_type": "account_week",
+          "source_id": "7617000000000000001",
+          "source_url": "https://www.tiktok.com/@mustsharebeauty/video/7617000000000000001",
+          "time_range": "weekly-window",
+          "excerpt": "Before-after reveal in the first two seconds. Fast recognition, direct proof, and immediate save-worthy shade context.",
+          "supports": "Tracked account/week object row"
+        },
+        {
+          "source_type": "account_week",
+          "source_id": "7617000000000000002",
+          "source_url": "https://www.tiktok.com/@mustsharebeauty/video/7617000000000000002",
+          "time_range": "weekly-window",
+          "excerpt": "Hook opens on the problem face, then switches straight into proof. Less talking, clearer payoff, stronger comments.",
+          "supports": "Tracked account/week object row"
+        }
+      ]
+    },
+    {
+      "heading": "Why They Matter",
+      "instruction": "解释这些变化为什么重要，而不是只罗列现象。",
+      "paragraphs": [
+        "这一块不只是周报报数，而是先解释本周相对上周的基线异动，再解释谁在发力、谁在回落、谁只是事件噪音。"
+      ],
+      "bullets": [
+        "优先解释策略变化，再解释单条爆点；不要把偶发爆点误写成全账号升级。",
+        "横向对比要回答两个问题：是谁变了；这种变化有没有跨账号扩散。"
+      ],
+      "numbered": [],
+      "table": {
+        "title": "Change-First Weekly Digest",
+        "headers": [
+          "信号",
+          "发生了什么",
+          "为什么重要",
+          "是否升级动作"
+        ],
+        "rows": [
+          [
+            "周度基线",
+            "2026-W17 vs 2026-W16",
+            "发帖 3→3；均赞 4600.0→15300.0",
+            "是"
+          ],
+          [
+            "互动均值抬升",
+            "平均点赞 4600.0 -> 15300.0",
+            "继续追本周头部包装线，并检查是否伴随评论侧信任/质疑变化。",
+            "是"
+          ],
+          [
+            "2026-W17 vs 2026-W16",
+            "https://www.tiktok.com/@mustsharebeauty/video/7617000000000000001",
+            "本周：Before-after reveal in the first two seconds.",
+            "上周：Shade match story with decent trust but slow first frame.",
+            "变化判断：延续识别优先的包装，只做轻量形式变化。"
+          ],
+          [
+            "2026-W17 vs 2026-W16",
+            "https://www.tiktok.com/@mustsharebeauty/video/7617000000000000002",
+            "本周：Hook opens on the problem face, then switches straight into proof.",
+            "上周：GRWM but the result reveal comes too late.",
+            "变化判断：延续识别优先的包装，只做轻量形式变化。"
+          ],
+          [
+            "2026-W17 vs 2026-W16",
+            "https://www.tiktok.com/@mustsharebeauty/video/7617000000000000003",
+            "本周：Creator shows result under indoor and daylight lighting with a quick...",
+            "上周：Texture demo with calm narration.",
+            "变化判断：延续识别优先的包装，只做轻量形式变化。"
+          ],
+          [
+            "2026-W17 周趋势",
+            "Hook / packaging study",
+            "3 条样本；头部线索：Before-after reveal in the first two seconds.",
+            "当前基线周",
+            "作为后续每周对比的起点。"
+          ],
+          [
+            "评论语言压力",
+            "一般反应",
+            "回复密集的评论簇能帮助区分：这是健康兴趣，还是争议 / 困惑驱动的放大。",
+            "回复链活跃（12 条回复），已经足够视为真实的购买前确认或异议处理信号。",
+            "用它来判断本周高表现到底是在积累信任，还是只是在放大摩擦。"
+          ]
+        ]
+      },
+      "evidence_refs": [
+        {
+          "source_type": "account_week",
+          "source_id": "account-a-week",
+          "source_url": "待补账号或表格链接",
+          "time_range": "周观察窗口",
+          "excerpt": "展示账号 A 在该周主要内容或策略变化的周总结。",
+          "supports": "周度变化归因"
+        },
+        {
+          "source_type": "video",
+          "source_id": "breakout-post-1",
+          "source_url": "待补视频链接",
+          "time_range": "00:00-00:05",
+          "excerpt": "用于解释账号为什么发生变化的代表性爆点帖子。",
+          "supports": "爆点归因"
+        },
+        {
+          "source_type": "video",
+          "source_id": "7616000000000000002",
+          "source_url": "https://www.tiktok.com/@mustsharebeauty/video/7616000000000000002",
+          "time_range": "00:00-00:05",
+          "excerpt": "Shade match story with decent trust but slow first frame. Comments ask for daylight proof and wear test.",
+          "supports": "Weekly shift / breakout interpretation"
+        },
+        {
+          "source_type": "video",
+          "source_id": "7617000000000000001",
+          "source_url": "https://www.tiktok.com/@mustsharebeauty/video/7617000000000000001",
+          "time_range": "00:00-00:05",
+          "excerpt": "Before-after reveal in the first two seconds. Fast recognition, direct proof, and immediate save-worthy shade context.",
+          "supports": "Weekly shift / breakout interpretation"
+        },
+        {
+          "source_type": "comment",
+          "source_id": "mw-c-007",
+          "source_url": "https://www.tiktok.com/@mustsharebeauty/video/7617000000000000001",
+          "time_range": "comment-thread",
+          "excerpt": "mustsharebeauty-week17-before-after: 回复链活跃（12 条回复），已经足够视为真实的购买前确认或异议处理信号。",
+          "supports": "Comment-language pressure behind this week's breakout interpretation"
+        }
+      ]
+    },
+    {
+      "heading": "Fields To Capture Next Time",
+      "instruction": "列出为了更强周对比还缺哪些字段。",
+      "paragraphs": [],
+      "bullets": [
+        "继续补同账号第二周、第三周切片；如果是竞品矩阵，还要保证每个账号都按同字段持续复采。",
+        "每条帖子补评论采样可用性和出镜人 / 权威标签。",
+        "如果账号改了封面、首帧或标题包装，要保留证据，不要只留 caption。"
+      ],
+      "numbered": [],
+      "table": {
+        "title": "下轮补采升级",
+        "headers": [
+          "待补字段",
+          "为什么重要",
+          "优先级"
+        ],
+        "rows": [
+          [
+            "第二周快照",
+            "没有第二周，就无法把长期有效包装和单周噪音分开。",
+            "P1"
+          ],
+          [
+            "多账号并排采样",
+            "没有 3-5 个账号并排，就很难判断这是不是矩阵级变化。",
+            "P2"
+          ],
+          [
+            "评论采样标记",
+            "帮助判断高表现是在积累信任，还是在放大质疑 / 困惑。",
+            "P1"
+          ],
+          [
+            "出镜人 / 权威标签",
+            "把包装胜利和名人、官方身份加成拆开。",
+            "P1"
+          ],
+          [
+            "封面 / 首帧证据",
+            "让下一轮比较不只看 caption，还能看点击包装有没有变。",
+            "P2"
+          ]
+        ]
+      },
+      "evidence_refs": []
+    },
+    {
+      "heading": "Next Action",
+      "instruction": "明确本周运营应该做什么响应动作。",
+      "paragraphs": [
+        "本周响应动作必须更像运营调度单：继续追谁、借鉴谁、忽略谁，都要回到策略变化而不是只回到热度高低。"
+      ],
+      "bullets": [],
+      "numbered": [],
+      "table": {
+        "title": "本周运营响应",
+        "headers": [
+          "动作领域",
+          "建议",
+          "紧急度",
+          "策略变化点"
+        ],
+        "rows": [
+          [
+            "本周继续追",
+            "2026-W17 的头部包装线",
+            "Hook / packaging study | Before-after reveal in the first two seconds.",
+            "延续识别优先的包装，只做轻量形式变化。"
+          ],
+          [
+            "本周值得借鉴",
+            "2026-W17 对比 2026-W16",
+            "本周 Hook / packaging study；上周 Proof / authority teardown",
+            "只复制可迁移的开头信号、证明方式和镜头节奏，不复制账号权威壳。"
+          ],
+          [
+            "本周应忽略",
+            "疑似一次性分发放大",
+            "一般反应",
+            "若优势只来自账号体量、官方身份或单次事件流量，不要直接当成可复制公式；先等下一周复采确认。"
+          ]
+        ]
+      },
+      "evidence_refs": [
+        {
+          "source_type": "video",
+          "source_id": "7616000000000000002",
+          "source_url": "https://www.tiktok.com/@mustsharebeauty/video/7616000000000000002",
+          "time_range": "00:00-00:03",
+          "excerpt": "Shade match story with decent trust but slow first frame. Comments ask for daylight proof and wear test.",
+          "supports": "Dispatch action: continue / borrow / ignore decision for this week"
+        }
+      ]
+    }
+  ],
+  "assets": [
+    {
+      "label": "[library] Source profile",
+      "path": "https://www.tiktok.com/@mustsharebeauty",
+      "note": "Account baseline"
+    },
+    {
+      "label": "[library] Ranked video 1 reference_video",
+      "path": "https://www.tiktok.com/@mustsharebeauty/video/7616000000000000002",
+      "note": "ranked reference"
+    },
+    {
+      "label": "[library] Ranked video 2 reference_video",
+      "path": "https://www.tiktok.com/@mustsharebeauty/video/7617000000000000001",
+      "note": "ranked reference"
+    },
+    {
+      "label": "[library] Ranked video 3 reference_video",
+      "path": "https://www.tiktok.com/@mustsharebeauty/video/7617000000000000002",
+      "note": "ranked reference"
+    },
+    {
+      "label": "[library] Ranked video 4 reference_video",
+      "path": "https://www.tiktok.com/@mustsharebeauty/video/7616000000000000001",
+      "note": "ranked reference"
+    },
+    {
+      "label": "[library] Ranked video 5 reference_video",
+      "path": "https://www.tiktok.com/@mustsharebeauty/video/7617000000000000003",
+      "note": "ranked reference"
+    },
+    {
+      "label": "[library] Ranked video 6 reference_video",
+      "path": "https://www.tiktok.com/@mustsharebeauty/video/7616000000000000003",
+      "note": "ranked reference"
+    },
+    {
+      "label": "[library] content_graph.json",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene18-19-multi-week-account\\content_graph.json",
+      "note": "Reusable capture-pack artifact"
+    }
+  ],
+  "notes": [],
+  "sources": [
+    "summary.json",
+    "ranked_videos.json",
+    "https://www.tiktok.com/@mustsharebeauty"
+  ],
+  "content_graph": {
+    "version": "1.0",
+    "cluster_summary": {
+      "creator_clusters": 1,
+      "sound_clusters": 0,
+      "hashtag_neighborhoods": 0,
+      "video_count": 6
+    },
+    "edge_count": 11,
+    "node_count": 7
+  },
+  "asset_library": {
+    "schema_version": "asset-library-v1",
+    "assets": [
+      {
+        "kind": "profile",
+        "label": "Source profile",
+        "path": "https://www.tiktok.com/@mustsharebeauty",
+        "note": "Account baseline",
+        "scene_origin": "18",
+        "registered_at": "2026-05-17T22:18:37"
+      },
+      {
+        "kind": "reference_video",
+        "label": "Ranked video 1 reference_video",
+        "path": "https://www.tiktok.com/@mustsharebeauty/video/7616000000000000002",
+        "note": "ranked reference",
+        "scene_origin": "18",
+        "registered_at": "2026-05-17T22:18:37"
+      },
+      {
+        "kind": "reference_video",
+        "label": "Ranked video 2 reference_video",
+        "path": "https://www.tiktok.com/@mustsharebeauty/video/7617000000000000001",
+        "note": "ranked reference",
+        "scene_origin": "18",
+        "registered_at": "2026-05-17T22:18:37"
+      },
+      {
+        "kind": "reference_video",
+        "label": "Ranked video 3 reference_video",
+        "path": "https://www.tiktok.com/@mustsharebeauty/video/7617000000000000002",
+        "note": "ranked reference",
+        "scene_origin": "18",
+        "registered_at": "2026-05-17T22:18:37"
+      },
+      {
+        "kind": "reference_video",
+        "label": "Ranked video 4 reference_video",
+        "path": "https://www.tiktok.com/@mustsharebeauty/video/7616000000000000001",
+        "note": "ranked reference",
+        "scene_origin": "18",
+        "registered_at": "2026-05-17T22:18:37"
+      },
+      {
+        "kind": "reference_video",
+        "label": "Ranked video 5 reference_video",
+        "path": "https://www.tiktok.com/@mustsharebeauty/video/7617000000000000003",
+        "note": "ranked reference",
+        "scene_origin": "18",
+        "registered_at": "2026-05-17T22:18:37"
+      },
+      {
+        "kind": "reference_video",
+        "label": "Ranked video 6 reference_video",
+        "path": "https://www.tiktok.com/@mustsharebeauty/video/7616000000000000003",
+        "note": "ranked reference",
+        "scene_origin": "18",
+        "registered_at": "2026-05-17T22:18:37"
+      },
+      {
+        "kind": "capture_artifact",
+        "label": "content_graph.json",
+        "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene18-19-multi-week-account\\content_graph.json",
+        "note": "Reusable capture-pack artifact",
+        "scene_origin": "18",
+        "registered_at": "2026-05-17T22:18:37"
+      }
+    ],
+    "carry_forward": [
+      "reference_video",
+      "cover_image",
+      "download_source",
+      "production_spec_handoff",
+      "collection_board"
+    ],
+    "updated_at": "2026-05-17T22:40:59"
+  }
+}

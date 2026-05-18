@@ -1,0 +1,87 @@
+{
+  "schema_version": "scene19-account-retro-board-v1",
+  "headers": [
+    "调度动作",
+    "内容模式",
+    "时间窗口",
+    "关键信号",
+    "执行说明",
+    "转化信号",
+    "ROI信号",
+    "比较周",
+    "优先级"
+  ],
+  "rows": [
+    [
+      "本周多做",
+      "Hook / packaging study | 识别优先的短讲解",
+      "2026-W17 vs 2026-W16",
+      "2026-W17 / 2026-04 周后段晚间 里表现更强：Problem-first close-up, founder credibility, and immediate proof...",
+      "把下轮排期向这类开头信号、镜头组织和轻解释包装倾斜。",
+      "cart_question_very_high",
+      "best_save_comment_mix",
+      "2026-W17 vs 2026-W16",
+      "高"
+    ],
+    [
+      "本周少做",
+      "Hook / packaging study | 识别优先的短讲解",
+      "2026-W17 vs 2026-W16",
+      "2026-W16 / 2026-04 周中晚间 弱势线索：Explainer-heavy problem setup with too much scene building before...",
+      "减少开头铺垫长、证明弱、识别慢的版本占比。",
+      "weak_cart_signal",
+      "low_save_to_play_ratio",
+      "2026-W17 vs 2026-W16",
+      "中"
+    ],
+    [
+      "本周停止",
+      "借权威壳但无自有证明",
+      "2026-W17 vs 2026-W16",
+      "一般反应",
+      "如果只是借账号体量撑起来，下一轮不要继续放大同类空心版本。",
+      "weak_cart_signal",
+      "low_save_to_play_ratio",
+      "2026-W17 vs 2026-W16",
+      "低"
+    ],
+    [
+      "下轮测试",
+      "高模式 vs 低模式 对照",
+      "2026-W17 vs 2026-W16",
+      "保持发布时间窗近似一致，优先复测 2026-04 周后段晚间",
+      "用同题材 A/B 测试看内容模式差异是否稳定复现，并补评论 / 下载证据。",
+      "weak_cart_signal",
+      "low_save_to_play_ratio",
+      "2026-W17 vs 2026-W16",
+      "中"
+    ],
+    [
+      "模式簇",
+      "创始人出镜证明型",
+      "转化信号：购物车追问很强；ROI 信号：收藏评论组合最佳",
+      "2 条 | 2026-04 周中晚间, 2026-04 周后段晚间",
+      "Problem-first close-up, founder credibility, and immediate proof with a...",
+      "",
+      "",
+      "2026-W17 vs 2026-W16",
+      "中"
+    ],
+    [
+      "模式簇",
+      "证明物直给演示型",
+      "转化信号：购物车追问强；ROI 信号：收藏播放比强",
+      "1 条 | 2026-04 周后段晚间",
+      "Proof object opens immediately and uses a tighter CTA.",
+      "",
+      "",
+      "2026-W17 vs 2026-W16",
+      "中"
+    ]
+  ],
+  "row_count": 6,
+  "append_scope_key": "2026-W17",
+  "compare_mode": "compare",
+  "latest_week": "2026-W17",
+  "evidence_grade": "可直接周对比"
+}

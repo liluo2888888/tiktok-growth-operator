@@ -1,0 +1,842 @@
+{
+  "metadata": {
+    "scene": "19",
+    "scene_slug": "self-account-retro-and-optimization",
+    "scene_title": "Self-Account Retro And Optimization",
+    "project": "Live board push scene 19",
+    "title": "Scene 19 Report - Live board push scene 19",
+    "deliverable_type": "insight_report",
+    "generated_at": "2026-05-18T08:47:59",
+    "scenario_file": "scenarios/19-self-account-retro-and-optimization.md",
+    "status": "imported"
+  },
+  "working_context": {
+    "summary": "真实 TikTok capture-pack 导入自 validation/captures/scene19-roi-multiwindow-account，当前用于未分类赛道。当前看板规模：6 条已排序 / 3 条达标.\n来源账号：https://www.tiktok.com/@ownerglowlab; 会话质量：fixture_self_account_roi_multiwindow; 查询词：未提供; 主题：未提供.\n头部候选：https://www.tiktok.com/@ownerglowlab/video/7642000000000000001 | Problem-first close-up, founder credibility, and immediate proof with a clear cart-oriented angle. | 16800 点赞，864000 播放，280 分享，502 评论.\n采集根目录：validation/captures/scene19-roi-multiwindow-account",
+    "inputs": [
+      "Profile: https://www.tiktok.com/@ownerglowlab",
+      "Ranked video count: 6",
+      "Qualified video count: 3",
+      "Capture root: validation/captures/scene19-roi-multiwindow-account"
+    ],
+    "constraints": [
+      "如果指标不完整，必须把弱结论显式标记出来。",
+      "Conclusions should stay tied to ranked metrics, captions, and capture-pack summaries only."
+    ],
+    "requested_outputs": [
+      "高低表现分组",
+      "表现模式总结",
+      "高表现特征",
+      "低表现特征",
+      "下一轮计划",
+      "TikTok-native ranked-pattern conclusions",
+      "Reusable adaptation rules grounded in the capture pack"
+    ],
+    "minimum_evidence": [
+      "最近帖子列表",
+      "每条帖子至少有部分表现信号",
+      "summary.json or aggregate_summary.json",
+      "profile_summary.json or summary.json",
+      "ranked_videos.json or aggregate_ranked_videos.json"
+    ],
+    "ideal_evidence": [
+      "播放、点赞、评论、收藏、分享",
+      "hook / 标题备注",
+      "内容类型标签",
+      "可选的转化或 ROI 上下文",
+      "2 个以上时间窗口",
+      "aggregate_qualified_videos.json or qualified_video_links.txt",
+      "aggregate_report.md",
+      "video_details.json"
+    ],
+    "ready_checklist": [
+      "帖子可以按模式聚类",
+      "高低表现内容可区分",
+      "下一轮测试规则可以写出来",
+      "高低表现组可以直接对比",
+      "单窗口观察与多周模式可以区分",
+      "Top-ranked videos are clearly identified",
+      "Transferable pattern is separated from profile-specific brand power"
+    ]
+  },
+  "executive_summary": {
+    "conclusion": "这份账号复盘现在已有至少两周切片，而且不同发布时间窗口下的 ROI 信号与转化信号 proxy 已能直接上屏，所以不再只是看单周排序。",
+    "why_it_matters": "这样可以把一次性爆点、时间窗红利和真正可重复的内容模式胜利拆开，进而更明确地给出多做、少做、停止和下轮测试建议。",
+    "next_action": "直接用下方周对比、时间窗差异和高低表现分组，决定下轮测试周期该把流量和排期给哪种内容模式。",
+    "confidence": "medium"
+  },
+  "operator_guide": {
+    "operator_checklist": [
+      "按模式聚类帖子，不要只按发布时间排列。",
+      "明确比较高表现组和低表现组。",
+      "写出明确的多做、少做和停止规则。",
+      "把复盘落实成一份下轮测试计划。",
+      "只有单窗口数据时，把结论写成本轮观察，不要写成长期规律。"
+    ],
+    "common_failure_modes": [
+      "逐条读指标，却没有模式聚类。",
+      "停在复盘总结，没有落成下轮测试计划。",
+      "用模糊质量判断解释结果。",
+      "复盘结束时没有具体的下一轮测试周期。"
+    ]
+  },
+  "execution_template": {
+    "recommended_request": "按场景 19 执行：复盘一个账号最近一批内容并定义下一轮优化周期。先按内容模式聚类，再直接比较高表现组和低表现组；如果只有 1 个时间窗口的数据，要明确写成本轮观察，最后输出多做、少做、停止和下轮测试规则，并尽量挂到 ROI 或增长目标。",
+    "recommended_request_zh": "按场景 19 执行：复盘一个账号最近一批内容，把帖子按模式分组，拆出赢法和输法，最后写成多做什么、少做什么、停止什么和下一轮测试计划。",
+    "recommended_runner_args": [
+      "python scripts/run_operator_workflow.py --mode scene --scene 19 --project \"<project-name>\" --output-root \".\\tmp\\self-account-retro\"",
+      "python scripts/generate_scene_report.py --scene 19 --project \"<project-name>\" --output \".\\tmp\\self-account-retro.json\" --format json"
+    ],
+    "variable_inputs": [
+      {
+        "name": "project_name",
+        "meaning": "便于识别的运行名或项目名",
+        "example": "自家账号复盘优化",
+        "required": "是"
+      },
+      {
+        "name": "market",
+        "meaning": "当场景依赖单一市场时的目标市场或地区",
+        "example": "美国",
+        "required": "建议"
+      },
+      {
+        "name": "evidence_pack",
+        "meaning": "作为源证据使用的链接、截图、转写、导出文件、OCR 文本或摘录备注",
+        "example": "最近多批帖子表，包含指标、钩子、内容类型标签与可选 ROI 线索",
+        "required": "是"
+      },
+      {
+        "name": "success_goal",
+        "meaning": "操作者希望该场景产出的结果",
+        "example": "表现复盘、多做 / 少做 / 停止规则与下轮测试计划",
+        "required": "建议"
+      }
+    ],
+    "codex_prompt_scaffold": [
+      "以场景 19 作为本次工作的主流程。",
+      "分析前先把现有证据归整为以下输入：最近帖子列表, 播放、点赞、评论、收藏或分享, 帖子标题 / hook, 内容类型标签, 可选的转化或 ROI 上下文。",
+      "如果证据不足，先明确缺口再继续。最低开工证据：最近帖子列表, 每条帖子至少有部分表现信号。",
+      "最终必须产出以下可直接给运营使用的结果：高低表现分组, 表现模式总结, 高表现特征, 低表现特征, 下一轮计划。",
+      "按可重复模式聚类帖子，不要只逐条读表。",
+      "把复盘落成一份下轮测试计划，而不是停留在被动总结。",
+      "只要证据允许，就把内容特征挂到增长或 ROI 相关性上，而不是停留在审美判断。",
+      "区分单窗口观察与多周重复模式，不要把一周表现写成长期规律。",
+      "优先填入可复用结论、表格、排序逻辑和下一步动作，不要停留在泛泛点评。"
+    ],
+    "codex_prompt_scaffold_zh": [
+      "按场景 19 执行：复盘一个账号最近一批内容，把帖子按模式分组，拆出赢法和输法，最后写成多做什么、少做什么、停止什么和下一轮测试计划。",
+      "先把我提供的材料整理成这组输入：最近帖子列表, 播放、点赞、评论、收藏或分享, 帖子标题 / hook, 内容类型标签, 可选的转化或 ROI 上下文。",
+      "如果证据不足，先明确缺口再继续。最低开工证据：最近帖子列表, 每条帖子至少有部分表现信号。",
+      "最终必须产出：高低表现分组, 表现模式总结, 高表现特征, 低表现特征, 下一轮计划。",
+      "输出必须可直接给运营、拆解、脚本、测试或交付使用，优先给表格、排序逻辑、复用规则和下一步动作。"
+    ],
+    "workflow_steps": [
+      "按模式聚类帖子，不要只按发布时间排列。",
+      "明确比较高表现组和低表现组。",
+      "写出明确的多做、少做和停止规则。",
+      "把复盘落实成一份下轮测试计划。",
+      "只有单窗口数据时，把结论写成本轮观察，不要写成长期规律。"
+    ],
+    "output_checklist": [
+      "高低表现组已经直接对比。",
+      "赢法与输法已经清楚分开。",
+      "建议写成操作规则，而不是模糊观察。",
+      "如有 ROI 线索，已挂到增长目标上。",
+      "下轮测试计划已经具体到可以直接执行。"
+    ]
+  },
+  "evidence": [
+    {
+      "label": "汇总",
+      "detail": "已排序=6; 达标=3; 最低点赞=",
+      "source": "summary.json"
+    },
+    {
+      "label": "账号汇总",
+      "detail": "账号=https://www.tiktok.com/@ownerglowlab; 会话=fixture_self_account_roi_multiwindow; 已排序=6",
+      "source": "profile_summary.json"
+    },
+    {
+      "label": "排序视频 7642000000000000001",
+      "detail": "Problem-first close-up, founder credibility, and immediate proof with a clear cart-oriented angle.",
+      "source": "https://www.tiktok.com/@ownerglowlab/video/7642000000000000001"
+    },
+    {
+      "label": "排序视频 7641000000000000001",
+      "detail": "Founder face opens with the problem, then shows the proof object fast. Comment-to-cart style format.",
+      "source": "https://www.tiktok.com/@ownerglowlab/video/7641000000000000001"
+    },
+    {
+      "label": "排序视频 7642000000000000002",
+      "detail": "Proof object opens immediately and uses a tighter CTA. Stronger save and comment intent than prior window.",
+      "source": "https://www.tiktok.com/@ownerglowlab/video/7642000000000000002"
+    },
+    {
+      "label": "Content graph clusters",
+      "detail": "creator=1; sound=0; hashtag=0; videos=6",
+      "source": "content_graph.json"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "Executive Conclusion",
+      "instruction": "写出这次账号复盘最重要的一条教训。",
+      "paragraphs": [
+        "这份账号复盘现在已有至少两周切片，而且不同发布时间窗口下的 ROI 信号与转化信号 proxy 已能直接上屏，所以不再只是看单周排序。",
+        "当前采样包内排序帖子数：6",
+        "证据等级：可直接周对比（1 个账号 / 2 个自然周 / 6 条帖子 / 12 条评论样本 / 2 条下载成功）",
+        "周对比：2026-W17 vs 2026-W16"
+      ],
+      "bullets": [
+        "高表现对照：Problem-first close-up, founder credibility, and immediate proof with a clear...",
+        "低表现对照：Explainer-heavy problem setup with too much scene building before the product does...",
+        "高表现窗口 / 信号：2026-04 周后段晚间 / 购物车追问很强 / 收藏评论组合最佳",
+        "低表现窗口 / 信号：2026-04 周中晚间 / 购物车信号弱 / 收藏播放比低",
+        "当前最佳发布时间窗：2026-04 周后段晚间",
+        "最强评论侧阻力 / 信任线索：一般反应 | 回复压力=21 | I saved this because the founder actually showed the proof instead of just saying trust me.",
+        "把这份复盘当成下轮调度单，不要只当被动总结；若当前只是外部样本包，请把它当模板，不要直接当自家账号最终判决。",
+        "高表现样本入选溯源：creator cluster (@ownerglowlab, 6 posts) → reuse-value rank #4",
+        "评论回复链合成：一般反应 | 回复压力=21 | I saved this because the founder actually showed the proof instead of just saying trust me.",
+        "周度基线异动：2026-W17 vs 2026-W16: 互动均值抬升"
+      ],
+      "numbered": [],
+      "table": {
+        "title": "",
+        "headers": [],
+        "rows": []
+      },
+      "evidence_refs": [
+        {
+          "source_type": "account_week",
+          "source_id": "week-2026-W17",
+          "source_url": "https://www.tiktok.com/@ownerglowlab/video/7642000000000000001",
+          "time_range": "weekly-window",
+          "excerpt": "Prior week baseline: 2026-W16",
+          "supports": "Executive conclusion: two-week retro comparison"
+        },
+        {
+          "source_type": "video",
+          "source_id": "7642000000000000001",
+          "source_url": "https://www.tiktok.com/@ownerglowlab/video/7642000000000000001",
+          "time_range": "00:00-00:05",
+          "excerpt": "Problem-first close-up, founder credibility, and immediate proof with a clear cart-oriented angle.",
+          "supports": "Executive conclusion: high-performing cluster reference"
+        },
+        {
+          "source_type": "video",
+          "source_id": "7641000000000000003",
+          "source_url": "https://www.tiktok.com/@ownerglowlab/video/7641000000000000003",
+          "time_range": "00:00-00:05",
+          "excerpt": "Explainer-heavy problem setup with too much scene building before the product does anything.",
+          "supports": "Executive conclusion: low-performing contrast reference"
+        }
+      ]
+    },
+    {
+      "heading": "High-Level Judgment",
+      "instruction": "总结什么在起作用，什么没起作用。",
+      "paragraphs": [
+        "这张主表现在必须把最佳发布时间窗直接推成一条主结论，而不是埋在明细里。",
+        "若已有两周样本，先读周度基线异动，再决定下轮测试该加码还是收敛。"
+      ],
+      "bullets": [],
+      "numbered": [],
+      "table": {
+        "title": "Change-First Baseline Signals",
+        "headers": [
+          "信号",
+          "发生了什么",
+          "下轮动作",
+          "是否升级"
+        ],
+        "rows": [
+          [
+            "周度基线",
+            "2026-W17 vs 2026-W16",
+            "发帖 3→3；均赞 6033.3→12533.3",
+            "是"
+          ],
+          [
+            "互动均值抬升",
+            "平均点赞 6033.3 -> 12533.3",
+            "继续追本周头部包装线，并检查是否伴随评论侧信任/质疑变化。",
+            "是"
+          ],
+          [
+            "高表现组",
+            "创始人出镜证明型 | 2026-04 周后段晚间",
+            "高分样本同时带出 购物车追问很强 与 收藏评论组合最佳，说明它不只是热度高，更接近可承接的增长 / 转化信号。",
+            "优先把这类内容作为下轮排期主力，并保留同窗口对照。"
+          ],
+          [
+            "低表现组",
+            "慢解释型 | 2026-04 周中晚间",
+            "低分样本更像 购物车信号弱 与 收藏播放比低，说明包装再完整，也可能没有把购买或保存动机拉起来。",
+            "缩减这类前奏长、证明弱、转化 proxy 弱的内容占比。"
+          ]
+        ]
+      },
+      "evidence_refs": [
+        {
+          "source_type": "video",
+          "source_id": "7642000000000000001",
+          "source_url": "https://www.tiktok.com/@ownerglowlab/video/7642000000000000001",
+          "time_range": "00:00-00:03",
+          "excerpt": "window=2026-04 lateweek evening; conversion=cart_question_very_high; roi=best_save_comment_mix",
+          "supports": "High-level judgment: publish-window and proxy signal comparison"
+        },
+        {
+          "source_type": "video",
+          "source_id": "7641000000000000003",
+          "source_url": "https://www.tiktok.com/@ownerglowlab/video/7641000000000000003",
+          "time_range": "00:00-00:03",
+          "excerpt": "window=2026-04 midweek evening; conversion=weak_cart_signal; roi=low_save_to_play_ratio",
+          "supports": "High-level judgment: publish-window and proxy signal comparison"
+        }
+      ]
+    },
+    {
+      "heading": "Evidence Clusters",
+      "instruction": "按表现模式聚类内容，而不是只按日期排列。",
+      "paragraphs": [],
+      "bullets": [],
+      "numbered": [],
+      "table": {
+        "title": "表现模式聚类",
+        "headers": [
+          "聚类",
+          "内容模式",
+          "代表帖子",
+          "共同特征",
+          "信号强度"
+        ],
+        "rows": [
+          [
+            "创始人出镜证明型",
+            "2 条 | 2026-04 周中晚间, 2026-04 周后段晚间",
+            "Problem-first close-up, founder credibility, and immediate proof with a...",
+            "转化信号：购物车追问很强；ROI 信号：收藏评论组合最佳",
+            "继续观察"
+          ],
+          [
+            "证明物直给演示型",
+            "1 条 | 2026-04 周后段晚间",
+            "Proof object opens immediately and uses a tighter CTA.",
+            "转化信号：购物车追问强；ROI 信号：收藏播放比强",
+            "继续观察"
+          ],
+          [
+            "审美拼贴型",
+            "1 条 | 2026-04 周中晚间",
+            "Aesthetic montage first, product proof later.",
+            "转化信号：评论兴趣中等；ROI 信号：收藏播放比偏弱",
+            "继续观察"
+          ],
+          [
+            "时间窗：2026-04 周后段晚间",
+            "创始人出镜证明型",
+            "最高分 30 / 最低分 23",
+            "转化信号：购物车追问很强；ROI 信号：收藏评论组合最佳",
+            "头部样本：Problem-first close-up, founder credibility, and immediate proof with...；低表现对照：Lifestyle montage still looks polished, but the proof..."
+          ],
+          [
+            "时间窗：2026-04 周中晚间",
+            "创始人出镜证明型",
+            "最高分 29 / 最低分 23",
+            "转化信号：购物车追问强；ROI 信号：评论收藏比强",
+            "头部样本：Founder face opens with the problem, then shows the proof object fast.；低表现对照：Explainer-heavy problem setup with too much scene..."
+          ],
+          [
+            "周趋势：2026-W17",
+            "Hook / packaging study",
+            "3",
+            "Problem-first close-up, founder credibility, and immediate proof with...",
+            "当前基线周；作为后续每周对比的起点。"
+          ],
+          [
+            "周趋势：2026-W16",
+            "Hook / packaging study",
+            "3",
+            "Founder face opens with the problem, then shows the proof object fast.",
+            "同模式回落；保留模式判断，但不要把本周回落样本继续放大投放。"
+          ],
+          [
+            "评论侧模式",
+            "一般反应",
+            "ownerglowlab-window2-founder-proof",
+            "I saved this because the founder actually showed the proof instead of just saying trust me.",
+            "Save intent rises when proof arrives early."
+          ]
+        ]
+      },
+      "evidence_refs": [
+        {
+          "source_type": "video",
+          "source_id": "self-top-cluster",
+          "source_url": "待补视频链接",
+          "time_range": "聚类观察窗口",
+          "excerpt": "代表最强表现模式的一组样本帖子。",
+          "supports": "高表现模式聚类"
+        },
+        {
+          "source_type": "video",
+          "source_id": "self-low-cluster",
+          "source_url": "待补视频链接",
+          "time_range": "聚类观察窗口",
+          "excerpt": "展示低表现模式的一组代表性弱样本帖子。",
+          "supports": "低表现模式聚类"
+        },
+        {
+          "source_type": "video",
+          "source_id": "7642000000000000001",
+          "source_url": "https://www.tiktok.com/@ownerglowlab/video/7642000000000000001",
+          "time_range": "cluster-window",
+          "excerpt": "Problem-first close-up, founder credibility, and immediate proof with a clear cart-oriented angle.",
+          "supports": "Evidence cluster: ROI / window / weekly pattern row"
+        },
+        {
+          "source_type": "video",
+          "source_id": "7641000000000000001",
+          "source_url": "https://www.tiktok.com/@ownerglowlab/video/7641000000000000001",
+          "time_range": "cluster-window",
+          "excerpt": "Founder face opens with the problem, then shows the proof object fast. Comment-to-cart style format.",
+          "supports": "Evidence cluster: ROI / window / weekly pattern row"
+        },
+        {
+          "source_type": "video",
+          "source_id": "7642000000000000002",
+          "source_url": "https://www.tiktok.com/@ownerglowlab/video/7642000000000000002",
+          "time_range": "cluster-window",
+          "excerpt": "Proof object opens immediately and uses a tighter CTA. Stronger save and comment intent than prior window.",
+          "supports": "Evidence cluster: ROI / window / weekly pattern row"
+        },
+        {
+          "source_type": "comment",
+          "source_id": "roi-008",
+          "source_url": "https://www.tiktok.com/@ownerglowlab/video/7642000000000000001",
+          "time_range": "comment-thread",
+          "excerpt": "ownerglowlab-window2-founder-proof: I saved this because the founder actually showed the proof instead of just saying trust me.",
+          "supports": "Evidence cluster: comment-side friction or trust pattern"
+        }
+      ]
+    },
+    {
+      "heading": "Recommended Action",
+      "instruction": "把复盘翻译成多做 / 少做 / 停止规则。",
+      "paragraphs": [],
+      "bullets": [
+        "建议定时：weekly | python scripts/run_scene1819.py --preset multiweek",
+        "飞书追加：表 `scene19_account_retro` | 批次 `2026-05-18` | 模式 `append_by_run_date`"
+      ],
+      "numbered": [],
+      "table": {
+        "title": "运营调度 / 推送计划",
+        "headers": [
+          "规则类型",
+          "建议",
+          "原因",
+          "下轮负责人 / 检查项"
+        ],
+        "rows": [
+          [
+            "today",
+            "按「多做/少做/停止」表调整下周排期",
+            "operator",
+            "feishu"
+          ],
+          [
+            "this_week",
+            "执行 Open Questions 里的 2 条 A/B 测试",
+            "content",
+            "local"
+          ],
+          [
+            "2026-05-25",
+            "同字段复采自有账号并跑 Scene 19 周对比",
+            "collector",
+            "local"
+          ],
+          [
+            "本周多做",
+            "Hook / packaging study | 识别优先的短讲解",
+            "2026-W17 / 2026-04 周后段晚间 里表现更强：Problem-first close-up, founder credibility, and immediate proof with a...；主窗口=2026-04 周后段晚间；转化信号/ROI 信号=购物车追问很强 / 收藏评论组合最佳",
+            "把下轮排期向这类开头信号、镜头组织和轻解释包装倾斜。"
+          ],
+          [
+            "本周少做",
+            "Hook / packaging study | 识别优先的短讲解",
+            "2026-W16 / 2026-04 周中晚间 弱势线索：Explainer-heavy problem setup with too much scene building before the...；低表现窗口=2026-04 周中晚间；转化信号/ROI 信号=购物车信号弱 / 收藏播放比低",
+            "减少开头铺垫长、证明弱、识别慢的版本占比。"
+          ],
+          [
+            "本周停止",
+            "借权威壳但无自有证明",
+            "一般反应",
+            "如果只是借账号体量撑起来，下一轮不要继续放大同类空心版本。"
+          ],
+          [
+            "下轮测试",
+            "高模式 vs 低模式 对照",
+            "保持发布时间窗近似一致，优先复测 2026-04 周后段晚间",
+            "用同题材 A/B 测试看内容模式差异是否稳定复现，并补评论 / 下载证据。"
+          ]
+        ]
+      },
+      "evidence_refs": [
+        {
+          "source_type": "video",
+          "source_id": "7642000000000000001",
+          "source_url": "https://www.tiktok.com/@ownerglowlab/video/7642000000000000001",
+          "time_range": "00:00-00:03",
+          "excerpt": "Problem-first close-up, founder credibility, and immediate proof with a clear cart-oriented angle.",
+          "supports": "Recommended action: scale the winning content pattern next cycle"
+        }
+      ]
+    },
+    {
+      "heading": "Open Questions",
+      "instruction": "列出哪些缺失数据阻碍了更强的优化判断。",
+      "paragraphs": [],
+      "bullets": [
+        "真正的自家账号复盘，至少要有两周以上、同字段、同发布时间窗的内部样本对照。",
+        "当前如果仍是外部导入包，这份更适合作为模式模板，而不是直接替代自家账号的最终策略判断。",
+        "如果下一轮还拿不到真实订单、点击或加购数据，就继续把转化信号 proxy / ROI 信号 proxy 当过渡层，而不是最终归因真相。"
+      ],
+      "numbered": [],
+      "table": {
+        "title": "下轮测试计划",
+        "headers": [
+          "下轮测试",
+          "假设",
+          "具体改什么",
+          "成功信号"
+        ],
+        "rows": [
+          [
+            "创始人出镜证明型 vs 慢解释型",
+            "如果高表现模式真的更接近转化，它在相近窗口下应该继续赢。",
+            "同主题各做一版，尽量分别落在 2026-04 周后段晚间 与相近晚间窗口。",
+            "高表现模式继续拿到更强购物车追问、收藏或评论组合。"
+          ],
+          [
+            "证明物 vs 美感包装",
+            "即使不借大账号权威，只要证明物更早出现，也能压过纯审美蒙太奇。",
+            "把一条低表现美感版改成更早给结果、人物或证明物的版本。",
+            "评论里出现更多问价格、问购买、问效果的真实购买语言。"
+          ],
+          [
+            "发布时间窗稳定复测",
+            "窗口漂移会掩盖真实内容差异。",
+            "下一轮继续固定在 2026-04 周后段晚间 一带，不要把测试样本拆散到随机时间。",
+            "同窗口下仍能复现高低差异，才值得升级成排期规则。"
+          ]
+        ]
+      },
+      "evidence_refs": []
+    }
+  ],
+  "assets": [
+    {
+      "label": "Scene 19 账号复盘主表 JSON",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene19-roi-multiwindow-account\\account_retro_board.json",
+      "note": "Feishu 式账号复盘调度主表真源"
+    },
+    {
+      "label": "Scene 19 operator schedule",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene19-roi-multiwindow-account\\operator_schedule_scene_19.json",
+      "note": "推送/定时调度真源，可对接 deliver_operator_run --adapter feishu"
+    },
+    {
+      "label": "[library] Source profile",
+      "path": "https://www.tiktok.com/@ownerglowlab",
+      "note": "Account baseline"
+    },
+    {
+      "label": "[library] Ranked video 1 reference_video",
+      "path": "https://www.tiktok.com/@ownerglowlab/video/7642000000000000001",
+      "note": "ranked reference"
+    },
+    {
+      "label": "[library] Ranked video 2 reference_video",
+      "path": "https://www.tiktok.com/@ownerglowlab/video/7641000000000000001",
+      "note": "ranked reference"
+    },
+    {
+      "label": "[library] Ranked video 3 reference_video",
+      "path": "https://www.tiktok.com/@ownerglowlab/video/7642000000000000002",
+      "note": "ranked reference"
+    },
+    {
+      "label": "[library] Ranked video 4 reference_video",
+      "path": "https://www.tiktok.com/@ownerglowlab/video/7641000000000000002",
+      "note": "ranked reference"
+    },
+    {
+      "label": "[library] Ranked video 5 reference_video",
+      "path": "https://www.tiktok.com/@ownerglowlab/video/7642000000000000003",
+      "note": "ranked reference"
+    },
+    {
+      "label": "[library] Ranked video 6 reference_video",
+      "path": "https://www.tiktok.com/@ownerglowlab/video/7641000000000000003",
+      "note": "ranked reference"
+    },
+    {
+      "label": "[library] content_graph.json",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene19-roi-multiwindow-account\\content_graph.json",
+      "note": "Reusable capture-pack artifact"
+    }
+  ],
+  "notes": [],
+  "sources": [
+    "summary.json",
+    "ranked_videos.json",
+    "https://www.tiktok.com/@ownerglowlab"
+  ],
+  "content_graph": {
+    "version": "1.0",
+    "cluster_summary": {
+      "creator_clusters": 1,
+      "sound_clusters": 0,
+      "hashtag_neighborhoods": 0,
+      "video_count": 6
+    },
+    "edge_count": 11,
+    "node_count": 7
+  },
+  "account_retro_board": {
+    "schema_version": "scene19-account-retro-board-v1",
+    "headers": [
+      "调度动作",
+      "内容模式",
+      "时间窗口",
+      "关键信号",
+      "执行说明",
+      "转化信号",
+      "ROI信号",
+      "比较周",
+      "优先级"
+    ],
+    "rows": [
+      [
+        "本周多做",
+        "Hook / packaging study | 识别优先的短讲解",
+        "2026-W17 vs 2026-W16",
+        "2026-W17 / 2026-04 周后段晚间 里表现更强：Problem-first close-up, founder credibility, and immediate proof...",
+        "把下轮排期向这类开头信号、镜头组织和轻解释包装倾斜。",
+        "cart_question_very_high",
+        "best_save_comment_mix",
+        "2026-W17 vs 2026-W16",
+        "高"
+      ],
+      [
+        "本周少做",
+        "Hook / packaging study | 识别优先的短讲解",
+        "2026-W17 vs 2026-W16",
+        "2026-W16 / 2026-04 周中晚间 弱势线索：Explainer-heavy problem setup with too much scene building before...",
+        "减少开头铺垫长、证明弱、识别慢的版本占比。",
+        "weak_cart_signal",
+        "low_save_to_play_ratio",
+        "2026-W17 vs 2026-W16",
+        "中"
+      ],
+      [
+        "本周停止",
+        "借权威壳但无自有证明",
+        "2026-W17 vs 2026-W16",
+        "一般反应",
+        "如果只是借账号体量撑起来，下一轮不要继续放大同类空心版本。",
+        "weak_cart_signal",
+        "low_save_to_play_ratio",
+        "2026-W17 vs 2026-W16",
+        "低"
+      ],
+      [
+        "下轮测试",
+        "高模式 vs 低模式 对照",
+        "2026-W17 vs 2026-W16",
+        "保持发布时间窗近似一致，优先复测 2026-04 周后段晚间",
+        "用同题材 A/B 测试看内容模式差异是否稳定复现，并补评论 / 下载证据。",
+        "weak_cart_signal",
+        "low_save_to_play_ratio",
+        "2026-W17 vs 2026-W16",
+        "中"
+      ],
+      [
+        "模式簇",
+        "创始人出镜证明型",
+        "转化信号：购物车追问很强；ROI 信号：收藏评论组合最佳",
+        "2 条 | 2026-04 周中晚间, 2026-04 周后段晚间",
+        "Problem-first close-up, founder credibility, and immediate proof with a...",
+        "",
+        "",
+        "2026-W17 vs 2026-W16",
+        "中"
+      ],
+      [
+        "模式簇",
+        "证明物直给演示型",
+        "转化信号：购物车追问强；ROI 信号：收藏播放比强",
+        "1 条 | 2026-04 周后段晚间",
+        "Proof object opens immediately and uses a tighter CTA.",
+        "",
+        "",
+        "2026-W17 vs 2026-W16",
+        "中"
+      ]
+    ],
+    "row_count": 6,
+    "append_scope_key": "2026-W17",
+    "compare_mode": "compare",
+    "latest_week": "2026-W17",
+    "evidence_grade": "可直接周对比"
+  },
+  "operator_schedule": {
+    "schema_version": "operator-schedule-v1",
+    "scene": "19",
+    "generated_at": "2026-05-18T08:47:59",
+    "append_scope": "2026-05-18",
+    "delivery": {
+      "local_bundle": true,
+      "feishu": {
+        "status": "planned",
+        "table_key": "scene19_account_retro",
+        "append_mode": "append_by_run_date",
+        "run_date_field": "采集日期",
+        "append_scope_field": "追加批次",
+        "append_scope": "2026-05-18"
+      },
+      "channels": [
+        "local",
+        "feishu"
+      ],
+      "notify_when_done": true
+    },
+    "dispatch": [
+      {
+        "when": "today",
+        "action": "按「多做/少做/停止」表调整下周排期",
+        "owner": "operator",
+        "channel": "feishu"
+      },
+      {
+        "when": "this_week",
+        "action": "执行 Open Questions 里的 2 条 A/B 测试",
+        "owner": "content",
+        "channel": "local"
+      },
+      {
+        "when": "2026-05-25",
+        "action": "同字段复采自有账号并跑 Scene 19 周对比",
+        "owner": "collector",
+        "channel": "local"
+      }
+    ],
+    "next_runs": [
+      {
+        "cadence": "weekly",
+        "suggested_cron": "0 10 * * 1",
+        "run_command": "python scripts/run_scene1819.py --preset multiweek"
+      }
+    ],
+    "context": {
+      "compare_mode": "compare",
+      "latest_week": "2026-W17",
+      "board_row_count": 6
+    },
+    "board_row_count": 6
+  },
+  "asset_library": {
+    "schema_version": "asset-library-v1",
+    "assets": [
+      {
+        "kind": "profile",
+        "label": "Source profile",
+        "path": "https://www.tiktok.com/@ownerglowlab",
+        "note": "Account baseline",
+        "scene_origin": "19",
+        "registered_at": "2026-05-17T22:18:33"
+      },
+      {
+        "kind": "reference_video",
+        "label": "Ranked video 1 reference_video",
+        "path": "https://www.tiktok.com/@ownerglowlab/video/7642000000000000001",
+        "note": "ranked reference",
+        "scene_origin": "19",
+        "registered_at": "2026-05-17T22:18:33"
+      },
+      {
+        "kind": "reference_video",
+        "label": "Ranked video 2 reference_video",
+        "path": "https://www.tiktok.com/@ownerglowlab/video/7641000000000000001",
+        "note": "ranked reference",
+        "scene_origin": "19",
+        "registered_at": "2026-05-17T22:18:33"
+      },
+      {
+        "kind": "reference_video",
+        "label": "Ranked video 3 reference_video",
+        "path": "https://www.tiktok.com/@ownerglowlab/video/7642000000000000002",
+        "note": "ranked reference",
+        "scene_origin": "19",
+        "registered_at": "2026-05-17T22:18:33"
+      },
+      {
+        "kind": "reference_video",
+        "label": "Ranked video 4 reference_video",
+        "path": "https://www.tiktok.com/@ownerglowlab/video/7641000000000000002",
+        "note": "ranked reference",
+        "scene_origin": "19",
+        "registered_at": "2026-05-17T22:18:33"
+      },
+      {
+        "kind": "reference_video",
+        "label": "Ranked video 5 reference_video",
+        "path": "https://www.tiktok.com/@ownerglowlab/video/7642000000000000003",
+        "note": "ranked reference",
+        "scene_origin": "19",
+        "registered_at": "2026-05-17T22:18:33"
+      },
+      {
+        "kind": "reference_video",
+        "label": "Ranked video 6 reference_video",
+        "path": "https://www.tiktok.com/@ownerglowlab/video/7641000000000000003",
+        "note": "ranked reference",
+        "scene_origin": "19",
+        "registered_at": "2026-05-17T22:18:33"
+      },
+      {
+        "kind": "capture_artifact",
+        "label": "content_graph.json",
+        "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene19-roi-multiwindow-account\\content_graph.json",
+        "note": "Reusable capture-pack artifact",
+        "scene_origin": "19",
+        "registered_at": "2026-05-17T22:18:33"
+      },
+      {
+        "kind": "report_artifact",
+        "label": "Scene 19 operator schedule",
+        "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene19-roi-multiwindow-account\\operator_schedule_scene_19.json",
+        "note": "推送/定时调度真源，可对接 deliver_operator_run --adapter feishu",
+        "scene_origin": "19",
+        "registered_at": "2026-05-18T06:51:29"
+      },
+      {
+        "kind": "report_artifact",
+        "label": "Scene 19 账号复盘主表 JSON",
+        "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene19-roi-multiwindow-account\\account_retro_board.json",
+        "note": "Feishu 式账号复盘调度主表真源",
+        "scene_origin": "19",
+        "registered_at": "2026-05-18T08:37:48"
+      }
+    ],
+    "carry_forward": [
+      "reference_video",
+      "cover_image",
+      "download_source",
+      "production_spec_handoff",
+      "collection_board"
+    ],
+    "updated_at": "2026-05-18T08:47:59"
+  }
+}

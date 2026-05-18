@@ -3360,7 +3360,75 @@ def fill_scene_03(payload: dict, ranked_videos: list[dict], qualified_videos: li
             + scene03_dispatch_memo(top_ranked, scene03_candidates)
         )
     )
+    from scene03_creation_matrix import (
+        build_creation_matrix_payload,
+        cross_video_matrix_rows,
+        pattern_convergence_rows,
+        write_scene03_creation_matrix,
+    )
     from scene_evidence_refs import attach_scene_03_evidence_refs
+
+    matrix_rows = cross_video_matrix_rows(top_ranked)
+    pattern_rows = pattern_convergence_rows(top_ranked)
+    sections["Reusable Formula"]["table"]["title"] = "创作就绪深拆矩阵"
+    sections["Reusable Formula"]["table"]["headers"] = [
+        "样本",
+        "链接",
+        "钩子模式",
+        "主题 / 包装",
+        "证明装置",
+        "节奏标签",
+        "转化收口",
+        "深拆决策",
+    ]
+    sections["Reusable Formula"]["table"]["rows"] = matrix_rows
+    sections["Reusable Formula"]["paragraphs"] = [
+        "这张矩阵用于跨样本对比 hook / 证明 / 节奏 / 转化，不是单条视频摘要。",
+        "下面的共性收敛表把多条 shortlist 的重复模式压成可直接写新脚本的规则。",
+    ]
+    sections["Reusable Formula"]["bullets"] = [
+        f"{row[0]}：{row[1]} → {row[3]}" for row in scene03_reusable_formula_rows(top_ranked)
+    ]
+    payload["creation_matrix"] = {
+        "matrix_headers": sections["Reusable Formula"]["table"]["headers"],
+        "matrix_rows": matrix_rows,
+        "pattern_headers": ["维度", "跨样本共识", "说明", "落地写法", "置信度"],
+        "pattern_rows": pattern_rows,
+        "payload": build_creation_matrix_payload(top_ranked),
+    }
+    if capture_root is not None:
+        matrix_path = write_scene03_creation_matrix(capture_root, top_ranked)
+        if matrix_path is not None:
+            payload["assets"].append(
+                {
+                    "label": "Scene 03 创作就绪矩阵 JSON",
+                    "path": str(matrix_path),
+                    "note": "跨样本 hook / 证明 / 节奏矩阵",
+                }
+            )
+    sections["Risks And Adaptation Notes"]["table"]["title"] = "共性规律收敛"
+    sections["Risks And Adaptation Notes"]["table"]["headers"] = ["维度", "跨样本共识", "说明", "落地写法", "置信度"]
+    sections["Risks And Adaptation Notes"]["table"]["rows"] = pattern_rows
+    sections["Risks And Adaptation Notes"]["bullets"] = [
+        "认证账号或大号势能可能抬高表现，必须和可迁移的包装逻辑拆开看。",
+        "这份采集包缺评论样本，所以人群语言相关结论只能弱持有。",
+        "如果某条候选缺 caption 文本，这一行就应视为深拆证据更弱的样本。",
+    ]
+
+    from scene_operator_schedule import apply_operator_schedule, scene03_downstream_handoff_rows
+
+    downstream = scene03_downstream_handoff_rows(top_ranked)
+    sections["Next Action"]["table"]["title"] = "深拆后下游交接"
+    if not sections["Next Action"]["table"].get("headers"):
+        sections["Next Action"]["table"]["headers"] = ["目标场景", "交付物", "参考样本", "说明"]
+    sections["Next Action"]["table"]["rows"] = downstream + list(sections["Next Action"]["table"].get("rows") or [])
+
+    apply_operator_schedule(
+        payload,
+        "03",
+        capture_root=capture_root,
+        shortlist_count=len(top_ranked),
+    )
 
     attach_scene_03_evidence_refs(sections, top_ranked, winner)
 
@@ -3575,8 +3643,47 @@ def fill_scene_02(payload: dict, capture_root: Path, aggregate_summary: dict, ra
         )
     )
 
+    from scene02_patrol_board import build_patrol_board_payload, persist_patrol_board_exports
 
-def fill_scene_17(payload: dict, ranked_videos: list[dict], profile_summary: dict) -> None:
+    patrol_board_payload = build_patrol_board_payload(
+        category=category,
+        market=market,
+        cadence=cadence,
+        tracked_videos=tracked_videos,
+        alerts=alerts,
+        delta=delta,
+        next_scene03=next_scene03,
+        append_scope_key=append_scope_key,
+    )
+    payload["patrol_board"] = patrol_board_payload
+    if capture_root is not None:
+        export_paths = persist_patrol_board_exports(capture_root, patrol_board_payload)
+        payload["assets"].append(
+            {"label": "Scene 02 巡检看板 JSON", "path": export_paths["json"], "note": "Feishu 式巡检主表真源"}
+        )
+
+    from scene_operator_schedule import apply_operator_schedule
+
+    apply_operator_schedule(
+        payload,
+        "02",
+        capture_root=capture_root,
+        category=category,
+        market=market,
+        cadence=cadence,
+        append_scope=append_scope_key,
+        alert_count=len(alerts),
+        shortlist_count=len(next_scene03),
+        board_row_count=patrol_board_payload.get("row_count", len(tracked_videos)),
+    )
+
+
+def fill_scene_17(
+    payload: dict,
+    ranked_videos: list[dict],
+    profile_summary: dict,
+    capture_root: Path | None = None,
+) -> None:
     sections = {section["heading"]: section for section in payload["sections"]}
     top_ranked = top_videos(ranked_videos, limit=4)
     high_video = top_ranked[0] if top_ranked else {}
@@ -3651,6 +3758,41 @@ def fill_scene_17(payload: dict, ranked_videos: list[dict], profile_summary: dic
         ["发布实验", "测试创作者驱动版与证明物驱动版", "假设同一赛道适用于所有账号体量", "需要干净的 A/B 设置"],
     ]
     from scene_evidence_refs import attach_scene_17_evidence_refs
+    from scene_operator_schedule import apply_operator_schedule, scene17_series_cluster_rows
+
+    cluster_rows = scene17_series_cluster_rows(top_ranked)
+    sections["Structure Logic"]["bullets"].append("系列 / 赛道聚类（按包装线分组，避免单条爆款过拟合）：")
+    for row in cluster_rows:
+        sections["Structure Logic"]["bullets"].append(f"{row[0]} ×{row[1]} | 代表钩子：{row[2]} | {row[3]}")
+
+    from scene17_creator_formula_board import (
+        build_creator_formula_board_payload,
+        persist_creator_formula_board_exports,
+    )
+
+    formula_board = build_creator_formula_board_payload(
+        formula_rows=scene17_formula_library_rows(top_ranked),
+        cluster_rows=cluster_rows,
+        append_scope_key=clean_text(profile_summary.get("profile_url") or profile_summary.get("unique_id")),
+    )
+    payload["creator_formula_board"] = formula_board
+    if capture_root is not None:
+        export_paths = persist_creator_formula_board_exports(capture_root, formula_board)
+        payload["assets"].append(
+            {
+                "label": "Scene 17 创作者公式主表 JSON",
+                "path": export_paths["json"],
+                "note": "Feishu 式创作者公式主表真源",
+            }
+        )
+
+    apply_operator_schedule(
+        payload,
+        "17",
+        capture_root=capture_root,
+        shortlist_count=len(top_ranked),
+        board_row_count=formula_board.get("row_count", len(top_ranked)),
+    )
 
     attach_scene_17_evidence_refs(sections, top_ranked, high_video, low_video, profile_summary)
 
@@ -3756,6 +3898,43 @@ def fill_scene_08(payload: dict, capture_root: Path, ranked_videos: list[dict]) 
         )
     )
     from scene_evidence_refs import attach_scene_08_evidence_refs
+    from scene_operator_schedule import apply_operator_schedule, scene08_positioning_bridge_rows
+
+    bridge_rows = scene08_positioning_bridge_rows(snapshot)
+    sections["Recommended Action"]["table"]["title"] = "品类级动作（评论 → 定位 / 话术）"
+    sections["Recommended Action"]["table"]["headers"] = ["动作类型", "评论洞察", "落点", "代表原话"]
+    sections["Recommended Action"]["table"]["rows"] = bridge_rows + list(sections["Recommended Action"]["table"].get("rows") or [])
+
+    from scene08_comment_persona_board import (
+        build_comment_persona_board_payload,
+        persist_comment_persona_board_exports,
+    )
+
+    persona_board = build_comment_persona_board_payload(
+        comment_snapshot=snapshot,
+        bridge_rows=bridge_rows,
+        sampled_video_count=sampled_video_count,
+        append_scope_key=f"scene08-{sampled_video_count}-videos",
+    )
+    payload["comment_persona_board"] = persona_board
+    if capture_root is not None:
+        export_paths = persist_comment_persona_board_exports(capture_root, persona_board)
+        payload["assets"].append(
+            {
+                "label": "Scene 08 评论人设主表 JSON",
+                "path": export_paths["json"],
+                "note": "Feishu 式评论洞察主表真源",
+            }
+        )
+
+    apply_operator_schedule(
+        payload,
+        "08",
+        section_heading="Recommended Action",
+        capture_root=capture_root,
+        shortlist_count=sampled_video_count,
+        board_row_count=persona_board.get("row_count", len(bridge_rows)),
+    )
 
     attach_scene_08_evidence_refs(
         sections,
@@ -3771,6 +3950,7 @@ def fill_scene_08(payload: dict, capture_root: Path, ranked_videos: list[dict]) 
 
 def fill_scene_18(payload: dict, capture_root: Path, ranked_videos: list[dict], profile_summary: dict) -> None:
     from content_graph import shortlist_provenance_cell
+    from weekly_baseline import ensure_weekly_baseline_artifact, weekly_anomaly_digest_rows
 
     sections = {section["heading"]: section for section in payload["sections"]}
     top_ranked = top_videos(ranked_videos, limit=3)
@@ -3778,6 +3958,7 @@ def fill_scene_18(payload: dict, capture_root: Path, ranked_videos: list[dict], 
     comment_pack = load_comment_pack(capture_root) if capture_root else {"cleaned": [], "reply_chains": [], "snapshot": {}}
     comment_snapshot = comment_pack["snapshot"]
     compare = compare_latest_two_weeks(ranked_videos)
+    baseline_delta = ensure_weekly_baseline_artifact(capture_root, ranked_videos) if capture_root else {}
     coverage = weekly_coverage_summary(ranked_videos, profile_summary, comment_snapshot)
     evidence_grade = weekly_evidence_grade(coverage)
     multi_week_rows = multi_week_pattern_rows(ranked_videos)
@@ -3841,6 +4022,10 @@ def fill_scene_18(payload: dict, capture_root: Path, ranked_videos: list[dict], 
         sections["Executive Conclusion"]["bullets"].append(
             f"评论回复链信号：{scene08_reply_chain_line(top_reply_chain)}"
         )
+    if baseline_delta:
+        sections["Executive Conclusion"]["bullets"].append(
+            f"周度基线异动：{clean_text(baseline_delta.get('summary'))}"
+        )
 
     sections["Objects To Track"]["table"]["rows"] = (
         scene18_matrix_summary_rows(ranked_videos)[:5]
@@ -3853,12 +4038,15 @@ def fill_scene_18(payload: dict, capture_root: Path, ranked_videos: list[dict], 
     ]
 
     shift_rows = scene18_matrix_shift_rows(ranked_videos) if matrix_mode else weekly_shift_rows(ranked_videos)
-    why_rows = shift_rows[:3]
+    why_rows = weekly_anomaly_digest_rows(baseline_delta) if baseline_delta else []
+    why_rows.extend(shift_rows[:3])
     if not matrix_mode:
         why_rows.extend(scene18_multi_week_focus_rows(ranked_videos))
-    sections["Why They Matter"]["table"]["rows"] = why_rows
+    sections["Why They Matter"]["table"]["rows"] = why_rows[:6]
+    sections["Why They Matter"]["table"]["title"] = "Change-First Weekly Digest"
+    sections["Why They Matter"]["table"]["headers"] = ["信号", "发生了什么", "为什么重要", "是否升级动作"]
     sections["Why They Matter"]["paragraphs"] = [
-        "这一块不只是周报报数，而是要解释谁在发力、谁在回落、谁只是事件噪音。"
+        "这一块不只是周报报数，而是先解释本周相对上周的基线异动，再解释谁在发力、谁在回落、谁只是事件噪音。"
     ]
     sections["Why They Matter"]["bullets"] = [
         "优先解释策略变化，再解释单条爆点；不要把偶发爆点误写成全账号升级。",
@@ -3890,21 +4078,67 @@ def fill_scene_18(payload: dict, capture_root: Path, ranked_videos: list[dict], 
         ["封面 / 首帧证据", "让下一轮比较不只看 caption，还能看点击包装有没有变。", "P2"],
     ]
 
-    sections["Next Action"]["table"]["rows"] = (
+    dispatch_rows = (
         scene18_matrix_dispatch_rows(ranked_videos, comment_snapshot)
         if matrix_mode
         else scene18_dispatch_rows(compare, top_ranked, comment_snapshot)
     )
+    sections["Next Action"]["table"]["rows"] = dispatch_rows
     sections["Next Action"]["paragraphs"] = [
         "本周响应动作必须更像运营调度单：继续追谁、借鉴谁、忽略谁，都要回到策略变化而不是只回到热度高低。",
     ]
+
+    from scene18_competitor_weekly_board import (
+        build_competitor_weekly_board_payload,
+        persist_competitor_weekly_board_exports,
+    )
+
+    weekly_config = maybe_load(capture_root / "weekly_config.json") if capture_root else {}
+    if not isinstance(weekly_config, dict):
+        weekly_config = {}
+    append_scope_key = clean_text(weekly_config.get("append_scope_key") or compare.get("latest_week"))
+    weekly_board_payload = build_competitor_weekly_board_payload(
+        ranked_videos=ranked_videos,
+        profile_summary=profile_summary,
+        comment_snapshot=comment_snapshot,
+        compare=compare,
+        coverage=coverage,
+        evidence_grade=evidence_grade,
+        matrix_mode=matrix_mode,
+        dispatch_rows=dispatch_rows,
+        append_scope_key=append_scope_key,
+        market=clean_text(profile_summary.get("market") or weekly_config.get("market")),
+        category=clean_text(profile_summary.get("category") or weekly_config.get("category")),
+    )
+    payload["competitor_weekly_board"] = weekly_board_payload
+    if capture_root is not None:
+        export_paths = persist_competitor_weekly_board_exports(capture_root, weekly_board_payload)
+        payload["assets"].append(
+            {
+                "label": "Scene 18 竞品周报主表 JSON",
+                "path": export_paths["json"],
+                "note": "Feishu 式竞品周报主表真源",
+            }
+        )
+
     from scene_evidence_refs import attach_scene_18_evidence_refs
+    from scene_operator_schedule import apply_operator_schedule
+
+    apply_operator_schedule(
+        payload,
+        "18",
+        capture_root=capture_root,
+        compare_mode=compare.get("mode"),
+        latest_week=clean_text(compare.get("latest_week")),
+        board_row_count=weekly_board_payload.get("row_count", len(dispatch_rows)),
+    )
 
     attach_scene_18_evidence_refs(sections, top_ranked, compare, profile_summary, comment_snapshot)
 
 
 def fill_scene_19(payload: dict, capture_root: Path, ranked_videos: list[dict], profile_summary: dict) -> None:
     from content_graph import shortlist_provenance_cell
+    from weekly_baseline import ensure_weekly_baseline_artifact, weekly_anomaly_digest_rows
 
     sections = {section["heading"]: section for section in payload["sections"]}
     ordered_ranked = sorted(
@@ -3919,6 +4153,7 @@ def fill_scene_19(payload: dict, capture_root: Path, ranked_videos: list[dict], 
     comment_snapshot = comment_pack["snapshot"]
     top_reply_chain = comment_snapshot.get("top_reply_chain")
     compare = compare_latest_two_weeks(ranked_videos)
+    baseline_delta = ensure_weekly_baseline_artifact(capture_root, ranked_videos) if capture_root else {}
     coverage = weekly_coverage_summary(ranked_videos, profile_summary, comment_snapshot)
     evidence_grade = weekly_evidence_grade(coverage)
     multi_week_rows = multi_week_pattern_rows(ranked_videos)
@@ -3976,10 +4211,14 @@ def fill_scene_19(payload: dict, capture_root: Path, ranked_videos: list[dict], 
         sections["Executive Conclusion"]["bullets"].append(
             f"评论回复链合成：{scene08_reply_chain_line(top_reply_chain)}"
         )
+    if baseline_delta:
+        sections["Executive Conclusion"]["bullets"].append(
+            f"周度基线异动：{clean_text(baseline_delta.get('summary'))}"
+        )
 
-    sections["High-Level Judgment"]["table"]["rows"] = high_low_rows
+    judgment_rows = list(high_low_rows)
     if publish_window_rows:
-        sections["High-Level Judgment"]["table"]["rows"].append(
+        judgment_rows.append(
             [
                 "最佳发布时间窗",
                 publish_window_rows[0][0],
@@ -3987,8 +4226,16 @@ def fill_scene_19(payload: dict, capture_root: Path, ranked_videos: list[dict], 
                 "下轮优先在这个窗口复测，再判断它是模式胜利还是时间红利。",
             ]
         )
+    if baseline_delta:
+        anomaly_rows = weekly_anomaly_digest_rows(baseline_delta)
+        if anomaly_rows:
+            sections["High-Level Judgment"]["table"]["title"] = "Change-First Baseline Signals"
+            sections["High-Level Judgment"]["table"]["headers"] = ["信号", "发生了什么", "下轮动作", "是否升级"]
+            judgment_rows = anomaly_rows + judgment_rows[:2]
+    sections["High-Level Judgment"]["table"]["rows"] = judgment_rows
     sections["High-Level Judgment"]["paragraphs"] = [
         "这张主表现在必须把最佳发布时间窗直接推成一条主结论，而不是埋在明细里。",
+        "若已有两周样本，先读周度基线异动，再决定下轮测试该加码还是收敛。",
     ]
 
     sections["Evidence Clusters"]["table"]["rows"] = roi_cluster_rows[:3]
@@ -4045,7 +4292,44 @@ def fill_scene_19(payload: dict, capture_root: Path, ranked_videos: list[dict], 
     sections["Open Questions"]["table"]["title"] = "下轮测试计划"
     sections["Open Questions"]["table"]["headers"] = ["下轮测试", "假设", "具体改什么", "成功信号"]
     sections["Open Questions"]["table"]["rows"] = scene19_test_plan_rows(high_video, low_video)
+
+    dispatch_rows = list(sections["Recommended Action"]["table"].get("rows") or [])
+    from scene19_account_retro_board import (
+        build_account_retro_board_payload,
+        persist_account_retro_board_exports,
+    )
     from scene_evidence_refs import attach_scene_19_evidence_refs
+    from scene_operator_schedule import apply_operator_schedule
+
+    retro_board = build_account_retro_board_payload(
+        dispatch_rows=dispatch_rows,
+        compare=compare,
+        high_video=high_video,
+        low_video=low_video,
+        roi_cluster_rows=roi_cluster_rows,
+        evidence_grade=evidence_grade,
+        append_scope_key=clean_text(compare.get("latest_week")),
+    )
+    payload["account_retro_board"] = retro_board
+    if capture_root is not None:
+        export_paths = persist_account_retro_board_exports(capture_root, retro_board)
+        payload["assets"].append(
+            {
+                "label": "Scene 19 账号复盘主表 JSON",
+                "path": export_paths["json"],
+                "note": "Feishu 式账号复盘调度主表真源",
+            }
+        )
+
+    apply_operator_schedule(
+        payload,
+        "19",
+        capture_root=capture_root,
+        compare_mode=compare.get("mode"),
+        latest_week=clean_text(compare.get("latest_week")),
+        section_heading="Recommended Action",
+        board_row_count=retro_board.get("row_count", len(dispatch_rows)),
+    )
 
     attach_scene_19_evidence_refs(
         sections,
@@ -4203,34 +4487,321 @@ def fill_scene_01(payload: dict, ranked_videos: list[dict], aggregate_summary: d
     ]
     sections["Next Action"]["paragraphs"] = [handoff_gate]
 
+    from scene01_collection_board import (
+        build_board_row,
+        build_collection_board_payload,
+        persist_collection_board_exports,
+    )
 
-def fill_scene_07(payload: dict, ranked_videos: list[dict], comment_entries: list[dict]) -> None:
+    def row_factory(video: dict, index: int) -> list[str]:
+        from content_graph import shortlist_provenance_cell
+
+        return build_board_row(
+            video,
+            index,
+            handoff_status=scene01_row_handoff_status(video, required_rows),
+            provenance=shortlist_provenance_cell(video),
+            study_value=scene01_study_value_text(video),
+            reuse_fit=scene01_reuse_fit_text(video),
+            teardown_direction=scene01_recommended_teardown_direction(video),
+            next_scene=scene01_best_next_scene(video),
+            metric_summary=ranked_metric_summary(video),
+            publish_window=publish_window_text(video),
+        )
+
+    board_payload = build_collection_board_payload(
+        ranked_videos,
+        row_factory=row_factory,
+        aggregate_summary=aggregate_summary,
+        handoff_gate=handoff_gate,
+    )
+    payload["collection_board"] = board_payload
+    if capture_root is not None:
+        export_paths = persist_collection_board_exports(capture_root, board_payload)
+        payload["assets"].append(
+            {"label": "Scene 01 采集看板 JSON", "path": export_paths["json"], "note": "Feishu 式主表真源"}
+        )
+        payload["assets"].append(
+            {"label": "Scene 01 采集看板 XLSX", "path": export_paths["xlsx"], "note": "可直接导入多维表 / 飞书"}
+        )
+    if len(ranked_videos) > len(top_ranked):
+        sections["Objects To Track"]["bullets"].append(
+            f"报告主表展示前 {len(top_ranked)} 条；完整 {len(ranked_videos)} 条候选已写入 collection_board.xlsx。"
+        )
+
+    from scene_operator_schedule import apply_operator_schedule
+
+    apply_operator_schedule(
+        payload,
+        "01",
+        capture_root=capture_root,
+        append_scope=normalize_text(aggregate_summary.get("append_scope_key")) or normalize_text(aggregate_summary.get("capture_date")),
+        shortlist_count=len(top_ranked),
+        board_row_count=board_payload.get("row_count", len(ranked_videos)),
+    )
+
+
+def load_competitor_product_records(capture_root: Path, ranked_videos: list[dict]) -> tuple[list[dict], str]:
+    import os
+
+    if normalize_text(os.environ.get("TIKTOK_SHOP_SYNC_ON_IMPORT")).lower() in {"1", "true", "yes", "on"}:
+        from tiktok_shop_source import sync_competitor_products
+
+        sync_competitor_products(capture_root, force_refresh=True)
+
+    explicit_path = capture_root / "competitor_products.json"
+    if explicit_path.exists():
+        payload = load_json(explicit_path)
+        if isinstance(payload, list):
+            meta_path = capture_root / "tiktok_shop_source_meta.json"
+            source = "competitor_products.json"
+            if meta_path.exists():
+                meta = load_json(meta_path)
+                if isinstance(meta, dict):
+                    if clean_text(meta.get("source")):
+                        source = clean_text(meta.get("source"))
+                    elif clean_text(meta.get("provider")):
+                        source = clean_text(meta.get("provider"))
+            return [item for item in payload if isinstance(item, dict)], source
+    inferred: list[dict] = []
+    for video in ranked_videos:
+        shop = clean_text(video.get("tkshop_signal"))
+        commerce = safe_int(video.get("commerce_confidence"))
+        if shop and shop != "未检测到" or commerce >= 10:
+            inferred.append(
+                {
+                    "product_id": clean_text(video.get("video_id")) or clean_text(video.get("video_url")),
+                    "title": sentence_clip(core_topic_text(video) or hook_text(video), limit=72) or "未命名竞品线索",
+                    "platform": "TikTok / inferred-from-video",
+                    "price": clean_text(video.get("price")) or "待补",
+                    "rating": clean_text(video.get("rating")) or "待补",
+                    "review_count": str(video.get("comment_count", "")) or "待补",
+                    "sales_signal": shop or f"commerce_confidence={commerce}",
+                    "url": clean_text(video.get("video_url")),
+                    "evidence_source": "ranked_video_proxy",
+                }
+            )
+    if inferred:
+        return inferred, "ranked_video_proxy"
+    return [], "none"
+
+
+def fill_scene_06(
+    payload: dict,
+    capture_root: Path,
+    ranked_videos: list[dict],
+    aggregate_summary: dict,
+    profile_summary: dict,
+) -> None:
+    sections = {section["heading"]: section for section in payload["sections"]}
+    products, product_source = load_competitor_product_records(capture_root, ranked_videos)
+    meta_path = capture_root / "tiktok_shop_source_meta.json"
+    shop_meta = load_json(meta_path) if meta_path.exists() else {}
+    if not isinstance(shop_meta, dict):
+        shop_meta = {}
+    source_attestation = clean_text(shop_meta.get("source_attestation")) or "unverified"
+    metadata_ok = bool((shop_meta.get("source_metadata_validation") or {}).get("ok"))
+    if metadata_ok and source_attestation in {"official", "authorized-partner", "internal-gateway"}:
+        data_mode = f"tiktok_shop_verified_{clean_text(shop_meta.get('provider')) or product_source}"
+    elif product_source in {"http", "http_shop_api", "verified_http"}:
+        data_mode = "tiktok_shop_unverified_http" if source_attestation == "unverified" else f"tiktok_shop_live_{product_source}"
+    elif product_source in {"clipcat", "clipcat_search_items", "tiktok_research_shop_api"}:
+        data_mode = f"tiktok_shop_live_{product_source}"
+    elif product_source in {"competitor_products.json", "structured_fixture", "local_seed"} and products:
+        data_mode = "tiktok_shop_structured"
+    elif products:
+        data_mode = "fallback_snapshot"
+    else:
+        data_mode = "schema_only"
+
+    payload["executive_summary"]["conclusion"] = (
+        "这份竞品商品看板已经能按固定字段持续追踪价格、评分、销量信号与异动解释，即使当前没有 TikTok Shop API 也不会停在空报告。"
+        if products
+        else "当前采集包还没有结构化竞品商品表，因此先交付可重复填写的看板 schema 与下一轮必补字段清单。"
+    )
+    payload["executive_summary"]["why_it_matters"] = (
+        "运营价值在于把“看到变化”变成“知道该怎么反应”，而不是每次重新手工整理 Excel。"
+    )
+    payload["executive_summary"]["next_action"] = (
+        "先按看板 schema 录入 3-10 个核心竞品 SKU，再从 fallback 证据源补齐价格、评分与评论样本。"
+        if data_mode != "tiktok_shop_structured"
+        else "把今日异动行追加进同一张竞品主表，并只升级触发告警的 SKU。"
+    )
+    payload["executive_summary"]["confidence"] = "medium" if products else "low"
+
+    sections["Executive Conclusion"]["paragraphs"] = [
+        payload["executive_summary"]["conclusion"],
+        f"数据源模式：{data_mode} | 结构化竞品行：{len(products)}",
+        f"Profile baseline: {clean_text(profile_summary.get('profile_url') or profile_summary.get('profile_final_url')) or '待补'}",
+    ]
+    sections["Executive Conclusion"]["bullets"] = [
+        "TikTok Shop API 未接入时，必须显式走 listing / PDP / 评论截图降级，而不是假装有完整商品字段。",
+        f"当前商品记录来源：{product_source}",
+        "同一竞品 SKU 应持续追加到同一张主表，而不是每次新建一张表。",
+    ]
+
+    board_rows = []
+    for product in products[:12]:
+        board_rows.append(
+            [
+                clean_text(product.get("product_id")),
+                clean_text(product.get("title")),
+                clean_text(product.get("platform")) or "TikTok Shop",
+                clean_text(product.get("price")) or "待补",
+                clean_text(product.get("rating")) or "待补",
+                clean_text(product.get("review_count")) or "待补",
+                clean_text(product.get("sales_signal")) or "待补",
+                clean_text(product.get("url")),
+                clean_text(product.get("evidence_source")) or product_source,
+            ]
+        )
+    if not board_rows:
+        board_rows = [["待补", "待补", "TikTok Shop", "待补", "待补", "待补", "待补", "", "schema_only"]]
+    sections["Objects To Track"]["table"]["headers"] = [
+        "商品 ID",
+        "商品名",
+        "平台",
+        "价格",
+        "评分信号",
+        "评论量",
+        "销量 / 热度信号",
+        "链接",
+        "证据来源",
+    ]
+    sections["Objects To Track"]["table"]["rows"] = board_rows
+    sections["Objects To Track"]["table"]["title"] = "竞品商品主表"
+
+    sections["Why They Matter"]["table"]["rows"] = [
+        ["降价", "可能在抢同一价格带", "高", "核对是否伴随卖点变化或券后价"],
+        ["评分下滑", "信任受损或差评聚集", "高", "拉评论样本验证是产品问题还是履约问题"],
+        ["主图 / 卖点更新", "包装策略变化", "中", "对照自家素材是否落后"],
+        ["销量信号上升", "需求被验证", "中", "判断是否值得跟进入场或跟打话题"],
+    ]
+
+    sections["Fields To Capture Next Time"]["table"]["rows"] = [
+        ["当前价格", "比较降价与提价", "是"],
+        ["券后价 / 促销标签", "识别假降价", "是"],
+        ["销量或热度 proxy", "判断需求变化", "是"],
+        ["评分与评论数", "监控信任变化", "是"],
+        ["物流 / 店铺信息", "识别履约优势", "建议"],
+        ["评论样本", "解释评分变化", "建议"],
+    ]
+
+    sections["Fallback Mode"]["paragraphs"] = [
+        "无 TikTok Shop API 时，允许用 listing 截图、PDP 快照、评论导出和人工备注行维持同一张看板。",
+        "任何缺字段行都必须标成待补，不允许用空值假装完成追踪。",
+    ]
+
+    sections["Next Action"]["numbered"] = [
+        "锁定 3-10 个直接竞品 SKU，并写入主表第一版基线。",
+        "为每个 SKU 指定一种 fallback 证据源（截图 / PDP / 评论导出）。",
+        "下一轮只追加“发生变化的行”，并输出一条今日最值得反应的异动。",
+    ]
+
+    board_payload = {
+        "schema_version": "competitor-product-board-v1",
+        "data_source_mode": data_mode,
+        "headers": sections["Objects To Track"]["table"]["headers"],
+        "rows": board_rows,
+        "product_source": product_source,
+        "row_count": len(board_rows),
+    }
+    payload["competitor_product_board"] = board_payload
+    write_json_file(capture_root / "competitor_product_board.json", board_payload)
+    payload["assets"].append(
+        {
+            "label": "Scene 06 competitor_product_board.json",
+            "path": str(capture_root / "competitor_product_board.json"),
+            "note": f"Competitor dashboard source mode: {data_mode}",
+        }
+    )
+    payload["notes"] = list(
+        dict.fromkeys(
+            payload.get("notes", [])
+            + [
+                f"Scene 06 data boundary: {data_mode}. TikTok Shop API is optional; fallback_snapshot is supported.",
+            ]
+        )
+    )
+
+    from scene_operator_schedule import apply_operator_schedule
+
+    apply_operator_schedule(
+        payload,
+        "06",
+        capture_root=capture_root,
+        board_row_count=board_payload.get("row_count", len(board_rows)),
+    )
+
+
+def apply_platform_enrichments(
+    payload: dict,
+    scene_id: str,
+    capture_root: Path,
+    ranked_videos: list[dict],
+    profile_summary: dict,
+) -> None:
+    from asset_library import merge_library_assets, sync_asset_library
+    from generation_jobs import register_scene_generation_handoff
+
+    sync_asset_library(
+        capture_root,
+        ranked_videos=ranked_videos,
+        profile_summary=profile_summary,
+        report_assets=payload.get("assets"),
+        scene_id=scene_id,
+    )
+    merge_library_assets(payload, capture_root)
+    if scene_id in {f"{index:02d}" for index in range(9, 17)}:
+        register_scene_generation_handoff(
+            payload,
+            capture_root,
+            scene_id=scene_id,
+            brief_summary=clean_text((payload.get("executive_summary") or {}).get("conclusion")),
+        )
+
+
+def fill_scene_07(
+    payload: dict,
+    ranked_videos: list[dict],
+    comment_entries: list[dict],
+    capture_root: Path | None = None,
+) -> None:
+    from category_saturation import (
+        category_entry_decision_rows,
+        category_saturation_rows,
+        estimate_category_saturation,
+    )
     from content_graph import shortlist_provenance_cell
 
     sections = {section["heading"]: section for section in payload["sections"]}
     top_ranked = top_videos(ranked_videos, limit=4)
+    saturation = estimate_category_saturation(ranked_videos, comment_entries)
 
     payload["executive_summary"]["conclusion"] = (
-        "The category signal in this capture pack points to durable interest in human-led, socially legible TikTok packaging rather than feature-heavy explanation."
+        f"Category entry verdict for this pack: {saturation.get('verdict')} — demand heat is {saturation.get('demand_heat')} "
+        f"while supply pressure is {saturation.get('supply_pressure')}."
     )
     payload["executive_summary"]["why_it_matters"] = (
         "This suggests the opportunity is not just in content volume but in simplifying the entry cue so viewers recognize the social or emotional premise immediately."
     )
-    payload["executive_summary"]["next_action"] = (
-        "Enter the category only if you can package your proof object with the same clarity and lower-friction recognition."
+    payload["executive_summary"]["next_action"] = saturation.get(
+        "recommended_action",
+        "Enter the category only if you can package your proof object with the same clarity and lower-friction recognition.",
     )
     payload["executive_summary"]["confidence"] = "medium"
 
     sections["Executive Conclusion"]["paragraphs"] = [
         "这个场景要产出的不是泛洞察，而是类目是否值得进入的判断表。",
         payload["executive_summary"]["conclusion"],
+        saturation.get("recommended_action", ""),
     ]
-    sections["High-Level Judgment"]["table"]["rows"] = [
-        ["内容热度", "People- and moment-led posts still rank strongly", "Multiple top rows still win on immediate recognition", "中"],
-        ["商品表现", "可承接，但需要更强 owned proof", "The current winners still lean on trust transfer and clear proof", "中"],
-        ["竞争程度", "Official-account advantage is significant", "Copying the shell alone will not be enough", "中"],
-        ["进入吸引力", "优先做，但要走证明物更强的切法", "Opportunity exists but requires sharper proof packaging", "中"],
+    sections["Executive Conclusion"]["bullets"] = [
+        f"进入判断：{saturation.get('verdict')}（{saturation.get('verdict_code')}）",
+        f"需求热度={saturation.get('demand_heat')} | 供给拥挤度={saturation.get('supply_pressure')}",
+        f"重复 hook 占比={(saturation.get('signals') or {}).get('repeated_hook_share')} | 头部账号占比={(saturation.get('signals') or {}).get('top_creator_share')}",
     ]
+    sections["High-Level Judgment"]["table"]["rows"] = category_saturation_rows(saturation)
 
     sections["Evidence Clusters"]["table"]["rows"] = [
         [
@@ -4258,15 +4829,46 @@ def fill_scene_07(payload: dict, ranked_videos: list[dict], comment_entries: lis
     sections["Recommended Action"]["table"]["title"] = "Category Dispatch"
     sections["Recommended Action"]["table"]["headers"] = ["Cluster", "What Repeats", "Implication"]
 
-    sections["Open Questions"]["table"]["rows"] = [
-        ["做", "可以做", "内容热度还在，且证明物路线仍有切入空间"],
-        ["不做", "不要做解释先行版本", "容易掉进泛内容，不像强进入点"],
-        ["优先做", "优先做强 proof、强识别的进入版本", "更像能在同类里打出差异的路线"],
-    ]
+    sections["Open Questions"]["table"]["rows"] = category_entry_decision_rows(saturation)
     sections["Open Questions"]["bullets"] = [
+        "把需求热度和供给拥挤度分开看，避免把“热”误判成“值得无脑进入”。",
         "A fuller market-insight call would need more than one account and more than one capture window.",
         f"Comment-sample count available in this pack: {len(comment_entries)}.",
     ]
+
+    from scene07_category_entry_board import (
+        build_category_entry_board_payload,
+        persist_category_entry_board_exports,
+    )
+    from scene_operator_schedule import apply_operator_schedule
+
+    entry_board = build_category_entry_board_payload(
+        saturation=saturation,
+        top_ranked=top_ranked,
+        comment_count=len(comment_entries),
+        append_scope_key=clean_text(saturation.get("verdict_code") or saturation.get("verdict")),
+        provenance_fn=shortlist_provenance_cell,
+    )
+    payload["category_entry_board"] = entry_board
+    if capture_root is not None:
+        export_paths = persist_category_entry_board_exports(capture_root, entry_board)
+        payload["assets"].append(
+            {
+                "label": "Scene 07 类目进入主表 JSON",
+                "path": export_paths["json"],
+                "note": "Feishu 式类目进入判断主表真源",
+            }
+        )
+
+    apply_operator_schedule(
+        payload,
+        "07",
+        section_heading="Recommended Action",
+        capture_root=capture_root,
+        verdict=saturation.get("verdict"),
+        shortlist_count=len(top_ranked),
+        board_row_count=entry_board.get("row_count", len(top_ranked)),
+    )
 
 
 def fill_scene_09(payload: dict, ranked_videos: list[dict], qualified_videos: list[dict]) -> None:
@@ -4425,7 +5027,13 @@ def fill_scene_09(payload: dict, ranked_videos: list[dict], qualified_videos: li
     ]
 
 
-def fill_scene_04(payload: dict, ranked_videos: list[dict], qualified_videos: list[dict], profile_summary: dict) -> None:
+def fill_scene_04(
+    payload: dict,
+    ranked_videos: list[dict],
+    qualified_videos: list[dict],
+    profile_summary: dict,
+    capture_root: Path | None = None,
+) -> None:
     sections = {section["heading"]: section for section in payload["sections"]}
     source = qualified_videos[0] if qualified_videos else (top_videos(ranked_videos, limit=1)[0] if ranked_videos else {})
     source_url = clean_text(source.get("video_url"))
@@ -4513,6 +5121,17 @@ def fill_scene_04(payload: dict, ranked_videos: list[dict], qualified_videos: li
         "BGM 不只是陪衬，它直接决定这条内容更像测评、教程、审美拼贴还是情绪推动；因此这一块必须比普通拆解更醒目。",
         "无口播视频尤其依赖音频、字幕密度和动作节奏来补足逻辑，这时感官层就不是装饰，而是结构本身。",
     ]
+
+    from production_spec_handoff import handoff_table_bundle, write_production_handoff_artifacts
+
+    bundle = handoff_table_bundle(source)
+    storyboard_rows = scene04_storyboard_handoff_rows(
+        source,
+        source_url,
+        source_hook,
+        source_topic,
+        authority,
+    )
     sections["Production-Spec Handoff"]["table"]["rows"] = scene04_production_spec_rows(
         source,
         source_url,
@@ -4525,23 +5144,48 @@ def fill_scene_04(payload: dict, ranked_videos: list[dict], qualified_videos: li
     sections["Production-Spec Handoff"]["paragraphs"] = [
         "这张表直接服务导演 / 剪辑 / 生成器，不是泛分析备注。",
         "如果还要更细化镜头，应继续把 shot_01 到 shot_04 和上面的时间段主表对齐。",
+        "Pacing / 字幕节拍 / 证明块 / 资产需求与 generator handoff JSON（含 Sora / Veo / i2v 分支）已对齐。",
+    ]
+    sections["Production-Spec Handoff"]["bullets"] = [
+        *[f"Pacing {row[0]}: {row[2]} / {row[3]}" for row in bundle["pacing_map"]],
+        *[f"字幕 {row[0]} ({row[1]}): {row[3]}" for row in bundle["subtitle_beats"]],
     ]
 
     sections["Next Action"]["table"]["title"] = "下一步动作 / shot 交接"
     sections["Next Action"]["table"]["headers"] = ["shot_id", "时间", "阶段", "画面 / 动作", "字幕 / 口播", "generator 字段", "素材 / 执行需求"]
-    sections["Next Action"]["table"]["rows"] = scene04_storyboard_handoff_rows(
-        source,
-        source_url,
-        source_hook,
-        source_topic,
-        authority,
-    )
+    sections["Next Action"]["table"]["rows"] = storyboard_rows
+    payload["production_handoff"] = {
+        "tables": bundle,
+        "storyboard_rows": storyboard_rows,
+        "pacing_headers": ["时间窗", "节拍", "目标", "主 cue", "转场", "置信度", "证据"],
+        "subtitle_headers": ["节拍 ID", "时间", "类型", "字幕行", "要求", "置信度"],
+        "proof_headers": ["块 ID", "标签", "内容", "备注", "优先级", "置信度", "证据"],
+        "asset_headers": ["资产", "用途", "优先级", "置信度", "证据"],
+    }
+    artifact_path = write_production_handoff_artifacts(capture_root, source, scene_id="04")
+    if artifact_path is not None:
+        payload["assets"].append(
+            {
+                "label": "Scene 04 production_spec_handoff.json",
+                "path": str(artifact_path),
+                "note": "Generator-ready handoff with Sora / Veo / i2v branches",
+            }
+        )
     from scene_evidence_refs import attach_scene_04_evidence_refs
+    from scene_operator_schedule import apply_operator_schedule
+
+    apply_operator_schedule(payload, "04", capture_root=capture_root)
 
     attach_scene_04_evidence_refs(sections, source, profile_summary)
 
 
-def fill_scene_05(payload: dict, ranked_videos: list[dict], qualified_videos: list[dict], profile_summary: dict) -> None:
+def fill_scene_05(
+    payload: dict,
+    ranked_videos: list[dict],
+    qualified_videos: list[dict],
+    profile_summary: dict,
+    capture_root: Path | None = None,
+) -> None:
     sections = {section["heading"]: section for section in payload["sections"]}
     source = qualified_videos[0] if qualified_videos else (top_videos(ranked_videos, limit=1)[0] if ranked_videos else {})
     source_url = clean_text(source.get("video_url"))
@@ -4635,13 +5279,49 @@ def fill_scene_05(payload: dict, ranked_videos: list[dict], qualified_videos: li
     sections["Next Action"]["paragraphs"] = [
         "这一层是 adapt 版本：在已有用户产品时，直接把参考视频翻译成可执行制作简报，而不是停留在原视频 prompt 反推。",
     ]
+    from production_spec_handoff import generator_branch_payload, handoff_table_bundle, write_production_handoff_artifacts
+
+    bundle = handoff_table_bundle(source)
+    generator_pack = generator_branch_payload(source, scene_id="05")
     sections["Production-Spec Handoff"]["table"]["rows"] = [
         ["原始制作简报结构", "infer 层 schema 与证据字段", "策略 / 生成器", "如果字段仍空，需要补截图、字幕或下载明细", "内容策略"],
         ["分镜逐条表", "shot_01 到 shot_04 的分镜与字幕 / 动作节拍", "剪辑 / 生成器", "镜头级证据不足会导致误生成", "导演 / 剪辑"],
         ["产品适配简报", "hook / proof / scene_character / cta_close 改写版", "创意 / 生成器", "没有产品卖点与素材就无法真正 adapt", "运营 / 创意"],
         ["素材 / 人员清单", "人物、产品、证明物、字幕与音频需求", "制片 / 执行", "缺实物素材时必须标红，不要假设资产存在", "制片"],
     ]
+    sections["Production-Spec Handoff"]["paragraphs"] = [
+        "production_spec_handoff.json 含 Sora / Veo / i2v 三分支与完整 shot_list / pacing / subtitle / proof / asset 字段。",
+    ]
+    sections["Production-Spec Handoff"]["bullets"] = [
+        f"分支：{', '.join(generator_pack.get('generator_branches', {}).keys())}",
+        *[f"Pacing {row[0]}: {row[3]}" for row in bundle["pacing_map"]],
+    ]
+    payload["production_handoff"] = {
+        "tables": bundle,
+        "generator_pack": generator_pack,
+        "pacing_headers": ["时间窗", "节拍", "目标", "主 cue", "转场", "置信度", "证据"],
+        "subtitle_headers": ["节拍 ID", "时间", "类型", "字幕行", "要求", "置信度"],
+        "proof_headers": ["块 ID", "标签", "内容", "备注", "优先级", "置信度", "证据"],
+        "asset_headers": ["资产", "用途", "优先级", "置信度", "证据"],
+    }
+    artifact_path = write_production_handoff_artifacts(capture_root, source, scene_id="05")
+    if artifact_path is not None:
+        payload["assets"].append(
+            {
+                "label": "Scene 05 production_spec_handoff.json",
+                "path": str(artifact_path),
+                "note": "Reverse-engineered generator handoff with model branches",
+            }
+        )
     from scene_evidence_refs import attach_scene_05_evidence_refs
+    from scene_operator_schedule import apply_operator_schedule, scene05_generator_branch_rows
+
+    branch_rows = scene05_generator_branch_rows(generator_pack)
+    sections["Next Action"]["table"]["title"] = "Generator 分支执行"
+    sections["Next Action"]["table"]["headers"] = ["分支", "适用场景", "prompt 焦点", "状态"]
+    sections["Next Action"]["table"]["rows"] = branch_rows + list(sections["Next Action"]["table"].get("rows") or [])
+
+    apply_operator_schedule(payload, "05", capture_root=capture_root)
 
     attach_scene_05_evidence_refs(sections, source, profile_summary)
 
@@ -5141,11 +5821,13 @@ def main() -> None:
     elif scene["id"] == "03":
         fill_scene_03(payload, ranked_videos, qualified_videos, aggregate_summary, capture_root)
     elif scene["id"] == "04":
-        fill_scene_04(payload, ranked_videos, qualified_videos, profile_summary)
+        fill_scene_04(payload, ranked_videos, qualified_videos, profile_summary, capture_root)
     elif scene["id"] == "05":
-        fill_scene_05(payload, ranked_videos, qualified_videos, profile_summary)
+        fill_scene_05(payload, ranked_videos, qualified_videos, profile_summary, capture_root)
+    elif scene["id"] == "06":
+        fill_scene_06(payload, capture_root, ranked_videos, aggregate_summary, profile_summary)
     elif scene["id"] == "07":
-        fill_scene_07(payload, ranked_videos, comment_entries)
+        fill_scene_07(payload, ranked_videos, comment_entries, capture_root)
     elif scene["id"] == "08":
         fill_scene_08(payload, capture_root, ranked_videos)
     elif scene["id"] == "09":
@@ -5169,9 +5851,13 @@ def main() -> None:
     elif scene["id"] == "19":
         fill_scene_19(payload, capture_root, ranked_videos, profile_summary)
     elif scene["id"] == "17":
-        fill_scene_17(payload, ranked_videos, profile_summary)
+        fill_scene_17(payload, ranked_videos, profile_summary, capture_root)
     else:
-        raise SystemExit("This importer currently supports scene auto, 01, 02, 03, 04, 05, 07, 08, 09, 10, 11, 12, 13, 14, 15, 16, 17, 18, and 19.")
+        raise SystemExit(
+            "This importer currently supports scene auto, 01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, 12, 13, 14, 15, 16, 17, 18, and 19."
+        )
+
+    apply_platform_enrichments(payload, scene["id"], capture_root, ranked_videos, profile_summary)
 
     output = Path(args.output)
     output.parent.mkdir(parents=True, exist_ok=True)

@@ -8,7 +8,9 @@ import subprocess
 import sys
 from datetime import datetime
 from pathlib import Path
-from feishu_push_runtime import maybe_push_feishu_bundle
+
+from feishu_delivery_helpers import deliver_feishu_report
+from tiktok_shop_source import sync_competitor_products
 from text_normalization import write_json_file, write_utf8_text
 
 
@@ -22,6 +24,29 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--project", required=True, help="Project title.")
     parser.add_argument("--target-markets", default="", help="Optional comma-separated target markets for scene 13 localization blueprints.")
     parser.add_argument("--target-languages", default="", help="Optional comma-separated target languages for scene 15 image-translation blueprints.")
+    parser.add_argument("--shop-sync", action="store_true", help="For Scene 06, sync competitor products before import.")
+    parser.add_argument("--shop-keyword", default="", help="Optional TikTok Shop search keyword for Scene 06 sync.")
+    parser.add_argument("--shop-region", default="", help="Optional TikTok Shop region for Scene 06 sync.")
+    parser.add_argument("--shop-limit", type=int, default=10, help="Maximum synced competitor products for Scene 06.")
+    parser.add_argument("--shop-source-mode", default="", help="Optional TikTok Shop source mode override: auto, http, or clipcat.")
+    parser.add_argument("--shop-http-url", default="", help="Optional explicit TikTok Shop HTTP endpoint for Scene 06 sync.")
+    parser.add_argument("--shop-http-api-key", default="", help="Optional explicit TikTok Shop HTTP API key for Scene 06 sync.")
+    parser.add_argument(
+        "--shop-source-attestation",
+        default="",
+        help="Optional source trust declaration for Scene 06 sync: official, authorized-partner, internal-gateway, or unverified.",
+    )
+    parser.add_argument(
+        "--shop-require-verified-source",
+        action="store_true",
+        help="Block Scene 06 sync unless the source attestation is official, authorized-partner, or internal-gateway.",
+    )
+    parser.add_argument(
+        "--shop-http-allowed-hosts",
+        default="",
+        help="Optional comma-separated HTTP gateway host allowlist, e.g. open.tiktokapis.com,gateway.internal.example.",
+    )
+    parser.add_argument("--shop-enrich-detail", action="store_true", help="When using Clipcat for Scene 06, enrich each product with product_detail.")
     parser.add_argument("--output-root", default="", help="Optional explicit run root.")
     parser.add_argument("--platform", default="TikTok", help="Platform label for derived packs.")
     parser.add_argument("--market", default="US", help="Market label for derived packs.")
@@ -35,11 +60,22 @@ def parse_args() -> argparse.Namespace:
         default="",
         help="Optional comma-separated operator packs: publish-prep, live-assist, creative-production-handoff, account-ops-assist.",
     )
-    parser.add_argument("--push-feishu", action="store_true", help="After generating the run, also push the report to Feishu.")
+    parser.add_argument(
+        "--push-feishu",
+        action="store_true",
+        help="After generating the run, push Feishu doc/bundle and append structured boards when present.",
+    )
+    parser.add_argument(
+        "--no-feishu-append-board",
+        action="store_true",
+        help="With --push-feishu, skip structured board append (doc/bundle only).",
+    )
     parser.add_argument("--feishu-app-id", default="", help="Optional explicit Feishu app ID.")
     parser.add_argument("--feishu-app-secret", default="", help="Optional explicit Feishu app secret.")
     parser.add_argument("--feishu-title", default="", help="Optional explicit Feishu Doc title.")
     parser.add_argument("--feishu-base-name", default="", help="Optional explicit Feishu Bitable app name.")
+    parser.add_argument("--feishu-run-date", default="", help="Optional YYYY-MM-DD for board append rows.")
+    parser.add_argument("--feishu-append-scope", default="", help="Optional board append batch key (defaults to operator_schedule).")
     return parser.parse_args()
 
 
@@ -167,6 +203,25 @@ def create_capture_pack_run(
     market: str = "US",
     formats: str = "md,docx,xlsx",
     operator_packs_raw: str = "",
+    shop_sync: bool = False,
+    shop_keyword: str = "",
+    shop_region: str = "",
+    shop_limit: int = 10,
+    shop_source_mode: str = "",
+    shop_http_url: str = "",
+    shop_http_api_key: str = "",
+    shop_source_attestation: str = "",
+    shop_require_verified_source: bool = False,
+    shop_http_allowed_hosts: str = "",
+    shop_enrich_detail: bool = False,
+    push_feishu: bool = False,
+    feishu_app_id: str = "",
+    feishu_app_secret: str = "",
+    feishu_title: str = "",
+    feishu_base_name: str = "",
+    feishu_append_board: bool = True,
+    feishu_run_date: str = "",
+    feishu_append_scope: str = "",
 ) -> dict:
     skill_root = Path(__file__).resolve().parents[1]
     scripts_root = skill_root / "scripts"
@@ -180,6 +235,36 @@ def create_capture_pack_run(
     outputs_dir = scene_dir / "outputs"
     report_json = scene_dir / f"scene-{scene}-{name.strip()}.json"
     capture_root = Path(capture_root_raw).expanduser().resolve()
+
+    shop_sync_result: dict | None = None
+    if str(scene).strip() in {"06", "6"} and shop_sync:
+        shop_sync_result = sync_competitor_products(
+            capture_root,
+            keyword=shop_keyword,
+            region=shop_region,
+            limit=shop_limit,
+            force_refresh=True,
+            enrich_detail=shop_enrich_detail,
+            source_mode=shop_source_mode,
+            http_url=shop_http_url,
+            http_api_key=shop_http_api_key,
+            source_attestation=shop_source_attestation,
+            require_verified_source=shop_require_verified_source,
+            http_allowed_hosts_override=shop_http_allowed_hosts,
+        )
+        if shop_sync_result.get("status") not in {"ok", "cached"}:
+            raise SystemExit(
+                json.dumps(
+                    {
+                        "ok": False,
+                        "stage": "shop_sync",
+                        "scene": scene,
+                        "capture_root": str(capture_root),
+                        "result": shop_sync_result,
+                    },
+                    ensure_ascii=False,
+                )
+            )
 
     import_result = run_python(
         importer,
@@ -275,17 +360,31 @@ def create_capture_pack_run(
         "operator_packs": operator_pack_results,
         "chained_runs": chained_runs,
         "import_stdout": import_result.stdout.strip(),
+        "shop_sync": shop_sync_result,
     }
     write_json_file(run_root / "run_manifest.json", manifest)
     write_readme(run_root, scene, capture_root, report_json, outputs_dir, operator_pack_results)
 
-    return {
+    result = {
         "run_root": str(run_root),
         "report_json": str(report_json),
         "outputs_dir": str(outputs_dir),
         "operator_packs": operator_pack_results,
         "chained_runs": chained_runs,
+        "shop_sync": shop_sync_result,
     }
+    if push_feishu:
+        result["feishu_push"] = deliver_feishu_report(
+            str(report_json),
+            feishu_app_id,
+            feishu_app_secret,
+            title=feishu_title.strip() or project,
+            base_name=feishu_base_name.strip() or project,
+            append_board=feishu_append_board,
+            run_date=feishu_run_date,
+            append_scope=feishu_append_scope,
+        )
+    return result
 
 
 def main() -> None:
@@ -302,15 +401,26 @@ def main() -> None:
         market=args.market,
         formats=args.formats,
         operator_packs_raw=args.operator_packs,
+        shop_sync=args.shop_sync,
+        shop_keyword=args.shop_keyword,
+        shop_region=args.shop_region,
+        shop_limit=args.shop_limit,
+        shop_source_mode=args.shop_source_mode,
+        shop_http_url=args.shop_http_url,
+        shop_http_api_key=args.shop_http_api_key,
+        shop_source_attestation=args.shop_source_attestation,
+        shop_require_verified_source=args.shop_require_verified_source,
+        shop_http_allowed_hosts=args.shop_http_allowed_hosts,
+        shop_enrich_detail=args.shop_enrich_detail,
+        push_feishu=args.push_feishu,
+        feishu_app_id=args.feishu_app_id,
+        feishu_app_secret=args.feishu_app_secret,
+        feishu_title=args.feishu_title,
+        feishu_base_name=args.feishu_base_name,
+        feishu_append_board=not args.no_feishu_append_board,
+        feishu_run_date=args.feishu_run_date,
+        feishu_append_scope=args.feishu_append_scope,
     )
-    if args.push_feishu:
-        result["feishu_push"] = maybe_push_feishu_bundle(
-            result["report_json"],
-            args.feishu_app_id,
-            args.feishu_app_secret,
-            title=args.feishu_title.strip() or args.project,
-            base_name=args.feishu_base_name.strip() or args.project,
-        )
     print(json.dumps(result, ensure_ascii=False, indent=2))
 
 

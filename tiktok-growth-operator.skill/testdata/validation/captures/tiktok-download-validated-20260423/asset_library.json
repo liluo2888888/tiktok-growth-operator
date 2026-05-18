@@ -1,0 +1,245 @@
+{
+  "schema_version": "asset-library-v1",
+  "assets": [
+    {
+      "kind": "profile",
+      "label": "Source profile",
+      "path": "https://www.tiktok.com/@tiktok",
+      "note": "Account baseline",
+      "scene_origin": "08",
+      "registered_at": "2026-05-17T22:18:46"
+    },
+    {
+      "kind": "reference_video",
+      "label": "Ranked video 1 reference_video",
+      "path": "https://www.tiktok.com/@tiktok/video/7628619815690833183",
+      "note": "ranked reference",
+      "scene_origin": "08",
+      "registered_at": "2026-05-17T22:18:46"
+    },
+    {
+      "kind": "cover_image",
+      "label": "Ranked video 1 cover_image",
+      "path": "https://p16-common-sign.tiktokcdn-us.com/tos-useast8-p-0068-tx2/oEsGEw03A1wRAIQWpAQGqxFwEVEeVkfTCEAADA~tplv-tiktokx-origin.image?dr=9636&x-expires=1777089600&x-signature=QnoNfMCPB1Q%2ByAopwiG1telsu%2B4%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=useast5",
+      "note": "ranked reference",
+      "scene_origin": "08",
+      "registered_at": "2026-05-17T22:18:46"
+    },
+    {
+      "kind": "download_source",
+      "label": "Ranked video 1 download_source",
+      "path": "https://v16-webapp-prime.us.tiktok.com/video/tos/useast8/tos-useast8-ve-0068c002-tx2/oIAgeFiqx3TYDT3JRf0BkHEgAVEPEObIXpo2Qu/?a=1988&bti=ODszNWYuMDE6&&bt=791&ft=4KJMyMzm8Zmo0eCcex4jV2bjdpWrKsd.&mime_type=video_mp4&rc=NTYzOGY0Zzg1aTVmOjo3OEBpamVneGo5cnQ3OjMzaTczNEBjNGAzNi0tNi4xNS9iYzQyYSNvL2cxMmRrbGNhLS1kMTJzcw%3D%3D&btag=e00088000&expire=1777091682&l=20260423043354BA39C57E706E34421CBE&ply_type=2&policy=2&signature=9bab416cf3efc21be9deae69621afcfe&tk=tt_chain_token",
+      "note": "ranked reference",
+      "scene_origin": "08",
+      "registered_at": "2026-05-17T22:18:46"
+    },
+    {
+      "kind": "play_source",
+      "label": "Ranked video 1 play_source",
+      "path": "https://v16-webapp-prime.us.tiktok.com/video/tos/useast8/tos-useast8-ve-0068c004-tx2/ogE0KpkBTixEEeFRiXIg7IAV2mAfuqg8Z23QxD/?a=1988&bti=ODszNWYuMDE6&&bt=874&ft=4KJMyMzm8Zmo0eCcex4jV2bjdpWrKsd.&mime_type=video_mp4&rc=ODk5Zzs0aTs1ZDNkNjM6M0BpamVneGo5cnQ3OjMzaTczNEAwNjU0YTBiXjUxNC1jLjQyYSNvL2cxMmRrbGNhLS1kMTJzcw%3D%3D&btag=e00088000&expire=1777091682&l=20260423043354BA39C57E706E34421CBE&ply_type=2&policy=2&signature=33e161c2c31ffd99753410c3f4cf9db2&tk=tt_chain_token",
+      "note": "ranked reference",
+      "scene_origin": "08",
+      "registered_at": "2026-05-17T22:18:46"
+    },
+    {
+      "kind": "reference_video",
+      "label": "Ranked video 2 reference_video",
+      "path": "https://www.tiktok.com/@tiktok/video/7626810027520593183",
+      "note": "ranked reference",
+      "scene_origin": "08",
+      "registered_at": "2026-05-17T22:18:46"
+    },
+    {
+      "kind": "cover_image",
+      "label": "Ranked video 2 cover_image",
+      "path": "https://p16-common-sign.tiktokcdn-us.com/tos-useast8-p-0068-tx2/o4AJv9eEDQGqgv49AzFAVPRX1CfJpAEIEVAtE1~tplv-tiktokx-origin.image?dr=9636&x-expires=1777089600&x-signature=U6PtdowcCWMTVVqb3YmMjcrHLIs%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=useast5",
+      "note": "ranked reference",
+      "scene_origin": "08",
+      "registered_at": "2026-05-17T22:18:46"
+    },
+    {
+      "kind": "download_source",
+      "label": "Ranked video 2 download_source",
+      "path": "https://v16-webapp-prime.us.tiktok.com/video/tos/useast8/tos-useast8-ve-0068c001-tx2/osmz1QqGTC3KzU5LIIb76AIeIIoXer3AejE3Xx/?a=1988&bti=ODszNWYuMDE6&&bt=979&ft=4KJMyMzm8Zmo01Icex4jVB3odpWrKsd.&mime_type=video_mp4&rc=ODU4NmRnNmk8NTVpPDZpNUBpM202cWw5cnh3OjMzaTczNEBhYy5gLl8uNjMxNmFeYDYwYSNnZ2lrMmQ0cF9hLS1kMTJzcw%3D%3D&btag=e00090000&expire=1777091647&l=2026042304325762AB0ADC48770D42E75A&ply_type=2&policy=2&signature=e64b242de29463dadc3c9aea00df680b&tk=tt_chain_token",
+      "note": "ranked reference",
+      "scene_origin": "08",
+      "registered_at": "2026-05-17T22:18:46"
+    },
+    {
+      "kind": "play_source",
+      "label": "Ranked video 2 play_source",
+      "path": "https://v16-webapp-prime.us.tiktok.com/video/tos/useast8/tos-useast8-ve-0068c001-tx2/ocgvRAIfjvjrAfGT9LmjeOA6YzKIxIkAqn7wCt/?a=1988&bti=ODszNWYuMDE6&&bt=1074&ft=4KJMyMzm8Zmo01Icex4jVB3odpWrKsd.&mime_type=video_mp4&rc=ZWg3NmU0ZmY1NDtmaTg3aUBpM202cWw5cnh3OjMzaTczNEA0MmEtYTExX14xMGFgLzQzYSNnZ2lrMmQ0cF9hLS1kMTJzcw%3D%3D&btag=e00090000&expire=1777091647&l=2026042304325762AB0ADC48770D42E75A&ply_type=2&policy=2&signature=a8fe690d1770885e0032260ce9347dea&tk=tt_chain_token",
+      "note": "ranked reference",
+      "scene_origin": "08",
+      "registered_at": "2026-05-17T22:18:46"
+    },
+    {
+      "kind": "reference_video",
+      "label": "Ranked video 3 reference_video",
+      "path": "https://www.tiktok.com/@tiktok/video/7631229398531788062",
+      "note": "ranked reference",
+      "scene_origin": "08",
+      "registered_at": "2026-05-17T22:18:46"
+    },
+    {
+      "kind": "cover_image",
+      "label": "Ranked video 3 cover_image",
+      "path": "https://p16-common-sign.tiktokcdn-us.com/tos-useast8-p-0068-tx2/okAAMQyUTIAeSrn6AMEscAezWAWhqA8j0I2reQ~tplv-tiktokx-origin.image?dr=9636&x-expires=1777089600&x-signature=HiCWy3foG7YKCwo45tMDtq8qO4A%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=useast5",
+      "note": "ranked reference",
+      "scene_origin": "08",
+      "registered_at": "2026-05-17T22:18:46"
+    },
+    {
+      "kind": "download_source",
+      "label": "Ranked video 3 download_source",
+      "path": "https://v16-webapp-prime.us.tiktok.com/video/tos/useast8/tos-useast8-ve-0068c004-tx2/oAnJ3iAIqB0v8pCSkALGArvaIvOJMFii4QEneQ/?a=1988&bti=ODszNWYuMDE6&&bt=1794&ft=4KJMyMzm8Zmo0tIcex4jVzMjdpWrKsd.&mime_type=video_mp4&rc=Zjw0Zzc7OmdnPGlnNWk6Z0Bpamg4NHE5cjxzOjMzaTczNEBgMC5gXi40Xi8xXmMuNl9iYSMxaGkzMmRrMWdhLS1kMTJzcw%3D%3D&btag=e00088000&expire=1777091632&l=20260423043259C95A51BE8DC64C4A48B8&ply_type=2&policy=2&signature=ca938f35933ce4944abe223a08b55f26&tk=tt_chain_token",
+      "note": "ranked reference",
+      "scene_origin": "08",
+      "registered_at": "2026-05-17T22:18:46"
+    },
+    {
+      "kind": "play_source",
+      "label": "Ranked video 3 play_source",
+      "path": "https://v16-webapp-prime.us.tiktok.com/video/tos/useast8/tos-useast8-ve-0068c002-tx2/oQTAqfegNCxAyAWj5IRi1fzBmzILAa88RRSMQJ/?a=1988&bti=ODszNWYuMDE6&&bt=1969&ft=4KJMyMzm8Zmo0tIcex4jVzMjdpWrKsd.&mime_type=video_mp4&rc=M2U6PGVkOmZoNTg5NTg0OUBpamg4NHE5cjxzOjMzaTczNEAwMi5fY2NfXjExLzE0MjZhYSMxaGkzMmRrMWdhLS1kMTJzcw%3D%3D&btag=e00088000&expire=1777091632&l=20260423043259C95A51BE8DC64C4A48B8&ply_type=2&policy=2&signature=c615c20124369679349d9231e05f1b2f&tk=tt_chain_token",
+      "note": "ranked reference",
+      "scene_origin": "08",
+      "registered_at": "2026-05-17T22:18:46"
+    },
+    {
+      "kind": "reference_video",
+      "label": "Ranked video 4 reference_video",
+      "path": "https://www.tiktok.com/@tiktok/video/7627209981670001950",
+      "note": "ranked reference",
+      "scene_origin": "08",
+      "registered_at": "2026-05-17T22:18:46"
+    },
+    {
+      "kind": "cover_image",
+      "label": "Ranked video 4 cover_image",
+      "path": "https://p16-common-sign.tiktokcdn-us.com/tos-useast8-p-0068-tx2/oIlEE2oVfQAU0AwmnRlsyfAAQAEiICDGpIFRAF~tplv-tiktokx-origin.image?dr=9636&x-expires=1777089600&x-signature=TQEWVKKC4phyfIJUhaZumB7sBC8%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=useast5",
+      "note": "ranked reference",
+      "scene_origin": "08",
+      "registered_at": "2026-05-17T22:18:46"
+    },
+    {
+      "kind": "download_source",
+      "label": "Ranked video 4 download_source",
+      "path": "https://v16-webapp-prime.us.tiktok.com/video/tos/useast8/tos-useast8-ve-0068c001-tx2/oooOl3ZRBdAiv4SLJE5zoZzSBaE7IAAR1QMiV/?a=1988&bti=ODszNWYuMDE6&&bt=1252&ft=4KJMyMzm8Zmo01Icex4jVB3odpWrKsd.&mime_type=video_mp4&rc=OWg3OmY8M2U3OWRkNzs4aUBpamg2bnI5cjtuOjMzaTczNEA0My5gMzAwXy0xMi02LmMzYSM1YmlxMmRrZ2BhLS1kMTJzcw%3D%3D&btag=e00090000&expire=1777091654&l=2026042304325762AB0ADC48770D42E75A&ply_type=2&policy=2&signature=aabc1cb7fc3b7dce635a57f13d790618&tk=tt_chain_token",
+      "note": "ranked reference",
+      "scene_origin": "08",
+      "registered_at": "2026-05-17T22:18:46"
+    },
+    {
+      "kind": "play_source",
+      "label": "Ranked video 4 play_source",
+      "path": "https://v16-webapp-prime.us.tiktok.com/video/tos/useast8/tos-useast8-ve-0068c002-tx2/oURBEAIvVd7ia1oBJASjo4RbEvMEZQ3lOSvli/?a=1988&bti=ODszNWYuMDE6&&bt=1340&ft=4KJMyMzm8Zmo01Icex4jVB3odpWrKsd.&mime_type=video_mp4&rc=MzhpZzw8ZWQ4NTs5NzY2N0Bpamg2bnI5cjtuOjMzaTczNEAzLjZhYGBhNWExYDMuNWEuYSM1YmlxMmRrZ2BhLS1kMTJzcw%3D%3D&btag=e00090000&expire=1777091654&l=2026042304325762AB0ADC48770D42E75A&ply_type=2&policy=2&signature=c1941c72fbac54f814179e01f389d725&tk=tt_chain_token",
+      "note": "ranked reference",
+      "scene_origin": "08",
+      "registered_at": "2026-05-17T22:18:46"
+    },
+    {
+      "kind": "reference_video",
+      "label": "Ranked video 5 reference_video",
+      "path": "https://www.tiktok.com/@tiktok/video/7631201918366289165",
+      "note": "ranked reference",
+      "scene_origin": "08",
+      "registered_at": "2026-05-17T22:18:46"
+    },
+    {
+      "kind": "cover_image",
+      "label": "Ranked video 5 cover_image",
+      "path": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/okeOuZgQEnDA5S8F3bCgHp8n6AYDREAAIR8yfu~tplv-tiktokx-origin.image?dr=9636&x-expires=1777089600&x-signature=MJTsv6UZMtKbww4ft5D5H%2Bt4tUc%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=useast5",
+      "note": "ranked reference",
+      "scene_origin": "08",
+      "registered_at": "2026-05-17T22:18:46"
+    },
+    {
+      "kind": "download_source",
+      "label": "Ranked video 5 download_source",
+      "path": "https://v16-webapp-prime.us.tiktok.com/video/tos/useast5/tos-useast5-ve-0068c002-tx/osXEd84fQqvESo5BnOUDfDsRnNAFgI3gItCpIj/?a=1988&bti=ODszNWYuMDE6&&bt=1123&ft=aEeq8qT0mIoPD12iSXks3wUeYOAbMeF~O5&mime_type=video_mp4&rc=ZTRnNmZpZzQ3ZmhoZjk5aUBpM211bnE5cm1xOjMzZzczNEBjNl8uLjZeNTAxX14xMGMvYSNvbGFuMmRjZ2dhLS1kMS9zcw%3D%3D&btag=e00088000&expire=1777091645&l=2026042304333633556B46495D0F426CE7&ply_type=2&policy=2&signature=66664e73bc52a5357152ce9312af7cf4&tk=tt_chain_token",
+      "note": "ranked reference",
+      "scene_origin": "08",
+      "registered_at": "2026-05-17T22:18:46"
+    },
+    {
+      "kind": "play_source",
+      "label": "Ranked video 5 play_source",
+      "path": "https://v16-webapp-prime.us.tiktok.com/video/tos/useast5/tos-useast5-pve-0068-tx/oAs75v1VMRueYdfOAxWAkejbPC8ITRHgQRAGIz/?a=1988&bti=ODszNWYuMDE6&&bt=1223&ft=aEeq8qT0mIoPD12iSXks3wUeYOAbMeF~O5&mime_type=video_mp4&rc=O2g7Ozg6NWdlNjw1NDdmOEBpM211bnE5cm1xOjMzZzczNEAtLS9gMTIzNmMxNGA0LWBiYSNvbGFuMmRjZ2dhLS1kMS9zcw%3D%3D&btag=e00088000&expire=1777091645&l=2026042304333633556B46495D0F426CE7&ply_type=2&policy=2&signature=eeaa12ab261426e8d27401d81ecf434e&tk=tt_chain_token",
+      "note": "ranked reference",
+      "scene_origin": "08",
+      "registered_at": "2026-05-17T22:18:46"
+    },
+    {
+      "kind": "reference_video",
+      "label": "Ranked video 6 reference_video",
+      "path": "https://www.tiktok.com/@tiktok/video/7624178064527740190",
+      "note": "ranked reference",
+      "scene_origin": "08",
+      "registered_at": "2026-05-17T22:18:46"
+    },
+    {
+      "kind": "cover_image",
+      "label": "Ranked video 6 cover_image",
+      "path": "https://p16-common-sign.tiktokcdn-us.com/tos-useast8-p-0068-tx2/ooKsaAqGTEC2HvDLIAAQfAIsIISdenpAfjQyGr~tplv-tiktokx-origin.image?dr=9636&x-expires=1777089600&x-signature=isTODA%2Fn2ovgvmGpoM8pFFj0GT0%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=useast5",
+      "note": "ranked reference",
+      "scene_origin": "08",
+      "registered_at": "2026-05-17T22:18:46"
+    },
+    {
+      "kind": "download_source",
+      "label": "Ranked video 6 download_source",
+      "path": "https://v16-webapp-prime.us.tiktok.com/video/tos/useast8/tos-useast8-ve-0068c003-tx2/o0XjCGOiIqTfdIvThAQ0QEs5IAL0Q9B5o1biiA/?a=1988&bti=ODszNWYuMDE6&&bt=917&ft=4KJMyMzm8Zmo01Icex4jVB3odpWrKsd.&mime_type=video_mp4&rc=Zzc0OTlmN2k0NWU4NmlmN0BpajY0bnc5cnQ7OjMzaTczNEA1YmMtMzZeNjAxY2A1Yy82YSM2b24yMmRzNTRhLS1kMTJzcw%3D%3D&btag=e00090000&expire=1777091636&l=2026042304325762AB0ADC48770D42E75A&ply_type=2&policy=2&signature=77abf4db970103962cc4d0d9f311cf9e&tk=tt_chain_token",
+      "note": "ranked reference",
+      "scene_origin": "08",
+      "registered_at": "2026-05-17T22:18:46"
+    },
+    {
+      "kind": "play_source",
+      "label": "Ranked video 6 play_source",
+      "path": "https://v16-webapp-prime.us.tiktok.com/video/tos/useast8/tos-useast8-ve-0068c002-tx2/ocmRKgVDpBh6Gd7FEOZozAQWEEgOfzYAmRIbfr/?a=1988&bti=ODszNWYuMDE6&&bt=986&ft=4KJMyMzm8Zmo01Icex4jVB3odpWrKsd.&mime_type=video_mp4&rc=NjQ0PDtmaDY8OTg7N2hmO0BpajY0bnc5cnQ7OjMzaTczNEBgMC8uLTYyXy4xMV5fYTQyYSM2b24yMmRzNTRhLS1kMTJzcw%3D%3D&btag=e00090000&expire=1777091636&l=2026042304325762AB0ADC48770D42E75A&ply_type=2&policy=2&signature=a20e74d271d090164ceb8b366dd04131&tk=tt_chain_token",
+      "note": "ranked reference",
+      "scene_origin": "08",
+      "registered_at": "2026-05-17T22:18:46"
+    },
+    {
+      "kind": "report_artifact",
+      "label": "ranked_videos.xlsx",
+      "path": "ranked_videos.xlsx",
+      "note": "单次 TikTok capture pack 的排序视频工作簿。",
+      "scene_origin": "08",
+      "registered_at": "2026-05-17T22:18:46"
+    },
+    {
+      "kind": "report_artifact",
+      "label": "comments_flat.csv",
+      "path": "comments_flat.csv",
+      "note": "单次 TikTok capture pack 的扁平评论导出。",
+      "scene_origin": "08",
+      "registered_at": "2026-05-17T22:18:46"
+    },
+    {
+      "kind": "capture_artifact",
+      "label": "content_graph.json",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\tiktok-download-validated-20260423\\content_graph.json",
+      "note": "Reusable capture-pack artifact",
+      "scene_origin": "08",
+      "registered_at": "2026-05-17T22:18:46"
+    },
+    {
+      "kind": "report_artifact",
+      "label": "Scene 08 operator schedule",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\tiktok-download-validated-20260423\\operator_schedule_scene_8.json",
+      "note": "推送/定时调度真源，可对接 deliver_operator_run --adapter feishu",
+      "scene_origin": "08",
+      "registered_at": "2026-05-18T07:45:52"
+    }
+  ],
+  "carry_forward": [
+    "reference_video",
+    "cover_image",
+    "download_source",
+    "production_spec_handoff",
+    "collection_board"
+  ],
+  "updated_at": "2026-05-18T07:46:43"
+}

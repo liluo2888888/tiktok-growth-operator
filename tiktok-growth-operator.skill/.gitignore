@@ -1,5 +1,7 @@
 tmp/
 .codex-tmp/
+.env
+services/shop_gateway/.env
 __pycache__/
 *.pyc
 .pytest_cache/
