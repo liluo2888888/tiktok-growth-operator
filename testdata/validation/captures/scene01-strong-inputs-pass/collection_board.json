@@ -1,0 +1,73 @@
+{
+  "schema_version": "scene01-collection-board-v1",
+  "headers": [
+    "优先级",
+    "交接状态",
+    "入选溯源",
+    "视频 / 链接",
+    "为什么值得研究",
+    "适合复用在哪",
+    "推荐深拆方向",
+    "下一步场景",
+    "核心主题",
+    "钩子强度",
+    "表现信号",
+    "TikTok Shop 信号",
+    "发布时间窗口",
+    "商业置信度"
+  ],
+  "rows": [
+    [
+      "P1",
+      "允许入池，优先补文本",
+      "reuse-value rank #1",
+      "https://www.tiktok.com/@orangecat0088/video/7636206423080226070",
+      "Selected for caption/hook completeness, portable format, commerce intent; supporting traction: likes=2610, shares=62.",
+      "Preserve the recognition-first hook and swap the original topic or person for an owned use case.",
+      "Hook / caption / packaging study | Scene 03 深拆首屏包装与脚本节奏",
+      "Scene 03 深拆首屏包装与脚本节奏",
+      "cartoon orange cat sing-along packaging",
+      "always sing your heart out",
+      "点赞=2610 / 评论=0 / 分享=62",
+      "not_detected",
+      "2026-04-21T13:21:45+00:00",
+      "55"
+    ],
+    [
+      "P2",
+      "允许入池，优先补文本",
+      "reuse-value rank #2",
+      "https://www.tiktok.com/@usatiktoker23/video/7636373657828347158",
+      "Selected for caption/hook completeness, portable format, topic spread; supporting traction: likes=1194, comments=18, shares=40.",
+      "Preserve the recognition-first hook and swap the original topic or person for an owned use case.",
+      "Hook / caption / packaging study | Scene 03 深拆首屏包装与脚本节奏",
+      "Scene 03 深拆首屏包装与脚本节奏",
+      "story-led orange cat meme packaging",
+      "SuperCat Papa",
+      "点赞=1194 / 评论=18 / 分享=40",
+      "not_detected",
+      "2026-04-22T08:15:00+00:00",
+      "0"
+    ],
+    [
+      "P3",
+      "允许入池，优先补文本",
+      "reuse-value rank #3",
+      "https://www.tiktok.com/@aicatstories44/video/7636137611576282399",
+      "Selected for caption/hook completeness, comment density, topic spread; supporting traction: likes=606, comments=12, shares=29.",
+      "Study the hook, proof placement, and pacing before adapting the structure to your own asset set.",
+      "Hook / caption / packaging study | Scene 03 深拆首屏包装与脚本节奏",
+      "Scene 03 深拆首屏包装与脚本节奏",
+      "sad orange cat ai story packaging",
+      "sad cat",
+      "点赞=606 / 评论=12 / 分享=29",
+      "not_detected",
+      "2026-04-20T19:40:00+00:00",
+      "0"
+    ]
+  ],
+  "row_count": 3,
+  "handoff_gate": "可以直接交接 Scene 03；强约束输入已齐，可按短名单优先级进入深拆。",
+  "category": "",
+  "market": "US"
+}

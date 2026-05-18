@@ -38,6 +38,18 @@
 
 优先使用这些入口。
 
+### 日更巡检 02 → 深拆 03
+
+```powershell
+python scripts/run_scene0203.py --source fixture --formats md,docx,xlsx
+```
+
+### 周报复盘 18 + 自有复盘 19
+
+```powershell
+python scripts/run_scene1819.py --preset multiweek --formats md,docx,xlsx
+```
+
 ### 一次性真实 TikTok capture run
 
 ```powershell
@@ -105,6 +117,12 @@ python scripts/recommend_entry_board.py `
 
 ```powershell
 python scripts/validate_all_workflows.py
+```
+
+Scene 02/03/18/19 专项（更快）：
+
+```powershell
+python scripts/validate_scene_ops.py
 ```
 
 ### 历史 scene 导出修复

@@ -6,7 +6,7 @@ import shutil
 from datetime import datetime
 from pathlib import Path
 
-from feishu_push_runtime import maybe_push_feishu_bundle
+from feishu_delivery_helpers import deliver_feishu_report, resolve_feishu_registry_for_report
 from text_normalization import normalize_text, read_json_file, write_json_file
 
 
@@ -34,6 +34,18 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--feishu-app-secret", default="", help="Feishu app secret for feishu target.")
     parser.add_argument("--feishu-title", default="", help="Optional Feishu Doc title.")
     parser.add_argument("--feishu-base-name", default="", help="Optional Feishu Bitable app name.")
+    parser.add_argument(
+        "--feishu-append-board",
+        action="store_true",
+        help="Append structured board rows (collection_board, patrol_board, …) to fixed-header Feishu Bitable tables.",
+    )
+    parser.add_argument("--feishu-run-date", default="", help="Optional YYYY-MM-DD stamp for board append rows.")
+    parser.add_argument("--feishu-append-scope", default="", help="Optional append batch key (defaults to run date).")
+    parser.add_argument(
+        "--feishu-registry",
+        default="",
+        help="Optional feishu_delivery_registry.json path. Defaults next to capture root inferred from report assets.",
+    )
     return parser.parse_args()
 
 
@@ -147,19 +159,24 @@ def deliver_local_bundle(context: dict, delivery_root: Path, dry_run: bool) -> d
     return delivery_manifest
 
 
+def resolve_feishu_registry_path(context: dict, args: argparse.Namespace) -> Path:
+    if normalize_text(args.feishu_registry):
+        return Path(args.feishu_registry).expanduser().resolve()
+    return resolve_feishu_registry_for_report(context["report_json"])
+
+
 def deliver_feishu(context: dict, args: argparse.Namespace, dry_run: bool) -> dict:
-    if dry_run:
-        return {
-            "status": "planned",
-            "reason": "dry-run",
-            "report_json": context["report_json"],
-        }
-    return maybe_push_feishu_bundle(
+    return deliver_feishu_report(
         context["report_json"],
         args.feishu_app_id,
         args.feishu_app_secret,
         title=args.feishu_title.strip(),
         base_name=args.feishu_base_name.strip(),
+        append_board=bool(args.feishu_append_board),
+        run_date=normalize_text(args.feishu_run_date),
+        append_scope=normalize_text(args.feishu_append_scope),
+        registry_file=resolve_feishu_registry_path(context, args),
+        dry_run=dry_run,
     )
 
 

@@ -1,0 +1,37 @@
+{
+  "schema_version": "asset-library-v1",
+  "assets": [
+    {
+      "kind": "capture_artifact",
+      "label": "content_graph.json",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene08-multi-product-home-goods-comments\\content_graph.json",
+      "note": "Reusable capture-pack artifact",
+      "scene_origin": "08",
+      "registered_at": "2026-05-17T22:18:35"
+    },
+    {
+      "kind": "report_artifact",
+      "label": "Scene 08 operator schedule",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene08-multi-product-home-goods-comments\\operator_schedule_scene_8.json",
+      "note": "推送/定时调度真源，可对接 deliver_operator_run --adapter feishu",
+      "scene_origin": "08",
+      "registered_at": "2026-05-18T06:51:29"
+    },
+    {
+      "kind": "report_artifact",
+      "label": "Scene 08 评论人设主表 JSON",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene08-multi-product-home-goods-comments\\comment_persona_board.json",
+      "note": "Feishu 式评论洞察主表真源",
+      "scene_origin": "08",
+      "registered_at": "2026-05-18T08:37:47"
+    }
+  ],
+  "carry_forward": [
+    "reference_video",
+    "cover_image",
+    "download_source",
+    "production_spec_handoff",
+    "collection_board"
+  ],
+  "updated_at": "2026-05-18T08:56:08"
+}

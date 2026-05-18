@@ -1,0 +1,13 @@
+[
+  {
+    "product_id": "mock-sku-1",
+    "title": "Mock Shop Product",
+    "platform": "TikTok Shop",
+    "price": "19.99",
+    "rating": "4.7",
+    "review_count": "321",
+    "sales_signal": "mock-rising",
+    "url": "https://shop.example.com/mock-1",
+    "evidence_source": "http_shop_api"
+  }
+]

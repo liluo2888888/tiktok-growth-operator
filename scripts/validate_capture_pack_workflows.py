@@ -40,6 +40,76 @@ def assert_scene02_to_scene03_handoff(scene02_run_root: Path) -> None:
         raise RuntimeError("Scene 02 handoff regression: chained Scene 03 report missing shortlist-rule paragraph.")
 
 
+def assert_scene03_creation_matrix(capture_root: Path, scene03_report_json: Path | None = None) -> None:
+    matrix_path = capture_root / "scene03_creation_matrix.json"
+    if not matrix_path.exists():
+        raise RuntimeError(f"Scene 03 regression: missing {matrix_path}")
+    matrix = json.loads(matrix_path.read_text(encoding="utf-8"))
+    if not matrix.get("matrix_rows"):
+        raise RuntimeError("Scene 03 regression: creation matrix has no matrix_rows")
+    if scene03_report_json and scene03_report_json.exists():
+        report = json.loads(scene03_report_json.read_text(encoding="utf-8"))
+        embedded = report.get("creation_matrix") or {}
+        if not embedded.get("matrix_rows"):
+            raise RuntimeError("Scene 03 regression: report missing creation_matrix.matrix_rows")
+
+
+def assert_weekly_baseline_artifact(capture_root: Path) -> None:
+    path = capture_root / "weekly_baseline_delta.json"
+    if not path.exists():
+        raise RuntimeError(f"Scene 18/19 regression: missing {path}")
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    mode = str(payload.get("mode") or "").strip()
+    if mode not in {"baseline", "compare", "none"}:
+        raise RuntimeError(f"Scene 18/19 regression: unexpected weekly baseline mode {mode!r}")
+
+
+def assert_scene06_structured_board(scene06_report_json: Path) -> None:
+    if not scene06_report_json.exists():
+        raise RuntimeError(f"Scene 06 regression: missing report {scene06_report_json}.")
+    report = json.loads(scene06_report_json.read_text(encoding="utf-8"))
+    board = report.get("competitor_product_board") or {}
+    mode = board.get("data_source_mode")
+    if mode != "tiktok_shop_structured":
+        raise RuntimeError(f"Scene 06 regression: expected tiktok_shop_structured, got {mode!r}.")
+    rows = board.get("rows") or []
+    if len(rows) < 2:
+        raise RuntimeError(f"Scene 06 regression: expected at least 2 competitor rows, got {len(rows)}.")
+
+
+def assert_operator_schedule(report_json: Path, scene_id: str, *, capture_root: Path) -> None:
+    if not report_json.exists():
+        raise RuntimeError(f"Scene {scene_id} P1: missing report {report_json}")
+    report = json.loads(report_json.read_text(encoding="utf-8"))
+    schedule = report.get("operator_schedule") or {}
+    if schedule.get("schema_version") != "operator-schedule-v1":
+        raise RuntimeError(f"Scene {scene_id} P1: operator_schedule missing or wrong schema")
+    if not schedule.get("dispatch"):
+        raise RuntimeError(f"Scene {scene_id} P1: operator_schedule.dispatch is empty")
+    if not schedule.get("next_runs"):
+        raise RuntimeError(f"Scene {scene_id} P1: operator_schedule.next_runs is empty")
+    feishu = (schedule.get("delivery") or {}).get("feishu") or {}
+    if feishu.get("status") != "planned":
+        raise RuntimeError(f"Scene {scene_id} P1: feishu delivery not planned")
+    artifact = capture_root / f"operator_schedule_scene_{scene_id.lstrip('0') or scene_id}.json"
+    if not artifact.exists():
+        raise RuntimeError(f"Scene {scene_id} P1: missing {artifact.name} under {capture_root}")
+
+
+def resolve_capture_pack_report(run_root: Path, scene_id: str) -> Path:
+    manifest_path = run_root / "run_manifest.json"
+    if manifest_path.exists():
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        report_json = Path(str(manifest.get("report_json") or ""))
+        if report_json.exists():
+            return report_json
+    scene_dir = run_root / f"scene-{scene_id}"
+    candidates = sorted(scene_dir.glob(f"scene-{scene_id}*.json"), key=lambda item: item.stat().st_mtime, reverse=True)
+    if not candidates:
+        raise RuntimeError(f"Scene {scene_id} regression: no report json under {run_root}")
+    return candidates[0]
+
+
 def assert_scene01_handoff_state(scene01_report_json: Path, *, should_allow: bool) -> None:
     if not scene01_report_json.exists():
         raise RuntimeError(f"Scene 01 gate regression: missing report {scene01_report_json}.")
@@ -70,6 +140,16 @@ SCRIPTS = [
     "summarize_run_history.py",
     "run_scene02_patrol.py",
     "run_tikmatrix_single_video_scene.py",
+    "seed_scene06_competitor_products.py",
+    "run_scene06.py",
+    "seed_scene02_patrol_pack.py",
+    "run_scene0203.py",
+    "run_scene1819.py",
+    "validate_scene_ops.py",
+    "tiktok_shop_official_client.py",
+    "tiktok_shop_official_gateway.py",
+    "run_shop_gateway.py",
+    "tiktok_shop_partner_client.py",
 ]
 
 
@@ -201,6 +281,18 @@ def main() -> None:
             ]
         )
     )
+    scene02_capture_idx = len(results) - 1
+    if results[scene02_capture_idx]["returncode"] == 0:
+        scene02_capture_root = runtime_root / "scene02_capture"
+        assert_scene02_to_scene03_handoff(scene02_capture_root)
+        scene02_report = resolve_capture_pack_report(scene02_capture_root, "02")
+        assert_operator_schedule(scene02_report, "02", capture_root=patrol_capture_pack)
+        manifest = json.loads((scene02_capture_root / "run_manifest.json").read_text(encoding="utf-8"))
+        chained = manifest.get("chained_runs") or []
+        scene03_report = Path(chained[0].get("report_json", "")) if chained else None
+        assert_scene03_creation_matrix(patrol_capture_pack, scene03_report)
+        if scene03_report and scene03_report.exists():
+            assert_operator_schedule(scene03_report, "03", capture_root=patrol_capture_pack)
     results.append(
         run(
             [
@@ -226,13 +318,60 @@ def main() -> None:
         )
     )
     if results[-1]["returncode"] == 0:
-        assert_scene01_handoff_state(
-            runtime_root / "scene01_allow_handoff" / "scene-01" / "scene-01-validation-scene01-allow-handoff.json",
-            should_allow=True,
+        scene01_run = runtime_root / "scene01_allow_handoff"
+        scene01_report = resolve_capture_pack_report(scene01_run, "01")
+        assert_scene01_handoff_state(scene01_report, should_allow=True)
+        assert_operator_schedule(scene01_report, "01", capture_root=capture_scene01_pass)
+    results.append(
+        run(
+            [
+                sys.executable,
+                str(scripts_root / "run_scene06.py"),
+                "--capture-root",
+                str(capture_scene01_pass),
+                "--name",
+                "validation-scene06-structured",
+                "--project",
+                "TikTok Validation Scene 06 Structured",
+                "--platform",
+                "TikTok",
+                "--market",
+                "US",
+                "--data-path",
+                "structured",
+                "--seed-mode",
+                "fixture",
+                "--force-seed",
+                "--formats",
+                "md",
+                "--output-root",
+                str(runtime_root / "scene06_structured"),
+            ]
         )
-    scene02_capture_root = runtime_root / "scene02_capture"
+    )
     if results[-1]["returncode"] == 0:
-        assert_scene02_to_scene03_handoff(scene02_capture_root)
+        scene06_run = runtime_root / "scene06_structured"
+        scene06_report = resolve_capture_pack_report(scene06_run, "06")
+        assert_scene06_structured_board(scene06_report)
+        assert_operator_schedule(scene06_report, "06", capture_root=capture_scene01_pass)
+    results.append(
+        run(
+            [
+                sys.executable,
+                str(scripts_root / "run_scene0203.py"),
+                "--source",
+                "fixture",
+                "--name",
+                "validation-scene0203-bundle",
+                "--project",
+                "TikTok Validation Scene 02-03 Bundle",
+                "--formats",
+                "md",
+                "--output-root",
+                str(runtime_root / "scene0203_bundle"),
+            ]
+        )
+    )
     results.append(
         run(
             [
@@ -281,6 +420,16 @@ def main() -> None:
             ]
         )
     )
+    if results[-1]["returncode"] == 0:
+        scene08_report = resolve_capture_pack_report(runtime_root / "scene08_home_goods", "08")
+        assert_operator_schedule(scene08_report, "08", capture_root=capture_scene08_home_goods)
+        action_section = next(
+            (sec for sec in json.loads(scene08_report.read_text(encoding="utf-8")).get("sections", []) if sec.get("heading") == "Recommended Action"),
+            {},
+        )
+        action_blob = json.dumps(action_section, ensure_ascii=False)
+        if "定位话术" not in action_blob and "异议处理" not in action_blob:
+            raise RuntimeError("Scene 08 P1: missing positioning bridge rows")
     results.append(
         run(
             [
@@ -305,6 +454,9 @@ def main() -> None:
             ]
         )
     )
+    if results[-1]["returncode"] == 0:
+        scene18_matrix_report = resolve_capture_pack_report(runtime_root / "scene18_matrix", "18")
+        assert_operator_schedule(scene18_matrix_report, "18", capture_root=capture_scene18_matrix)
     results.append(
         run(
             [
@@ -353,6 +505,29 @@ def main() -> None:
             ]
         )
     )
+    scene19_multiweek_idx = len(results) - 1
+    if results[scene19_multiweek_idx]["returncode"] == 0:
+        assert_weekly_baseline_artifact(capture_multiweek)
+        scene19_report = resolve_capture_pack_report(runtime_root / "scene19_multiweek", "19")
+        assert_operator_schedule(scene19_report, "19", capture_root=capture_multiweek)
+    results.append(
+        run(
+            [
+                sys.executable,
+                str(scripts_root / "run_scene1819.py"),
+                "--preset",
+                "multiweek",
+                "--name",
+                "validation-scene1819-bundle",
+                "--formats",
+                "md",
+                "--output-root",
+                str(runtime_root / "scene1819_bundle"),
+            ]
+        )
+    )
+    if results[-1]["returncode"] == 0:
+        assert_weekly_baseline_artifact(capture_multiweek)
     results.append(
         run(
             [
@@ -402,6 +577,10 @@ def main() -> None:
             ]
         )
     )
+    scene04_capture_idx = len(results) - 1
+    if results[scene04_capture_idx]["returncode"] == 0:
+        scene04_report = resolve_capture_pack_report(runtime_root / "scene04_capture", "04")
+        assert_operator_schedule(scene04_report, "04", capture_root=capture_ranked)
     results.append(
         run(
             [
@@ -426,6 +605,7 @@ def main() -> None:
             ]
         )
     )
+    scene05_capture_idx = len(results) - 1
     results.append(
         run(
             [
@@ -448,6 +628,12 @@ def main() -> None:
             ]
         )
     )
+    if results[scene05_capture_idx]["returncode"] == 0:
+        scene05_report = resolve_capture_pack_report(runtime_root / "scene05_capture", "05")
+        assert_operator_schedule(scene05_report, "05", capture_root=capture_ranked)
+        blob = json.dumps(json.loads(scene05_report.read_text(encoding="utf-8")), ensure_ascii=False)
+        if "Generator 分支" not in blob and "sora" not in blob.lower():
+            raise RuntimeError("Scene 05 P1: missing generator branch rows in report")
     results.append(
         run(
             [
@@ -474,6 +660,10 @@ def main() -> None:
             ]
         )
     )
+    scene17_capture_idx = len(results) - 1
+    if results[scene17_capture_idx]["returncode"] == 0:
+        scene17_report = resolve_capture_pack_report(runtime_root / "scene17_routed_capture", "17")
+        assert_operator_schedule(scene17_report, "17", capture_root=capture_ranked)
     results.append(
         run(
             [
@@ -521,6 +711,9 @@ def main() -> None:
             ]
         )
     )
+    if results[-1]["returncode"] == 0:
+        scene07_report = resolve_capture_pack_report(runtime_root / "scene07_capture", "07")
+        assert_operator_schedule(scene07_report, "07", capture_root=capture_ranked)
     results.append(
         run(
             [

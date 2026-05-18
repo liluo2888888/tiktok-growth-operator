@@ -1,0 +1,38 @@
+{
+  "tables": {
+    "scene18_competitor_weekly": {
+      "app_token": "XN9wbEpwHa0r0ssE3TjcVabPnOc",
+      "app_url": "https://pizvgz6mvgi.feishu.cn/base/XN9wbEpwHa0r0ssE3TjcVabPnOc",
+      "table_id": "tbl8HZ31BzHm40BX",
+      "table_name": "Scene18竞品周报主表",
+      "headers_fingerprint": "5bc84178b67ac391",
+      "fixed_headers": [
+        "采集日期",
+        "追加批次",
+        "报告模式",
+        "竞品账号",
+        "比较窗口",
+        "本周帖数",
+        "头部视频",
+        "包装线",
+        "关键信号",
+        "周度变化",
+        "策略判断",
+        "运营动作",
+        "优先级",
+        "证据等级"
+      ],
+      "last_append_at": "2026-05-18T08:29:49",
+      "last_append_scope": "validation-weekly-board-v1",
+      "last_record_count": 3
+    }
+  },
+  "append_log": [
+    {
+      "at": "2026-05-18T08:29:49",
+      "table_key": "scene18_competitor_weekly",
+      "record_count": 3,
+      "append_scope": "validation-weekly-board-v1"
+    }
+  ]
+}

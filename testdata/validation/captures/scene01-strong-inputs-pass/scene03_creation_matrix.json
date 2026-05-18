@@ -1,0 +1,68 @@
+{
+  "schema_version": "scene03-creation-matrix-v1",
+  "sample_count": 3,
+  "matrix_rows": [
+    [
+      "样本 1",
+      "https://www.tiktok.com/@orangecat0088/video/7636206423080226070",
+      "always sing your heart out",
+      "cartoon orange cat sing-along packaging",
+      "Hook / caption / packaging study",
+      "标准短节拍",
+      "带货信号=not_detected",
+      "立即深拆"
+    ],
+    [
+      "样本 2",
+      "https://www.tiktok.com/@usatiktoker23/video/7636373657828347158",
+      "SuperCat Papa",
+      "story-led orange cat meme packaging",
+      "Hook / caption / packaging study",
+      "短 caption / 识别优先",
+      "带货信号=not_detected",
+      "立即深拆"
+    ],
+    [
+      "样本 3",
+      "https://www.tiktok.com/@aicatstories44/video/7636137611576282399",
+      "sad cat",
+      "sad orange cat ai story packaging",
+      "Hook / caption / packaging study",
+      "短 caption / 识别优先",
+      "带货信号=not_detected",
+      "立即深拆"
+    ]
+  ],
+  "pattern_convergence": [
+    [
+      "开头钩子",
+      "always sing your heart out",
+      "跨样本重复出现的首屏识别方式",
+      "新脚本必须先复刻识别，再换主题",
+      "medium"
+    ],
+    [
+      "证明段",
+      "Hook / caption / packaging study",
+      "跨样本共用的信任转移装置",
+      "把借来的账号势能换成自有 proof",
+      "medium"
+    ],
+    [
+      "节奏",
+      "短 caption / 识别优先",
+      "caption 长度与节拍偏好",
+      "避免把单条长解释误当成品类规律",
+      "medium"
+    ],
+    [
+      "转化收口",
+      "带货信号=not_detected",
+      "当前 shortlist 更偏研究还是偏带货",
+      "强卖 CTA 可能破坏原生适配",
+      "low-to-medium"
+    ]
+  ],
+  "creation_ready": true,
+  "recommended_next": "把共性规律表直接映射到新脚本四段：钩子 / 铺垫 / 证明 / 收口"
+}

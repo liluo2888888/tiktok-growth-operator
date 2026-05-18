@@ -1,0 +1,78 @@
+{
+  "schema_version": "scene18-competitor-weekly-board-v1",
+  "headers": [
+    "报告模式",
+    "竞品账号",
+    "比较窗口",
+    "本周帖数",
+    "头部视频",
+    "包装线",
+    "关键信号",
+    "周度变化",
+    "策略判断",
+    "运营动作",
+    "优先级",
+    "证据等级"
+  ],
+  "rows": [
+    [
+      "单账号周报",
+      "https://www.tiktok.com/@mustsharebeauty",
+      "2026-W17 vs 2026-W16",
+      "3",
+      "https://www.tiktok.com/@mustsharebeauty/video/7617000000000000001",
+      "Hook / packaging study",
+      "Before-after reveal in the first two seconds.",
+      "本周明显增强",
+      "延续识别优先的包装，只做轻量形式变化。",
+      "继续追",
+      "高",
+      "可直接周对比"
+    ],
+    [
+      "调度动作",
+      "https://www.tiktok.com/@mustsharebeauty",
+      "2026-W17 的头部包装线",
+      "",
+      "",
+      "",
+      "Hook / packaging study | Before-after reveal in the first two seconds.",
+      "延续识别优先的包装，只做轻量形式变化。",
+      "本周继续追",
+      "中",
+      "可直接周对比"
+    ],
+    [
+      "调度动作",
+      "https://www.tiktok.com/@mustsharebeauty",
+      "2026-W17 对比 2026-W16",
+      "",
+      "",
+      "",
+      "本周 Hook / packaging study；上周 Proof / authority teardown",
+      "只复制可迁移的开头信号、证明方式和镜头节奏，不复制账号权威壳。",
+      "本周值得借鉴",
+      "中",
+      "可直接周对比"
+    ],
+    [
+      "调度动作",
+      "https://www.tiktok.com/@mustsharebeauty",
+      "疑似一次性分发放大",
+      "",
+      "",
+      "",
+      "一般反应",
+      "若优势只来自账号体量、官方身份或单次事件流量，不要直接当成可复制公式；先等下一周复采确认。",
+      "本周应忽略",
+      "中",
+      "可直接周对比"
+    ]
+  ],
+  "row_count": 4,
+  "append_scope_key": "2026-W17",
+  "matrix_mode": false,
+  "compare_mode": "compare",
+  "latest_week": "2026-W17",
+  "evidence_grade": "可直接周对比"
+}

@@ -1,0 +1,197 @@
+{
+  "schema_version": "asset-library-v1",
+  "assets": [
+    {
+      "kind": "profile",
+      "label": "Source profile",
+      "path": "https://www.tiktok.com/@tiktok",
+      "note": "Account baseline",
+      "scene_origin": "04",
+      "registered_at": "2026-05-17T22:18:44"
+    },
+    {
+      "kind": "reference_video",
+      "label": "Ranked video 1 reference_video",
+      "path": "https://www.tiktok.com/@tiktok/video/7628619815690833183",
+      "note": "ranked reference",
+      "scene_origin": "04",
+      "registered_at": "2026-05-17T22:18:44"
+    },
+    {
+      "kind": "cover_image",
+      "label": "Ranked video 1 cover_image",
+      "path": "https://p16-common-sign.tiktokcdn.com/tos-useast8-p-0068-tx2/oEsGEw03A1wRAIQWpAQGqxFwEVEeVkfTCEAADA~tplv-tiktokx-origin.image?dr=14575&x-expires=1777093200&x-signature=DegpBeEXG1QdHS21yWGFjij0He4%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=my2",
+      "note": "ranked reference",
+      "scene_origin": "04",
+      "registered_at": "2026-05-17T22:18:44"
+    },
+    {
+      "kind": "download_source",
+      "label": "Ranked video 1 download_source",
+      "path": "https://v16-webapp-prime.tiktok.com/video/tos/maliva/tos-maliva-ve-0068c799-us/oIAgeFiqx3TYDT3JRf0BkHEgAVEPEObIXpo2Qu/?a=1988&bti=ODszNWYuMDE6&&bt=791&ft=gdf_e8Zmo0PUssFRkVQus0z~Tr4jD0.Q5SY&mime_type=video_mp4&rc=NTYzOGY0Zzg1aTVmOjo3OEBpamVneGo5cnQ3OjMzaTczNEBjNGAzNi0tNi4xNS9iYzQyYSNvL2cxMmRrbGNhLS1kMTJzcw%3D%3D&btag=e00088000&expire=1777096199&l=202604231349110DC74A209EDB705CD537&ply_type=2&policy=2&signature=32d73de3528d62215451214b77b94373&tk=tt_chain_token",
+      "note": "ranked reference",
+      "scene_origin": "04",
+      "registered_at": "2026-05-17T22:18:44"
+    },
+    {
+      "kind": "play_source",
+      "label": "Ranked video 1 play_source",
+      "path": "https://v16-webapp-prime.tiktok.com/video/tos/maliva/tos-maliva-ve-0068c799-us/ogE0KpkBTixEEeFRiXIg7IAV2mAfuqg8Z23QxD/?a=1988&bti=ODszNWYuMDE6&&bt=874&ft=gdf_e8Zmo0PUssFRkVQus0z~Tr4jD0.Q5SY&mime_type=video_mp4&rc=ODk5Zzs0aTs1ZDNkNjM6M0BpamVneGo5cnQ3OjMzaTczNEAwNjU0YTBiXjUxNC1jLjQyYSNvL2cxMmRrbGNhLS1kMTJzcw%3D%3D&btag=e00088000&expire=1777096199&l=202604231349110DC74A209EDB705CD537&ply_type=2&policy=2&signature=34bd75b941c5c8aa39ae906b130d6f21&tk=tt_chain_token",
+      "note": "ranked reference",
+      "scene_origin": "04",
+      "registered_at": "2026-05-17T22:18:44"
+    },
+    {
+      "kind": "reference_video",
+      "label": "Ranked video 2 reference_video",
+      "path": "https://www.tiktok.com/@tiktok/video/7631229398531788062",
+      "note": "ranked reference",
+      "scene_origin": "04",
+      "registered_at": "2026-05-17T22:18:44"
+    },
+    {
+      "kind": "cover_image",
+      "label": "Ranked video 2 cover_image",
+      "path": "https://p16-common-sign.tiktokcdn.com/tos-useast8-p-0068-tx2/okAAMQyUTIAeSrn6AMEscAezWAWhqA8j0I2reQ~tplv-tiktokx-origin.image?dr=14575&x-expires=1777093200&x-signature=DjQT99PFuFe8Mm6eX%2F7piLGU6nY%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=my",
+      "note": "ranked reference",
+      "scene_origin": "04",
+      "registered_at": "2026-05-17T22:18:44"
+    },
+    {
+      "kind": "download_source",
+      "label": "Ranked video 2 download_source",
+      "path": "https://v16-webapp-prime.tiktok.com/video/tos/maliva/tos-maliva-ve-0068c799-us/oAnJ3iAIqB0v8pCSkALGArvaIvOJMFii4QEneQ/?a=1988&bti=ODszNWYuMDE6&&bt=1794&ft=3.u4FZmo0PDcdd_faQ9WHPXOhKkV1PCBqYlc&mime_type=video_mp4&rc=Zjw0Zzc7OmdnPGlnNWk6Z0Bpamg4NHE5cjxzOjMzaTczNEBgMC5gXi40Xi8xXmMuNl9iYSMxaGkzMmRrMWdhLS1kMTJzcw%3D%3D&btag=e00088000&expire=1777096207&l=2026042313491436D0727DE0960D5888FD&ply_type=2&policy=2&signature=dee7d5a238331fbc5ccf1856d0f2fccb&tk=tt_chain_token",
+      "note": "ranked reference",
+      "scene_origin": "04",
+      "registered_at": "2026-05-17T22:18:44"
+    },
+    {
+      "kind": "play_source",
+      "label": "Ranked video 2 play_source",
+      "path": "https://v16-webapp-prime.tiktok.com/video/tos/maliva/tos-maliva-ve-0068c799-us/oQTAqfegNCxAyAWj5IRi1fzBmzILAa88RRSMQJ/?a=1988&bti=ODszNWYuMDE6&&bt=1969&ft=3.u4FZmo0PDcdd_faQ9WHPXOhKkV1PCBqYlc&mime_type=video_mp4&rc=M2U6PGVkOmZoNTg5NTg0OUBpamg4NHE5cjxzOjMzaTczNEAwMi5fY2NfXjExLzE0MjZhYSMxaGkzMmRrMWdhLS1kMTJzcw%3D%3D&btag=e00088000&expire=1777096207&l=2026042313491436D0727DE0960D5888FD&ply_type=2&policy=2&signature=a55f0496c01d5f49cb0a2ffa4bcbb187&tk=tt_chain_token",
+      "note": "ranked reference",
+      "scene_origin": "04",
+      "registered_at": "2026-05-17T22:18:44"
+    },
+    {
+      "kind": "reference_video",
+      "label": "Ranked video 3 reference_video",
+      "path": "https://www.tiktok.com/@tiktok/video/7631201918366289165",
+      "note": "ranked reference",
+      "scene_origin": "04",
+      "registered_at": "2026-05-17T22:18:44"
+    },
+    {
+      "kind": "cover_image",
+      "label": "Ranked video 3 cover_image",
+      "path": "https://p16-common-sign.tiktokcdn.com/tos-useast5-p-0068-tx/okeOuZgQEnDA5S8F3bCgHp8n6AYDREAAIR8yfu~tplv-tiktokx-origin.image?dr=14575&x-expires=1777093200&x-signature=hJBzl4mZjO6JffaUDN1%2BuR6uZ9Y%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=my",
+      "note": "ranked reference",
+      "scene_origin": "04",
+      "registered_at": "2026-05-17T22:18:44"
+    },
+    {
+      "kind": "download_source",
+      "label": "Ranked video 3 download_source",
+      "path": "https://v16-webapp-prime.tiktok.com/video/tos/maliva/tos-maliva-ve-0068c799-us/osXEd84fQqvESo5BnOUDfDsRnNAFgI3gItCpIj/?a=1988&bti=ODszNWYuMDE6&&bt=1123&ft=gdf_e8Zmo0PzssFRkVQidDC~Tr4jD0.k5SY&mime_type=video_mp4&rc=ZTRnNmZpZzQ3ZmhoZjk5aUBpM211bnE5cm1xOjMzZzczNEBjNl8uLjZeNTAxX14xMGMvYSNvbGFuMmRjZ2dhLS1kMS9zcw%3D%3D&btag=e00088000&expire=1777096211&l=20260423134942C7BBC2725AABF3612563&ply_type=2&policy=2&signature=9a2097f2801bc5b1b91b09bd06876286&tk=tt_chain_token",
+      "note": "ranked reference",
+      "scene_origin": "04",
+      "registered_at": "2026-05-17T22:18:44"
+    },
+    {
+      "kind": "play_source",
+      "label": "Ranked video 3 play_source",
+      "path": "https://v16-webapp-prime.tiktok.com/video/tos/maliva/tos-maliva-ve-0068c799-us/oAs75v1VMRueYdfOAxWAkejbPC8ITRHgQRAGIz/?a=1988&bti=ODszNWYuMDE6&&bt=1223&ft=gdf_e8Zmo0PzssFRkVQidDC~Tr4jD0.k5SY&mime_type=video_mp4&rc=O2g7Ozg6NWdlNjw1NDdmOEBpM211bnE5cm1xOjMzZzczNEAtLS9gMTIzNmMxNGA0LWBiYSNvbGFuMmRjZ2dhLS1kMS9zcw%3D%3D&btag=e00088000&expire=1777096211&l=20260423134942C7BBC2725AABF3612563&ply_type=2&policy=2&signature=0d1abe11bdcb5dce84864367c9a2d8e2&tk=tt_chain_token",
+      "note": "ranked reference",
+      "scene_origin": "04",
+      "registered_at": "2026-05-17T22:18:44"
+    },
+    {
+      "kind": "report_artifact",
+      "label": "aggregate_report.md",
+      "path": "aggregate_report.md",
+      "note": "真实 TikTok capture pack 的汇总 Markdown 报告。",
+      "scene_origin": "04",
+      "registered_at": "2026-05-17T22:18:44"
+    },
+    {
+      "kind": "report_artifact",
+      "label": "comments_flat.csv",
+      "path": "01-tiktok/comments_flat.csv",
+      "note": "单次 TikTok capture pack 的扁平评论导出。",
+      "scene_origin": "04",
+      "registered_at": "2026-05-17T22:18:44"
+    },
+    {
+      "kind": "report_artifact",
+      "label": "Scene 04 production_spec_handoff.json",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\tiktok-analysis-pack-smoke-20260423f\\production_spec_handoff.json",
+      "note": "Generator-ready handoff with Sora / Veo / i2v branches",
+      "scene_origin": "04",
+      "registered_at": "2026-05-17T22:18:44"
+    },
+    {
+      "kind": "capture_artifact",
+      "label": "content_graph.json",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\tiktok-analysis-pack-smoke-20260423f\\content_graph.json",
+      "note": "Reusable capture-pack artifact",
+      "scene_origin": "04",
+      "registered_at": "2026-05-17T22:18:44"
+    },
+    {
+      "kind": "report_artifact",
+      "label": "Scene 04 operator schedule",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\tiktok-analysis-pack-smoke-20260423f\\operator_schedule_scene_4.json",
+      "note": "推送/定时调度真源，可对接 deliver_operator_run --adapter feishu",
+      "scene_origin": "04",
+      "registered_at": "2026-05-18T07:45:50"
+    },
+    {
+      "kind": "report_artifact",
+      "label": "Scene 05 operator schedule",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\tiktok-analysis-pack-smoke-20260423f\\operator_schedule_scene_5.json",
+      "note": "推送/定时调度真源，可对接 deliver_operator_run --adapter feishu",
+      "scene_origin": "05",
+      "registered_at": "2026-05-18T07:45:51"
+    },
+    {
+      "kind": "report_artifact",
+      "label": "Scene 17 operator schedule",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\tiktok-analysis-pack-smoke-20260423f\\operator_schedule_scene_17.json",
+      "note": "推送/定时调度真源，可对接 deliver_operator_run --adapter feishu",
+      "scene_origin": "17",
+      "registered_at": "2026-05-18T07:45:56"
+    },
+    {
+      "kind": "report_artifact",
+      "label": "Scene 07 operator schedule",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\tiktok-analysis-pack-smoke-20260423f\\operator_schedule_scene_7.json",
+      "note": "推送/定时调度真源，可对接 deliver_operator_run --adapter feishu",
+      "scene_origin": "07",
+      "registered_at": "2026-05-18T07:46:49"
+    },
+    {
+      "kind": "report_artifact",
+      "label": "Scene 07 类目进入主表 JSON",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\tiktok-analysis-pack-smoke-20260423f\\category_entry_board.json",
+      "note": "Feishu 式类目进入判断主表真源",
+      "scene_origin": "07",
+      "registered_at": "2026-05-18T08:37:46"
+    },
+    {
+      "kind": "report_artifact",
+      "label": "Scene 17 创作者公式主表 JSON",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\tiktok-analysis-pack-smoke-20260423f\\creator_formula_board.json",
+      "note": "Feishu 式创作者公式主表真源",
+      "scene_origin": "17",
+      "registered_at": "2026-05-18T08:37:47"
+    }
+  ],
+  "carry_forward": [
+    "reference_video",
+    "cover_image",
+    "download_source",
+    "production_spec_handoff",
+    "collection_board"
+  ],
+  "updated_at": "2026-05-18T08:56:09"
+}

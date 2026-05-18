@@ -1,0 +1,1073 @@
+{
+  "metadata": {
+    "scene": "17",
+    "scene_slug": "creator-distillation",
+    "scene_title": "Creator Distillation",
+    "project": "Live board push scene 17",
+    "title": "Scene 17 Report - Live board push scene 17",
+    "deliverable_type": "breakdown_report",
+    "generated_at": "2026-05-18T08:46:36",
+    "scenario_file": "scenarios/17-creator-distillation.md",
+    "status": "imported"
+  },
+  "working_context": {
+    "summary": "真实 TikTok capture-pack 导入自 validation/captures/tiktok-analysis-pack-smoke-20260423f，当前用于未分类赛道。当前看板规模：3 条已排序 / 1 条达标，最低点赞阈值 50000.\n来源账号：https://www.tiktok.com/@tiktok; 会话质量：浏览器同源接口正常; 查询词：未提供; 主题：未提供.\n头部候选：https://www.tiktok.com/@tiktok/video/7628619815690833183 | a reminder to romanticize the little moments | 7428 点赞，309200 播放，769 分享，2287 评论.\n达标对照：https://www.tiktok.com/@tiktok/video/7631201918366289165 | PSA: always sing your heart out, you'll never know who's going to listen | 104600 点赞，4200000 播放，941 分享，671 评论.\n采集根目录：validation/captures/tiktok-analysis-pack-smoke-20260423f",
+    "inputs": [
+      "Profile: https://www.tiktok.com/@tiktok",
+      "Ranked video count: 3",
+      "Qualified video count: 1",
+      "Capture root: validation/captures/tiktok-analysis-pack-smoke-20260423f"
+    ],
+    "constraints": [
+      "把创作者个人加成和可迁移公式拆开看。",
+      "Real TikTok anonymous-session capture. Comment sampling is missing in this pack.",
+      "Conclusions should stay tied to ranked metrics, captions, and capture-pack summaries only."
+    ],
+    "requested_outputs": [
+      "账号概览",
+      "高低互动对比",
+      "可重复公式",
+      "不可迁移优势",
+      "新脚本桥接",
+      "TikTok-native ranked-pattern conclusions",
+      "Reusable adaptation rules grounded in the capture pack"
+    ],
+    "minimum_evidence": [
+      "1 个创作者账号，或同一创作者的多条视频",
+      "summary.json or aggregate_summary.json",
+      "profile_summary.json or summary.json",
+      "ranked_videos.json or aggregate_ranked_videos.json"
+    ],
+    "ideal_evidence": [
+      "高表现视频",
+      "转写稿",
+      "表现备注",
+      "发布时间或 hashtag 备注",
+      "aggregate_qualified_videos.json or qualified_video_links.txt",
+      "aggregate_report.md",
+      "video_details.json"
+    ],
+    "ready_checklist": [
+      "重复模式已在多条视频中出现",
+      "高互动与低互动样本可以对比",
+      "创作者专属优势已被分离",
+      "能够给出面向用户产品的适配路径",
+      "Top-ranked videos are clearly identified",
+      "Transferable pattern is separated from profile-specific brand power"
+    ]
+  },
+  "executive_summary": {
+    "conclusion": "这组 TikTok 账号样本显示出一套可重复的编辑型公式：先把内容挂到可识别的创作者、故事或文化瞬间上，再用极少文案让亲和感自行发挥作用。",
+    "why_it_matters": "这种模式适合需要更强社交原生包装、但又不想靠长解释开头的 TikTok 项目。",
+    "next_action": "把这个账号最强的编辑型包装动作，翻译成可复用的创作者型或社群型内容制作简报。",
+    "confidence": "medium"
+  },
+  "operator_guide": {
+    "operator_checklist": [
+      "在宣告可复用公式前，先使用多条创作者样本。",
+      "提炼公式前先总结账号基线。",
+      "直接比较高表现与低表现样本。",
+      "把重复出现的 hook、节奏、证明与 CTA 模式拆开整理。",
+      "明确区分可迁移模式与创作者专属优势。"
+    ],
+    "common_failure_modes": [
+      "用 1 条爆款过拟合出整套创作者公式。",
+      "忽略低表现样本，导致没有对照。",
+      "忽略创作者独有的信任或身份优势。",
+      "最后停留在夸赞，而不是适配规则。"
+    ]
+  },
+  "execution_template": {
+    "recommended_request": "按场景 17 执行：从同一创作者的多条视频里蒸馏可重复的内容公式。先做账号概览，再比较高互动与低互动样本，提炼可复用的 hook 与节奏公式，最后把可迁移逻辑和创作者专属优势拆开，并桥接成新脚本方向。",
+    "recommended_request_zh": "按场景 17 执行：提炼一个创作者在多条视频里重复出现的内容公式，拆开 hook、节奏、证明和 CTA，并区分可迁移规则与创作者独有优势。",
+    "recommended_runner_args": [
+      "python scripts/run_operator_workflow.py --mode scene --scene 17 --project \"<project-name>\" --output-root \".\\tmp\\creator-distillation\"",
+      "python scripts/generate_scene_report.py --scene 17 --project \"<project-name>\" --output \".\\tmp\\creator-distillation.json\" --format json"
+    ],
+    "variable_inputs": [
+      {
+        "name": "project_name",
+        "meaning": "便于识别的运行名或项目名",
+        "example": "创作者公式蒸馏报告",
+        "required": "是"
+      },
+      {
+        "name": "market",
+        "meaning": "当场景依赖单一市场时的目标市场或地区",
+        "example": "美国",
+        "required": "建议"
+      },
+      {
+        "name": "evidence_pack",
+        "meaning": "作为源证据使用的链接、截图、转写、导出文件、OCR 文本或摘录备注",
+        "example": "Several top creator videos with transcript and performance notes",
+        "required": "是"
+      },
+      {
+        "name": "success_goal",
+        "meaning": "操作者希望该场景产出的结果",
+        "example": "可重复创作者公式与改编规则",
+        "required": "建议"
+      }
+    ],
+    "codex_prompt_scaffold": [
+      "以场景 17 作为本次工作的主流程。",
+      "分析前先把现有证据归整为以下输入：1 个创作者账号，或同一创作者的多条视频, 高表现视频, 转写稿, 表现备注, 可选的发布时间与 hashtag 备注。",
+      "如果证据不足，先明确缺口再继续。最低开工证据：1 个创作者账号，或同一创作者的多条视频。",
+      "最终必须产出以下可直接给运营使用的结果：账号概览, 高低互动对比, 可重复公式, 不可迁移优势, 新脚本桥接。",
+      "在宣告公式前，至少使用多条创作者样本。",
+      "不要把“喜欢这个创作者”误判为“可复用的制作规则”。",
+      "把 hook 公式、视觉风格、BGM、hashtag 习惯与发布时间线索拆成独立提取层。",
+      "优先填入可复用结论、表格、排序逻辑和下一步动作，不要停留在泛泛点评。"
+    ],
+    "codex_prompt_scaffold_zh": [
+      "按场景 17 执行：提炼一个创作者在多条视频里重复出现的内容公式，拆开 hook、节奏、证明和 CTA，并区分可迁移规则与创作者独有优势。",
+      "先把我提供的材料整理成这组输入：1 个创作者账号，或同一创作者的多条视频, 高表现视频, 转写稿, 表现备注, 可选的发布时间与 hashtag 备注。",
+      "如果证据不足，先明确缺口再继续。最低开工证据：1 个创作者账号，或同一创作者的多条视频。",
+      "最终必须产出：账号概览, 高低互动对比, 可重复公式, 不可迁移优势, 新脚本桥接。",
+      "输出必须可直接给运营、拆解、脚本、测试或交付使用，优先给表格、排序逻辑、复用规则和下一步动作。"
+    ],
+    "workflow_steps": [
+      "在宣告可复用公式前，先使用多条创作者样本。",
+      "提炼公式前先总结账号基线。",
+      "直接比较高表现与低表现样本。",
+      "把重复出现的 hook、节奏、证明与 CTA 模式拆开整理。",
+      "明确区分可迁移模式与创作者专属优势。"
+    ],
+    "output_checklist": [
+      "在提出公式前，账号概览与内容基线已经明确。",
+      "重复模式由多条创作者样本支撑。",
+      "高互动与低互动差异已直接对比。",
+      "hook 与节奏公式足够可复用，可直接作为新脚本种子。",
+      "可迁移规则与创作者专属优势已分开。",
+      "报告最终落到新的产品或账号适配建议。"
+    ]
+  },
+  "evidence": [
+    {
+      "label": "汇总",
+      "detail": "已排序=3; 达标=1; 最低点赞=50000",
+      "source": "aggregate_summary.json"
+    },
+    {
+      "label": "账号汇总",
+      "detail": "账号=https://www.tiktok.com/@tiktok; 会话=浏览器同源接口正常; 已排序=3",
+      "source": "profile_summary.json"
+    },
+    {
+      "label": "排序视频 7628619815690833183",
+      "detail": "a reminder to romanticize the little moments",
+      "source": "https://www.tiktok.com/@tiktok/video/7628619815690833183"
+    },
+    {
+      "label": "排序视频 7631229398531788062",
+      "detail": "this STEMTok creativity is blowing us away",
+      "source": "https://www.tiktok.com/@tiktok/video/7631229398531788062"
+    },
+    {
+      "label": "排序视频 7631201918366289165",
+      "detail": "PSA: always sing your heart out, you'll never know who's going to listen",
+      "source": "https://www.tiktok.com/@tiktok/video/7631201918366289165"
+    },
+    {
+      "label": "可下载视频源",
+      "detail": "该 capture pack 保留了可播放或可下载的视频细节，可继续用于逐帧复核。",
+      "source": "https://v16-webapp-prime.tiktok.com/video/tos/maliva/tos-maliva-ve-0068c799-us/oIAgeFiqx3TYDT3JRf0BkHEgAVEPEObIXpo2Qu/?a=1988&bti=ODszNWYuMDE6&&bt=791&ft=gdf_e8Zmo0PUssFRkVQus0z~Tr4jD0.Q5SY&mime_type=video_mp4&rc=NTYzOGY0Zzg1aTVmOjo3OEBpamVneGo5cnQ3OjMzaTczNEBjNGAzNi0tNi4xNS9iYzQyYSNvL2cxMmRrbGNhLS1kMTJzcw%3D%3D&btag=e00088000&expire=1777096199&l=202604231349110DC74A209EDB705CD537&ply_type=2&policy=2&signature=32d73de3528d62215451214b77b94373&tk=tt_chain_token"
+    },
+    {
+      "label": "Content graph clusters",
+      "detail": "creator=1; sound=0; hashtag=0; videos=3",
+      "source": "content_graph.json"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "Executive Conclusion",
+      "instruction": "概括这个创作者最稳定、最可复用的赢法。",
+      "paragraphs": [
+        "这组 TikTok 账号样本显示出一套可重复的编辑型公式：先把内容挂到可识别的创作者、故事或文化瞬间上，再用极少文案让亲和感自行发挥作用。",
+        "账号会话质量：browser_same_origin_api_ok"
+      ],
+      "bullets": [
+        "头部钩子线索：a reminder to romanticize the little moments",
+        "低表现对照线索：PSA: always sing your heart out, you'll never know who's going to listen",
+        "主要创作者赛道：tiktok 的内容定位偏向 Hook / packaging study。",
+        "高互动 vs 低互动：字幕驱动的情绪拼贴 对比 识别优先的短讲解"
+      ],
+      "numbered": [],
+      "table": {
+        "title": "",
+        "headers": [],
+        "rows": []
+      },
+      "evidence_refs": [
+        {
+          "source_type": "video",
+          "source_id": "7628619815690833183",
+          "source_url": "https://www.tiktok.com/@tiktok/video/7628619815690833183",
+          "time_range": "00:00-00:05",
+          "excerpt": "a reminder to romanticize the little moments 鉂わ笍",
+          "supports": "Executive conclusion: high-engagement packaging reference"
+        },
+        {
+          "source_type": "video",
+          "source_id": "7631201918366289165",
+          "source_url": "https://www.tiktok.com/@tiktok/video/7631201918366289165",
+          "time_range": "00:00-00:05",
+          "excerpt": "PSA: always sing your 鉂わ笍 out, you'll never know who's going to listen 馃憖   tune into the full episode of Behind the Breakthrough with @SIENNA SPIRO, on our pa…",
+          "supports": "Executive conclusion: low-engagement contrast sample"
+        }
+      ]
+    },
+    {
+      "heading": "Structure Logic",
+      "instruction": "先做账号速览，再提炼公式。",
+      "paragraphs": [],
+      "bullets": [
+        "系列 / 赛道聚类（按包装线分组，避免单条爆款过拟合）：",
+        "Hook / packaging study ×3 | 代表钩子：a reminder to romanticize the little moments 鉂わ笍 | 优先蒸馏"
+      ],
+      "numbered": [],
+      "table": {
+        "title": "账号速览",
+        "headers": [
+          "账号速览字段",
+          "结论",
+          "证据 / 说明"
+        ],
+        "rows": [
+          [
+            "一句话定位",
+            "tiktok 的内容定位偏向 Hook / packaging study。",
+            "https://www.tiktok.com/@tiktok"
+          ],
+          [
+            "平均播放",
+            "1534233",
+            "https://www.tiktok.com/@tiktok/video/7628619815690833183"
+          ],
+          [
+            "平均点赞",
+            "38007",
+            "https://www.tiktok.com/@tiktok/video/7628619815690833183"
+          ],
+          [
+            "平均评论",
+            "1155",
+            "https://www.tiktok.com/@tiktok/video/7628619815690833183"
+          ],
+          [
+            "平均分享",
+            "623",
+            "https://www.tiktok.com/@tiktok/video/7628619815690833183"
+          ],
+          [
+            "爆款率",
+            "样本内 1/3",
+            "仅基于当前样本的估算"
+          ],
+          [
+            "更新频率",
+            "周内多更，平均间隔约 3.5 天。",
+            "基于当前样本时间点推断"
+          ],
+          [
+            "强势发布时间",
+            "周二下午 最强（样本 3 条）",
+            "样本窗口推断，不等于最终定论"
+          ]
+        ]
+      },
+      "evidence_refs": [
+        {
+          "source_type": "creator",
+          "source_id": "account-summary",
+          "source_url": "待补账号链接",
+          "time_range": "账号样本时间窗",
+          "excerpt": "基于样本帖子的账号级基线，包括互动和更新节奏。",
+          "supports": "账号速览"
+        },
+        {
+          "source_type": "creator",
+          "source_id": "tiktok",
+          "source_url": "https://www.tiktok.com/@tiktok",
+          "time_range": "account-sample-window",
+          "excerpt": "TikTok",
+          "supports": "Account snapshot: positioning and cadence baseline"
+        },
+        {
+          "source_type": "video",
+          "source_id": "7628619815690833183",
+          "source_url": "https://www.tiktok.com/@tiktok/video/7628619815690833183",
+          "time_range": "full-video",
+          "excerpt": "a reminder to romanticize the little moments 鉂わ笍",
+          "supports": "Account snapshot: top engagement metrics"
+        }
+      ]
+    },
+    {
+      "heading": "Core Mechanism",
+      "instruction": "先比较高互动与低互动内容，再下公式结论。",
+      "paragraphs": [
+        "这份蒸馏报告必须把高互动和低互动样本拉成反例对照，而不是只总结爆款共性。",
+        "先做账号速览，再做高低互动对比，最后才提炼公式，否则会把账号壳子误当成可迁移打法。"
+      ],
+      "bullets": [],
+      "numbered": [],
+      "table": {
+        "title": "高低互动对比",
+        "headers": [
+          "比较维度",
+          "高互动样本",
+          "低互动样本",
+          "操作解释"
+        ],
+        "rows": [
+          [
+            "开头钩子",
+            "a reminder to romanticize the little moments",
+            "PSA: always sing your heart out, you'll never know who's going to listen",
+            "高互动版本通常更快让人知道为什么值得继续看。"
+          ],
+          [
+            "证明装置",
+            "Hook / packaging study",
+            "Hook / packaging study",
+            "真正可迁移的是证明顺序，不是账号壳子本身。"
+          ],
+          [
+            "内容类型",
+            "字幕驱动的情绪拼贴",
+            "识别优先的短讲解",
+            "要先知道赢的是哪种内容类型，再决定是否值得复用。"
+          ],
+          [
+            "发布时间窗",
+            "周二下午",
+            "周二下午",
+            "时间窗只能辅助判断，不能替代内容结构差异。"
+          ]
+        ]
+      },
+      "evidence_refs": [
+        {
+          "source_type": "video",
+          "source_id": "creator-top-1",
+          "source_url": "待补视频链接",
+          "time_range": "00:00-00:05",
+          "excerpt": "作为正样本对照的高互动视频。",
+          "supports": "高互动对比"
+        },
+        {
+          "source_type": "video",
+          "source_id": "creator-low-1",
+          "source_url": "待补视频链接",
+          "time_range": "00:00-00:05",
+          "excerpt": "用于隔离差异的低互动样本。",
+          "supports": "低互动对比"
+        },
+        {
+          "source_type": "video",
+          "source_id": "7628619815690833183",
+          "source_url": "https://www.tiktok.com/@tiktok/video/7628619815690833183",
+          "time_range": "00:00-00:03",
+          "excerpt": "a reminder to romanticize the little moments 鉂わ笍",
+          "supports": "High vs low comparison: high-engagement sample"
+        },
+        {
+          "source_type": "video",
+          "source_id": "7631201918366289165",
+          "source_url": "https://www.tiktok.com/@tiktok/video/7631201918366289165",
+          "time_range": "00:00-00:03",
+          "excerpt": "PSA: always sing your 鉂わ笍 out, you'll never know who's going to listen 馃憖   tune into the full episode of Behind the Breakthrough with @SIENNA SPIRO, on our pa…",
+          "supports": "High vs low comparison: low-engagement sample"
+        }
+      ]
+    },
+    {
+      "heading": "Reusable Formula",
+      "instruction": "提炼可迁移到其他账号或产品上的模式。",
+      "paragraphs": [],
+      "bullets": [],
+      "numbered": [],
+      "table": {
+        "title": "创作者公式库",
+        "headers": [
+          "公式",
+          "原始钩子 / 证据",
+          "可套用模板",
+          "强势发布时间",
+          "来源"
+        ],
+        "rows": [
+          [
+            "公式 1",
+            "a reminder to romanticize the little moments",
+            "先给一眼能懂的识别线索，再用最短路径把证明推到前面。",
+            "周二下午",
+            "https://www.tiktok.com/@tiktok/video/7628619815690833183 | creator cluster (@tiktok, 3 posts) → reuse-value rank #2"
+          ],
+          [
+            "公式 2",
+            "this STEMTok creativity is blowing us away",
+            "先给一眼能懂的识别线索，再用最短路径把证明推到前面。",
+            "周二下午",
+            "https://www.tiktok.com/@tiktok/video/7631229398531788062 | creator cluster (@tiktok, 3 posts) → reuse-value rank #3"
+          ],
+          [
+            "公式 3",
+            "PSA: always sing your heart out, you'll never know who's going to listen",
+            "先给一眼能懂的识别线索，再用最短路径把证明推到前面。",
+            "周二下午",
+            "https://www.tiktok.com/@tiktok/video/7631201918366289165 | creator cluster (@tiktok, 3 posts) → reuse-value rank #1"
+          ]
+        ]
+      },
+      "evidence_refs": [
+        {
+          "source_type": "video",
+          "source_id": "7628619815690833183",
+          "source_url": "https://www.tiktok.com/@tiktok/video/7628619815690833183",
+          "time_range": "00:00-00:03",
+          "excerpt": "a reminder to romanticize the little moments 鉂わ笍",
+          "supports": "Creator formula library row"
+        },
+        {
+          "source_type": "video",
+          "source_id": "7631229398531788062",
+          "source_url": "https://www.tiktok.com/@tiktok/video/7631229398531788062",
+          "time_range": "00:00-00:03",
+          "excerpt": "this STEMTok creativity is blowing us away 馃憦",
+          "supports": "Creator formula library row"
+        },
+        {
+          "source_type": "video",
+          "source_id": "7631201918366289165",
+          "source_url": "https://www.tiktok.com/@tiktok/video/7631201918366289165",
+          "time_range": "00:00-00:03",
+          "excerpt": "PSA: always sing your 鉂わ笍 out, you'll never know who's going to listen 馃憖   tune into the full episode of Behind the Breakthrough with @SIENNA SPIRO, on our page coming soon.",
+          "supports": "Creator formula library row"
+        }
+      ]
+    },
+    {
+      "heading": "Risks And Adaptation Notes",
+      "instruction": "列出依赖创作者个人特质的部分，以及真正值得抄走的公式。",
+      "paragraphs": [],
+      "bullets": [],
+      "numbered": [],
+      "table": {
+        "title": "公式库",
+        "headers": [
+          "Formula Type",
+          "Original Example",
+          "Reusable Template",
+          "Where It Works Best"
+        ],
+        "rows": [
+          [
+            "钩子公式",
+            "a reminder to romanticize the little moments",
+            "先给一个一眼可懂的人物、瞬间或文化线索",
+            "更适合受众本就认识这条线索的场景"
+          ],
+          [
+            "钩子公式",
+            "this STEMTok creativity is blowing us away",
+            "先给情绪清晰度，再进入解释",
+            "更适合证明能在情绪线索后快速到位的场景"
+          ],
+          [
+            "节奏模型",
+            "快速铺垫 -> 一次证明节拍 -> 轻量延续",
+            "压缩铺垫，避免长 exposition",
+            "更适合短平快的社交原生帖子"
+          ],
+          [
+            "CTA 公式",
+            "延续式 CTA 优先于硬卖",
+            "把动作导向继续看、收藏或关注",
+            "更适合以发现和扩散为主目标的内容"
+          ]
+        ]
+      },
+      "evidence_refs": []
+    },
+    {
+      "heading": "Visual And Distribution Signature",
+      "instruction": "记录那些不属于脚本但仍明显影响表现的重复模式。",
+      "paragraphs": [],
+      "bullets": [],
+      "numbered": [],
+      "table": {
+        "title": "",
+        "headers": [
+          "Dimension",
+          "Observed Pattern",
+          "Why It Matters",
+          "Evidence Ref"
+        ],
+        "rows": [
+          [
+            "视觉风格",
+            "偏编辑感、识别优先的社交原生包装",
+            "让用户更快读懂内容前提，缩短刷到后做决定的时间",
+            "https://www.tiktok.com/@tiktok/video/7628619815690833183"
+          ],
+          [
+            "BGM / 音频",
+            "原声或已恢复的原生平台音频",
+            "音频更像包装 cue，而不是复杂叙事层",
+            "https://www.tiktok.com/@tiktok/video/7628619815690833183"
+          ],
+          [
+            "Hashtag 习惯",
+            "样本里可见 hashtag 较轻",
+            "这类账号更依赖 hook 包装，而不是 hashtag 堆砌",
+            "https://www.tiktok.com/@tiktok/video/7628619815690833183"
+          ],
+          [
+            "发布时间",
+            "需要多周采样后再下结论",
+            "样本薄时不要把偶发时间窗误判成稳定分发公式",
+            "https://www.tiktok.com/@tiktok"
+          ]
+        ]
+      },
+      "evidence_refs": [
+        {
+          "source_type": "creator",
+          "source_id": "distribution-pattern",
+          "source_url": "待补账号链接",
+          "time_range": "账号样本时间窗",
+          "excerpt": "在样本集中重复出现的发布时间、hashtag 和音频习惯。",
+          "supports": "分发特征"
+        },
+        {
+          "source_type": "video",
+          "source_id": "7628619815690833183",
+          "source_url": "https://www.tiktok.com/@tiktok/video/7628619815690833183",
+          "time_range": "00:00-00:03",
+          "excerpt": "a reminder to romanticize the little moments 鉂わ笍",
+          "supports": "Visual / audio / hashtag distribution signature"
+        },
+        {
+          "source_type": "creator",
+          "source_id": "tiktok",
+          "source_url": "https://www.tiktok.com/@tiktok",
+          "time_range": "account-sample-window",
+          "excerpt": "TikTok",
+          "supports": "Publish-window baseline still sample-thin"
+        }
+      ]
+    },
+    {
+      "heading": "Next Action",
+      "instruction": "说明如何把这套模式迁移到用户自己的产品或账号。",
+      "paragraphs": [],
+      "bullets": [
+        "建议定时：monthly | python scripts/start_capture_pack_run.py --scene 17",
+        "飞书追加：表 `scene17_creator_formula` | 批次 `2026-05-18` | 模式 `append_by_run_date`"
+      ],
+      "numbered": [],
+      "table": {
+        "title": "新脚本承接表",
+        "headers": [
+          "Bridge Step",
+          "What To Borrow",
+          "What To Rewrite",
+          "Risk / Caveat"
+        ],
+        "rows": [
+          [
+            "today",
+            "从公式库挑 1 条钩子模板写新脚本草案",
+            "creative",
+            "local"
+          ],
+          [
+            "this_week",
+            "对同一创作者再采 1 周帖子，验证公式是否稳定",
+            "collector",
+            "local"
+          ],
+          [
+            "新钩子草案",
+            "a reminder to romanticize the little moments",
+            "任何只适用于官方账号的 lift 或品牌权威外壳",
+            "小账号需要更强的自有证明"
+          ],
+          [
+            "脚本节奏",
+            "快速铺垫 -> 证明 -> 延续",
+            "过度解释式开头",
+            "核心前提必须在前几秒落地"
+          ],
+          [
+            "证明格式",
+            "Hook / packaging study",
+            "无法证明的权威借用",
+            "证明太弱会拉平整套公式"
+          ],
+          [
+            "发布实验",
+            "测试创作者驱动版与证明物驱动版",
+            "假设同一赛道适用于所有账号体量",
+            "需要干净的 A/B 设置"
+          ]
+        ]
+      },
+      "evidence_refs": [
+        {
+          "source_type": "video",
+          "source_id": "7628619815690833183",
+          "source_url": "https://www.tiktok.com/@tiktok/video/7628619815690833183",
+          "time_range": "00:00-00:03",
+          "excerpt": "a reminder to romanticize the little moments 鉂わ笍",
+          "supports": "Next action: hook / proof / publish experiment plan"
+        }
+      ]
+    }
+  ],
+  "assets": [
+    {
+      "label": "aggregate_report.md",
+      "path": "aggregate_report.md",
+      "note": "真实 TikTok capture pack 的汇总 Markdown 报告。"
+    },
+    {
+      "label": "comments_flat.csv",
+      "path": "01-tiktok/comments_flat.csv",
+      "note": "单次 TikTok capture pack 的扁平评论导出。"
+    },
+    {
+      "label": "Cover / key frame source",
+      "path": "https://p16-common-sign.tiktokcdn.com/tos-useast8-p-0068-tx2/oEsGEw03A1wRAIQWpAQGqxFwEVEeVkfTCEAADA~tplv-tiktokx-origin.image?dr=14575&x-expires=1777093200&x-signature=DegpBeEXG1QdHS21yWGFjij0He4%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=my2",
+      "note": "Recovered cover image URL that can support frame review or first-frame comparison."
+    },
+    {
+      "label": "Scene 17 创作者公式主表 JSON",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\tiktok-analysis-pack-smoke-20260423f\\creator_formula_board.json",
+      "note": "Feishu 式创作者公式主表真源"
+    },
+    {
+      "label": "Scene 17 operator schedule",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\tiktok-analysis-pack-smoke-20260423f\\operator_schedule_scene_17.json",
+      "note": "推送/定时调度真源，可对接 deliver_operator_run --adapter feishu"
+    },
+    {
+      "label": "[library] Source profile",
+      "path": "https://www.tiktok.com/@tiktok",
+      "note": "Account baseline"
+    },
+    {
+      "label": "[library] Ranked video 1 reference_video",
+      "path": "https://www.tiktok.com/@tiktok/video/7628619815690833183",
+      "note": "ranked reference"
+    },
+    {
+      "label": "[library] Ranked video 1 download_source",
+      "path": "https://v16-webapp-prime.tiktok.com/video/tos/maliva/tos-maliva-ve-0068c799-us/oIAgeFiqx3TYDT3JRf0BkHEgAVEPEObIXpo2Qu/?a=1988&bti=ODszNWYuMDE6&&bt=791&ft=gdf_e8Zmo0PUssFRkVQus0z~Tr4jD0.Q5SY&mime_type=video_mp4&rc=NTYzOGY0Zzg1aTVmOjo3OEBpamVneGo5cnQ3OjMzaTczNEBjNGAzNi0tNi4xNS9iYzQyYSNvL2cxMmRrbGNhLS1kMTJzcw%3D%3D&btag=e00088000&expire=1777096199&l=202604231349110DC74A209EDB705CD537&ply_type=2&policy=2&signature=32d73de3528d62215451214b77b94373&tk=tt_chain_token",
+      "note": "ranked reference"
+    },
+    {
+      "label": "[library] Ranked video 1 play_source",
+      "path": "https://v16-webapp-prime.tiktok.com/video/tos/maliva/tos-maliva-ve-0068c799-us/ogE0KpkBTixEEeFRiXIg7IAV2mAfuqg8Z23QxD/?a=1988&bti=ODszNWYuMDE6&&bt=874&ft=gdf_e8Zmo0PUssFRkVQus0z~Tr4jD0.Q5SY&mime_type=video_mp4&rc=ODk5Zzs0aTs1ZDNkNjM6M0BpamVneGo5cnQ3OjMzaTczNEAwNjU0YTBiXjUxNC1jLjQyYSNvL2cxMmRrbGNhLS1kMTJzcw%3D%3D&btag=e00088000&expire=1777096199&l=202604231349110DC74A209EDB705CD537&ply_type=2&policy=2&signature=34bd75b941c5c8aa39ae906b130d6f21&tk=tt_chain_token",
+      "note": "ranked reference"
+    },
+    {
+      "label": "[library] Ranked video 2 reference_video",
+      "path": "https://www.tiktok.com/@tiktok/video/7631229398531788062",
+      "note": "ranked reference"
+    },
+    {
+      "label": "[library] Ranked video 2 cover_image",
+      "path": "https://p16-common-sign.tiktokcdn.com/tos-useast8-p-0068-tx2/okAAMQyUTIAeSrn6AMEscAezWAWhqA8j0I2reQ~tplv-tiktokx-origin.image?dr=14575&x-expires=1777093200&x-signature=DjQT99PFuFe8Mm6eX%2F7piLGU6nY%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=my",
+      "note": "ranked reference"
+    },
+    {
+      "label": "[library] Ranked video 2 download_source",
+      "path": "https://v16-webapp-prime.tiktok.com/video/tos/maliva/tos-maliva-ve-0068c799-us/oAnJ3iAIqB0v8pCSkALGArvaIvOJMFii4QEneQ/?a=1988&bti=ODszNWYuMDE6&&bt=1794&ft=3.u4FZmo0PDcdd_faQ9WHPXOhKkV1PCBqYlc&mime_type=video_mp4&rc=Zjw0Zzc7OmdnPGlnNWk6Z0Bpamg4NHE5cjxzOjMzaTczNEBgMC5gXi40Xi8xXmMuNl9iYSMxaGkzMmRrMWdhLS1kMTJzcw%3D%3D&btag=e00088000&expire=1777096207&l=2026042313491436D0727DE0960D5888FD&ply_type=2&policy=2&signature=dee7d5a238331fbc5ccf1856d0f2fccb&tk=tt_chain_token",
+      "note": "ranked reference"
+    },
+    {
+      "label": "[library] Ranked video 2 play_source",
+      "path": "https://v16-webapp-prime.tiktok.com/video/tos/maliva/tos-maliva-ve-0068c799-us/oQTAqfegNCxAyAWj5IRi1fzBmzILAa88RRSMQJ/?a=1988&bti=ODszNWYuMDE6&&bt=1969&ft=3.u4FZmo0PDcdd_faQ9WHPXOhKkV1PCBqYlc&mime_type=video_mp4&rc=M2U6PGVkOmZoNTg5NTg0OUBpamg4NHE5cjxzOjMzaTczNEAwMi5fY2NfXjExLzE0MjZhYSMxaGkzMmRrMWdhLS1kMTJzcw%3D%3D&btag=e00088000&expire=1777096207&l=2026042313491436D0727DE0960D5888FD&ply_type=2&policy=2&signature=a55f0496c01d5f49cb0a2ffa4bcbb187&tk=tt_chain_token",
+      "note": "ranked reference"
+    },
+    {
+      "label": "[library] Ranked video 3 reference_video",
+      "path": "https://www.tiktok.com/@tiktok/video/7631201918366289165",
+      "note": "ranked reference"
+    },
+    {
+      "label": "[library] Ranked video 3 cover_image",
+      "path": "https://p16-common-sign.tiktokcdn.com/tos-useast5-p-0068-tx/okeOuZgQEnDA5S8F3bCgHp8n6AYDREAAIR8yfu~tplv-tiktokx-origin.image?dr=14575&x-expires=1777093200&x-signature=hJBzl4mZjO6JffaUDN1%2BuR6uZ9Y%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=my",
+      "note": "ranked reference"
+    },
+    {
+      "label": "[library] Ranked video 3 download_source",
+      "path": "https://v16-webapp-prime.tiktok.com/video/tos/maliva/tos-maliva-ve-0068c799-us/osXEd84fQqvESo5BnOUDfDsRnNAFgI3gItCpIj/?a=1988&bti=ODszNWYuMDE6&&bt=1123&ft=gdf_e8Zmo0PzssFRkVQidDC~Tr4jD0.k5SY&mime_type=video_mp4&rc=ZTRnNmZpZzQ3ZmhoZjk5aUBpM211bnE5cm1xOjMzZzczNEBjNl8uLjZeNTAxX14xMGMvYSNvbGFuMmRjZ2dhLS1kMS9zcw%3D%3D&btag=e00088000&expire=1777096211&l=20260423134942C7BBC2725AABF3612563&ply_type=2&policy=2&signature=9a2097f2801bc5b1b91b09bd06876286&tk=tt_chain_token",
+      "note": "ranked reference"
+    },
+    {
+      "label": "[library] Ranked video 3 play_source",
+      "path": "https://v16-webapp-prime.tiktok.com/video/tos/maliva/tos-maliva-ve-0068c799-us/oAs75v1VMRueYdfOAxWAkejbPC8ITRHgQRAGIz/?a=1988&bti=ODszNWYuMDE6&&bt=1223&ft=gdf_e8Zmo0PzssFRkVQidDC~Tr4jD0.k5SY&mime_type=video_mp4&rc=O2g7Ozg6NWdlNjw1NDdmOEBpM211bnE5cm1xOjMzZzczNEAtLS9gMTIzNmMxNGA0LWBiYSNvbGFuMmRjZ2dhLS1kMS9zcw%3D%3D&btag=e00088000&expire=1777096211&l=20260423134942C7BBC2725AABF3612563&ply_type=2&policy=2&signature=0d1abe11bdcb5dce84864367c9a2d8e2&tk=tt_chain_token",
+      "note": "ranked reference"
+    },
+    {
+      "label": "[library] Scene 04 production_spec_handoff.json",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\tiktok-analysis-pack-smoke-20260423f\\production_spec_handoff.json",
+      "note": "Generator-ready handoff with Sora / Veo / i2v branches"
+    },
+    {
+      "label": "[library] content_graph.json",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\tiktok-analysis-pack-smoke-20260423f\\content_graph.json",
+      "note": "Reusable capture-pack artifact"
+    },
+    {
+      "label": "[library] Scene 04 operator schedule",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\tiktok-analysis-pack-smoke-20260423f\\operator_schedule_scene_4.json",
+      "note": "推送/定时调度真源，可对接 deliver_operator_run --adapter feishu"
+    },
+    {
+      "label": "[library] Scene 05 operator schedule",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\tiktok-analysis-pack-smoke-20260423f\\operator_schedule_scene_5.json",
+      "note": "推送/定时调度真源，可对接 deliver_operator_run --adapter feishu"
+    },
+    {
+      "label": "[library] Scene 07 operator schedule",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\tiktok-analysis-pack-smoke-20260423f\\operator_schedule_scene_7.json",
+      "note": "推送/定时调度真源，可对接 deliver_operator_run --adapter feishu"
+    },
+    {
+      "label": "[library] Scene 07 类目进入主表 JSON",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\tiktok-analysis-pack-smoke-20260423f\\category_entry_board.json",
+      "note": "Feishu 式类目进入判断主表真源"
+    }
+  ],
+  "notes": [],
+  "sources": [
+    "aggregate_summary.json",
+    "aggregate_ranked_videos.json",
+    "https://www.tiktok.com/@tiktok"
+  ],
+  "content_graph": {
+    "version": "1.0",
+    "cluster_summary": {
+      "creator_clusters": 1,
+      "sound_clusters": 0,
+      "hashtag_neighborhoods": 0,
+      "video_count": 3
+    },
+    "edge_count": 5,
+    "node_count": 4
+  },
+  "creator_formula_board": {
+    "schema_version": "scene17-creator-formula-board-v1",
+    "headers": [
+      "行类型",
+      "公式/聚类",
+      "包装线",
+      "原始钩子",
+      "可套用模板",
+      "强势发布时间",
+      "来源",
+      "运营动作",
+      "优先级"
+    ],
+    "rows": [
+      [
+        "公式库",
+        "公式 1",
+        "",
+        "a reminder to romanticize the little moments",
+        "先给一眼能懂的识别线索，再用最短路径把证明推到前面。",
+        "周二下午",
+        "https://www.tiktok.com/@tiktok/video/7628619815690833183 | creator cluster (@tiktok, 3 posts) → reuse-value rank #2",
+        "写脚本 / 测版",
+        "高"
+      ],
+      [
+        "公式库",
+        "公式 2",
+        "",
+        "this STEMTok creativity is blowing us away",
+        "先给一眼能懂的识别线索，再用最短路径把证明推到前面。",
+        "周二下午",
+        "https://www.tiktok.com/@tiktok/video/7631229398531788062 | creator cluster (@tiktok, 3 posts) → reuse-value rank #3",
+        "写脚本 / 测版",
+        "高"
+      ],
+      [
+        "公式库",
+        "公式 3",
+        "",
+        "PSA: always sing your heart out, you'll never know who's going to listen",
+        "先给一眼能懂的识别线索，再用最短路径把证明推到前面。",
+        "周二下午",
+        "https://www.tiktok.com/@tiktok/video/7631201918366289165 | creator cluster (@tiktok, 3 posts) → reuse-value rank #1",
+        "写脚本 / 测版",
+        "高"
+      ],
+      [
+        "系列簇",
+        "Hook / packaging study",
+        "样本数=3",
+        "a reminder to romanticize the little moments 鉂わ笍",
+        "",
+        "",
+        "",
+        "优先蒸馏",
+        "高"
+      ]
+    ],
+    "row_count": 4,
+    "append_scope_key": "https://www.tiktok.com/@tiktok"
+  },
+  "operator_schedule": {
+    "schema_version": "operator-schedule-v1",
+    "scene": "17",
+    "generated_at": "2026-05-18T08:46:36",
+    "append_scope": "2026-05-18",
+    "delivery": {
+      "local_bundle": true,
+      "feishu": {
+        "status": "planned",
+        "table_key": "scene17_creator_formula",
+        "append_mode": "append_by_run_date",
+        "run_date_field": "采集日期",
+        "append_scope_field": "追加批次",
+        "append_scope": "2026-05-18"
+      },
+      "channels": [
+        "local",
+        "feishu"
+      ],
+      "notify_when_done": true
+    },
+    "dispatch": [
+      {
+        "when": "today",
+        "action": "从公式库挑 1 条钩子模板写新脚本草案",
+        "owner": "creative",
+        "channel": "local"
+      },
+      {
+        "when": "this_week",
+        "action": "对同一创作者再采 1 周帖子，验证公式是否稳定",
+        "owner": "collector",
+        "channel": "local"
+      }
+    ],
+    "next_runs": [
+      {
+        "cadence": "monthly",
+        "suggested_cron": "0 10 1 * *",
+        "run_command": "python scripts/start_capture_pack_run.py --scene 17"
+      }
+    ],
+    "context": {
+      "shortlist_count": 3,
+      "board_row_count": 4
+    },
+    "board_row_count": 4
+  },
+  "asset_library": {
+    "schema_version": "asset-library-v1",
+    "assets": [
+      {
+        "kind": "profile",
+        "label": "Source profile",
+        "path": "https://www.tiktok.com/@tiktok",
+        "note": "Account baseline",
+        "scene_origin": "04",
+        "registered_at": "2026-05-17T22:18:44"
+      },
+      {
+        "kind": "reference_video",
+        "label": "Ranked video 1 reference_video",
+        "path": "https://www.tiktok.com/@tiktok/video/7628619815690833183",
+        "note": "ranked reference",
+        "scene_origin": "04",
+        "registered_at": "2026-05-17T22:18:44"
+      },
+      {
+        "kind": "cover_image",
+        "label": "Ranked video 1 cover_image",
+        "path": "https://p16-common-sign.tiktokcdn.com/tos-useast8-p-0068-tx2/oEsGEw03A1wRAIQWpAQGqxFwEVEeVkfTCEAADA~tplv-tiktokx-origin.image?dr=14575&x-expires=1777093200&x-signature=DegpBeEXG1QdHS21yWGFjij0He4%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=my2",
+        "note": "ranked reference",
+        "scene_origin": "04",
+        "registered_at": "2026-05-17T22:18:44"
+      },
+      {
+        "kind": "download_source",
+        "label": "Ranked video 1 download_source",
+        "path": "https://v16-webapp-prime.tiktok.com/video/tos/maliva/tos-maliva-ve-0068c799-us/oIAgeFiqx3TYDT3JRf0BkHEgAVEPEObIXpo2Qu/?a=1988&bti=ODszNWYuMDE6&&bt=791&ft=gdf_e8Zmo0PUssFRkVQus0z~Tr4jD0.Q5SY&mime_type=video_mp4&rc=NTYzOGY0Zzg1aTVmOjo3OEBpamVneGo5cnQ3OjMzaTczNEBjNGAzNi0tNi4xNS9iYzQyYSNvL2cxMmRrbGNhLS1kMTJzcw%3D%3D&btag=e00088000&expire=1777096199&l=202604231349110DC74A209EDB705CD537&ply_type=2&policy=2&signature=32d73de3528d62215451214b77b94373&tk=tt_chain_token",
+        "note": "ranked reference",
+        "scene_origin": "04",
+        "registered_at": "2026-05-17T22:18:44"
+      },
+      {
+        "kind": "play_source",
+        "label": "Ranked video 1 play_source",
+        "path": "https://v16-webapp-prime.tiktok.com/video/tos/maliva/tos-maliva-ve-0068c799-us/ogE0KpkBTixEEeFRiXIg7IAV2mAfuqg8Z23QxD/?a=1988&bti=ODszNWYuMDE6&&bt=874&ft=gdf_e8Zmo0PUssFRkVQus0z~Tr4jD0.Q5SY&mime_type=video_mp4&rc=ODk5Zzs0aTs1ZDNkNjM6M0BpamVneGo5cnQ3OjMzaTczNEAwNjU0YTBiXjUxNC1jLjQyYSNvL2cxMmRrbGNhLS1kMTJzcw%3D%3D&btag=e00088000&expire=1777096199&l=202604231349110DC74A209EDB705CD537&ply_type=2&policy=2&signature=34bd75b941c5c8aa39ae906b130d6f21&tk=tt_chain_token",
+        "note": "ranked reference",
+        "scene_origin": "04",
+        "registered_at": "2026-05-17T22:18:44"
+      },
+      {
+        "kind": "reference_video",
+        "label": "Ranked video 2 reference_video",
+        "path": "https://www.tiktok.com/@tiktok/video/7631229398531788062",
+        "note": "ranked reference",
+        "scene_origin": "04",
+        "registered_at": "2026-05-17T22:18:44"
+      },
+      {
+        "kind": "cover_image",
+        "label": "Ranked video 2 cover_image",
+        "path": "https://p16-common-sign.tiktokcdn.com/tos-useast8-p-0068-tx2/okAAMQyUTIAeSrn6AMEscAezWAWhqA8j0I2reQ~tplv-tiktokx-origin.image?dr=14575&x-expires=1777093200&x-signature=DjQT99PFuFe8Mm6eX%2F7piLGU6nY%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=my",
+        "note": "ranked reference",
+        "scene_origin": "04",
+        "registered_at": "2026-05-17T22:18:44"
+      },
+      {
+        "kind": "download_source",
+        "label": "Ranked video 2 download_source",
+        "path": "https://v16-webapp-prime.tiktok.com/video/tos/maliva/tos-maliva-ve-0068c799-us/oAnJ3iAIqB0v8pCSkALGArvaIvOJMFii4QEneQ/?a=1988&bti=ODszNWYuMDE6&&bt=1794&ft=3.u4FZmo0PDcdd_faQ9WHPXOhKkV1PCBqYlc&mime_type=video_mp4&rc=Zjw0Zzc7OmdnPGlnNWk6Z0Bpamg4NHE5cjxzOjMzaTczNEBgMC5gXi40Xi8xXmMuNl9iYSMxaGkzMmRrMWdhLS1kMTJzcw%3D%3D&btag=e00088000&expire=1777096207&l=2026042313491436D0727DE0960D5888FD&ply_type=2&policy=2&signature=dee7d5a238331fbc5ccf1856d0f2fccb&tk=tt_chain_token",
+        "note": "ranked reference",
+        "scene_origin": "04",
+        "registered_at": "2026-05-17T22:18:44"
+      },
+      {
+        "kind": "play_source",
+        "label": "Ranked video 2 play_source",
+        "path": "https://v16-webapp-prime.tiktok.com/video/tos/maliva/tos-maliva-ve-0068c799-us/oQTAqfegNCxAyAWj5IRi1fzBmzILAa88RRSMQJ/?a=1988&bti=ODszNWYuMDE6&&bt=1969&ft=3.u4FZmo0PDcdd_faQ9WHPXOhKkV1PCBqYlc&mime_type=video_mp4&rc=M2U6PGVkOmZoNTg5NTg0OUBpamg4NHE5cjxzOjMzaTczNEAwMi5fY2NfXjExLzE0MjZhYSMxaGkzMmRrMWdhLS1kMTJzcw%3D%3D&btag=e00088000&expire=1777096207&l=2026042313491436D0727DE0960D5888FD&ply_type=2&policy=2&signature=a55f0496c01d5f49cb0a2ffa4bcbb187&tk=tt_chain_token",
+        "note": "ranked reference",
+        "scene_origin": "04",
+        "registered_at": "2026-05-17T22:18:44"
+      },
+      {
+        "kind": "reference_video",
+        "label": "Ranked video 3 reference_video",
+        "path": "https://www.tiktok.com/@tiktok/video/7631201918366289165",
+        "note": "ranked reference",
+        "scene_origin": "04",
+        "registered_at": "2026-05-17T22:18:44"
+      },
+      {
+        "kind": "cover_image",
+        "label": "Ranked video 3 cover_image",
+        "path": "https://p16-common-sign.tiktokcdn.com/tos-useast5-p-0068-tx/okeOuZgQEnDA5S8F3bCgHp8n6AYDREAAIR8yfu~tplv-tiktokx-origin.image?dr=14575&x-expires=1777093200&x-signature=hJBzl4mZjO6JffaUDN1%2BuR6uZ9Y%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=my",
+        "note": "ranked reference",
+        "scene_origin": "04",
+        "registered_at": "2026-05-17T22:18:44"
+      },
+      {
+        "kind": "download_source",
+        "label": "Ranked video 3 download_source",
+        "path": "https://v16-webapp-prime.tiktok.com/video/tos/maliva/tos-maliva-ve-0068c799-us/osXEd84fQqvESo5BnOUDfDsRnNAFgI3gItCpIj/?a=1988&bti=ODszNWYuMDE6&&bt=1123&ft=gdf_e8Zmo0PzssFRkVQidDC~Tr4jD0.k5SY&mime_type=video_mp4&rc=ZTRnNmZpZzQ3ZmhoZjk5aUBpM211bnE5cm1xOjMzZzczNEBjNl8uLjZeNTAxX14xMGMvYSNvbGFuMmRjZ2dhLS1kMS9zcw%3D%3D&btag=e00088000&expire=1777096211&l=20260423134942C7BBC2725AABF3612563&ply_type=2&policy=2&signature=9a2097f2801bc5b1b91b09bd06876286&tk=tt_chain_token",
+        "note": "ranked reference",
+        "scene_origin": "04",
+        "registered_at": "2026-05-17T22:18:44"
+      },
+      {
+        "kind": "play_source",
+        "label": "Ranked video 3 play_source",
+        "path": "https://v16-webapp-prime.tiktok.com/video/tos/maliva/tos-maliva-ve-0068c799-us/oAs75v1VMRueYdfOAxWAkejbPC8ITRHgQRAGIz/?a=1988&bti=ODszNWYuMDE6&&bt=1223&ft=gdf_e8Zmo0PzssFRkVQidDC~Tr4jD0.k5SY&mime_type=video_mp4&rc=O2g7Ozg6NWdlNjw1NDdmOEBpM211bnE5cm1xOjMzZzczNEAtLS9gMTIzNmMxNGA0LWBiYSNvbGFuMmRjZ2dhLS1kMS9zcw%3D%3D&btag=e00088000&expire=1777096211&l=20260423134942C7BBC2725AABF3612563&ply_type=2&policy=2&signature=0d1abe11bdcb5dce84864367c9a2d8e2&tk=tt_chain_token",
+        "note": "ranked reference",
+        "scene_origin": "04",
+        "registered_at": "2026-05-17T22:18:44"
+      },
+      {
+        "kind": "report_artifact",
+        "label": "aggregate_report.md",
+        "path": "aggregate_report.md",
+        "note": "真实 TikTok capture pack 的汇总 Markdown 报告。",
+        "scene_origin": "04",
+        "registered_at": "2026-05-17T22:18:44"
+      },
+      {
+        "kind": "report_artifact",
+        "label": "comments_flat.csv",
+        "path": "01-tiktok/comments_flat.csv",
+        "note": "单次 TikTok capture pack 的扁平评论导出。",
+        "scene_origin": "04",
+        "registered_at": "2026-05-17T22:18:44"
+      },
+      {
+        "kind": "report_artifact",
+        "label": "Scene 04 production_spec_handoff.json",
+        "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\tiktok-analysis-pack-smoke-20260423f\\production_spec_handoff.json",
+        "note": "Generator-ready handoff with Sora / Veo / i2v branches",
+        "scene_origin": "04",
+        "registered_at": "2026-05-17T22:18:44"
+      },
+      {
+        "kind": "capture_artifact",
+        "label": "content_graph.json",
+        "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\tiktok-analysis-pack-smoke-20260423f\\content_graph.json",
+        "note": "Reusable capture-pack artifact",
+        "scene_origin": "04",
+        "registered_at": "2026-05-17T22:18:44"
+      },
+      {
+        "kind": "report_artifact",
+        "label": "Scene 04 operator schedule",
+        "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\tiktok-analysis-pack-smoke-20260423f\\operator_schedule_scene_4.json",
+        "note": "推送/定时调度真源，可对接 deliver_operator_run --adapter feishu",
+        "scene_origin": "04",
+        "registered_at": "2026-05-18T07:45:50"
+      },
+      {
+        "kind": "report_artifact",
+        "label": "Scene 05 operator schedule",
+        "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\tiktok-analysis-pack-smoke-20260423f\\operator_schedule_scene_5.json",
+        "note": "推送/定时调度真源，可对接 deliver_operator_run --adapter feishu",
+        "scene_origin": "05",
+        "registered_at": "2026-05-18T07:45:51"
+      },
+      {
+        "kind": "report_artifact",
+        "label": "Scene 17 operator schedule",
+        "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\tiktok-analysis-pack-smoke-20260423f\\operator_schedule_scene_17.json",
+        "note": "推送/定时调度真源，可对接 deliver_operator_run --adapter feishu",
+        "scene_origin": "17",
+        "registered_at": "2026-05-18T07:45:56"
+      },
+      {
+        "kind": "report_artifact",
+        "label": "Scene 07 operator schedule",
+        "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\tiktok-analysis-pack-smoke-20260423f\\operator_schedule_scene_7.json",
+        "note": "推送/定时调度真源，可对接 deliver_operator_run --adapter feishu",
+        "scene_origin": "07",
+        "registered_at": "2026-05-18T07:46:49"
+      },
+      {
+        "kind": "report_artifact",
+        "label": "Scene 07 类目进入主表 JSON",
+        "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\tiktok-analysis-pack-smoke-20260423f\\category_entry_board.json",
+        "note": "Feishu 式类目进入判断主表真源",
+        "scene_origin": "07",
+        "registered_at": "2026-05-18T08:37:46"
+      },
+      {
+        "kind": "report_artifact",
+        "label": "Scene 17 创作者公式主表 JSON",
+        "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\tiktok-analysis-pack-smoke-20260423f\\creator_formula_board.json",
+        "note": "Feishu 式创作者公式主表真源",
+        "scene_origin": "17",
+        "registered_at": "2026-05-18T08:37:47"
+      }
+    ],
+    "carry_forward": [
+      "reference_video",
+      "cover_image",
+      "download_source",
+      "production_spec_handoff",
+      "collection_board"
+    ],
+    "updated_at": "2026-05-18T08:46:36"
+  }
+}

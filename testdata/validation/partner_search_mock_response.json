@@ -1,0 +1,22 @@
+{
+  "code": 0,
+  "message": "Success",
+  "data": {
+    "products": [
+      {
+        "id": "partner-mock-1001",
+        "title": "Partner Mock Velvet Lip Glaze",
+        "sale_price": "17.99",
+        "status": "ACTIVATE",
+        "product_url": "https://www.tiktok.com/shop/pdp/partner-mock-1001"
+      },
+      {
+        "id": "partner-mock-1002",
+        "title": "Partner Mock Hydrating Serum",
+        "sale_price": "23.50",
+        "status": "ACTIVATE",
+        "product_url": "https://www.tiktok.com/shop/pdp/partner-mock-1002"
+      }
+    ]
+  }
+}

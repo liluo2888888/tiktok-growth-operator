@@ -1,0 +1,62 @@
+{
+  "schema_version": "scene17-creator-formula-board-v1",
+  "headers": [
+    "行类型",
+    "公式/聚类",
+    "包装线",
+    "原始钩子",
+    "可套用模板",
+    "强势发布时间",
+    "来源",
+    "运营动作",
+    "优先级"
+  ],
+  "rows": [
+    [
+      "公式库",
+      "公式 1",
+      "",
+      "a reminder to romanticize the little moments",
+      "先给一眼能懂的识别线索，再用最短路径把证明推到前面。",
+      "周二下午",
+      "https://www.tiktok.com/@tiktok/video/7628619815690833183 | creator cluster (@tiktok, 3 posts) → reuse-value rank #2",
+      "写脚本 / 测版",
+      "高"
+    ],
+    [
+      "公式库",
+      "公式 2",
+      "",
+      "this STEMTok creativity is blowing us away",
+      "先给一眼能懂的识别线索，再用最短路径把证明推到前面。",
+      "周二下午",
+      "https://www.tiktok.com/@tiktok/video/7631229398531788062 | creator cluster (@tiktok, 3 posts) → reuse-value rank #3",
+      "写脚本 / 测版",
+      "高"
+    ],
+    [
+      "公式库",
+      "公式 3",
+      "",
+      "PSA: always sing your heart out, you'll never know who's going to listen",
+      "先给一眼能懂的识别线索，再用最短路径把证明推到前面。",
+      "周二下午",
+      "https://www.tiktok.com/@tiktok/video/7631201918366289165 | creator cluster (@tiktok, 3 posts) → reuse-value rank #1",
+      "写脚本 / 测版",
+      "高"
+    ],
+    [
+      "系列簇",
+      "Hook / packaging study",
+      "样本数=3",
+      "a reminder to romanticize the little moments 鉂わ笍",
+      "",
+      "",
+      "",
+      "优先蒸馏",
+      "高"
+    ]
+  ],
+  "row_count": 4,
+  "append_scope_key": "https://www.tiktok.com/@tiktok"
+}

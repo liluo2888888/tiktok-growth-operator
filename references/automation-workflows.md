@@ -398,6 +398,46 @@ Scene `15` remains blueprint-only:
 - assumes source image text still needs OCR or manual recovery
 - outputs hierarchy and localization-risk planning, not final translated image copy
 
+### `scripts/run_scene0203.py`
+
+One-shot bundle for **daily patrol (Scene 02) + auto-chained deep teardown (Scene 03)**.
+
+Modes:
+
+- `fixture` / `auto`: import and render from an existing patrol capture-pack (default validation fixture)
+- `seed`: force `seed_scene02_patrol_pack.py` then run Scene `02` + chained Scene `03`
+- `patrol-loop`: delegate to `run_scene02_patrol.py --skip-live --also-run-scene03`
+
+Scene `02` runs through `start_capture_pack_run.py`, which auto-chains Scene `03` when `scene03_candidates.json` is non-empty.
+
+### `scripts/seed_scene02_patrol_pack.py`
+
+Backfills Scene `02` patrol runtime files from `ranked_videos.json` / `aggregate_ranked_videos.json`:
+
+- `patrol_snapshot.json`
+- `patrol_delta.json`
+- `patrol_alerts.json`
+- `scene03_candidates.json`
+- `patrol_config.json` and related aggregate files
+
+Use when you already have a capture pack but never ran `run_scene02_patrol.py`.
+
+### `scripts/run_scene1819.py`
+
+One-shot bundle for **competitor weekly report (Scene 18) + self-account retro (Scene 19)** on the same capture pack.
+
+Presets:
+
+- `multiweek` → `testdata/validation/captures/scene18-19-multi-week-account`
+- `matrix` → `scene18-matrix-multi-account`
+- `roi` → `scene19-roi-multiwindow-account`
+
+Both scenes write or refresh `weekly_baseline_delta.json` during import.
+
+### `scripts/validate_scene_ops.py`
+
+Fast regression gate for Scene `02`→`03` handoff, Scene `03` creation matrix, and Scene `18` / `19` weekly baseline artifacts. Wired into `validate_all_workflows.py`.
+
 ### `scripts/run_scene02_patrol.py`
 
 Runs Scene `02` as a durable patrol loop instead of a static template.

@@ -1,0 +1,10 @@
+{
+  "source": "structured_fixture",
+  "provider": "local_seed",
+  "product_count": 2,
+  "source_attestation": "unverified",
+  "require_verified_source": false,
+  "require_source_metadata": false,
+  "updated_at": "2026-05-18T07:46:25",
+  "seed_mode": "fixture"
+}

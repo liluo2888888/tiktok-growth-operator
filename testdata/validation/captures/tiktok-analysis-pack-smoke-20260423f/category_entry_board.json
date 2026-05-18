@@ -1,0 +1,68 @@
+{
+  "schema_version": "scene07-category-entry-board-v1",
+  "headers": [
+    "行类型",
+    "进入判断",
+    "需求热度",
+    "供给拥挤度",
+    "信号摘要",
+    "代表内容",
+    "建议动作",
+    "优先级",
+    "视频链接",
+    "备注"
+  ],
+  "rows": [
+    [
+      "类目判断",
+      "热但拥挤",
+      "高",
+      "高",
+      "重复hook=0.0 | 头部账号=1.0 | 评论=0",
+      "",
+      "谨慎进入：需求还在，但包装与 hook 已明显收敛，需要更强差异化证明。",
+      "高",
+      "",
+      "hot_but_crowded"
+    ],
+    [
+      "头部样本",
+      "热但拥挤",
+      "高",
+      "高",
+      "score=28 | likes=7428",
+      "a reminder to romanticize the little moments 鉂わ笍",
+      "优先做",
+      "高",
+      "https://www.tiktok.com/@tiktok/video/7628619815690833183",
+      "creator cluster (@tiktok, 3 posts) → reuse-value rank #2"
+    ],
+    [
+      "头部样本",
+      "热但拥挤",
+      "高",
+      "高",
+      "score=26 | likes=1995",
+      "this STEMTok creativity is blowing us away 馃憦",
+      "做",
+      "中",
+      "https://www.tiktok.com/@tiktok/video/7631229398531788062",
+      "creator cluster (@tiktok, 3 posts) → reuse-value rank #3"
+    ],
+    [
+      "头部样本",
+      "热但拥挤",
+      "高",
+      "高",
+      "score=23 | likes=104600",
+      "PSA: always sing your 鉂わ笍 out, you'll never know who's going to listen 馃憖 tune into...",
+      "做",
+      "中",
+      "https://www.tiktok.com/@tiktok/video/7631201918366289165",
+      "creator cluster (@tiktok, 3 posts) → reuse-value rank #1"
+    ]
+  ],
+  "row_count": 4,
+  "append_scope_key": "hot_but_crowded",
+  "verdict": "热但拥挤"
+}

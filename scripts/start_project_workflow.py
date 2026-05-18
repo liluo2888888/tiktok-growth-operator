@@ -69,6 +69,16 @@ def main() -> None:
         project_root = skill_root / "tmp" / f"{timestamp}-project-{args.name}"
     project_root.mkdir(parents=True, exist_ok=True)
 
+    from project_space import init_project_space
+
+    init_project_space(
+        project_root,
+        name=args.name,
+        project=args.project or args.name,
+        request=args.request,
+        mode=args.mode,
+    )
+
     route_meta: dict = {"requested_mode": args.mode}
     resolved_mode = args.mode
     routed: dict = {}
@@ -103,9 +113,18 @@ def main() -> None:
         "route": route_meta if args.mode == "auto" else {},
         "result": result,
     }
+    from project_space import load_project_space
+
     write_json_file(project_root / "project_manifest.json", payload)
     write_project_readme(project_root, payload)
-    print(json.dumps({"project_root": str(project_root), **payload}, ensure_ascii=False, indent=2))
+    space = load_project_space(project_root)
+    print(
+        json.dumps(
+            {"project_root": str(project_root), "project_space": space, **payload},
+            ensure_ascii=False,
+            indent=2,
+        )
+    )
 
 
 if __name__ == "__main__":

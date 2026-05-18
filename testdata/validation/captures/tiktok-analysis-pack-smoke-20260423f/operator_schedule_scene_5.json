@@ -1,0 +1,44 @@
+{
+  "schema_version": "operator-schedule-v1",
+  "scene": "5",
+  "generated_at": "2026-05-18T07:46:42",
+  "append_scope": "2026-05-18",
+  "delivery": {
+    "local_bundle": true,
+    "feishu": {
+      "status": "planned",
+      "table_key": "scene5_report",
+      "append_mode": "append_by_run_date",
+      "run_date_field": "采集日期",
+      "append_scope_field": "追加批次",
+      "append_scope": "2026-05-18"
+    },
+    "channels": [
+      "local",
+      "feishu"
+    ],
+    "notify_when_done": true
+  },
+  "dispatch": [
+    {
+      "when": "today",
+      "action": "选定 generator 分支（Sora / Veo / i2v）并填 adapt 字段",
+      "owner": "creative",
+      "channel": "local"
+    },
+    {
+      "when": "this_week",
+      "action": "提交 1 条生成任务并记录 job_id（需 GENERATION_RENDERER_URL）",
+      "owner": "producer",
+      "channel": "local"
+    }
+  ],
+  "next_runs": [
+    {
+      "cadence": "on_demand",
+      "suggested_cron": "",
+      "run_command": "python scripts/start_capture_pack_run.py --scene 05"
+    }
+  ],
+  "context": {}
+}

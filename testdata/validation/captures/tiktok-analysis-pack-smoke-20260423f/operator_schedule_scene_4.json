@@ -1,0 +1,44 @@
+{
+  "schema_version": "operator-schedule-v1",
+  "scene": "4",
+  "generated_at": "2026-05-18T07:46:41",
+  "append_scope": "2026-05-18",
+  "delivery": {
+    "local_bundle": true,
+    "feishu": {
+      "status": "planned",
+      "table_key": "scene4_report",
+      "append_mode": "append_by_run_date",
+      "run_date_field": "采集日期",
+      "append_scope_field": "追加批次",
+      "append_scope": "2026-05-18"
+    },
+    "channels": [
+      "local",
+      "feishu"
+    ],
+    "notify_when_done": true
+  },
+  "dispatch": [
+    {
+      "when": "today",
+      "action": "按分镜表补关键帧或下载源，再交给 Scene 05 反推",
+      "owner": "editor",
+      "channel": "local"
+    },
+    {
+      "when": "this_week",
+      "action": "用 production_spec_handoff.json 试一条 Sora/Veo 分支草稿",
+      "owner": "creative",
+      "channel": "local"
+    }
+  ],
+  "next_runs": [
+    {
+      "cadence": "on_demand",
+      "suggested_cron": "",
+      "run_command": "python scripts/start_capture_pack_run.py --scene 04"
+    }
+  ],
+  "context": {}
+}

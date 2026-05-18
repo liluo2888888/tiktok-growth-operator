@@ -1,0 +1,38 @@
+{
+  "tables": {
+    "scene02_patrol_board": {
+      "app_token": "Rezfbf5AKakIl4ssoadc4tNKnZX",
+      "app_url": "https://pizvgz6mvgi.feishu.cn/base/Rezfbf5AKakIl4ssoadc4tNKnZX",
+      "table_id": "tblvVwM48WXVTFfp",
+      "table_name": "Scene02巡检主表",
+      "headers_fingerprint": "1a9c7560261ee913",
+      "fixed_headers": [
+        "采集日期",
+        "追加批次",
+        "品类",
+        "市场",
+        "频率",
+        "视频标签",
+        "视频 / 链接",
+        "钩子 / 主题",
+        "表现信号",
+        "变化标记",
+        "告警摘要",
+        "Scene 03 队列",
+        "深拆负责人",
+        "包装线"
+      ],
+      "last_append_at": "2026-05-18T08:24:00",
+      "last_append_scope": "validation-patrol-board-v1",
+      "last_record_count": 5
+    }
+  },
+  "append_log": [
+    {
+      "at": "2026-05-18T08:24:00",
+      "table_key": "scene02_patrol_board",
+      "record_count": 5,
+      "append_scope": "validation-patrol-board-v1"
+    }
+  ]
+}

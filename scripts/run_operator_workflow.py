@@ -7,7 +7,7 @@ from datetime import datetime
 from pathlib import Path
 
 from deliver_operator_run import deliver_feishu, deliver_local_bundle, load_run_context, parse_targets
-from feishu_push_runtime import maybe_push_feishu_bundle
+from feishu_delivery_helpers import deliver_feishu_report
 from generate_operator_pack import generate_pack_output
 from generate_scene_report import load_catalog
 from recommend_entry_board import recommend_family, recommend_items
@@ -170,6 +170,29 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--capture-root", default="", help="Capture-pack root for capture-pack mode.")
     parser.add_argument("--target-markets", default="", help="Optional comma-separated target markets for scene 13 capture-pack localization blueprints.")
     parser.add_argument("--target-languages", default="", help="Optional comma-separated target languages for scene 15 capture-pack image-translation blueprints.")
+    parser.add_argument("--shop-sync", action="store_true", help="For Scene 06 capture-pack runs, sync competitor products before import.")
+    parser.add_argument("--shop-keyword", default="", help="Optional TikTok Shop search keyword for Scene 06 capture-pack runs.")
+    parser.add_argument("--shop-region", default="", help="Optional TikTok Shop region for Scene 06 capture-pack runs.")
+    parser.add_argument("--shop-limit", type=int, default=10, help="Maximum synced competitor products for Scene 06 capture-pack runs.")
+    parser.add_argument("--shop-source-mode", default="", help="Optional TikTok Shop source mode override: auto, http, or clipcat.")
+    parser.add_argument("--shop-http-url", default="", help="Optional explicit TikTok Shop HTTP endpoint for Scene 06 capture-pack runs.")
+    parser.add_argument("--shop-http-api-key", default="", help="Optional explicit TikTok Shop HTTP API key for Scene 06 capture-pack runs.")
+    parser.add_argument(
+        "--shop-source-attestation",
+        default="",
+        help="Optional source trust declaration for Scene 06: official, authorized-partner, internal-gateway, or unverified.",
+    )
+    parser.add_argument(
+        "--shop-require-verified-source",
+        action="store_true",
+        help="Block Scene 06 sync unless the source attestation is official, authorized-partner, or internal-gateway.",
+    )
+    parser.add_argument(
+        "--shop-http-allowed-hosts",
+        default="",
+        help="Optional comma-separated HTTP gateway host allowlist for Scene 06 sync.",
+    )
+    parser.add_argument("--shop-enrich-detail", action="store_true", help="When using Clipcat for Scene 06, enrich each synced product with product_detail.")
 
     parser.add_argument("--name", default="", help="Run name for scene or goal mode.")
     parser.add_argument("--project", default="", help="Project or campaign name.")
@@ -184,11 +207,22 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--history-output-json", default="", help="Optional JSON output path for history mode.")
     parser.add_argument("--history-output-md", default="", help="Optional Markdown output path for history mode.")
     parser.add_argument("--history-limit", type=int, default=50, help="Maximum number of history entries to keep.")
-    parser.add_argument("--push-feishu", action="store_true", help="After generating report outputs, also push them to Feishu.")
+    parser.add_argument(
+        "--push-feishu",
+        action="store_true",
+        help="After generating report outputs, push Feishu doc/bundle and structured boards when present.",
+    )
+    parser.add_argument(
+        "--no-feishu-append-board",
+        action="store_true",
+        help="With --push-feishu, skip structured board append.",
+    )
     parser.add_argument("--feishu-app-id", default="", help="Optional explicit Feishu app ID for push mode.")
     parser.add_argument("--feishu-app-secret", default="", help="Optional explicit Feishu app secret for push mode.")
     parser.add_argument("--feishu-title", default="", help="Optional explicit Feishu Doc title.")
     parser.add_argument("--feishu-base-name", default="", help="Optional explicit Feishu Bitable app name.")
+    parser.add_argument("--feishu-run-date", default="", help="Optional YYYY-MM-DD for board append rows.")
+    parser.add_argument("--feishu-append-scope", default="", help="Optional board append batch key.")
     parser.add_argument(
         "--deliver",
         default="",
@@ -721,6 +755,25 @@ def run_capture_pack_mode(args: argparse.Namespace, scene_override: str | None =
         market=args.market,
         formats=args.formats or "md,docx,xlsx",
         operator_packs_raw="",
+        shop_sync=args.shop_sync,
+        shop_keyword=args.shop_keyword,
+        shop_region=args.shop_region,
+        shop_limit=args.shop_limit,
+        shop_source_mode=args.shop_source_mode,
+        shop_http_url=args.shop_http_url,
+        shop_http_api_key=args.shop_http_api_key,
+        shop_source_attestation=args.shop_source_attestation,
+        shop_require_verified_source=args.shop_require_verified_source,
+        shop_http_allowed_hosts=args.shop_http_allowed_hosts,
+        shop_enrich_detail=args.shop_enrich_detail,
+        push_feishu=args.push_feishu,
+        feishu_app_id=args.feishu_app_id,
+        feishu_app_secret=args.feishu_app_secret,
+        feishu_title=args.feishu_title,
+        feishu_base_name=args.feishu_base_name,
+        feishu_append_board=not args.no_feishu_append_board,
+        feishu_run_date=args.feishu_run_date,
+        feishu_append_scope=args.feishu_append_scope,
     )
 
 
@@ -778,12 +831,15 @@ def maybe_push_feishu(args: argparse.Namespace, result: dict) -> dict | None:
             "status": "skipped",
             "reason": "no-report-json",
         }
-    return maybe_push_feishu_bundle(
+    return deliver_feishu_report(
         report_json,
         args.feishu_app_id,
         args.feishu_app_secret,
         title=args.feishu_title.strip() or args.project.strip(),
         base_name=args.feishu_base_name.strip() or args.project.strip(),
+        append_board=not args.no_feishu_append_board,
+        run_date=args.feishu_run_date,
+        append_scope=args.feishu_append_scope,
     )
 
 

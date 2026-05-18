@@ -1,0 +1,293 @@
+{
+  "schema_version": "asset-library-v1",
+  "assets": [
+    {
+      "kind": "profile",
+      "label": "Source profile",
+      "path": "https://www.tiktok.com/@orangecat0088/video/7636206423080226070",
+      "note": "Account baseline",
+      "scene_origin": "02",
+      "registered_at": "2026-05-17T22:18:28"
+    },
+    {
+      "kind": "reference_video",
+      "label": "Ranked video 1 reference_video",
+      "path": "https://www.tiktok.com/@silly.orangecat5/video/7636447840645958928",
+      "note": "#ai #cat #kitty #fypviralシ #foryou #viralvideos #cutecat #trending #catlover #haha #orangecat #kucing #cartoon #catsvideo",
+      "scene_origin": "02",
+      "registered_at": "2026-05-17T22:18:28"
+    },
+    {
+      "kind": "cover_image",
+      "label": "Ranked video 1 cover_image",
+      "path": "https://p16-common-sign.tiktokcdn.com/tos-alisg-p-0037/ooA1HoAXBIDQN65dAyiAU9KAsBPy0AgEi0wOBf~tplv-tiktokx-origin.image?dr=14575&x-expires=1778184000&x-signature=o9qC40CS4VB5qREciSvTht0OOz0%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=my",
+      "note": "#ai #cat #kitty #fypviralシ #foryou #viralvideos #cutecat #trending #catlover #haha #orangecat #kucing #cartoon #catsvideo",
+      "scene_origin": "02",
+      "registered_at": "2026-05-17T22:18:28"
+    },
+    {
+      "kind": "play_source",
+      "label": "Ranked video 1 play_source",
+      "path": "https://www.tiktok.com/aweme/v1/play/?faid=1988&file_id=30458085e19e4cd7a6bc5ab4b84735f0&is_play_url=1&item_id=7636447840645958928&line=0&ply_type=2&signaturev3=dmlkZW9faWQ7ZmlsZV9pZDtpdGVtX2lkLmQyZTQwZjQwZDdmOTY0ZjNmZjg3M2MwNDk3NDJlMzc4&tk=tt_chain_token&video_id=v1c025g50000d7t1q5nog65m93opdsf0",
+      "note": "#ai #cat #kitty #fypviralシ #foryou #viralvideos #cutecat #trending #catlover #haha #orangecat #kucing #cartoon #catsvideo",
+      "scene_origin": "02",
+      "registered_at": "2026-05-17T22:18:28"
+    },
+    {
+      "kind": "reference_video",
+      "label": "Ranked video 2 reference_video",
+      "path": "https://www.tiktok.com/@usatiktoker23/video/7636118512737586454",
+      "note": "#orangecat #cutecat #storycat #catvideo #Cartoons",
+      "scene_origin": "02",
+      "registered_at": "2026-05-17T22:18:28"
+    },
+    {
+      "kind": "cover_image",
+      "label": "Ranked video 2 cover_image",
+      "path": "https://p16-common-sign.tiktokcdn.com/tos-no1a-p-0037-no/oUIo4T3IrDPBgAjVmAIAnFELC8Dk9eDxefucVI~tplv-tiktokx-origin.image?dr=14575&x-expires=1778184000&x-signature=ScJZ4rUNIe7dQkk0Tocvww%2FiI1U%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=my",
+      "note": "#orangecat #cutecat #storycat #catvideo #Cartoons",
+      "scene_origin": "02",
+      "registered_at": "2026-05-17T22:18:28"
+    },
+    {
+      "kind": "play_source",
+      "label": "Ranked video 2 play_source",
+      "path": "https://www.tiktok.com/aweme/v1/play/?faid=1988&file_id=3321659f476f4cfbbf2ed0fe72283ef1&is_play_url=1&item_id=7636118512737586454&line=0&ply_type=2&signaturev3=dmlkZW9faWQ7ZmlsZV9pZDtpdGVtX2lkLjFlMDJlN2EzM2RkZWZjMzkxOTA0Mjc0OGEyMTBjZWVm&tk=tt_chain_token&video_id=v24044gl0000d7sf177og65jf583ftn0",
+      "note": "#orangecat #cutecat #storycat #catvideo #Cartoons",
+      "scene_origin": "02",
+      "registered_at": "2026-05-17T22:18:28"
+    },
+    {
+      "kind": "cover_image",
+      "label": "Ranked video 3 cover_image",
+      "path": "https://p16-common-sign.tiktokcdn.com/tos-no1a-p-0037-no/oAAAyFD4HevfDgzArf8FUgE7AIE7LHAQ1T6bIY~tplv-tiktokx-origin.image?dr=14575&x-expires=1778184000&x-signature=1EW6gjL%2BYAmcd11up2OJX6rVfW8%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=sg1",
+      "note": "#foryou#foryoupage#catlover#cartoon#kitten #haha#funnyvideo#orangecat#cutecat #catlover#kitty#tiger#kucing#fyp#cat#ai",
+      "scene_origin": "02",
+      "registered_at": "2026-05-17T22:18:28"
+    },
+    {
+      "kind": "play_source",
+      "label": "Ranked video 3 play_source",
+      "path": "https://www.tiktok.com/aweme/v1/play/?faid=1988&file_id=209bbc66d6974df3904ccc3b928171ac&is_play_url=1&item_id=7636206423080226070&line=0&ply_type=2&signaturev3=dmlkZW9faWQ7ZmlsZV9pZDtpdGVtX2lkLjMxNTAxNjgzOGM2OWU0YTc1YTNkM2RjNTE3NzRlZmM2&tk=tt_chain_token&video_id=v24044gl0000d7sk0tnog65n0c0vab90",
+      "note": "#foryou#foryoupage#catlover#cartoon#kitten #haha#funnyvideo#orangecat#cutecat #catlover#kitty#tiger#kucing#fyp#cat#ai",
+      "scene_origin": "02",
+      "registered_at": "2026-05-17T22:18:28"
+    },
+    {
+      "kind": "reference_video",
+      "label": "Ranked video 4 reference_video",
+      "path": "https://www.tiktok.com/@usatiktoker23/video/7636373657828347158",
+      "note": "SuperCat Papa #kitten #catvideo #storycat #cutecat #orangecat",
+      "scene_origin": "02",
+      "registered_at": "2026-05-17T22:18:28"
+    },
+    {
+      "kind": "cover_image",
+      "label": "Ranked video 4 cover_image",
+      "path": "https://p16-common-sign.tiktokcdn.com/tos-no1a-p-0037-no/o82EQiABgiUBH4XifSpRFDA2Ii5WXfIkNpGrWk~tplv-tiktokx-origin.image?dr=14575&x-expires=1778184000&x-signature=YzukXoteDnwdo8guQXSeaqb%2FSpc%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=sg1",
+      "note": "SuperCat Papa #kitten #catvideo #storycat #cutecat #orangecat",
+      "scene_origin": "02",
+      "registered_at": "2026-05-17T22:18:28"
+    },
+    {
+      "kind": "play_source",
+      "label": "Ranked video 4 play_source",
+      "path": "https://www.tiktok.com/aweme/v1/play/?faid=1988&file_id=092113ad3d3146a0b4fb01e28301bd1e&is_play_url=1&item_id=7636373657828347158&line=0&ply_type=2&signaturev3=dmlkZW9faWQ7ZmlsZV9pZDtpdGVtX2lkLmZmNDEzYTFjYzc4MTljYzA4YmJhNzQ4Yjc5YWI5YmE5&tk=tt_chain_token&video_id=v24044gl0000d7srokvog65mh5gtf200",
+      "note": "SuperCat Papa #kitten #catvideo #storycat #cutecat #orangecat",
+      "scene_origin": "02",
+      "registered_at": "2026-05-17T22:18:28"
+    },
+    {
+      "kind": "reference_video",
+      "label": "Ranked video 5 reference_video",
+      "path": "https://www.tiktok.com/@shelbytakesnc/video/7636013662016261406",
+      "note": "He is so funny lol I think he’s like this cuz he grew up with my German shepherd harassing him nonstop so he’s just fearless #orangecatbehavior #orangecats",
+      "scene_origin": "02",
+      "registered_at": "2026-05-17T22:18:28"
+    },
+    {
+      "kind": "cover_image",
+      "label": "Ranked video 5 cover_image",
+      "path": "https://p16-pu-sign-useast8.tiktokcdn-us.com/tos-useast8-p-0068-tx2/o8hCifpqMIAi87rXq5kO4vBo8Ai7CABL0EIIii~tplv-tiktokx-origin.image?dr=14575&x-expires=1778184000&x-signature=FjptLfGgpRg3i3t6T0Xcsq9VdnI%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=my",
+      "note": "He is so funny lol I think he’s like this cuz he grew up with my German shepherd harassing him nonstop so he’s just fearless #orangecatbehavior #orangecats",
+      "scene_origin": "02",
+      "registered_at": "2026-05-17T22:18:28"
+    },
+    {
+      "kind": "play_source",
+      "label": "Ranked video 5 play_source",
+      "path": "https://www.tiktok.com/aweme/v1/play/?faid=1988&file_id=9dd3ae140d6044b79cc720b75f6fcd1f&is_play_url=1&item_id=7636013662016261406&line=0&ply_type=2&signaturev3=dmlkZW9faWQ7ZmlsZV9pZDtpdGVtX2lkLjNmMGY1YmQ0YmI0OGYyMWZmYTkzZmZiNzIzMzA3ODZk&tk=tt_chain_token&video_id=v15044gf0000d7s8t9nog65r15p2lsu0",
+      "note": "He is so funny lol I think he’s like this cuz he grew up with my German shepherd harassing him nonstop so he’s just fearless #orangecatbehavior #orangecats",
+      "scene_origin": "02",
+      "registered_at": "2026-05-17T22:18:28"
+    },
+    {
+      "kind": "reference_video",
+      "label": "Ranked video 6 reference_video",
+      "path": "https://www.tiktok.com/@tiny.family4/video/7636446303853055246",
+      "note": "The Little Orange Cat's Bizarre Prank on the Bee—and the Ending #foryou #catlover #viral #cat #kitten #bee #funny #cute",
+      "scene_origin": "02",
+      "registered_at": "2026-05-17T22:18:28"
+    },
+    {
+      "kind": "cover_image",
+      "label": "Ranked video 6 cover_image",
+      "path": "https://p16-common-sign.tiktokcdn.com/tos-useast5-p-0068-tx/o4qIU8DoZAfjMeAgAfGQAXEkbH9XQlqTT8drAP~tplv-tiktokx-origin.image?dr=14575&x-expires=1778184000&x-signature=S88WU1N1aW2Bm3xXd68rm%2FmJr7k%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=my2",
+      "note": "The Little Orange Cat's Bizarre Prank on the Bee—and the Ending #foryou #catlover #viral #cat #kitten #bee #funny #cute",
+      "scene_origin": "02",
+      "registered_at": "2026-05-17T22:18:28"
+    },
+    {
+      "kind": "play_source",
+      "label": "Ranked video 6 play_source",
+      "path": "https://www.tiktok.com/aweme/v1/play/?faid=1988&file_id=3b4503a6ee0541f087e4f2051a934dd4&is_play_url=1&item_id=7636446303853055246&line=0&ply_type=2&signaturev3=dmlkZW9faWQ7ZmlsZV9pZDtpdGVtX2lkLjBjZmFhYmI2Y2NlZDFmNmE1MTZmODcyYzcwN2QzYzA4&tk=tt_chain_token&video_id=v12044gd0000d7t1j2fog65s8l6qjr10",
+      "note": "The Little Orange Cat's Bizarre Prank on the Bee—and the Ending #foryou #catlover #viral #cat #kitten #bee #funny #cute",
+      "scene_origin": "02",
+      "registered_at": "2026-05-17T22:18:28"
+    },
+    {
+      "kind": "reference_video",
+      "label": "Ranked video 7 reference_video",
+      "path": "https://www.tiktok.com/@aicatstories44/video/7636137611576282399",
+      "note": "sad cat 🤣#ai #aicat #aicatfunnyvideo #orangecat",
+      "scene_origin": "02",
+      "registered_at": "2026-05-17T22:18:28"
+    },
+    {
+      "kind": "cover_image",
+      "label": "Ranked video 7 cover_image",
+      "path": "https://p16-common-sign.tiktokcdn.com/tos-useast8-p-0068-tx2/oAIAxn6RTJfAFAGu2aQAHFEQzfDd84A9Ef4fnU~tplv-tiktokx-origin.image?dr=14575&x-expires=1778184000&x-signature=lkiLUkHnws6uh6W9gh8wxUrMhjs%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=sg1",
+      "note": "sad cat 🤣#ai #aicat #aicatfunnyvideo #orangecat",
+      "scene_origin": "02",
+      "registered_at": "2026-05-17T22:18:28"
+    },
+    {
+      "kind": "play_source",
+      "label": "Ranked video 7 play_source",
+      "path": "https://www.tiktok.com/aweme/v1/play/?faid=1988&file_id=0b2e0cd4d27140f29d574a2051673ecd&is_play_url=1&item_id=7636137611576282399&line=0&ply_type=2&signaturev3=dmlkZW9faWQ7ZmlsZV9pZDtpdGVtX2lkLmQ3MTdjZTYyZTZhM2ExYTQ1OGY2NDdmNjdmMmQwNTNl&tk=tt_chain_token&video_id=v15044gf0000d7sfsvvog65nijuvvuv0",
+      "note": "sad cat 🤣#ai #aicat #aicatfunnyvideo #orangecat",
+      "scene_origin": "02",
+      "registered_at": "2026-05-17T22:18:28"
+    },
+    {
+      "kind": "reference_video",
+      "label": "Ranked video 8 reference_video",
+      "path": "https://www.tiktok.com/@aicatstories44/video/7636400805330849054",
+      "note": "sad cat🤣#orangecat #aicatfunnyvideo #aicat #ai",
+      "scene_origin": "02",
+      "registered_at": "2026-05-17T22:18:28"
+    },
+    {
+      "kind": "cover_image",
+      "label": "Ranked video 8 cover_image",
+      "path": "https://p16-common-sign.tiktokcdn.com/tos-useast8-p-0068-tx2/o4I5VYAIi9BAfVtiOtC3Dp343AhEREAAE0HLfW~tplv-tiktokx-origin.image?dr=14575&x-expires=1778184000&x-signature=bislpp0QvEZ678hWWwwJSnuiD2E%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=sg1",
+      "note": "sad cat🤣#orangecat #aicatfunnyvideo #aicat #ai",
+      "scene_origin": "02",
+      "registered_at": "2026-05-17T22:18:28"
+    },
+    {
+      "kind": "play_source",
+      "label": "Ranked video 8 play_source",
+      "path": "https://www.tiktok.com/aweme/v1/play/?faid=1988&file_id=242cad638ec044ceb1ded872d17191bc&is_play_url=1&item_id=7636400805330849054&line=0&ply_type=2&signaturev3=dmlkZW9faWQ7ZmlsZV9pZDtpdGVtX2lkLmI5OTMwYjE3MzE0MjJmMDM3NTE3ZWY0ZjZmZDNmZGU1&tk=tt_chain_token&video_id=v15044gf0000d7stouvog65iegp50vqg",
+      "note": "sad cat🤣#orangecat #aicatfunnyvideo #aicat #ai",
+      "scene_origin": "02",
+      "registered_at": "2026-05-17T22:18:28"
+    },
+    {
+      "kind": "report_artifact",
+      "label": "aggregate_report.md",
+      "path": "aggregate_report.md",
+      "note": "真实 TikTok capture pack 的汇总 Markdown 报告。",
+      "scene_origin": "02",
+      "registered_at": "2026-05-17T22:18:28"
+    },
+    {
+      "kind": "report_artifact",
+      "label": "patrol_snapshot.json",
+      "path": "patrol_snapshot.json",
+      "note": "Scene 02 标准化巡检快照。",
+      "scene_origin": "02",
+      "registered_at": "2026-05-17T22:18:28"
+    },
+    {
+      "kind": "report_artifact",
+      "label": "patrol_delta.json",
+      "path": "patrol_delta.json",
+      "note": "Scene 02 相对上一轮的快照差异。",
+      "scene_origin": "02",
+      "registered_at": "2026-05-17T22:18:28"
+    },
+    {
+      "kind": "report_artifact",
+      "label": "patrol_alerts.json",
+      "path": "patrol_alerts.json",
+      "note": "Scene 02 基于巡检差异得出的告警决策。",
+      "scene_origin": "02",
+      "registered_at": "2026-05-17T22:18:28"
+    },
+    {
+      "kind": "report_artifact",
+      "label": "scene03_candidates.json",
+      "path": "scene03_candidates.json",
+      "note": "Scene 02 巡检后交给 Scene 03 的短名单。",
+      "scene_origin": "02",
+      "registered_at": "2026-05-17T22:18:28"
+    },
+    {
+      "kind": "report_artifact",
+      "label": "patrol_config.json",
+      "path": "patrol_config.json",
+      "note": "本轮使用的 Scene 02 巡检配置。",
+      "scene_origin": "02",
+      "registered_at": "2026-05-17T22:18:28"
+    },
+    {
+      "kind": "capture_artifact",
+      "label": "scene03_creation_matrix.json",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\capture-packs\\scene02-patrol-capture-pack\\scene03_creation_matrix.json",
+      "note": "Reusable capture-pack artifact",
+      "scene_origin": "02",
+      "registered_at": "2026-05-17T22:18:28"
+    },
+    {
+      "kind": "capture_artifact",
+      "label": "content_graph.json",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\capture-packs\\scene02-patrol-capture-pack\\content_graph.json",
+      "note": "Reusable capture-pack artifact",
+      "scene_origin": "02",
+      "registered_at": "2026-05-17T22:18:28"
+    },
+    {
+      "kind": "report_artifact",
+      "label": "Scene 02 operator schedule",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\capture-packs\\scene02-patrol-capture-pack\\operator_schedule_scene_2.json",
+      "note": "推送/定时调度真源，可对接 deliver_operator_run --adapter feishu",
+      "scene_origin": "02",
+      "registered_at": "2026-05-18T06:51:21"
+    },
+    {
+      "kind": "report_artifact",
+      "label": "Scene 03 operator schedule",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\capture-packs\\scene02-patrol-capture-pack\\operator_schedule_scene_3.json",
+      "note": "推送/定时调度真源，可对接 deliver_operator_run --adapter feishu",
+      "scene_origin": "03",
+      "registered_at": "2026-05-18T06:51:23"
+    },
+    {
+      "kind": "report_artifact",
+      "label": "Scene 02 巡检看板 JSON",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\capture-packs\\scene02-patrol-capture-pack\\patrol_board.json",
+      "note": "Feishu 式巡检主表真源",
+      "scene_origin": "02",
+      "registered_at": "2026-05-18T08:22:41"
+    }
+  ],
+  "carry_forward": [
+    "reference_video",
+    "cover_image",
+    "download_source",
+    "production_spec_handoff",
+    "collection_board"
+  ],
+  "updated_at": "2026-05-18T08:56:07"
+}

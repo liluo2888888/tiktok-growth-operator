@@ -11,8 +11,22 @@ from start_capture_pack_run import create_capture_pack_run
 from text_normalization import normalize_nested, normalize_text, read_json_file, write_json_file, write_utf8_text
 
 
-TIKMATRIX_RUNNER = Path(r"E:\tiktok\TikMatrix\scripts\run_from_skill.py")
-DEFAULT_TIKMATRIX_OUTPUT = Path(r"E:\tiktok\TikMatrix\tmp")
+def _tikmatrix_runner() -> Path:
+    import os
+
+    override = normalize_text(os.environ.get("TIKMATRIX_RUNNER"))
+    if override:
+        return Path(override).expanduser()
+    return Path(r"E:\tiktok\TikMatrix\scripts\run_from_skill.py")
+
+
+def _tikmatrix_output_root() -> Path:
+    import os
+
+    override = normalize_text(os.environ.get("TIKMATRIX_OUTPUT_ROOT"))
+    if override:
+        return Path(override).expanduser()
+    return Path(r"E:\tiktok\TikMatrix\tmp")
 
 
 def parse_args() -> argparse.Namespace:
@@ -101,13 +115,14 @@ def ensure_state_root(skill_root: Path, project: str, category: str, market: str
 
 
 def run_tikmatrix(workflow: str, url: str, count: int, output_dir: Path) -> None:
-    if not TIKMATRIX_RUNNER.exists():
-        raise SystemExit(f"TikMatrix runner not found: {TIKMATRIX_RUNNER}")
+    runner = _tikmatrix_runner()
+    if not runner.exists():
+        raise SystemExit(f"TikMatrix runner not found: {runner}")
     output_dir.mkdir(parents=True, exist_ok=True)
     completed = subprocess.run(
         [
             sys.executable,
-            str(TIKMATRIX_RUNNER),
+            str(runner),
             workflow,
             "--url",
             url,
@@ -887,7 +902,11 @@ def main() -> None:
 
     query_roots: list[Path] = []
     topic_roots: list[Path] = []
-    tikmatrix_output_root = Path(args.tikmatrix_output_root).expanduser().resolve() if args.tikmatrix_output_root.strip() else DEFAULT_TIKMATRIX_OUTPUT
+    tikmatrix_output_root = (
+        Path(args.tikmatrix_output_root).expanduser().resolve()
+        if args.tikmatrix_output_root.strip()
+        else _tikmatrix_output_root()
+    )
 
     if args.query_root.strip():
         query_roots.append(Path(args.query_root).expanduser().resolve())

@@ -1,0 +1,109 @@
+{
+  "schema_version": "asset-library-v1",
+  "assets": [
+    {
+      "kind": "profile",
+      "label": "Source profile",
+      "path": "https://www.tiktok.com/@mustsharebeauty",
+      "note": "Account baseline",
+      "scene_origin": "18",
+      "registered_at": "2026-05-17T22:18:37"
+    },
+    {
+      "kind": "reference_video",
+      "label": "Ranked video 1 reference_video",
+      "path": "https://www.tiktok.com/@mustsharebeauty/video/7616000000000000002",
+      "note": "ranked reference",
+      "scene_origin": "18",
+      "registered_at": "2026-05-17T22:18:37"
+    },
+    {
+      "kind": "reference_video",
+      "label": "Ranked video 2 reference_video",
+      "path": "https://www.tiktok.com/@mustsharebeauty/video/7617000000000000001",
+      "note": "ranked reference",
+      "scene_origin": "18",
+      "registered_at": "2026-05-17T22:18:37"
+    },
+    {
+      "kind": "reference_video",
+      "label": "Ranked video 3 reference_video",
+      "path": "https://www.tiktok.com/@mustsharebeauty/video/7617000000000000002",
+      "note": "ranked reference",
+      "scene_origin": "18",
+      "registered_at": "2026-05-17T22:18:37"
+    },
+    {
+      "kind": "reference_video",
+      "label": "Ranked video 4 reference_video",
+      "path": "https://www.tiktok.com/@mustsharebeauty/video/7616000000000000001",
+      "note": "ranked reference",
+      "scene_origin": "18",
+      "registered_at": "2026-05-17T22:18:37"
+    },
+    {
+      "kind": "reference_video",
+      "label": "Ranked video 5 reference_video",
+      "path": "https://www.tiktok.com/@mustsharebeauty/video/7617000000000000003",
+      "note": "ranked reference",
+      "scene_origin": "18",
+      "registered_at": "2026-05-17T22:18:37"
+    },
+    {
+      "kind": "reference_video",
+      "label": "Ranked video 6 reference_video",
+      "path": "https://www.tiktok.com/@mustsharebeauty/video/7616000000000000003",
+      "note": "ranked reference",
+      "scene_origin": "18",
+      "registered_at": "2026-05-17T22:18:37"
+    },
+    {
+      "kind": "capture_artifact",
+      "label": "content_graph.json",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene18-19-multi-week-account\\content_graph.json",
+      "note": "Reusable capture-pack artifact",
+      "scene_origin": "18",
+      "registered_at": "2026-05-17T22:18:37"
+    },
+    {
+      "kind": "report_artifact",
+      "label": "Scene 18 operator schedule",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene18-19-multi-week-account\\operator_schedule_scene_18.json",
+      "note": "推送/定时调度真源，可对接 deliver_operator_run --adapter feishu",
+      "scene_origin": "18",
+      "registered_at": "2026-05-18T06:51:25"
+    },
+    {
+      "kind": "report_artifact",
+      "label": "Scene 19 operator schedule",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene18-19-multi-week-account\\operator_schedule_scene_19.json",
+      "note": "推送/定时调度真源，可对接 deliver_operator_run --adapter feishu",
+      "scene_origin": "19",
+      "registered_at": "2026-05-18T06:51:26"
+    },
+    {
+      "kind": "report_artifact",
+      "label": "Scene 18 竞品周报主表 JSON",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene18-19-multi-week-account\\competitor_weekly_board.json",
+      "note": "Feishu 式竞品周报主表真源",
+      "scene_origin": "18",
+      "registered_at": "2026-05-18T08:29:13"
+    },
+    {
+      "kind": "report_artifact",
+      "label": "Scene 19 账号复盘主表 JSON",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene18-19-multi-week-account\\account_retro_board.json",
+      "note": "Feishu 式账号复盘调度主表真源",
+      "scene_origin": "19",
+      "registered_at": "2026-05-18T08:37:55"
+    }
+  ],
+  "carry_forward": [
+    "reference_video",
+    "cover_image",
+    "download_source",
+    "production_spec_handoff",
+    "collection_board"
+  ],
+  "updated_at": "2026-05-18T08:37:55"
+}

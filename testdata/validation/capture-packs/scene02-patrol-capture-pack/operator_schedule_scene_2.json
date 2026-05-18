@@ -1,0 +1,59 @@
+{
+  "schema_version": "operator-schedule-v1",
+  "scene": "2",
+  "generated_at": "2026-05-18T08:56:07",
+  "append_scope": "Orange Cat::US::daily",
+  "delivery": {
+    "local_bundle": true,
+    "feishu": {
+      "status": "planned",
+      "table_key": "scene02_patrol_board",
+      "append_mode": "append_by_run_date",
+      "run_date_field": "采集日期",
+      "append_scope_field": "追加批次",
+      "append_scope": "Orange Cat::US::daily"
+    },
+    "channels": [
+      "local",
+      "feishu"
+    ],
+    "notify_when_done": true
+  },
+  "dispatch": [
+    {
+      "when": "today",
+      "action": "发送日报摘要（新增/上升/异常；告警 0 条）",
+      "owner": "operator",
+      "channel": "feishu"
+    },
+    {
+      "when": "today",
+      "action": "仅把 scene03_candidates 前 3 条送进 Scene 03，不全量重拆",
+      "owner": "analyst",
+      "channel": "local"
+    },
+    {
+      "when": "tomorrow",
+      "action": "同表追加巡检：Orange Cat / US / daily",
+      "owner": "collector",
+      "channel": "feishu"
+    }
+  ],
+  "next_runs": [
+    {
+      "cadence": "daily",
+      "suggested_cron": "0 9 * * *",
+      "run_command": "python scripts/run_scene0203.py --source patrol-loop"
+    }
+  ],
+  "context": {
+    "category": "Orange Cat",
+    "market": "US",
+    "cadence": "daily",
+    "append_scope": "Orange Cat::US::daily",
+    "alert_count": 0,
+    "shortlist_count": 3,
+    "board_row_count": 5
+  },
+  "board_row_count": 5
+}

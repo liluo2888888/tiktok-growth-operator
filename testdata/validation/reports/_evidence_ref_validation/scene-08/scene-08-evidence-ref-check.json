@@ -1,0 +1,574 @@
+{
+  "metadata": {
+    "scene": "08",
+    "scene_slug": "multi-product-comment-mining-and-persona-report",
+    "scene_title": "Multi-Product Comment Mining And Persona Report",
+    "project": "Evidence Ref Validation",
+    "title": "Scene 08 Report - Evidence Ref Validation",
+    "deliverable_type": "insight_report",
+    "generated_at": "2026-05-17T22:40:56",
+    "scenario_file": "scenarios/08-multi-product-comment-mining-and-persona-report.md",
+    "status": "imported"
+  },
+  "working_context": {
+    "summary": "真实 TikTok capture-pack 导入自 validation/captures/scene08-multi-product-home-goods-comments，当前用于未分类赛道。当前看板规模：0 条已排序 / 0 条达标.\n来源账号：待补; 会话质量：待补; 查询词：未提供; 主题：未提供.\n采集根目录：validation/captures/scene08-multi-product-home-goods-comments",
+    "inputs": [
+      "Profile:",
+      "Ranked video count: 0",
+      "Qualified video count: 0",
+      "Capture root: validation/captures/scene08-multi-product-home-goods-comments"
+    ],
+    "constraints": [
+      "If comment volume is light, mark findings as provisional.",
+      "Conclusions should stay tied to ranked metrics, captions, and capture-pack summaries only."
+    ],
+    "requested_outputs": [
+      "购买因素提炼",
+      "Praise keyword synthesis",
+      "Complaint pain-point synthesis",
+      "Price-band difference view",
+      "Persona summary",
+      "Selection and content implications",
+      "TikTok-native ranked-pattern conclusions",
+      "Reusable adaptation rules grounded in the capture pack"
+    ],
+    "minimum_evidence": [
+      "Comments from at least 2 products",
+      "summary.json or aggregate_summary.json",
+      "profile_summary.json or summary.json",
+      "ranked_videos.json or aggregate_ranked_videos.json"
+    ],
+    "ideal_evidence": [
+      "20-40 comments per product",
+      "Market context",
+      "Positioning goal",
+      "Price-band context",
+      "购买型评论语言样本",
+      "aggregate_qualified_videos.json or qualified_video_links.txt",
+      "aggregate_report.md",
+      "video_details.json"
+    ],
+    "ready_checklist": [
+      "Comments stay grouped by product",
+      "Repeated phrases can be quoted",
+      "Low-volume caveats are explicit",
+      "Source product labels survive the merge",
+      "基础价值与改进机会可以分开",
+      "Top-ranked videos are clearly identified",
+      "Transferable pattern is separated from profile-specific brand power"
+    ]
+  },
+  "executive_summary": {
+    "conclusion": "这份 TikTok 评论包里最强的重复用户语言，已经能更清楚地归到购买因素、信任信号和差评痛点三类，并且能用回复链压力把浅层热闹和真实异议处理区分开。",
+    "why_it_matters": "这很重要，因为操作者拿到的不再是一堆平铺评论，而是更干净的买家语言聚类、来源商品标签、去重后的高频原话和回复链线索。",
+    "next_action": "在下一轮测试前，先用这些已清洗的差评痛点和信任信号去写评论回复、FAQ 文案和定位话术。",
+    "confidence": "medium"
+  },
+  "operator_guide": {
+    "operator_checklist": [
+      "合并品类信号前，先按商品维度保留评论分组。",
+      "来源商品标签要一路保留到洞察层。",
+      "优先引用重复出现的用户原话，而不只是分析师转述。",
+      "把痛点与欲望翻译成产品决策和脚本启发。",
+      "优先突出物流、包装、真假、退货、before-after、尺码 / 色号适配这类购买型语言。"
+    ],
+    "common_failure_modes": [
+      "把一次性抱怨和真正重复出现的痛点混为一谈。",
+      "只做情绪总结，没有具体用户原话。",
+      "过早抹平来源商品差异，丢掉价格带洞察。",
+      "忽略欲望、抱怨和信任信号之间的区别。"
+    ]
+  },
+  "execution_template": {
+    "recommended_request": "按场景 08 执行：把多个商品的评论做成品类级人群洞察。先按来源商品分组，再提炼购买因素、好评关键词、差评痛点、价位差异，并保留重复用户原话与来源商品标签，最后回到人群画像、定位与脚本话术建议。",
+    "recommended_request_zh": "按场景 08 执行：把多个产品的评论做合并挖掘，分开提炼痛点、欲望和信任信号，并保留原话，最后转成人群和话术启发。",
+    "recommended_runner_args": [
+      "python scripts/run_operator_workflow.py --mode scene --scene 08 --project \"<project-name>\" --output-root \".\\tmp\\comment-mining-persona\"",
+      "python scripts/generate_scene_report.py --scene 08 --project \"<project-name>\" --output \".\\tmp\\comment-mining-persona.json\" --format json"
+    ],
+    "variable_inputs": [
+      {
+        "name": "project_name",
+        "meaning": "便于识别的运行名或项目名",
+        "example": "口红品类评论挖掘与人群画像报告",
+        "required": "是"
+      },
+      {
+        "name": "market",
+        "meaning": "当场景依赖单一市场时的目标市场或地区",
+        "example": "美国",
+        "required": "建议"
+      },
+      {
+        "name": "evidence_pack",
+        "meaning": "作为源证据使用的链接、截图、转写、导出文件、OCR 文本或摘录备注",
+        "example": "来自 3-5 个商品的评论样本，已标出物流、包装、真假、退货、before-after、色号 / 尺码适配等购买型语言",
+        "required": "是"
+      },
+      {
+        "name": "success_goal",
+        "meaning": "操作者希望该场景产出的结果",
+        "example": "买家语言提炼、基础价值 / 改进机会分离与人群画像启发",
+        "required": "建议"
+      }
+    ],
+    "codex_prompt_scaffold": [
+      "以场景 08 作为本次工作的主流程。",
+      "分析前先把现有证据归整为以下输入：Comments from 2+ products, Market, Product positioning goal, Optional price-band notes。",
+      "如果证据不足，先明确缺口再继续。最低开工证据：Comments from at least 2 products。",
+      "最终必须产出以下可直接给运营使用的结果：购买因素提炼, Praise keyword synthesis, Complaint pain-point synthesis, Price-band difference view, Persona summary, Selection and content implications。",
+      "合并品类信号前，先按商品维度保留评论分组。",
+      "优先保留重复用户原话，不要只做抽象情绪总结。",
+      "把品类级基础价值与品类级改进机会明确分开。",
+      "尽量突出物流、包装、真假、退货、before-after、尺码 / 色号适配等购买型语言。",
+      "优先填入可复用结论、表格、排序逻辑和下一步动作，不要停留在泛泛点评。"
+    ],
+    "codex_prompt_scaffold_zh": [
+      "按场景 08 执行：把多个产品的评论做合并挖掘，分开提炼痛点、欲望和信任信号，并保留原话，最后转成人群和话术启发。",
+      "先把我提供的材料整理成这组输入：Comments from 2+ products, Market, Product positioning goal, Optional price-band notes。",
+      "如果证据不足，先明确缺口再继续。最低开工证据：Comments from at least 2 products。",
+      "最终必须产出：购买因素提炼, Praise keyword synthesis, Complaint pain-point synthesis, Price-band difference view, Persona summary, Selection and content implications。",
+      "输出必须可直接给运营、拆解、脚本、测试或交付使用，优先给表格、排序逻辑、复用规则和下一步动作。"
+    ],
+    "workflow_steps": [
+      "合并品类信号前，先按商品维度保留评论分组。",
+      "来源商品标签要一路保留到洞察层。",
+      "优先引用重复出现的用户原话，而不只是分析师转述。",
+      "把痛点与欲望翻译成产品决策和脚本启发。",
+      "优先突出物流、包装、真假、退货、before-after、尺码 / 色号适配这类购买型语言。"
+    ],
+    "output_checklist": [
+      "Repeated pain, desire, and trust signals are separated clearly.",
+      "Real user-language evidence is preserved.",
+      "Source products remain visible through the merged analysis.",
+      "基础价值与改进机会已明确分开。",
+      "Persona and messaging implications follow directly from the mined comments."
+    ]
+  },
+  "evidence": [
+    {
+      "label": "汇总",
+      "detail": "已排序=0; 达标=0; 最低点赞=",
+      "source": "summary.json"
+    },
+    {
+      "label": "账号汇总",
+      "detail": "账号=; 会话=待补; 已排序=0",
+      "source": "summary.json"
+    },
+    {
+      "label": "Content graph clusters",
+      "detail": "creator=0; sound=0; hashtag=0; videos=0",
+      "source": "content_graph.json"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "Executive Conclusion",
+      "instruction": "Summarize what these comments reveal about the category buyer.",
+      "paragraphs": [
+        "这份 TikTok 评论包里最强的重复用户语言，已经能更清楚地归到购买因素、信任信号和差评痛点三类，并且能用回复链压力把浅层热闹和真实异议处理区分开。",
+        "这次共从 3 条 TikTok 视频中采到了评论样本。"
+      ],
+      "bullets": [],
+      "numbered": [],
+      "table": {
+        "title": "",
+        "headers": [],
+        "rows": []
+      },
+      "evidence_refs": [
+        {
+          "source_type": "comment",
+          "source_id": "hg-019",
+          "source_url": "https://www.tiktok.com/@travelpackessentials/video/7633000000000000003",
+          "time_range": "comment-thread",
+          "excerpt": "compression-packing-cubes: I need to know if the zipper breaks after two trips because that always happens with cheap sets.",
+          "supports": "Executive conclusion: strongest purchase-factor language"
+        }
+      ]
+    },
+    {
+      "heading": "High-Level Judgment",
+      "instruction": "State the strongest demand-side insight.",
+      "paragraphs": [
+        "核心教训是：一旦把低信号表情噪音、病毒式重复留言和浅层互动诱饵清理掉，真正重复出现的买家语言就会更可执行。"
+      ],
+      "bullets": [
+        "原始评论=24 | 清洗后=24 | 过滤噪音=0",
+        "最强购买因素：价格 / 性价比顾虑",
+        "最强差评痛点簇：物流 / 包装顾虑",
+        "最有价值的回复链簇：一般反应 | 回复压力=56 | Can someone show this with Costco-size bottles because that is the only thing stopping me f…",
+        "价格带信号：未恢复出强价格带分层",
+        "回复链合成条数：6"
+      ],
+      "numbered": [],
+      "table": {
+        "title": "Source Product Summary",
+        "headers": [
+          "Source Product",
+          "Price Band",
+          "Volume",
+          "Primary Purchase Trigger",
+          "Primary Complaint"
+        ],
+        "rows": [
+          [
+            "pet-hair-remover-roller",
+            "价格敏感",
+            "8",
+            "购买意向 | I need to know if this is one of those dropship rollers because I saw t…",
+            "真假 / 正品顾虑 | I ordered it because the before and after on the couch looked real and…"
+          ],
+          [
+            "under-sink-organizer",
+            "偏高端",
+            "8",
+            "购买意向 | Need a side-by-side before after with all the products loaded because e…",
+            "物流 / 包装顾虑 | Mine arrived fast but one tray corner was cracked. Seller refunded me w…"
+          ],
+          [
+            "compression-packing-cubes",
+            "价格敏感",
+            "8",
+            "价格 / 性价比顾虑 | I need to know if the zipper breaks after two trips because that always…",
+            "退货 / 退款顾虑 | Returned because the large cube was too tall for my carry-on, not becau…"
+          ]
+        ]
+      },
+      "evidence_refs": [
+        {
+          "source_type": "comment",
+          "source_id": "hg-002",
+          "source_url": "https://www.tiktok.com/@homeorganizerlab/video/7633000000000000001",
+          "time_range": "comment-thread",
+          "excerpt": "under-sink-organizer: 回复链活跃（24 条回复），已经足够视为真实的购买前确认或异议处理信号。",
+          "supports": "High-level judgment: synthesized reply-chain anchor comment"
+        },
+        {
+          "source_type": "comment",
+          "source_id": "hg-019",
+          "source_url": "https://www.tiktok.com/@travelpackessentials/video/7633000000000000003",
+          "time_range": "comment-thread",
+          "excerpt": "compression-packing-cubes: I need to know if the zipper breaks after two trips because that always happens with cheap sets.",
+          "supports": "High-level judgment: purchase-factor cluster"
+        },
+        {
+          "source_type": "comment",
+          "source_id": "hg-003",
+          "source_url": "https://www.tiktok.com/@homeorganizerlab/video/7633000000000000001",
+          "time_range": "comment-thread",
+          "excerpt": "under-sink-organizer: Mine arrived fast but one tray corner was cracked. Seller refunded me without making me ship it back.",
+          "supports": "High-level judgment: complaint / objection cluster"
+        },
+        {
+          "source_type": "comment",
+          "source_id": "hg-002",
+          "source_url": "https://www.tiktok.com/@homeorganizerlab/video/7633000000000000001",
+          "time_range": "comment-thread",
+          "excerpt": "under-sink-organizer: Please tell me if the measurements are real because half of these organizers never fit around the pipe.",
+          "supports": "High-level judgment: reply-chain pressure cluster"
+        }
+      ]
+    },
+    {
+      "heading": "Evidence Clusters",
+      "instruction": "Cluster repeated user language across products.",
+      "paragraphs": [
+        "主报告优先贴近四段式：购买因素、好评关键词、差评痛点、价位差异。",
+        "每个聚类都尽量保留来源商品、重复原话、回复链压力和价格带线索，方便直接翻译成 FAQ、评论回复和卖点脚本。"
+      ],
+      "bullets": [
+        "回复链综合（顶层评论 + 追问回复已分开清洗）：",
+        "一般反应 | 回复压力=56 | 来源=under-sink-organizer | 回复链活跃（24 条回复），已经足够视为真实的购买前确认或异议处理信号。",
+        "一般反应 | 回复压力=55 | 来源=compression-packing-cubes | 回复链活跃（19 条回复），已经足够视为真实的购买前确认或异议处理信号。",
+        "购买意向 | 回复压力=36 | 来源=pet-hair-remover-roller | Authenticity / dropship suspicion shows up in the reply chain.",
+        "价格 / 性价比顾虑 | 回复压力=33 | 来源=pet-hair-remover-roller | Durability proof is the biggest missing trust layer."
+      ],
+      "numbered": [],
+      "table": {
+        "title": "Comment Signal Clusters",
+        "headers": [
+          "Cluster Type",
+          "Repeated Phrase / Theme",
+          "Source Product",
+          "What It Suggests",
+          "Product / Content Implication"
+        ],
+        "rows": [
+          [
+            "好评关键词",
+            "Bought this because my cleaning bottles were a mess and the pull-out shelf actually fits under a narrow sink.",
+            "under-sink-organizer, pet-hair-remover-roller, compression-packing-cubes",
+            "一般反应 | 重复提及=8 | 回复压力=134 | 价位=不明确 | 信号=high",
+            "除非它持续重复出现且更具体，否则先视为弱信号。 回复链：回复链活跃（18 条回复），已经足够视为真实的购买前确认或异议处理信号。"
+          ],
+          [
+            "购买因素",
+            "I need to know if the zipper breaks after two trips because that always happens with cheap sets.",
+            "compression-packing-cubes, pet-hair-remover-roller, under-sink-organizer",
+            "价格 / 性价比顾虑 | 重复提及=5 | 回复压力=65 | 价位=价格敏感, 偏高端 | 信号=high",
+            "需要更强的价格框架、价值证明或预期管理。 回复链：Durability concern centers on zipper failure and seam strength."
+          ],
+          [
+            "差评痛点",
+            "Mine arrived fast but one tray corner was cracked. Seller refunded me without making me ship it back.",
+            "under-sink-organizer, compression-packing-cubes, pet-hair-remover-roller",
+            "物流 / 包装顾虑 | 重复提及=4 | 回复压力=42 | 价位=不明确 | 信号=high",
+            "把这句重复出现的话翻译成可执行的运营或信息规则。 回复链：回复链活跃（21 条回复），已经足够视为真实的购买前确认或异议处理信号。"
+          ],
+          [
+            "购买因素",
+            "I need to know if this is one of those dropship rollers because I saw the same thing on three different ads.",
+            "pet-hair-remover-roller, under-sink-organizer",
+            "购买意向 | 重复提及=3 | 回复压力=47 | 价位=不明确 | 信号=high",
+            "适合反哺 offer、FAQ 和转化角度设计。 回复链：Authenticity / dropship suspicion shows up in the reply chain."
+          ],
+          [
+            "差评痛点",
+            "Returned mine because the bin kept popping open, but customer service was quick.",
+            "pet-hair-remover-roller, under-sink-organizer, compression-packing-cubes",
+            "退货 / 退款顾虑 | 重复提及=3 | 回复压力=32 | 价位=不明确 | 信号=high",
+            "把这句重复出现的话翻译成可执行的运营或信息规则。 回复链：回复链活跃（12 条回复），已经足够视为真实的购买前确认或异议处理信号。"
+          ],
+          [
+            "差评痛点",
+            "I ordered it because the before and after on the couch looked real and not like a fake edit.",
+            "pet-hair-remover-roller",
+            "真假 / 正品顾虑 | 重复提及=1 | 回复压力=17 | 价位=不明确 | 信号=high",
+            "把这句重复出现的话翻译成可执行的运营或信息规则。 回复链：回复链活跃（17 条回复），已经足够视为真实的购买前确认或异议处理信号。"
+          ]
+        ]
+      },
+      "evidence_refs": [
+        {
+          "source_type": "comment",
+          "source_id": "product-a-thread-1",
+          "source_url": "paste-comment-source",
+          "time_range": "comment-thread",
+          "excerpt": "Repeated buyer phrase from one product's comment thread.",
+          "supports": "Purchase-factor cluster"
+        },
+        {
+          "source_type": "comment",
+          "source_id": "product-b-thread-2",
+          "source_url": "paste-comment-source",
+          "time_range": "comment-thread",
+          "excerpt": "Negative or complaint phrasing repeated across multiple comments.",
+          "supports": "Complaint cluster"
+        },
+        {
+          "source_type": "comment",
+          "source_id": "product-c-reply-1",
+          "source_url": "paste-comment-source",
+          "time_range": "reply-chain",
+          "excerpt": "Reply-chain pattern revealing trust or objection handling.",
+          "supports": "Trust-signal cluster"
+        },
+        {
+          "source_type": "comment",
+          "source_id": "hg-009",
+          "source_url": "https://www.tiktok.com/@petdailyfinds/video/7633000000000000002",
+          "time_range": "comment-thread",
+          "excerpt": "pet-hair-remover-roller: I ordered it because the before and after on the couch looked real and not like a fake edit.",
+          "supports": "Evidence cluster row: cleaned buyer-language theme"
+        },
+        {
+          "source_type": "comment",
+          "source_id": "hg-001",
+          "source_url": "https://www.tiktok.com/@homeorganizerlab/video/7633000000000000001",
+          "time_range": "comment-thread",
+          "excerpt": "under-sink-organizer: Bought this because my cleaning bottles were a mess and the pull-out shelf actually fits under a narrow sink.",
+          "supports": "Evidence cluster row: cleaned buyer-language theme"
+        },
+        {
+          "source_type": "comment",
+          "source_id": "hg-010",
+          "source_url": "https://www.tiktok.com/@petdailyfinds/video/7633000000000000002",
+          "time_range": "comment-thread",
+          "excerpt": "pet-hair-remover-roller: Does it work on cat hair and human hair or just the fluffy dog kind?",
+          "supports": "Evidence cluster row: cleaned buyer-language theme"
+        },
+        {
+          "source_type": "comment",
+          "source_id": "hg-002",
+          "source_url": "https://www.tiktok.com/@homeorganizerlab/video/7633000000000000001",
+          "time_range": "comment-thread",
+          "excerpt": "under-sink-organizer: Please tell me if the measurements are real because half of these organizers never fit around the pipe.",
+          "supports": "Evidence cluster row: cleaned buyer-language theme"
+        }
+      ]
+    },
+    {
+      "heading": "Recommended Action",
+      "instruction": "Turn the user language into next decisions.",
+      "paragraphs": [],
+      "bullets": [],
+      "numbered": [],
+      "table": {
+        "title": "",
+        "headers": [
+          "Decision Area",
+          "Recommendation",
+          "Why",
+          "Base Value Or Improvement Opportunity?"
+        ],
+        "rows": [
+          [
+            "购买因素",
+            "先围绕最强购买触发点写卖点与证明，不要先写品牌自夸。",
+            "价格 / 性价比顾虑: I need to know if the zipper breaks after two trips because that always happens with ch…",
+            "品类基础价值"
+          ],
+          [
+            "好评关键词",
+            "把重复出现的正向原话翻成标题、口播和评论区 FAQ 的基础词库。",
+            "一般反应: Please tell me if the measurements are real because half of these organizers never fit…",
+            "品类基础价值"
+          ],
+          [
+            "差评痛点",
+            "把物流、包装、真假、退货、尺寸或 before-after 证据不足单独前置，不要藏到后面。",
+            "物流 / 包装顾虑: Mine arrived fast but one tray corner was cracked. Seller refunded me without making me…",
+            "改进机会"
+          ],
+          [
+            "价位差异",
+            "不同价位段需要不同的价值证明和风险安抚，不要用一套脚本打全部价格带。",
+            "当前价格带分层仍偏弱，需要继续补样本。",
+            "改进机会"
+          ]
+        ]
+      },
+      "evidence_refs": [
+        {
+          "source_type": "comment",
+          "source_id": "hg-019",
+          "source_url": "https://www.tiktok.com/@travelpackessentials/video/7633000000000000003",
+          "time_range": "comment-thread",
+          "excerpt": "compression-packing-cubes: I need to know if the zipper breaks after two trips because that always happens with cheap sets.",
+          "supports": "Recommended action: purchase-factor copy and proof"
+        },
+        {
+          "source_type": "comment",
+          "source_id": "hg-003",
+          "source_url": "https://www.tiktok.com/@homeorganizerlab/video/7633000000000000001",
+          "time_range": "comment-thread",
+          "excerpt": "under-sink-organizer: Mine arrived fast but one tray corner was cracked. Seller refunded me without making me ship it back.",
+          "supports": "Recommended action: complaint preemption"
+        },
+        {
+          "source_type": "comment",
+          "source_id": "hg-002",
+          "source_url": "https://www.tiktok.com/@homeorganizerlab/video/7633000000000000001",
+          "time_range": "comment-thread",
+          "excerpt": "under-sink-organizer: Please tell me if the measurements are real because half of these organizers never fit around the pipe.",
+          "supports": "Recommended action: reply-chain handling"
+        }
+      ]
+    },
+    {
+      "heading": "Open Questions",
+      "instruction": "List missing evidence or weak conclusions.",
+      "paragraphs": [],
+      "bullets": [
+        "当前采样评论只覆盖了部分来源视频，所以这些结论更适合作为方向判断，而不是完整品类定论。",
+        "回复链结论目前主要来自导出的回复数量与摘要，不是完整的原始 threaded reply 全量抓取。",
+        "当前最值得追加全量抓取的回复链主题：一般反应。"
+      ],
+      "numbered": [],
+      "table": {
+        "title": "价格带差异",
+        "headers": [
+          "Price Band",
+          "Repeated Driver",
+          "Repeated Complaint",
+          "Implication"
+        ],
+        "rows": [
+          [
+            "价格敏感",
+            "价格 / 性价比顾虑",
+            "未恢复出明确的重复抱怨",
+            "需要更轻的承诺语言、更强的价值证明或更简单的预期管理。"
+          ],
+          [
+            "偏高端",
+            "价格 / 性价比顾虑",
+            "未恢复出明确的重复抱怨",
+            "需要更强的信任转移、差异化收益或高端证明语言。"
+          ],
+          [
+            "不明确",
+            "购买意向",
+            "物流 / 包装顾虑",
+            "当前样本更偏一般反应，价格分层还不够清晰。"
+          ]
+        ]
+      },
+      "evidence_refs": [
+        {
+          "source_type": "comment",
+          "source_id": "hg-009",
+          "source_url": "https://www.tiktok.com/@petdailyfinds/video/7633000000000000002",
+          "time_range": "comment-thread",
+          "excerpt": "pet-hair-remover-roller: Cleaned comment count in current pack: 24",
+          "supports": "Open question: sampling coverage still partial across source videos"
+        }
+      ]
+    }
+  ],
+  "assets": [
+    {
+      "label": "[library] content_graph.json",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene08-multi-product-home-goods-comments\\content_graph.json",
+      "note": "Reusable capture-pack artifact"
+    }
+  ],
+  "notes": [
+    "I ordered it because the before and after on the couch looked real and not like a fake edit.",
+    "Bought this because my cleaning bottles were a mess and the pull-out shelf actually fits under a narrow sink.",
+    "Does it work on cat hair and human hair or just the fluffy dog kind?",
+    "Please tell me if the measurements are real because half of these organizers never fit around the pipe.",
+    "Bought these because I only travel carry-on and the zip compression looked easier than vacuum bags.",
+    "I need to know if this is one of those dropship rollers because I saw the same thing on three different ads.",
+    "一般反应 | 回复压力=134 | Please tell me if the measurements are real because half of these organizers never fit arou…"
+  ],
+  "sources": [
+    "summary.json",
+    "ranked_videos.json",
+    ""
+  ],
+  "content_graph": {
+    "version": "1.0",
+    "cluster_summary": {
+      "creator_clusters": 0,
+      "sound_clusters": 0,
+      "hashtag_neighborhoods": 0,
+      "video_count": 0
+    },
+    "edge_count": 0,
+    "node_count": 0
+  },
+  "asset_library": {
+    "schema_version": "asset-library-v1",
+    "assets": [
+      {
+        "kind": "capture_artifact",
+        "label": "content_graph.json",
+        "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene08-multi-product-home-goods-comments\\content_graph.json",
+        "note": "Reusable capture-pack artifact",
+        "scene_origin": "08",
+        "registered_at": "2026-05-17T22:18:35"
+      }
+    ],
+    "carry_forward": [
+      "reference_video",
+      "cover_image",
+      "download_source",
+      "production_spec_handoff",
+      "collection_board"
+    ],
+    "updated_at": "2026-05-17T22:40:56"
+  }
+}

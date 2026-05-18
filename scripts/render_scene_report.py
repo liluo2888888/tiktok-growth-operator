@@ -3359,6 +3359,72 @@ def write_simple_list_sheet(workbook: Workbook, title: str, headers: list[str], 
     finalize_sheet(ws, freeze_cell="A4", filter_row=3)
 
 
+def write_report_artifact_sheets(workbook: Workbook, report: dict) -> None:
+    board = report.get("collection_board")
+    if isinstance(board, dict) and board.get("rows"):
+        write_simple_list_sheet(
+            workbook,
+            "采集看板",
+            board.get("headers") or [],
+            board.get("rows") or [],
+        )
+    matrix = report.get("creation_matrix")
+    if isinstance(matrix, dict):
+        if matrix.get("matrix_rows"):
+            write_simple_list_sheet(
+                workbook,
+                "创作就绪矩阵",
+                matrix.get("matrix_headers") or [],
+                matrix.get("matrix_rows") or [],
+            )
+        if matrix.get("pattern_rows"):
+            write_simple_list_sheet(
+                workbook,
+                "共性规律收敛",
+                matrix.get("pattern_headers") or [],
+                matrix.get("pattern_rows") or [],
+            )
+    handoff = report.get("production_handoff")
+    if isinstance(handoff, dict):
+        tables = handoff.get("tables") or {}
+        if tables.get("pacing_map"):
+            write_simple_list_sheet(
+                workbook,
+                "Pacing Map",
+                handoff.get("pacing_headers") or [],
+                tables.get("pacing_map") or [],
+            )
+        if tables.get("subtitle_beats"):
+            write_simple_list_sheet(
+                workbook,
+                "字幕节拍",
+                handoff.get("subtitle_headers") or [],
+                tables.get("subtitle_beats") or [],
+            )
+        if tables.get("proof_blocks"):
+            write_simple_list_sheet(
+                workbook,
+                "证明块",
+                handoff.get("proof_headers") or [],
+                tables.get("proof_blocks") or [],
+            )
+        if tables.get("asset_requirements"):
+            write_simple_list_sheet(
+                workbook,
+                "资产需求",
+                handoff.get("asset_headers") or [],
+                tables.get("asset_requirements") or [],
+            )
+        storyboard_rows = handoff.get("storyboard_rows") or []
+        if storyboard_rows:
+            write_simple_list_sheet(
+                workbook,
+                "Shot Handoff",
+                ["shot_id", "时间", "阶段", "画面 / 动作", "字幕 / 口播", "generator 字段", "素材 / 执行需求"],
+                storyboard_rows,
+            )
+
+
 def write_xlsx(report: dict, output: Path) -> None:
     workbook = Workbook()
     section_sheet_map = build_section_sheet_map(report)
@@ -3368,6 +3434,7 @@ def write_xlsx(report: dict, output: Path) -> None:
     write_operator_guide_sheet(workbook, report)
     write_context_lists_sheet(workbook, report)
     write_execution_template_sheet(workbook, report)
+    write_report_artifact_sheets(workbook, report)
     write_section_sheets(workbook, report, section_sheet_map)
     write_simple_list_sheet(
         workbook,

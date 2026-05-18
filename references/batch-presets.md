@@ -342,6 +342,16 @@ python scripts/run_operator_workflow.py `
 
 ### Scene 02 Daily Patrol
 
+Bundle (patrol report + auto-chained Scene 03 on existing capture-pack):
+
+```powershell
+python scripts/run_scene0203.py `
+  --capture-root "D:\path\your-patrol-capture-pack" `
+  --formats md,docx,xlsx
+```
+
+Full TikMatrix patrol loop:
+
 ```powershell
 python scripts/run_scene02_patrol.py `
   --name tiktok-beauty-patrol `
@@ -382,6 +392,17 @@ python scripts/run_operator_workflow.py `
 ```
 
 ### Scene 18 Competitor Weekly
+
+Bundle (Scene 18 + 19 on one multi-week capture-pack):
+
+```powershell
+python scripts/run_scene1819.py `
+  --capture-root "D:\path\scene18-19-multi-week-account" `
+  --preset multiweek `
+  --formats md,docx,xlsx
+```
+
+Single-scene launcher:
 
 ```powershell
 python scripts/start_scene_run.py `

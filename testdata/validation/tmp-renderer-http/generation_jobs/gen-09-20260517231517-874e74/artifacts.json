@@ -1,0 +1,12 @@
+{
+  "artifact_links": [
+    "https://example.com/mock-render.mp4"
+  ],
+  "provider": "http",
+  "poll_response": {
+    "status": "succeeded",
+    "artifact_links": [
+      "https://example.com/mock-render.mp4"
+    ]
+  }
+}

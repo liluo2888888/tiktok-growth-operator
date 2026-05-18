@@ -1,0 +1,708 @@
+{
+  "metadata": {
+    "scene": "06",
+    "scene_slug": "competitor-product-dashboard",
+    "scene_title": "Competitor Product Dashboard",
+    "project": "Platform P0 Validation",
+    "title": "Scene 06 Report - Platform P0 Validation",
+    "deliverable_type": "collection_board",
+    "generated_at": "2026-05-18T08:56:05",
+    "scenario_file": "scenarios/06-competitor-product-dashboard.md",
+    "status": "imported"
+  },
+  "working_context": {
+    "summary": "真实 TikTok capture-pack 导入自 validation/captures/scene01-strong-inputs-pass，当前用于未分类赛道，市场 US。当前看板规模：3 条已排序 / 3 条达标，最低点赞阈值 1000.\n来源账号：https://www.tiktok.com/@validation.orangecat; 会话质量：TikMatrix 主页帖子导出; 查询词：未提供; 主题：未提供.\n头部候选：https://www.tiktok.com/@orangecat0088/video/7636206423080226070 | always sing your heart out | 2610 点赞，28400 播放，62 分享.\n达标对照：https://www.tiktok.com/@orangecat0088/video/7636206423080226070 | cartoon orange cat sing-along packaging | 2610 点赞，28400 播放，62 分享.\n采集根目录：validation/captures/scene01-strong-inputs-pass",
+    "inputs": [
+      "Profile: https://www.tiktok.com/@validation.orangecat",
+      "Ranked video count: 3",
+      "Qualified video count: 3",
+      "Capture root: validation/captures/scene01-strong-inputs-pass",
+      "地区：US"
+    ],
+    "constraints": [
+      "If structured data is incomplete, define the schema first and flag missing fields.",
+      "Do not leave the scene empty just because Shop API data is unavailable; switch to a fallback snapshot workflow.",
+      "Real TikTok anonymous-session capture. Comment sampling is missing in this pack.",
+      "Conclusions should stay tied to ranked metrics, captions, and capture-pack summaries only."
+    ],
+    "requested_outputs": [
+      "Competitor board schema",
+      "Daily / weekly review checklist",
+      "Anomaly interpretation guide",
+      "Fallback evidence capture SOP",
+      "TikTok-native ranked-pattern conclusions",
+      "Reusable adaptation rules grounded in the capture pack"
+    ],
+    "minimum_evidence": [
+      "3+ competitor products or listings",
+      "summary.json or aggregate_summary.json",
+      "profile_summary.json or summary.json",
+      "ranked_videos.json or aggregate_ranked_videos.json"
+    ],
+    "ideal_evidence": [
+      "Price, rating, and offer snapshots",
+      "Past tracking notes",
+      "Desired review cadence",
+      "Listing or PDP screenshots when API access is absent",
+      "aggregate_qualified_videos.json or qualified_video_links.txt",
+      "aggregate_report.md",
+      "video_details.json"
+    ],
+    "ready_checklist": [
+      "Each product has a stable identifier",
+      "Fields to track are defined",
+      "Change interpretation rules are explicit",
+      "Fallback evidence path is explicit if Shop API data is unavailable",
+      "Top-ranked videos are clearly identified",
+      "Transferable pattern is separated from profile-specific brand power"
+    ]
+  },
+  "executive_summary": {
+    "conclusion": "这份竞品商品看板已经能按固定字段持续追踪价格、评分、销量信号与异动解释，即使当前没有 TikTok Shop API 也不会停在空报告。",
+    "why_it_matters": "运营价值在于把“看到变化”变成“知道该怎么反应”，而不是每次重新手工整理 Excel。",
+    "next_action": "把今日异动行追加进同一张竞品主表，并只升级触发告警的 SKU。",
+    "confidence": "medium"
+  },
+  "operator_guide": {
+    "operator_checklist": [
+      "Fix the product identifiers before tracking changes over time.",
+      "Define what counts as a commercial signal, not only a data change.",
+      "Keep the dashboard schema minimal enough to maintain weekly.",
+      "If Shop API data is missing, switch to listing/PDP snapshot intake instead of leaving holes in the board."
+    ],
+    "common_failure_modes": [
+      "Tracking products with inconsistent naming and duplicate rows.",
+      "Collecting raw data without interpretation rules.",
+      "Watching too many fields and never using the board in practice.",
+      "Treating missing API access as a blocker instead of running the fallback evidence mode."
+    ]
+  },
+  "execution_template": {
+    "recommended_request": "Run scene 06 to build a competitor product dashboard that can be reused weekly. If no TikTok Shop API exists, fall back to listing snapshots, PDP screenshots, review evidence, and manual tracker rows while keeping the same schema and signal rules.",
+    "recommended_request_zh": "按场景 06 执行：搭建可每周复用的竞品商品看板，定义最小追踪字段、信号解释逻辑和变化后的运营动作；如果没有 TikTok Shop API，就走 listing/PDP/评论截图降级模式。",
+    "recommended_runner_args": [
+      "python scripts/run_operator_workflow.py --mode scene --scene 06 --project \"<project-name>\" --output-root \".\\tmp\\competitor-product-dashboard\"",
+      "python scripts/generate_scene_report.py --scene 06 --project \"<project-name>\" --output \".\\tmp\\competitor-product-dashboard.json\" --format json"
+    ],
+    "variable_inputs": [
+      {
+        "name": "project_name",
+        "meaning": "便于识别的运行名或项目名",
+        "example": "Weekly Competitor Product Dashboard",
+        "required": "是"
+      },
+      {
+        "name": "market",
+        "meaning": "当场景依赖单一市场时的目标市场或地区",
+        "example": "美国",
+        "required": "建议"
+      },
+      {
+        "name": "evidence_pack",
+        "meaning": "作为源证据使用的链接、截图、转写、导出文件、OCR 文本或摘录备注",
+        "example": "3 competitor listings with price, rating, and offer snapshots",
+        "required": "是"
+      },
+      {
+        "name": "success_goal",
+        "meaning": "操作者希望该场景产出的结果",
+        "example": "competitor tracking dashboard and signal rules",
+        "required": "建议"
+      }
+    ],
+    "codex_prompt_scaffold": [
+      "以场景 06 作为本次工作的主流程。",
+      "分析前先把现有证据归整为以下输入：Competitor product list, Links, IDs, or screenshots, Optional price / rating / sales signals, Fallback evidence when no TikTok Shop API exists: listing screenshots, PDP snapshots, review exports, or manual notes。",
+      "如果证据不足，先明确缺口再继续。最低开工证据：3+ competitor products or listings。",
+      "最终必须产出以下可直接给运营使用的结果：Competitor board schema, Daily / weekly review checklist, Anomaly interpretation guide, Fallback evidence capture SOP。",
+      "Use stable product identifiers so later tracking does not drift.",
+      "Interpret changes commercially instead of logging raw changes only.",
+      "When Shop API data is missing, switch to fallback evidence capture instead of leaving the workflow blank.",
+      "优先填入可复用结论、表格、排序逻辑和下一步动作，不要停留在泛泛点评。"
+    ],
+    "codex_prompt_scaffold_zh": [
+      "按场景 06 执行：搭建可每周复用的竞品商品看板，定义最小追踪字段、信号解释逻辑和变化后的运营动作；如果没有 TikTok Shop API，就走 listing/PDP/评论截图降级模式。",
+      "先把我提供的材料整理成这组输入：Competitor product list, Links, IDs, or screenshots, Optional price / rating / sales signals, Fallback evidence when no TikTok Shop API exists: listing screenshots, PDP snapshots, review exports, or manual notes。",
+      "如果证据不足，先明确缺口再继续。最低开工证据：3+ competitor products or listings。",
+      "最终必须产出：Competitor board schema, Daily / weekly review checklist, Anomaly interpretation guide, Fallback evidence capture SOP。",
+      "输出必须可直接给运营、拆解、脚本、测试或交付使用，优先给表格、排序逻辑、复用规则和下一步动作。"
+    ],
+    "workflow_steps": [
+      "Fix the product identifiers before tracking changes over time.",
+      "Define what counts as a commercial signal, not only a data change.",
+      "Keep the dashboard schema minimal enough to maintain weekly.",
+      "If Shop API data is missing, switch to listing/PDP snapshot intake instead of leaving holes in the board."
+    ],
+    "output_checklist": [
+      "The dashboard schema is stable enough for repeated use.",
+      "Signal changes have follow-up actions attached.",
+      "The board stays minimal enough for one operator to maintain."
+    ]
+  },
+  "evidence": [
+    {
+      "label": "汇总",
+      "detail": "已排序=3; 达标=3; 最低点赞=1000",
+      "source": "aggregate_summary.json"
+    },
+    {
+      "label": "账号汇总",
+      "detail": "账号=https://www.tiktok.com/@validation.orangecat; 会话=TikMatrix 主页帖子导出; 已排序=3",
+      "source": "profile_summary.json"
+    },
+    {
+      "label": "排序视频 7636206423080226070",
+      "detail": "always sing your heart out",
+      "source": "https://www.tiktok.com/@orangecat0088/video/7636206423080226070"
+    },
+    {
+      "label": "排序视频 7636373657828347158",
+      "detail": "SuperCat Papa",
+      "source": "https://www.tiktok.com/@usatiktoker23/video/7636373657828347158"
+    },
+    {
+      "label": "排序视频 7636137611576282399",
+      "detail": "sad cat",
+      "source": "https://www.tiktok.com/@aicatstories44/video/7636137611576282399"
+    },
+    {
+      "label": "Content graph clusters",
+      "detail": "creator=0; sound=0; hashtag=0; videos=3",
+      "source": "content_graph.json"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "Executive Conclusion",
+      "instruction": "Summarize what the dashboard should help the operator notice.",
+      "paragraphs": [
+        "这份竞品商品看板已经能按固定字段持续追踪价格、评分、销量信号与异动解释，即使当前没有 TikTok Shop API 也不会停在空报告。",
+        "数据源模式：tiktok_shop_structured | 结构化竞品行：2",
+        "Profile baseline: https://www.tiktok.com/@validation.orangecat"
+      ],
+      "bullets": [
+        "TikTok Shop API 未接入时，必须显式走 listing / PDP / 评论截图降级，而不是假装有完整商品字段。",
+        "当前商品记录来源：structured_fixture",
+        "同一竞品 SKU 应持续追加到同一张主表，而不是每次新建一张表。"
+      ],
+      "numbered": [],
+      "table": {
+        "title": "",
+        "headers": [],
+        "rows": []
+      },
+      "evidence_refs": []
+    },
+    {
+      "heading": "Objects To Track",
+      "instruction": "Build the competitor dashboard schema.",
+      "paragraphs": [],
+      "bullets": [],
+      "numbered": [],
+      "table": {
+        "title": "竞品商品主表",
+        "headers": [
+          "商品 ID",
+          "商品名",
+          "平台",
+          "价格",
+          "评分信号",
+          "评论量",
+          "销量 / 热度信号",
+          "链接",
+          "证据来源"
+        ],
+        "rows": [
+          [
+            "fixture-velvet-lip-glaze-01",
+            "Velvet Lip Glaze - Rose Nude",
+            "TikTok Shop",
+            "18.99",
+            "4.6",
+            "842",
+            "rising-in-category",
+            "https://www.tiktok.com/shop/pdp/velvet-lip-glaze-rose-nude",
+            "structured_fixture"
+          ],
+          [
+            "fixture-hydrating-serum-02",
+            "Hydrating Barrier Serum 30ml",
+            "TikTok Shop",
+            "24.50",
+            "4.8",
+            "1204",
+            "stable-top-seller",
+            "https://www.tiktok.com/shop/pdp/hydrating-barrier-serum-30ml",
+            "structured_fixture"
+          ]
+        ]
+      },
+      "evidence_refs": []
+    },
+    {
+      "heading": "Why They Matter",
+      "instruction": "Explain which changes deserve attention.",
+      "paragraphs": [],
+      "bullets": [],
+      "numbered": [],
+      "table": {
+        "title": "",
+        "headers": [
+          "Change Type",
+          "What It Might Mean",
+          "Commercial Importance",
+          "Follow-up"
+        ],
+        "rows": [
+          [
+            "降价",
+            "可能在抢同一价格带",
+            "高",
+            "核对是否伴随卖点变化或券后价"
+          ],
+          [
+            "评分下滑",
+            "信任受损或差评聚集",
+            "高",
+            "拉评论样本验证是产品问题还是履约问题"
+          ],
+          [
+            "主图 / 卖点更新",
+            "包装策略变化",
+            "中",
+            "对照自家素材是否落后"
+          ],
+          [
+            "销量信号上升",
+            "需求被验证",
+            "中",
+            "判断是否值得跟进入场或跟打话题"
+          ]
+        ]
+      },
+      "evidence_refs": []
+    },
+    {
+      "heading": "Fields To Capture Next Time",
+      "instruction": "Define missing fields to improve future monitoring.",
+      "paragraphs": [],
+      "bullets": [
+        "What fields are mandatory from the next tracking cycle onward?",
+        "Which optional fields create stronger competitor context?",
+        "Which fields can be recovered manually when TikTok Shop API data is missing?"
+      ],
+      "numbered": [],
+      "table": {
+        "title": "",
+        "headers": [],
+        "rows": [
+          [
+            "当前价格",
+            "比较降价与提价",
+            "是"
+          ],
+          [
+            "券后价 / 促销标签",
+            "识别假降价",
+            "是"
+          ],
+          [
+            "销量或热度 proxy",
+            "判断需求变化",
+            "是"
+          ],
+          [
+            "评分与评论数",
+            "监控信任变化",
+            "是"
+          ],
+          [
+            "物流 / 店铺信息",
+            "识别履约优势",
+            "建议"
+          ],
+          [
+            "评论样本",
+            "解释评分变化",
+            "建议"
+          ]
+        ]
+      },
+      "evidence_refs": []
+    },
+    {
+      "heading": "Fallback Mode",
+      "instruction": "Explain how to run the board without TikTok Shop API access.",
+      "paragraphs": [
+        "无 TikTok Shop API 时，允许用 listing 截图、PDP 快照、评论导出和人工备注行维持同一张看板。",
+        "任何缺字段行都必须标成待补，不允许用空值假装完成追踪。"
+      ],
+      "bullets": [],
+      "numbered": [],
+      "table": {
+        "title": "No-API Fallback Sources",
+        "headers": [
+          "Evidence Source",
+          "Minimum Field Set",
+          "Operator Effort",
+          "When To Use"
+        ],
+        "rows": [
+          [
+            "Listing screenshot",
+            "Title, price, promo badge",
+            "Low",
+            "Fast weekly scan"
+          ],
+          [
+            "Product detail page snapshot",
+            "Variant, rating, review count",
+            "Medium",
+            "Deeper audit"
+          ],
+          [
+            "Review export or screenshots",
+            "Complaint themes, trust cues",
+            "Medium",
+            "Message or quality shift check"
+          ],
+          [
+            "Manual note row",
+            "Observed change and date",
+            "Low",
+            "When platform fields are unavailable"
+          ]
+        ]
+      },
+      "evidence_refs": []
+    },
+    {
+      "heading": "Next Action",
+      "instruction": "Leave a reusable review routine.",
+      "paragraphs": [],
+      "bullets": [
+        "建议定时：weekly | python scripts/start_capture_pack_run.py --scene 06",
+        "飞书追加：表 `scene06_competitor_product_board` | 批次 `2026-05-18` | 模式 `append_by_run_date`"
+      ],
+      "numbered": [
+        "锁定 3-10 个直接竞品 SKU，并写入主表第一版基线。",
+        "为每个 SKU 指定一种 fallback 证据源（截图 / PDP / 评论导出）。",
+        "下一轮只追加“发生变化的行”，并输出一条今日最值得反应的异动。"
+      ],
+      "table": {
+        "title": "运营调度 / 推送计划",
+        "headers": [
+          "时间",
+          "动作",
+          "负责人",
+          "渠道"
+        ],
+        "rows": [
+          [
+            "today",
+            "把 competitor_product_board 异动行追加进主表并标红待补字段",
+            "operator",
+            "feishu"
+          ],
+          [
+            "today",
+            "对降价/评分下滑 SKU 各拉 1 份评论样本解释原因",
+            "analyst",
+            "local"
+          ],
+          [
+            "this_week",
+            "锁定 3–10 个核心竞品 SKU 做下一轮同字段复采",
+            "collector",
+            "local"
+          ]
+        ]
+      },
+      "evidence_refs": []
+    }
+  ],
+  "assets": [
+    {
+      "label": "Scene 06 competitor_product_board.json",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene01-strong-inputs-pass\\competitor_product_board.json",
+      "note": "Competitor dashboard source mode: tiktok_shop_structured"
+    },
+    {
+      "label": "Scene 06 operator schedule",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene01-strong-inputs-pass\\operator_schedule_scene_6.json",
+      "note": "推送/定时调度真源，可对接 deliver_operator_run --adapter feishu"
+    },
+    {
+      "label": "[library] Source profile",
+      "path": "https://www.tiktok.com/@validation.orangecat",
+      "note": "Account baseline"
+    },
+    {
+      "label": "[library] Ranked video 1 reference_video",
+      "path": "https://www.tiktok.com/@orangecat0088/video/7636206423080226070",
+      "note": "always sing your heart out"
+    },
+    {
+      "label": "[library] Ranked video 2 reference_video",
+      "path": "https://www.tiktok.com/@usatiktoker23/video/7636373657828347158",
+      "note": "SuperCat Papa"
+    },
+    {
+      "label": "[library] Ranked video 3 reference_video",
+      "path": "https://www.tiktok.com/@aicatstories44/video/7636137611576282399",
+      "note": "sad cat"
+    },
+    {
+      "label": "[library] collection_board.json",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene01-strong-inputs-pass\\collection_board.json",
+      "note": "Reusable capture-pack artifact"
+    },
+    {
+      "label": "[library] production_spec_handoff.json",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene01-strong-inputs-pass\\production_spec_handoff.json",
+      "note": "Reusable capture-pack artifact"
+    },
+    {
+      "label": "[library] scene03_creation_matrix.json",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene01-strong-inputs-pass\\scene03_creation_matrix.json",
+      "note": "Reusable capture-pack artifact"
+    },
+    {
+      "label": "[library] content_graph.json",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene01-strong-inputs-pass\\content_graph.json",
+      "note": "Reusable capture-pack artifact"
+    },
+    {
+      "label": "[library] Scene 01 采集看板 XLSX",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene01-strong-inputs-pass\\collection_board.xlsx",
+      "note": "可直接导入多维表 / 飞书"
+    },
+    {
+      "label": "[library] Scene 01 operator schedule",
+      "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene01-strong-inputs-pass\\operator_schedule_scene_1.json",
+      "note": "推送/定时调度真源，可对接 deliver_operator_run --adapter feishu"
+    }
+  ],
+  "notes": [
+    "Scene 06 data boundary: tiktok_shop_structured. TikTok Shop API is optional; fallback_snapshot is supported."
+  ],
+  "sources": [
+    "aggregate_summary.json",
+    "aggregate_ranked_videos.json",
+    "https://www.tiktok.com/@validation.orangecat"
+  ],
+  "content_graph": {
+    "version": "1.0",
+    "cluster_summary": {
+      "creator_clusters": 0,
+      "sound_clusters": 0,
+      "hashtag_neighborhoods": 0,
+      "video_count": 3
+    },
+    "edge_count": 3,
+    "node_count": 6
+  },
+  "competitor_product_board": {
+    "schema_version": "competitor-product-board-v1",
+    "data_source_mode": "tiktok_shop_structured",
+    "headers": [
+      "商品 ID",
+      "商品名",
+      "平台",
+      "价格",
+      "评分信号",
+      "评论量",
+      "销量 / 热度信号",
+      "链接",
+      "证据来源"
+    ],
+    "rows": [
+      [
+        "fixture-velvet-lip-glaze-01",
+        "Velvet Lip Glaze - Rose Nude",
+        "TikTok Shop",
+        "18.99",
+        "4.6",
+        "842",
+        "rising-in-category",
+        "https://www.tiktok.com/shop/pdp/velvet-lip-glaze-rose-nude",
+        "structured_fixture"
+      ],
+      [
+        "fixture-hydrating-serum-02",
+        "Hydrating Barrier Serum 30ml",
+        "TikTok Shop",
+        "24.50",
+        "4.8",
+        "1204",
+        "stable-top-seller",
+        "https://www.tiktok.com/shop/pdp/hydrating-barrier-serum-30ml",
+        "structured_fixture"
+      ]
+    ],
+    "product_source": "structured_fixture",
+    "row_count": 2
+  },
+  "operator_schedule": {
+    "schema_version": "operator-schedule-v1",
+    "scene": "6",
+    "generated_at": "2026-05-18T08:56:05",
+    "append_scope": "2026-05-18",
+    "delivery": {
+      "local_bundle": true,
+      "feishu": {
+        "status": "planned",
+        "table_key": "scene06_competitor_product_board",
+        "append_mode": "append_by_run_date",
+        "run_date_field": "采集日期",
+        "append_scope_field": "追加批次",
+        "append_scope": "2026-05-18"
+      },
+      "channels": [
+        "local",
+        "feishu"
+      ],
+      "notify_when_done": true
+    },
+    "dispatch": [
+      {
+        "when": "today",
+        "action": "把 competitor_product_board 异动行追加进主表并标红待补字段",
+        "owner": "operator",
+        "channel": "feishu"
+      },
+      {
+        "when": "today",
+        "action": "对降价/评分下滑 SKU 各拉 1 份评论样本解释原因",
+        "owner": "analyst",
+        "channel": "local"
+      },
+      {
+        "when": "this_week",
+        "action": "锁定 3–10 个核心竞品 SKU 做下一轮同字段复采",
+        "owner": "collector",
+        "channel": "local"
+      }
+    ],
+    "next_runs": [
+      {
+        "cadence": "weekly",
+        "suggested_cron": "0 10 * * 2",
+        "run_command": "python scripts/start_capture_pack_run.py --scene 06"
+      }
+    ],
+    "context": {
+      "board_row_count": 2
+    },
+    "board_row_count": 2
+  },
+  "asset_library": {
+    "schema_version": "asset-library-v1",
+    "assets": [
+      {
+        "kind": "profile",
+        "label": "Source profile",
+        "path": "https://www.tiktok.com/@validation.orangecat",
+        "note": "Account baseline",
+        "scene_origin": "06",
+        "registered_at": "2026-05-17T22:18:13"
+      },
+      {
+        "kind": "reference_video",
+        "label": "Ranked video 1 reference_video",
+        "path": "https://www.tiktok.com/@orangecat0088/video/7636206423080226070",
+        "note": "always sing your heart out",
+        "scene_origin": "06",
+        "registered_at": "2026-05-17T22:18:13"
+      },
+      {
+        "kind": "reference_video",
+        "label": "Ranked video 2 reference_video",
+        "path": "https://www.tiktok.com/@usatiktoker23/video/7636373657828347158",
+        "note": "SuperCat Papa",
+        "scene_origin": "06",
+        "registered_at": "2026-05-17T22:18:13"
+      },
+      {
+        "kind": "reference_video",
+        "label": "Ranked video 3 reference_video",
+        "path": "https://www.tiktok.com/@aicatstories44/video/7636137611576282399",
+        "note": "sad cat",
+        "scene_origin": "06",
+        "registered_at": "2026-05-17T22:18:13"
+      },
+      {
+        "kind": "report_artifact",
+        "label": "Scene 06 competitor_product_board.json",
+        "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene01-strong-inputs-pass\\competitor_product_board.json",
+        "note": "Competitor dashboard source mode: tiktok_shop_structured",
+        "scene_origin": "06",
+        "registered_at": "2026-05-17T22:18:13"
+      },
+      {
+        "kind": "capture_artifact",
+        "label": "collection_board.json",
+        "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene01-strong-inputs-pass\\collection_board.json",
+        "note": "Reusable capture-pack artifact",
+        "scene_origin": "06",
+        "registered_at": "2026-05-17T22:18:13"
+      },
+      {
+        "kind": "capture_artifact",
+        "label": "production_spec_handoff.json",
+        "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene01-strong-inputs-pass\\production_spec_handoff.json",
+        "note": "Reusable capture-pack artifact",
+        "scene_origin": "06",
+        "registered_at": "2026-05-17T22:18:13"
+      },
+      {
+        "kind": "capture_artifact",
+        "label": "scene03_creation_matrix.json",
+        "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene01-strong-inputs-pass\\scene03_creation_matrix.json",
+        "note": "Reusable capture-pack artifact",
+        "scene_origin": "06",
+        "registered_at": "2026-05-17T22:18:13"
+      },
+      {
+        "kind": "capture_artifact",
+        "label": "content_graph.json",
+        "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene01-strong-inputs-pass\\content_graph.json",
+        "note": "Reusable capture-pack artifact",
+        "scene_origin": "06",
+        "registered_at": "2026-05-17T22:18:13"
+      },
+      {
+        "kind": "report_artifact",
+        "label": "Scene 01 采集看板 XLSX",
+        "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene01-strong-inputs-pass\\collection_board.xlsx",
+        "note": "可直接导入多维表 / 飞书",
+        "scene_origin": "01",
+        "registered_at": "2026-05-17T22:18:14"
+      },
+      {
+        "kind": "report_artifact",
+        "label": "Scene 01 operator schedule",
+        "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene01-strong-inputs-pass\\operator_schedule_scene_1.json",
+        "note": "推送/定时调度真源，可对接 deliver_operator_run --adapter feishu",
+        "scene_origin": "01",
+        "registered_at": "2026-05-18T06:51:28"
+      },
+      {
+        "kind": "report_artifact",
+        "label": "Scene 06 operator schedule",
+        "path": "D:\\我的文档\\Documents\\Playground 4\\tiktok-growth-operator.skill\\testdata\\validation\\captures\\scene01-strong-inputs-pass\\operator_schedule_scene_6.json",
+        "note": "推送/定时调度真源，可对接 deliver_operator_run --adapter feishu",
+        "scene_origin": "06",
+        "registered_at": "2026-05-18T06:51:44"
+      }
+    ],
+    "carry_forward": [
+      "reference_video",
+      "cover_image",
+      "download_source",
+      "production_spec_handoff",
+      "collection_board"
+    ],
+    "updated_at": "2026-05-18T08:56:05"
+  }
+}
