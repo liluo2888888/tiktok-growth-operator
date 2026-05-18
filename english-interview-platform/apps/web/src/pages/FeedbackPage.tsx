@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Navigate, useSearchParams } from "react-router-dom";
 
-import { ButtonLink } from "@/components/ui/Button";
+import { Button, ButtonLink } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
 import { PageHero } from "@/components/ui/PageHero";
 import { Panel } from "@/components/ui/Panel";
@@ -11,7 +11,8 @@ import { track } from "@/lib/analytics";
 import { fetchSession, type SessionDetail } from "@/lib/api";
 import { stageLabel, ui } from "@/lib/copy";
 import { getMission } from "@/lib/quests";
-import { getProfile, issueStamp } from "@/lib/storage";
+import { sharePassportStamp } from "@/lib/shareStamp";
+import { getProfile, getStamp, issueStamp } from "@/lib/storage";
 
 export function FeedbackPage() {
   const [params] = useSearchParams();
@@ -24,6 +25,8 @@ export function FeedbackPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [stampId, setStampId] = useState<string | null>(null);
+  const [shareHint, setShareHint] = useState<string | null>(null);
+  const [sharing, setSharing] = useState(false);
 
   useEffect(() => {
     if (!sessionId) return;
@@ -134,9 +137,35 @@ export function FeedbackPage() {
                   </div>
                   <div>
                     <p className="card-body">你为本轮练习解锁了一枚新印章。</p>
-                    <ButtonLink to={`/passport/${stampId}`} style={{ marginTop: "0.75rem" }}>
-                      查看印章
-                    </ButtonLink>
+                    <div className="row" style={{ marginTop: "0.75rem" }}>
+                      <ButtonLink to={`/passport/${stampId}`}>查看印章</ButtonLink>
+                      <Button
+                        variant="secondary"
+                        disabled={sharing}
+                        onClick={() => {
+                          const stamp = stampId ? getStamp(stampId) : null;
+                          if (!stamp) return;
+                          setSharing(true);
+                          setShareHint(null);
+                          void sharePassportStamp(stamp)
+                            .then((channel) => {
+                              if (channel === "text_fallback") {
+                                setShareHint(ui.passport.shareCopied);
+                              }
+                            })
+                            .catch((err) => {
+                              if (err instanceof Error && err.name === "AbortError") return;
+                              setShareHint(
+                                err instanceof Error ? err.message : ui.passport.shareFailed
+                              );
+                            })
+                            .finally(() => setSharing(false));
+                        }}
+                      >
+                        {sharing ? "分享中…" : ui.passport.share}
+                      </Button>
+                    </div>
+                    {shareHint && <p className="word-count ok">{shareHint}</p>}
                   </div>
                 </div>
               </Panel>

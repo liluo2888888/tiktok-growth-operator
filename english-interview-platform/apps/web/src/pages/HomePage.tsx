@@ -67,7 +67,7 @@ export function HomePage() {
             <Icon name="mic" size={22} />
             <div>
               <strong>口语感</strong>
-              <p>按你说话的方式打字——清晰优先，不必追求完美语法。</p>
+              <p>语音或手打英文——清晰优先，不必追求完美语法。</p>
             </div>
           </div>
           <div className="home-pillar">
