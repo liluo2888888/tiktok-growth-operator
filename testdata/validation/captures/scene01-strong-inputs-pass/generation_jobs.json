@@ -372,6 +372,37 @@
         ],
         "note": "Final renderer API is pluggable; job stays pending until artifacts.json is supplied or status is updated."
       }
+    },
+    "gen-09-20260518155642-57503b": {
+      "job_id": "gen-09-20260518155642-57503b",
+      "scene_id": "09",
+      "project": "Platform P0 Validation",
+      "status": "succeeded",
+      "created_at": "2026-05-18T15:56:42",
+      "updated_at": "2026-05-18T15:56:42",
+      "backend_hint": "manual_edit",
+      "backend_options": [
+        "manual_edit",
+        "sora",
+        "veo"
+      ],
+      "brief_summary": "The cleanest replication target in this pack is a recognition-first editorial post that opens from a human or emotional cue, then lets trust and continuation do the rest.",
+      "artifact_links": [
+        "https://example.com/generated-preview.mp4"
+      ],
+      "poll": {
+        "interval_s": 30,
+        "max_attempts": 120,
+        "strategy": "read_local_artifact_manifest"
+      },
+      "submission": {
+        "required_fields": [
+          "brief_summary",
+          "shot_list",
+          "asset_requirements"
+        ],
+        "note": "Final renderer API is pluggable; job stays pending until artifacts.json is supplied or status is updated."
+      }
     }
   }
 }

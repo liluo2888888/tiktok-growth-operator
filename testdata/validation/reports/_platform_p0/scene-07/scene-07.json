@@ -6,7 +6,7 @@
     "project": "Platform P0 Validation",
     "title": "Scene 07 Report - Platform P0 Validation",
     "deliverable_type": "insight_report",
-    "generated_at": "2026-05-18T10:28:30",
+    "generated_at": "2026-05-18T15:56:44",
     "scenario_file": "scenarios/07-category-market-insight.md",
     "status": "imported"
   },
@@ -576,7 +576,7 @@
   "operator_schedule": {
     "schema_version": "operator-schedule-v1",
     "scene": "7",
-    "generated_at": "2026-05-18T10:28:31",
+    "generated_at": "2026-05-18T15:56:44",
     "append_scope": "2026-05-18",
     "delivery": {
       "local_bundle": true,
@@ -817,6 +817,6 @@
       "production_spec_handoff",
       "collection_board"
     ],
-    "updated_at": "2026-05-18T10:28:31"
+    "updated_at": "2026-05-18T15:56:44"
   }
 }

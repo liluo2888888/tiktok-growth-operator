@@ -1,24 +1,13 @@
 [
   {
-    "product_id": "fixture-velvet-lip-glaze-01",
-    "title": "Velvet Lip Glaze - Rose Nude",
+    "product_id": "mock-sku-1",
+    "title": "Mock Shop Product",
     "platform": "TikTok Shop",
-    "price": "18.99",
-    "rating": "4.6",
-    "review_count": "842",
-    "sales_signal": "rising-in-category",
-    "url": "https://www.tiktok.com/shop/pdp/velvet-lip-glaze-rose-nude",
-    "evidence_source": "structured_fixture"
-  },
-  {
-    "product_id": "fixture-hydrating-serum-02",
-    "title": "Hydrating Barrier Serum 30ml",
-    "platform": "TikTok Shop",
-    "price": "24.50",
-    "rating": "4.8",
-    "review_count": "1204",
-    "sales_signal": "stable-top-seller",
-    "url": "https://www.tiktok.com/shop/pdp/hydrating-barrier-serum-30ml",
-    "evidence_source": "structured_fixture"
+    "price": "19.99",
+    "rating": "4.7",
+    "review_count": "321",
+    "sales_signal": "mock-rising",
+    "url": "https://shop.example.com/mock-1",
+    "evidence_source": "http_shop_api"
   }
 ]
