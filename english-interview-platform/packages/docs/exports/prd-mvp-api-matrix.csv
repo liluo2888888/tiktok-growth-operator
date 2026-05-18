@@ -1,0 +1,10 @@
+API ID,能力名称,HTTP方法,路径,优先级,实现状态,关联功能ID,服务,说明
+API-01,健康检查,GET,/healthz,P1,已实现,I-01,api-gateway+session-service,返回 ok
+API-02,创建 Session,POST,/v1/mobile/session/bootstrap,P0,已实现,D-01,api-gateway→session-service,body roleId missionId
+API-03,提交 Turn,POST,/v1/mobile/sessions/{id}/turns,P0,已实现,D-04;E-06,api-gateway→session-service,body answer 文本
+API-04,查询 Session,GET,/v1/mobile/sessions/{id},P0,已实现,F-01,api-gateway→session-service,含 turns scores stage
+API-05,发放护照章,POST,/v1/mobile/passport/stamps,P0,已实现,G-01,session-service+gateway,完成局后写入快照 X-Device-Id
+API-05b,查询护照章列表,GET,/v1/mobile/passport/stamps,P0,已实现,G-02,session-service+gateway,按 deviceId 列表
+API-06,Ready 检查,GET,/readyz,P2,待开发,I-07,api-gateway+session-service,含 DB ping
+API-07,埋点入库,POST,/v1/mobile/analytics/events,P1,已实现,I-03,api-gateway→session-service,body events[] X-Device-Id
+API-08,音频直传转写,POST,/v1/mobile/sessions/{id}/turns/audio,—,明确不做,—,Phase 2,BFF 代理 ASR

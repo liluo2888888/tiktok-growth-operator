@@ -1,0 +1,526 @@
+{
+  "sess_11087faa705752df": {
+    "ID": "sess_11087faa705752df",
+    "RoleID": "product",
+    "MissionID": "behavioral",
+    "ClientToken": "rt_demo_token",
+    "Status": "ready",
+    "Stage": "reflection",
+    "CurrentQuestion": "What would you do differently next time?",
+    "Turns": [
+      {
+        "id": "turn_66045d8e2fc1",
+        "speaker": "candidate",
+        "createdAt": "2026-05-18T08:21:23Z",
+        "question": "Tell me about a time you handled a difficult cross-functional situation.",
+        "answer": "I have been preparing for an international interview process.",
+        "feedback": {
+          "summary": "Clear opening with direct context.",
+          "improvementTip": "Make the role target more specific in the first sentence."
+        }
+      },
+      {
+        "id": "turn_856464739d51",
+        "speaker": "candidate",
+        "createdAt": "2026-05-18T08:21:23Z",
+        "question": "What was your specific contribution?",
+        "answer": "I want this role because it combines product judgment and global execution.",
+        "feedback": {
+          "summary": "Strong motivation signal.",
+          "improvementTip": "Add one concrete example that proves this motivation."
+        }
+      }
+    ],
+    "Scores": {
+      "clarity": 78,
+      "structure": 74,
+      "confidence": 69,
+      "relevance": 81,
+      "readiness": 73
+    }
+  },
+  "sess_14aca77a3c74aed3": {
+    "ID": "sess_14aca77a3c74aed3",
+    "RoleID": "product",
+    "MissionID": "self_intro",
+    "ClientToken": "rt_demo_token",
+    "Status": "in_progress",
+    "Stage": "closing",
+    "CurrentQuestion": "What is one strength you want us to remember?",
+    "Turns": [
+      {
+        "id": "turn_94fa022282d5",
+        "speaker": "candidate",
+        "createdAt": "2026-05-18T07:51:51Z",
+        "question": "Tell me about yourself.",
+        "answer": "I have been preparing for an international interview process.",
+        "feedback": {
+          "summary": "Clear opening with direct context.",
+          "improvementTip": "Make the role target more specific in the first sentence."
+        }
+      },
+      {
+        "id": "turn_399ad7a01caf",
+        "speaker": "candidate",
+        "createdAt": "2026-05-18T07:51:51Z",
+        "question": "Why are you interested in this role?",
+        "answer": "I want this role because it combines product judgment and global execution.",
+        "feedback": {
+          "summary": "Strong motivation signal.",
+          "improvementTip": "Add one concrete example that proves this motivation."
+        }
+      },
+      {
+        "id": "turn_b9ac27f75b05",
+        "speaker": "candidate",
+        "createdAt": "2026-05-18T07:51:55Z",
+        "question": "What is one strength you want us to remember?",
+        "answer": "I am a product manager with five years of experience building B2B SaaS tools. I enjoy turning user research into clear roadmaps and shipping iteratively with cross-functional teams.",
+        "feedback": {
+          "summary": "Answer has enough content to evaluate structure and intent.",
+          "improvementTip": "Tighten the structure into context, action, and result."
+        }
+      }
+    ],
+    "Scores": {
+      "clarity": 75,
+      "structure": 73,
+      "confidence": 72,
+      "relevance": 81,
+      "readiness": 74
+    }
+  },
+  "sess_1baa676608d8ed6d": {
+    "ID": "sess_1baa676608d8ed6d",
+    "RoleID": "product",
+    "MissionID": "self_intro",
+    "ClientToken": "rt_demo_token",
+    "Status": "ready",
+    "Stage": "positioning",
+    "CurrentQuestion": "What is one strength you want us to remember?",
+    "Turns": [
+      {
+        "id": "turn_27832b18c344",
+        "speaker": "candidate",
+        "createdAt": "2026-05-18T07:51:38Z",
+        "question": "Tell me about yourself.",
+        "answer": "I have been preparing for an international interview process.",
+        "feedback": {
+          "summary": "Clear opening with direct context.",
+          "improvementTip": "Make the role target more specific in the first sentence."
+        }
+      },
+      {
+        "id": "turn_f9fbefacbfaa",
+        "speaker": "candidate",
+        "createdAt": "2026-05-18T07:51:38Z",
+        "question": "Why are you interested in this role?",
+        "answer": "I want this role because it combines product judgment and global execution.",
+        "feedback": {
+          "summary": "Strong motivation signal.",
+          "improvementTip": "Add one concrete example that proves this motivation."
+        }
+      }
+    ],
+    "Scores": {
+      "clarity": 78,
+      "structure": 74,
+      "confidence": 69,
+      "relevance": 81,
+      "readiness": 73
+    }
+  },
+  "sess_54e52f7cce0c353c": {
+    "ID": "sess_54e52f7cce0c353c",
+    "RoleID": "product",
+    "MissionID": "self_intro",
+    "ClientToken": "rt_demo_token",
+    "Status": "in_progress",
+    "Stage": "closing",
+    "CurrentQuestion": "What is one strength you want us to remember?",
+    "Turns": [
+      {
+        "id": "turn_424fab10de41",
+        "speaker": "candidate",
+        "createdAt": "2026-05-18T07:52:13Z",
+        "question": "Tell me about yourself.",
+        "answer": "I have been preparing for an international interview process.",
+        "feedback": {
+          "summary": "Clear opening with direct context.",
+          "improvementTip": "Make the role target more specific in the first sentence."
+        }
+      },
+      {
+        "id": "turn_03e85b736516",
+        "speaker": "candidate",
+        "createdAt": "2026-05-18T07:52:13Z",
+        "question": "Why are you interested in this role?",
+        "answer": "I want this role because it combines product judgment and global execution.",
+        "feedback": {
+          "summary": "Strong motivation signal.",
+          "improvementTip": "Add one concrete example that proves this motivation."
+        }
+      },
+      {
+        "id": "turn_cd86f9effa64",
+        "speaker": "candidate",
+        "createdAt": "2026-05-18T07:52:18Z",
+        "question": "What is one strength you want us to remember?",
+        "answer": "I am a product manager with five years of experience building B2B SaaS tools. I enjoy turning user research into clear roadmaps and shipping iteratively with cross-functional teams.",
+        "feedback": {
+          "summary": "Answer has enough content to evaluate structure and intent.",
+          "improvementTip": "Tighten the structure into context, action, and result."
+        }
+      }
+    ],
+    "Scores": {
+      "clarity": 75,
+      "structure": 73,
+      "confidence": 72,
+      "relevance": 81,
+      "readiness": 74
+    }
+  },
+  "sess_550d993ccaf3ea33": {
+    "ID": "sess_550d993ccaf3ea33",
+    "RoleID": "product",
+    "MissionID": "behavioral",
+    "ClientToken": "rt_demo_token",
+    "Status": "ready",
+    "Stage": "reflection",
+    "CurrentQuestion": "What would you do differently next time?",
+    "Turns": [
+      {
+        "id": "turn_33179943e9fa",
+        "speaker": "candidate",
+        "createdAt": "2026-05-18T08:25:46Z",
+        "question": "Tell me about a time you handled a difficult cross-functional situation.",
+        "answer": "I have been preparing for an international interview process.",
+        "feedback": {
+          "summary": "Clear opening with direct context.",
+          "improvementTip": "Make the role target more specific in the first sentence."
+        }
+      },
+      {
+        "id": "turn_e569f9538722",
+        "speaker": "candidate",
+        "createdAt": "2026-05-18T08:25:46Z",
+        "question": "What was your specific contribution?",
+        "answer": "I want this role because it combines product judgment and global execution.",
+        "feedback": {
+          "summary": "Strong motivation signal.",
+          "improvementTip": "Add one concrete example that proves this motivation."
+        }
+      }
+    ],
+    "Scores": {
+      "clarity": 78,
+      "structure": 74,
+      "confidence": 69,
+      "relevance": 81,
+      "readiness": 73
+    }
+  },
+  "sess_828f3afede5ed464": {
+    "ID": "sess_828f3afede5ed464",
+    "RoleID": "product",
+    "MissionID": "self_intro",
+    "ClientToken": "rt_demo_token",
+    "Status": "ready",
+    "Stage": "positioning",
+    "CurrentQuestion": "What is one strength you want us to remember?",
+    "Turns": [
+      {
+        "id": "turn_7678ad758f6f",
+        "speaker": "candidate",
+        "createdAt": "2026-05-18T07:32:04Z",
+        "question": "Tell me about yourself.",
+        "answer": "I have been preparing for an international interview process.",
+        "feedback": {
+          "summary": "Clear opening with direct context.",
+          "improvementTip": "Make the role target more specific in the first sentence."
+        }
+      },
+      {
+        "id": "turn_07e2dd4fcf95",
+        "speaker": "candidate",
+        "createdAt": "2026-05-18T07:32:04Z",
+        "question": "Why are you interested in this role?",
+        "answer": "I want this role because it combines product judgment and global execution.",
+        "feedback": {
+          "summary": "Strong motivation signal.",
+          "improvementTip": "Add one concrete example that proves this motivation."
+        }
+      }
+    ],
+    "Scores": {
+      "clarity": 78,
+      "structure": 74,
+      "confidence": 69,
+      "relevance": 81,
+      "readiness": 73
+    }
+  },
+  "sess_912dbac5e88ede6a": {
+    "ID": "sess_912dbac5e88ede6a",
+    "RoleID": "product",
+    "MissionID": "behavioral",
+    "ClientToken": "rt_demo_token",
+    "Status": "ready",
+    "Stage": "reflection",
+    "CurrentQuestion": "What would you do differently next time?",
+    "Turns": [
+      {
+        "id": "turn_71513c94eb1b",
+        "speaker": "candidate",
+        "createdAt": "2026-05-18T08:30:42Z",
+        "question": "Tell me about a time you handled a difficult cross-functional situation.",
+        "answer": "I have been preparing for an international interview process.",
+        "feedback": {
+          "summary": "Clear opening with direct context.",
+          "improvementTip": "Make the role target more specific in the first sentence."
+        }
+      },
+      {
+        "id": "turn_a0bd26c79ed6",
+        "speaker": "candidate",
+        "createdAt": "2026-05-18T08:30:42Z",
+        "question": "What was your specific contribution?",
+        "answer": "I want this role because it combines product judgment and global execution.",
+        "feedback": {
+          "summary": "Strong motivation signal.",
+          "improvementTip": "Add one concrete example that proves this motivation."
+        }
+      }
+    ],
+    "Scores": {
+      "clarity": 78,
+      "structure": 74,
+      "confidence": 69,
+      "relevance": 81,
+      "readiness": 73
+    }
+  },
+  "sess_96aead028b0ac0c1": {
+    "ID": "sess_96aead028b0ac0c1",
+    "RoleID": "product",
+    "MissionID": "self_intro",
+    "ClientToken": "rt_demo_token",
+    "Status": "ready",
+    "Stage": "positioning",
+    "CurrentQuestion": "What is one strength you want us to remember?",
+    "Turns": [
+      {
+        "id": "turn_2605934d56dc",
+        "speaker": "candidate",
+        "createdAt": "2026-05-18T07:34:05Z",
+        "question": "Tell me about yourself.",
+        "answer": "I have been preparing for an international interview process.",
+        "feedback": {
+          "summary": "Clear opening with direct context.",
+          "improvementTip": "Make the role target more specific in the first sentence."
+        }
+      },
+      {
+        "id": "turn_ca71a0bc8082",
+        "speaker": "candidate",
+        "createdAt": "2026-05-18T07:34:05Z",
+        "question": "Why are you interested in this role?",
+        "answer": "I want this role because it combines product judgment and global execution.",
+        "feedback": {
+          "summary": "Strong motivation signal.",
+          "improvementTip": "Add one concrete example that proves this motivation."
+        }
+      }
+    ],
+    "Scores": {
+      "clarity": 78,
+      "structure": 74,
+      "confidence": 69,
+      "relevance": 81,
+      "readiness": 73
+    }
+  },
+  "sess_db700a809a904d46": {
+    "ID": "sess_db700a809a904d46",
+    "RoleID": "product",
+    "MissionID": "self_intro",
+    "ClientToken": "rt_demo_token",
+    "Status": "ready",
+    "Stage": "positioning",
+    "CurrentQuestion": "What is one strength you want us to remember?",
+    "Turns": [
+      {
+        "id": "turn_52c8f8f2e9ad",
+        "speaker": "candidate",
+        "createdAt": "2026-05-18T07:51:51Z",
+        "question": "Tell me about yourself.",
+        "answer": "I have been preparing for an international interview process.",
+        "feedback": {
+          "summary": "Clear opening with direct context.",
+          "improvementTip": "Make the role target more specific in the first sentence."
+        }
+      },
+      {
+        "id": "turn_7e6e64d7146a",
+        "speaker": "candidate",
+        "createdAt": "2026-05-18T07:51:51Z",
+        "question": "Why are you interested in this role?",
+        "answer": "I want this role because it combines product judgment and global execution.",
+        "feedback": {
+          "summary": "Strong motivation signal.",
+          "improvementTip": "Add one concrete example that proves this motivation."
+        }
+      }
+    ],
+    "Scores": {
+      "clarity": 78,
+      "structure": 74,
+      "confidence": 69,
+      "relevance": 81,
+      "readiness": 73
+    }
+  },
+  "sess_e6dc069f37965483": {
+    "ID": "sess_e6dc069f37965483",
+    "RoleID": "product",
+    "MissionID": "self_intro",
+    "ClientToken": "rt_demo_token",
+    "Status": "in_progress",
+    "Stage": "closing",
+    "CurrentQuestion": "What is one strength you want us to remember?",
+    "Turns": [
+      {
+        "id": "turn_e6e2ac1a8f12",
+        "speaker": "candidate",
+        "createdAt": "2026-05-18T07:54:10Z",
+        "question": "Tell me about yourself.",
+        "answer": "I have been preparing for an international interview process.",
+        "feedback": {
+          "summary": "Clear opening with direct context.",
+          "improvementTip": "Make the role target more specific in the first sentence."
+        }
+      },
+      {
+        "id": "turn_944f9923ba64",
+        "speaker": "candidate",
+        "createdAt": "2026-05-18T07:54:10Z",
+        "question": "Why are you interested in this role?",
+        "answer": "I want this role because it combines product judgment and global execution.",
+        "feedback": {
+          "summary": "Strong motivation signal.",
+          "improvementTip": "Add one concrete example that proves this motivation."
+        }
+      },
+      {
+        "id": "turn_25895809d7c7",
+        "speaker": "candidate",
+        "createdAt": "2026-05-18T07:54:14Z",
+        "question": "What is one strength you want us to remember?",
+        "answer": "I am a product manager with five years of experience building B2B SaaS tools. I enjoy turning user research into clear roadmaps and shipping iteratively with cross-functional teams.",
+        "feedback": {
+          "summary": "Answer has enough content to evaluate structure and intent.",
+          "improvementTip": "Tighten the structure into context, action, and result."
+        }
+      }
+    ],
+    "Scores": {
+      "clarity": 75,
+      "structure": 73,
+      "confidence": 72,
+      "relevance": 81,
+      "readiness": 74
+    }
+  },
+  "sess_e6ec935efae3661a": {
+    "ID": "sess_e6ec935efae3661a",
+    "RoleID": "product",
+    "MissionID": "self_intro",
+    "ClientToken": "rt_demo_token",
+    "Status": "in_progress",
+    "Stage": "closing",
+    "CurrentQuestion": "What is one strength you want us to remember?",
+    "Turns": [
+      {
+        "id": "turn_b6eef3ae60af",
+        "speaker": "candidate",
+        "createdAt": "2026-05-18T02:32:01Z",
+        "question": "Tell me about yourself.",
+        "answer": "I have been preparing for an international interview process.",
+        "feedback": {
+          "summary": "Clear opening with direct context.",
+          "improvementTip": "Make the role target more specific in the first sentence."
+        }
+      },
+      {
+        "id": "turn_8318c246a28b",
+        "speaker": "candidate",
+        "createdAt": "2026-05-18T02:32:01Z",
+        "question": "Why are you interested in this role?",
+        "answer": "I want this role because it combines product judgment and global execution.",
+        "feedback": {
+          "summary": "Strong motivation signal.",
+          "improvementTip": "Add one concrete example that proves this motivation."
+        }
+      },
+      {
+        "id": "turn_37b694cc5d23",
+        "speaker": "candidate",
+        "createdAt": "2026-05-18T02:32:01Z",
+        "question": "What is one strength you want us to remember?",
+        "answer": "I led a product launch that improved activation by twenty percent in one quarter.",
+        "feedback": {
+          "summary": "Answer has enough content to evaluate structure and intent.",
+          "improvementTip": "Tighten the structure into context, action, and result."
+        }
+      }
+    ],
+    "Scores": {
+      "clarity": 75,
+      "structure": 73,
+      "confidence": 72,
+      "relevance": 81,
+      "readiness": 74
+    }
+  },
+  "sess_ef91c9d457d78c88": {
+    "ID": "sess_ef91c9d457d78c88",
+    "RoleID": "product",
+    "MissionID": "self_intro",
+    "ClientToken": "rt_demo_token",
+    "Status": "ready",
+    "Stage": "positioning",
+    "CurrentQuestion": "What is one strength you want us to remember?",
+    "Turns": [
+      {
+        "id": "turn_9e1a98ad4347",
+        "speaker": "candidate",
+        "createdAt": "2026-05-18T07:31:10Z",
+        "question": "Tell me about yourself.",
+        "answer": "I have been preparing for an international interview process.",
+        "feedback": {
+          "summary": "Clear opening with direct context.",
+          "improvementTip": "Make the role target more specific in the first sentence."
+        }
+      },
+      {
+        "id": "turn_33e83d91b4f8",
+        "speaker": "candidate",
+        "createdAt": "2026-05-18T07:31:10Z",
+        "question": "Why are you interested in this role?",
+        "answer": "I want this role because it combines product judgment and global execution.",
+        "feedback": {
+          "summary": "Strong motivation signal.",
+          "improvementTip": "Add one concrete example that proves this motivation."
+        }
+      }
+    ],
+    "Scores": {
+      "clarity": 78,
+      "structure": 74,
+      "confidence": 69,
+      "relevance": 81,
+      "readiness": 73
+    }
+  }
+}

@@ -1,0 +1,24 @@
+# Node
+node_modules/
+.expo/
+dist/
+build/
+*.tsbuildinfo
+apps/web/walkthrough-screenshots/
+
+# Go
+bin/
+*.exe
+coverage.out
+
+# Env
+.env
+.env.*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local dev / smoke artifacts
+tmp/
+services/session-service/data/

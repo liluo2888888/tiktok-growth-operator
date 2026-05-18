@@ -1,0 +1,27 @@
+{
+  "expo": {
+    "name": "English Interview",
+    "slug": "english-interview",
+    "scheme": "english-interview",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "plugins": [
+      "expo-router"
+    ],
+    "ios": {
+      "infoPlist": {
+        "NSMicrophoneUsageDescription": "Record your spoken interview answers for practice and feedback.",
+        "NSAppTransportSecurity": {
+          "NSAllowsLocalNetworking": true
+        }
+      }
+    },
+    "android": {
+      "usesCleartextTraffic": true,
+      "permissions": [
+        "RECORD_AUDIO"
+      ]
+    }
+  }
+}

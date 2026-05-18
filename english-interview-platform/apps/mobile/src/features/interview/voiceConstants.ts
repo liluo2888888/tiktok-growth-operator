@@ -1,0 +1,3 @@
+export const MIN_RECORDING_SECONDS = 10;
+export const MAX_RECORDING_SECONDS = 120;
+export const LOW_CONFIDENCE_THRESHOLD = 0.6;

@@ -1,0 +1,47 @@
+功能ID,模块,模块英文名,功能名称,优先级,发布火车,实现状态,User Story,Epic ID,页面/路由,端,验收要点,P0验收
+A-01,启动与引导,Onboarding,首次启动检测,P0,R1,已实现,US-001,R1-201,/onboarding,Mobile,未完成 onboarding 时进入引导流完成后不再出现,是
+A-02,启动与引导,Onboarding,学习目标选择,P0,R1,已实现,US-001,R1-201,/onboarding,Mobile,默认选中 Job Interview 写入本地 goal,是
+A-03,启动与引导,Onboarding,岗位方向选择,P0,R1,已实现,US-001,R1-201,/onboarding,Mobile,product/general 写入 roleId,是
+A-04,启动与引导,Onboarding,引导完成埋点,P1,R2,待开发,US-001,R1-201,/onboarding,Mobile,触发 onboarding_complete 带 goal roleId,否
+B-01,首页与导航,Home,应用首页入口,P0,R1,已实现,—,—,/,Mobile,Quest Pack + Open Quest Map / Passport,是
+B-02,首页与导航,Home,流程路由导航,P0,R1,已实现,—,—,全局,Mobile,onboarding→quest-map→quest-start→interview→feedback→passport,是
+B-03,首页与导航,Home,首页 Streak 与今日任务,P1,R2,已实现,US-008,R2-202,/,Mobile,连续天数今日是否完成推荐下一副本,是
+C-01,Quest副本,Quest Pack,Interview Quest Pack 容器,P0,R1,已实现,US-002,R1-202,/quest-map,Mobile,questPackId=interview MVP 仅一个 Pack,是
+C-02,Quest副本,Quest Pack,Quest Map 列表页,P0,R1,已实现,US-002,R1-202,/quest-map,Mobile,展示 Pack 内所有 mission 卡片,是
+C-03,Quest副本,Quest Pack,Self-intro 副本,P0,R1,已实现,US-002,R1-202,/quest-map,Mobile,missionId=self_intro 题目集 3 问,是
+C-04,Quest副本,Quest Pack,Behavioral 副本,P0,R1,已实现,US-002,R1-202,/quest-map,Mobile,missionId=behavioral 题目集 3 问,是
+C-05,Quest副本,Quest Pack,副本卡片信息,P0,R1,已实现,US-002,R1-202,/quest-map,Mobile,标题副标题预估时长完成状态,是
+C-06,Quest副本,Quest Pack,Quest Start 准备页,P1,R1,已实现,US-002,R1-203,/quest-start,Mobile,本局目标考官一句话 Begin Practice,否
+D-01,面试Session,Session,创建 Session Bootstrap,P0,R1,已实现,US-003,—,/interview,Mobile+API,POST session/bootstrap 返回 sessionId,是
+D-02,面试Session,Session,展示当前面试题,P0,R1,已实现,US-003,R1-105,/interview,Mobile,Question 卡片展示 currentQuestion,是
+D-03,面试Session,Session,Session 阶段推进,P0,R1,已实现,US-003,—,Backend,stage currentQuestion 随 turn 更新,是
+D-04,面试Session,Session,提交回答 Turn,P0,R1,已实现,US-004,—,/interview,Mobile+API,POST sessions/id/turns,是
+D-05,面试Session,Session,重启 Session,P1,R1,已实现,—,—,/interview,Mobile,Restart Session 重新 bootstrap,否
+E-01,语音ASR,Voice,麦克风权限申请,P0,R1,已实现,US-004,R1-101,/interview,Mobile,权限文案拒绝时引导设置,是
+E-02,语音ASR,Voice,录音控制开始停止,P0,R1,已实现,US-004,R1-102,/interview,Mobile,最短10s最长120s显示计时,是
+E-03,语音ASR,Voice,录音回放,P1,R1,已实现,US-004,R1-102,/interview,Mobile,提交前试听支持重录,否
+E-04,语音ASR,Voice,ASR 语音转文字,P0,R1,部分实现,US-004,R1-103,/interview,Mobile,Whisper客户端 Web可手打绕过,是
+E-05,语音ASR,Voice,转写稿预览与编辑,P0,R1,已实现,US-004,R1-104,/interview,Mobile,低置信度提示用户可改稿,是
+E-06,语音ASR,Voice,语音提交 Turn,P0,R1,已实现,US-004,R1-105,/interview,Mobile,转写写入 answer,是
+E-07,语音ASR,Voice,弱网重试,P1,R1,已实现,US-009,R1-106,/interview,Mobile,ASR与 turns API 自动重试,否
+F-01,反馈评分,Feedback,加载 Session 详情,P0,R1,已实现,US-005,R1-301,/feedback,Mobile+API,GET sessions/id,是
+F-02,反馈评分,Feedback,Turn 级反馈展示,P0,R1,已实现,US-005,R1-301,/feedback,Mobile,Turn review 卡片,是
+F-03,反馈评分,Feedback,五维分数展示,P0,R1,已实现,US-005,R1-302,/feedback,Mobile,Readiness大号+五维进度条,是
+F-04,反馈评分,Feedback,阶段与下一题提示,P1,R1,已实现,US-005,R1-304,/feedback,Mobile,StageNextPanel stage与下一题,否
+F-05,反馈评分,Feedback,反馈有用性评价,P1,R1,已实现,US-005,R1-303,/feedback,Mobile,Helpful/Not helpful 本地存储,否
+F-06,反馈评分,Feedback,再练一局返回 Map,P1,R1,已实现,US-005,R1-304,/feedback,Mobile,Practice again Quest Map Passport,否
+G-01,Passport,Passport,局后发放护照章,P0,R2,已实现,US-006,R2-103,/feedback,Mobile,有效 turn 后发章弹层本地MVP,是
+G-02,Passport,Passport,Passport 列表页,P0,R2,已实现,US-006,R2-104,/passport,Mobile,按时间倒序展示已获章,是
+G-03,Passport,Passport,章详情页,P1,R2,已实现,US-006,R2-104,/passport/[id],Mobile,scores 摘要 sessionId,否
+G-04,Passport,Passport,分享图生成,P1,R2,已实现,US-007,R2-105,/passport,Mobile,图片含 mission readiness 品牌名,是
+G-05,Passport,Passport,系统分享面板,P1,R2,已实现,US-007,R2-105,/passport,Mobile,Share Sheet + passport_share,是
+H-01,习惯留存,Streak,个人连续练习天数,P1,R2,已实现,US-008,R2-201,/,Mobile,UTC日切完成1局+1断签归零,是
+H-02,习惯留存,Streak,每日主任务提示,P1,R2,已实现,US-008,R2-202,/,Mobile,今日 Quest 未完成,是
+H-03,习惯留存,Streak,推送提醒,P2,—,明确不做,—,—,—,Mobile,Out of MVP Phase 2,否
+I-01,系统质量,Platform,服务健康检查,P1,R1,已实现,—,R1-402,—,Backend,GET healthz,否
+I-02,系统质量,Platform,API 错误态与重试 UI,P1,R1,已实现,US-009,—,全局,Mobile,ErrorBanner 统一重试,是
+I-03,系统质量,Platform,漏斗埋点8事件,P1,R2,已实现,§6.5,R2-302,全局,Mobile,onboarding 至 share 全链路,是
+I-04,系统质量,Platform,匿名设备标识,P1,R1,已实现,—,R1-404,全局,Mobile+API,客户端 X-Device-Id Passport API,否
+I-05,系统质量,Platform,隐私政策与语音说明,P0,R3,已实现,NFR,R3-101,/legal,Mobile,内测前必备,是
+I-06,系统质量,Platform,Session 持久化 PostgreSQL,P0,R1,已实现,—,—,Backend,interview_sessions smoke通过,是
+I-07,系统质量,Platform,统一错误 Envelope,P2,R1,待开发,—,R1-401,—,Backend,gateway 结构化 error code,否

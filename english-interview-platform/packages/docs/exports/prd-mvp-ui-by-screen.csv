@@ -1,0 +1,48 @@
+页面ID,路由文件,页面名称,UI区块,UI元素/交互,关联功能ID,优先级,状态,验收说明
+UI-INDEX,app/index.tsx,首页,Hero区,标题 English Interview / App-First Interview Flow,B-01,P0,已实现,首屏价值主张清晰
+UI-INDEX,app/index.tsx,首页,Hero区,说明文案三段式引导,B-01,P0,已实现,—
+UI-INDEX,app/index.tsx,首页,CTA卡片,Three-Step MVP 说明,B-01,P0,已实现,—
+UI-INDEX,app/index.tsx,首页,CTA卡片,按钮 Start Flow → /role,B-01;B-02,P0,已实现,点击进入流程
+UI-INDEX,app/index.tsx,首页,Streak区,连续天数展示,H-01,P1,待开发,R2 首页增强
+UI-INDEX,app/index.tsx,首页,Streak区,今日任务完成态,H-02,P1,待开发,—
+UI-INDEX,app/index.tsx,首页,Streak区,推荐下一副本入口,C-05,P1,待开发,—
+UI-ONBOARD,app/onboarding.tsx,引导页,步骤1,选择学习目标 Job Interview,A-02,P0,待开发,新页面
+UI-ONBOARD,app/onboarding.tsx,引导页,步骤2,选择岗位 Product / General,A-03,P0,待开发,可复用 role 逻辑
+UI-ONBOARD,app/onboarding.tsx,引导页,底部,Continue → Quest Map,A-01,P0,待开发,写 AsyncStorage
+UI-ROLE,app/role.tsx,岗位选择,列表,岗位卡片（Product 等）,A-03;C-01,P0,部分实现,当前为流程第2步
+UI-ROLE,app/role.tsx,岗位选择,底部,Next → /mission,B-02,P0,已实现,传递 roleId roleLabel
+UI-QUEST-MAP,app/quest-map.tsx,Quest Map,顶栏,Interview Quest Pack 标题,C-01,P0,待开发,新页面或改造 mission
+UI-QUEST-MAP,app/quest-map.tsx,Quest Map,卡片列表,Self-intro 卡片,C-03;C-05,P0,部分实现,标题时长状态
+UI-QUEST-MAP,app/quest-map.tsx,Quest Map,卡片列表,Behavioral 卡片,C-04;C-05,P0,部分实现,—
+UI-QUEST-MAP,app/quest-map.tsx,Quest Map,卡片,点击进入 Quest Start,C-06,P1,待开发,—
+UI-MISSION,app/mission.tsx,副本选择,列表,Mission 卡片（过渡）,C-02;C-03;C-04,P0,部分实现,MVP 可暂用至 Map 上线
+UI-MISSION,app/mission.tsx,副本选择,底部,Start → /interview,B-02,P0,已实现,传 missionId
+UI-QUEST-START,app/quest-start.tsx,开局准备,内容区,本局目标与考官文案,C-06,P1,待开发,新页面
+UI-QUEST-START,app/quest-start.tsx,开局准备,底部,开始练习 → /interview,C-06,P1,待开发,—
+UI-INTERVIEW,app/interview.tsx,面试练习,信息区,Role / Mission 标签,D-02,P0,部分实现,—
+UI-INTERVIEW,app/interview.tsx,面试练习,Session卡,状态 sessionId 展示,D-01,P0,已实现,bootstrap on mount
+UI-INTERVIEW,app/interview.tsx,面试练习,Session卡,按钮 Restart Session,D-05,P1,已实现,—
+UI-INTERVIEW,app/interview.tsx,面试练习,Session卡,按钮 Go To Feedback,F-01,P0,已实现,跳转 feedback
+UI-INTERVIEW,app/interview.tsx,面试练习,题目区,当前面试题 currentQuestion,D-02,P0,待加强,需大字号展示
+UI-INTERVIEW,app/interview.tsx,面试练习,录音区,麦克风权限引导,E-01,P0,待开发,替代 TextInput 主路径
+UI-INTERVIEW,app/interview.tsx,面试练习,录音区,Record / Stop + 计时器,E-02,P0,待开发,10–120s
+UI-INTERVIEW,app/interview.tsx,面试练习,录音区,试听 Replay,E-03,P1,待开发,—
+UI-INTERVIEW,app/interview.tsx,面试练习,转写区,ASR 结果可编辑 TextInput,E-04;E-05,P0,待开发,—
+UI-INTERVIEW,app/interview.tsx,面试练习,提交区,Submit Answer → turns API,D-04;E-06,P0,部分实现,当前为打字
+UI-INTERVIEW,app/interview.tsx,面试练习,状态区,Loading / Error + 重试,E-07;I-02,P1,待开发,—
+UI-INTERVIEW,app/interview.tsx,面试练习,结果条,提交后 stage readiness 摘要,F-03,P0,部分实现,内联展示
+UI-FEEDBACK,app/feedback.tsx,反馈页,顶栏,Role Mission Session 信息,F-01,P0,已实现,—
+UI-FEEDBACK,app/feedback.tsx,反馈页,摘要卡,Readiness Summary,F-03,P0,部分实现,—
+UI-FEEDBACK,app/feedback.tsx,反馈页,分数区,五维分数展示,F-03,P0,待加强,可视化
+UI-FEEDBACK,app/feedback.tsx,反馈页,Turn列表,每轮 summary + tip,F-02,P0,待加强,列表 UI
+UI-FEEDBACK,app/feedback.tsx,反馈页,阶段区,stage + next question,F-04,P1,部分实现,—
+UI-FEEDBACK,app/feedback.tsx,反馈页,评价区,有帮助 / 无帮助,F-05,P1,待开发,—
+UI-FEEDBACK,app/feedback.tsx,反馈页,CTA区,再练一局,F-06,P1,待开发,—
+UI-FEEDBACK,app/feedback.tsx,反馈页,CTA区,返回 Quest Map,F-06,P1,待开发,—
+UI-FEEDBACK,app/feedback.tsx,反馈页,Passport弹层,获得新章提示,G-01,P0,待开发,R2
+UI-PASSPORT,app/passport/index.tsx,护照列表,顶栏,Passport 标题,G-02,P0,待开发,新页面
+UI-PASSPORT,app/passport/index.tsx,护照列表,列表,章卡片网格/列表,G-02,P0,待开发,—
+UI-PASSPORT,app/passport/index.tsx,护照列表,空态,开始第一局 CTA,G-02,P0,待开发,US-009
+UI-PASSPORT-DETAIL,app/passport/[id].tsx,章详情,内容区,章图标 mission 日期 readiness,G-03,P1,待开发,—
+UI-PASSPORT-DETAIL,app/passport/[id].tsx,章详情,分享,Share 按钮,G-04;G-05,P1,待开发,—
+UI-LEGAL,app/legal.tsx,法律页,正文,隐私政策与语音数据说明,I-05,P0,待开发,R3 内测前
